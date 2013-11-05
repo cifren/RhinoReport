@@ -1,0 +1,228 @@
+parameters:
+    report.table.factory.class:                       Fuller\ReportBundle\Factory\TableFactory
+    report.factory.class:                             Fuller\ReportBundle\Factory\ReportFactory
+    report.builder.class:                             Fuller\ReportBundle\Definition\ReportBuilder
+    report.definition.builder.class:                  Fuller\ReportBundle\Definition\ReportDefinitionBuilder
+    report.table.definition.builder.class:            Fuller\ReportBundle\Definition\Table\TableDefinitionBuilder
+    report.table.extension.class:                     Fuller\ReportBundle\Model\Extension\ReportExtension
+    report.table.retriever.class:                     Fuller\ReportBundle\Factory\TableRetriever
+    report.table.manipulator.class:                   Fuller\ReportBundle\Util\Table\DataManipulator
+
+    report.template.generator.manager.class:          Fuller\ReportBundle\Templating\ReportTemplateGeneratorManager
+
+    report.template.generator.html.class:             Fuller\ReportBundle\Templating\Generator\HtmlReportTemplateGenerator
+    report.template.generator.html.template:          FullerReportBundle:ReportTemplate:html.html.twig
+
+    report.table.template.generator.html.class:       Fuller\ReportBundle\Templating\Generator\Table\HtmlTableTemplateGenerator
+    report.table.template.generator.xls.class:        Fuller\ReportBundle\Templating\Generator\Table\XlsTableTemplateGenerator
+    report.table.template.generator.csv.class:        Fuller\ReportBundle\Templating\Generator\Table\CsvTableTemplateGenerator
+
+    report.table.template.generator.html.template:    FullerReportBundle:TableTemplate:html.html.twig
+    report.table.template.generator.xls.template:     FullerReportBundle:TableTemplate:xls.xml.twig
+
+    report.table.template.xls.apply_formula.class:    Fuller\ReportBundle\Util\Table\XlsApplyFormula
+    report.table.template.xls.simplifier.class:       Fuller\ReportBundle\Templating\Simplifier\Table\XlsReportSimplifier
+
+    report_type:
+        report:
+            class:  Fuller\ReportBundle\Model\Report
+            export: [ html ]
+        table:
+            class:  Fuller\ReportBundle\Model\Table\ReportObject\Table
+            export: [ csv, xls, html ]
+services:
+
+    ################ REPORT ###############
+    report.factory:
+        class:      %report.factory.class%
+        arguments: ["@service_container"]
+
+    report.builder:
+        class:       %report.builder.class%
+
+    report.definition.builder:
+        class:      %report.definition.builder.class%
+        arguments: ["@service_container"]
+
+    report.template.generator.manager:
+        class:    %report.template.generator.manager.class%
+        arguments:
+            - "@service_container"
+
+    report.template.generator.html:
+        class:    %report.template.generator.html.class%
+        arguments:
+            - "@templating"
+            - %report.template.generator.html.template%
+
+
+    ############### REPORT TYPE : TABLE #################
+
+    report.table.factory:
+        class:      %report.table.factory.class%
+        arguments: ["@report.table.extension", "@report.table.retriever", "@report.table.manipulator"]
+
+    report.table.definition.builder:
+        class:      %report.table.definition.builder.class%
+        arguments: ["@service_container"]
+
+    report.table.retriever:
+        class:      %report.table.retriever.class%
+
+    report.table.manipulator:
+        class:      %report.table.manipulator.class%
+
+    report.table.extension:
+        class:      %report.table.extension.class%
+#        public:     false
+        arguments:
+            - "@service_container"
+            #Action on column
+            - {}
+            #GroupAction on column
+            - {}
+            #Action on row
+            - {}
+            #GroupAction on row
+            - {}
+            #Action on group
+            - {}
+            #GroupAction on Group
+            - {}
+
+    report.table.template.generator.html:
+        class:    %report.table.template.generator.html.class%
+        arguments:
+            - "@templating"
+            - %report.table.template.generator.html.template%
+
+    report.table.template.generator.xls:
+        class:    %report.table.template.generator.xls.class%
+        arguments:
+            - "@templating"
+            - %report.table.template.generator.xls.template%
+            - "@report.table.template.xls.simplifier"
+
+    report.table.template.generator.csv:
+        class:    %report.table.template.generator.csv.class%
+
+    report.table.template.xls.apply_formula:
+        class:    %report.table.template.xls.apply_formula.class%
+
+    report.table.template.xls.simplifier:
+        class:    %report.table.template.xls.simplifier.class%
+        arguments:
+            - "@report.table.template.xls.apply_formula"
+            - true
+            - "@report.table.factory"
+
+#default Column - Action#
+    report.table.action.column.basevalue:
+        class: Fuller\ReportBundle\Factory\Table\Action\Column\BaseValueAction
+        tags:
+            - { name: report.table.action.column, alias: basevalue }
+
+    report.table.action.column.sprintf:
+        class: Fuller\ReportBundle\Factory\Table\Action\Column\SprintfAction
+        tags:
+            - { name: report.table.action.column, alias: sprintf }
+
+    report.table.action.column.money_format:
+        class: Fuller\ReportBundle\Factory\Table\Action\Column\MoneyFormatAction
+        tags:
+            - { name: report.table.action.column, alias: money_format }
+
+    report.table.action.column.date_format:
+        class: Fuller\ReportBundle\Factory\Table\Action\Column\DateFormatAction
+        tags:
+            - { name: report.table.action.column, alias: date_format }
+
+    report.table.action.column.date_add:
+        class: Fuller\ReportBundle\Factory\Table\Action\Column\DateAddAction
+        tags:
+            - { name: report.table.action.column, alias: date_add }
+
+    report.table.action.column.label_field:
+        class: Fuller\ReportBundle\Factory\Table\Action\Column\LabelFieldAction
+        tags:
+            - { name: report.table.action.column, alias: label_field }
+
+    report.table.action.column.entity_field:
+        class: Fuller\ReportBundle\Factory\Table\Action\Column\EntityFieldAction
+        arguments: ["@doctrine"]
+        tags:
+            - { name: report.table.action.column, alias: entity_field }
+
+    report.table.action.column.round:
+        class: Fuller\ReportBundle\Factory\Table\Action\Column\RoundAction
+        tags:
+            - { name: report.table.action.column, alias: round }
+
+    report.table.action.column.custom_php:
+        class: Fuller\ReportBundle\Factory\Table\Action\Column\CustomPhpAction
+        tags:
+            - { name: report.table.action.column, alias: custom_php }
+
+    report.table.action.column.calculation:
+        class: Fuller\ReportBundle\Factory\Table\Action\Column\CalculationAction
+        tags:
+            - { name: report.table.action.column, alias: calculation }
+
+    report.table.action.column.href:
+        class: Fuller\ReportBundle\Factory\Table\Action\Column\HrefAction
+        arguments: ["@router"]
+        tags:
+            - { name: report.table.action.column, alias: href }
+#default Column - action#
+
+#default Column - Group Action#
+    report.table.group_action.column.sum:
+        class: Fuller\ReportBundle\Factory\Table\GroupAction\Column\SumGroupAction
+        arguments: ["@report.table.retriever"]
+        tags:
+            - { name: report.table.group_action.column, alias: sum }
+#default Column - Group Action#
+
+#default Column - Group Action#
+    report.table.group_action.column.empty_usage:
+        class: Pp3\CustomReportBundle\Extension\Table\EmptyUsageAction
+        arguments: ["@report.table.retriever"]
+        tags:
+            - { name: report.table.group_action.column, alias: empty_usage }
+#default Column - Group Action#
+
+#default Group - Action#
+    report.table.action.group.order_by:
+        class: Fuller\ReportBundle\Factory\Table\Action\Group\OrderByAction
+        arguments: ["@report.table.retriever"]
+        tags:
+            - { name: report.table.action.group, alias: orderBy }
+            
+    report.table.action.group.highlight_min:
+        class: Fuller\ReportBundle\Factory\Table\Action\Group\HighlightMinMaxAction
+        arguments: ["@report.table.retriever", "min"]
+        tags:
+            - { name: report.table.action.group, alias: highlight_group_min }
+    report.table.action.group.highlight_max:
+        class: Fuller\ReportBundle\Factory\Table\Action\Group\HighlightMinMaxAction
+        arguments: ["@report.table.retriever", "max"]
+        tags:
+            - { name: report.table.action.group, alias: highlight_group_max }
+#default Group - Action#
+
+#default Row Action#
+    report.table.group_action.column.highlight_min:
+        class: Fuller\ReportBundle\Factory\Table\Action\Row\HighlightMinMaxAction
+        arguments: ["min"]
+        tags:
+            - { name: report.table.action.row, alias: highlight_min }
+
+    report.table.group_action.column.highlight_max:
+        class: Fuller\ReportBundle\Factory\Table\Action\Row\HighlightMinMaxAction
+        arguments: ["max"]
+        tags:
+            - { name: report.table.action.row, alias: highlight_max }
+#default Row Action#
+
+#default Row - Group Action#
+#default Row - Group Action#
