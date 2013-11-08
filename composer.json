@@ -5,7 +5,6 @@
     "keywords": ["reporting", "report", "filter", "list"],
     "homepage": "https://github.com/cifren/RhinoReport",
     "license": "MIT",    
-    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Francis Le Coq",
