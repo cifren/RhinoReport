@@ -1,5 +1,5 @@
 {
-    "name": "earls/RhinoReport-bundle",
+    "name": "earls/rhino-report-bundle",
     "type": "symfony-bundle",
     "description": "Create easy report with RhinoReport",
     "keywords": ["reporting", "report", "filter", "list"],
