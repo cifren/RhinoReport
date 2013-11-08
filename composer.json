@@ -4,7 +4,8 @@
     "description": "Create easy report with RhinoReport",
     "keywords": ["reporting", "report", "filter", "list"],
     "homepage": "https://github.com/cifren/RhinoReport",
-    "license": "MIT",    
+    "license": "MIT",       
+    "minimum-stability": "dev", 
     "authors": [
         {
             "name": "Francis Le Coq",
