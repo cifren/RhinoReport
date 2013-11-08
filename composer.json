@@ -23,8 +23,5 @@
         "doctrine/orm": "*",
         "lexik/form-filter-bundle": "v1.1.1"
     },
-    "autoload": {
-        "psr-0": { "Earls\\Bundle\\RhinoReportBundle": "" }
-    },
     "target-dir": "Earls/Bundle/RhinoReportBundle"
 }
