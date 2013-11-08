@@ -1,0 +1,30 @@
+{
+    "name": "earls/RhinoReport-bundle",
+    "type": "symfony-bundle",
+    "description": "Create easy report with RhinoReport",
+    "keywords": ["reporting", "report", "filter", "list"],
+    "homepage": "https://github.com/cifren/RhinoReport",
+    "license": "MIT",    
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Francis Le Coq",
+            "email": "flecoq@earls.ca"
+        },
+        {
+            "name": "Dev earls",
+            "homepage": "http:\\www.earls.ca"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/framework-bundle": "2.1.*,<2.2-dev",
+        "symfony/form": "2.1.*",
+        "doctrine/orm": "*",
+        "lexik/form-filter-bundle": "v1.1.1"
+    },
+    "autoload": {
+        "psr-0": { "Earls\\Bundle\\RhinoReportBundle": "" }
+    },
+    "target-dir": "Earls/Bundle/RhinoReportBundle"
+}
