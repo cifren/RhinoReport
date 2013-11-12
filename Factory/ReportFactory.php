@@ -1,13 +1,13 @@
 <?php
 
-namespace Fuller\ReportBundle\Factory;
+namespace Earls\RhinoReportBundle\Factory;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Fuller\ReportBundle\Model\Report;
-use Fuller\ReportBundle\Factory\Factory;
+use Earls\RhinoReportBundle\Model\Report;
+use Earls\RhinoReportBundle\Factory\Factory;
 
 /*
- *  Fuller\ReportBundle\Factory\ReportFactory
+ *  Earls\RhinoReportBundle\Factory\ReportFactory
  *
  */
 

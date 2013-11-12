@@ -1,11 +1,11 @@
 <?php
 
-namespace Fuller\ReportBundle\Model\Extension;
+namespace Earls\RhinoReportBundle\Model\Extension;
 
-use Fuller\ReportBundle\Model\Extension\ActionInterface;
+use Earls\RhinoReportBundle\Model\Extension\ActionInterface;
 
 /*
- *  Fuller\ReportBundle\Model\Extension\Action
+ *  Earls\RhinoReportBundle\Model\Extension\Action
  *
  */
 

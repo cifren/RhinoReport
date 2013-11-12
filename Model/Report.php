@@ -1,11 +1,11 @@
 <?php
 
-namespace Fuller\ReportBundle\Model;
+namespace Earls\RhinoReportBundle\Model;
 
 use Symfony\Component\Form\Form;
 
 /**
- * Fuller\ReportBundle\Model\Report
+ * Earls\RhinoReportBundle\Model\Report
  */
 class Report
 {

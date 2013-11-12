@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuller\ReportBundle\Filter;
+namespace Earls\RhinoReportBundle\Filter;
 
 /*
- *  Fuller\ReportBundle\Filter\ReportFilterInterface
+ *  Earls\RhinoReportBundle\Filter\ReportFilterInterface
  *
  */
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace Fuller\ReportBundle\Factory;
+namespace Earls\RhinoReportBundle\Factory;
 
-use Fuller\ReportBundle\Model\Table\ReportObject\Table;
-use Fuller\ReportBundle\Model\Table\ReportObject\Group;
-use Fuller\ReportBundle\Model\Table\ReportObject\Row;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Table;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Group;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Row;
 
 /*
- * Fuller\ReportBundle\Factory\TableRetriever
+ * Earls\RhinoReportBundle\Factory\TableRetriever
  */
 
 class TableRetriever

@@ -1,6 +1,6 @@
 <?php
 
-namespace Fuller\ReportBundle\Templating\Generator;
+namespace Earls\RhinoReportBundle\Templating\Generator;
 
 abstract class HtmlTemplateGenerator implements TemplateGeneratorInterface
 {

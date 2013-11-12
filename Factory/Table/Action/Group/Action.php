@@ -1,11 +1,11 @@
 <?php
 
-namespace Fuller\ReportBundle\Factory\Table\Action\Group;
+namespace Earls\RhinoReportBundle\Factory\Table\Action\Group;
 
-use Fuller\ReportBundle\Model\Table\ReportObject\Group;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Group;
 
 /**
- *  Fuller\ReportBundle\Factory\Table\Action\Group\Action
+ *  Earls\RhinoReportBundle\Factory\Table\Action\Group\Action
  *
  */
 abstract class Action implements ActionInterface

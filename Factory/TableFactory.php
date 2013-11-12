@@ -1,24 +1,24 @@
 <?php
 
-namespace Fuller\ReportBundle\Factory;
+namespace Earls\RhinoReportBundle\Factory;
 
-use Fuller\ReportBundle\Model\Extension\ReportExtension;
-use Fuller\ReportBundle\Model\Table\ReportObject\Table;
-use Fuller\ReportBundle\Model\Table\ReportObject\Head;
-use Fuller\ReportBundle\Model\Table\ReportObject\Group;
-use Fuller\ReportBundle\Model\Table\ReportObject\Row;
-use Fuller\ReportBundle\Model\Table\ReportObject\Column;
-use Fuller\ReportBundle\Util\Table\DataManipulator;
-use Fuller\ReportBundle\Util\Table\DataObject;
-use Fuller\ReportBundle\Factory\Factory;
-use Fuller\ReportBundle\Factory\TableRetriever;
-use Fuller\ReportBundle\Definition\Table\GroupDefinition;
-use Fuller\ReportBundle\Definition\Table\RowDefinition;
-use Fuller\ReportBundle\Definition\Table\ColumnDefinition;
-use Fuller\ReportBundle\Util\Table\DataObjectInterface;
+use Earls\RhinoReportBundle\Model\Extension\ReportExtension;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Table;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Head;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Group;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Row;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Column;
+use Earls\RhinoReportBundle\Util\Table\DataManipulator;
+use Earls\RhinoReportBundle\Util\Table\DataObject;
+use Earls\RhinoReportBundle\Factory\Factory;
+use Earls\RhinoReportBundle\Factory\TableRetriever;
+use Earls\RhinoReportBundle\Definition\Table\GroupDefinition;
+use Earls\RhinoReportBundle\Definition\Table\RowDefinition;
+use Earls\RhinoReportBundle\Definition\Table\ColumnDefinition;
+use Earls\RhinoReportBundle\Util\Table\DataObjectInterface;
 
 /**
- *  Fuller\ReportBundle\Factory\TableFactory
+ *  Earls\RhinoReportBundle\Factory\TableFactory
  *
  */
 class TableFactory extends Factory

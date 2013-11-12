@@ -1,19 +1,19 @@
 <?php
 
-namespace Fuller\ReportBundle\Templating\Simplifier\Table;
+namespace Earls\RhinoReportBundle\Templating\Simplifier\Table;
 
-use Fuller\ReportBundle\Model\Table\ReportObject\Table;
-use Fuller\ReportBundle\Model\Table\ReportObject\Group;
-use Fuller\ReportBundle\Model\Table\ReportObject\Row;
-use Fuller\ReportBundle\Model\Table\ReportObject\Column;
-use Fuller\ReportBundle\Definition\Table\ColumnDefinition;
-use Fuller\ReportBundle\Templating\Excel\Style\Style;
-use Fuller\ReportBundle\Templating\Excel\Translator\CssXmlStyleTranslator;
-use Fuller\ReportBundle\Factory\TableFactory;
-use Fuller\ReportBundle\Util\Table\XlsApplyFormula;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Table;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Group;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Row;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Column;
+use Earls\RhinoReportBundle\Definition\Table\ColumnDefinition;
+use Earls\RhinoReportBundle\Templating\Excel\Style\Style;
+use Earls\RhinoReportBundle\Templating\Excel\Translator\CssXmlStyleTranslator;
+use Earls\RhinoReportBundle\Factory\TableFactory;
+use Earls\RhinoReportBundle\Util\Table\XlsApplyFormula;
 
 /**
- *  Fuller\ReportBundle\Templating\Simplifier\Table\XlsReportSimplifier
+ *  Earls\RhinoReportBundle\Templating\Simplifier\Table\XlsReportSimplifier
  *
  *  Transform ReportObject in Array and Convert all formatExcel for example '=sum(A1:A5)+sum(B1:B5)'
  */
@@ -83,7 +83,7 @@ class XlsReportSimplifier
             }
 
             $this->style = $table->getDefinition()->getExportConfig('Excel')->getStyleTable();
-            $this->style = \Fuller\ReportBundle\Templating\Excel\Style\StyleUtility::parseStyle($this->style);
+            $this->style = \Earls\RhinoReportBundle\Templating\Excel\Style\StyleUtility::parseStyle($this->style);
 
             //style by default for all columns
             if (!isset($this->style['default-active'])) {
@@ -117,11 +117,11 @@ class XlsReportSimplifier
                 throw new \Exception('Column(s) \'' . implode(', ', $keyConfig) . '\' from \'column\' in excel configuration don\'t exist, available choices are \'' . implode(', ', array_keys($table->getHead()->getColumns())) . '\'');
             }
             //valid and add column options
-            $columnTransformer = new \Fuller\ReportBundle\Templating\Excel\Transformer\ColumnConfigTransformer($columnConfigWithIndex);
+            $columnTransformer = new \Earls\RhinoReportBundle\Templating\Excel\Transformer\ColumnConfigTransformer($columnConfigWithIndex);
             $xmlArray['columnConfig'] = $columnTransformer->transform();
 
             //Valid and add print options
-            $printTransformer = new \Fuller\ReportBundle\Templating\Excel\Transformer\PrintConfigTransformer($table->getDefinition()->getExportConfig('Excel')->getPrint());
+            $printTransformer = new \Earls\RhinoReportBundle\Templating\Excel\Transformer\PrintConfigTransformer($table->getDefinition()->getExportConfig('Excel')->getPrint());
             $xmlArray['printConfig'] = $printTransformer->transform();
         } else {
             $this->style['default-active'] = $defaultActiveStyle;
@@ -297,7 +297,7 @@ class XlsReportSimplifier
      *      - Attr from general config
      *      - Attr from export config
      * 
-     * @param \Fuller\ReportBundle\Model\Table\ReportObject\Column $column
+     * @param \Earls\RhinoReportBundle\Model\Table\ReportObject\Column $column
      * @return string
      * @throws \Exception
      */

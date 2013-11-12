@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuller\ReportBundle\Definition;
+namespace Earls\RhinoReportBundle\Definition;
 
 /*
- *  Fuller\ReportBundle\Definition\ReportDefinitionInterface
+ *  Earls\RhinoReportBundle\Definition\ReportDefinitionInterface
  *
  */
 

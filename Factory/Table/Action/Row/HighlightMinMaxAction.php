@@ -1,11 +1,11 @@
 <?php
 
-namespace Fuller\ReportBundle\Factory\Table\Action\Row;
+namespace Earls\RhinoReportBundle\Factory\Table\Action\Row;
 
-use Fuller\ReportBundle\Factory\Table\Action\Row\Action;
+use Earls\RhinoReportBundle\Factory\Table\Action\Row\Action;
 
 /*
- *  Fuller\ReportBundle\Factory\Table\Action\Row\HighlightMinMaxAction
+ *  Earls\RhinoReportBundle\Factory\Table\Action\Row\HighlightMinMaxAction
  *
  */
 

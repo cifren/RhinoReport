@@ -1,12 +1,12 @@
 <?php
 
-namespace Fuller\ReportBundle\Definition\Table;
+namespace Earls\RhinoReportBundle\Definition\Table;
 
-use Fuller\ReportBundle\Templating\ExportConfigurator\ExportConfigurator;
-use \Fuller\ReportBundle\Util\Table\DataObject;
+use Earls\RhinoReportBundle\Templating\ExportConfigurator\ExportConfigurator;
+use \Earls\RhinoReportBundle\Util\Table\DataObject;
 
 /**
- * Fuller\ReportBundle\Definition\Table\Definition
+ * Earls\RhinoReportBundle\Definition\Table\Definition
  *
  */
 abstract class Definition

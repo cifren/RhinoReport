@@ -1,11 +1,11 @@
 <?php
 
-namespace Fuller\ReportBundle\Filter;
+namespace Earls\RhinoReportBundle\Filter;
 
 use Doctrine\DBAL\Statement;
 
 /*
- *  Fuller\ReportBundle\Filter\FilterTransformer
+ *  Earls\RhinoReportBundle\Filter\FilterTransformer
  *
  */
 
@@ -14,7 +14,7 @@ class FilterTransformer
 
     public function transform($type, $field)
     {
-        $type = 'Fuller\ReportBundle\Filter\FilterTransformer\\' . ucfirst($type) . 'FilterTransformer';
+        $type = 'Earls\RhinoReportBundle\Filter\FilterTransformer\\' . ucfirst($type) . 'FilterTransformer';
         $filterTransformerType = new $type();
 
         return $filterTransformerType->applyFilterTransformer($field);

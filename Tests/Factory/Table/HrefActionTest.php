@@ -1,8 +1,8 @@
 <?php
 
-namespace Fuller\ReportBundle\Tests\Factory\Table;
+namespace Earls\RhinoReportBundle\Tests\Factory\Table;
 
-use Fuller\ReportBundle\Factory\Table\HrefAction;
+use Earls\RhinoReportBundle\Factory\Table\HrefAction;
 
 class HrefActionTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace Fuller\ReportBundle\Templating\Excel\Translator;
+namespace Earls\RhinoReportBundle\Templating\Excel\Translator;
 
-use Fuller\ReportBundle\Templating\Excel\Style\Style;
+use Earls\RhinoReportBundle\Templating\Excel\Style\Style;
 
 /**
  * Help on http://msdn.microsoft.com/en-us/library/aa140066.aspx or http://en.wikipedia.org/wiki/Microsoft_Office_XML_formats
  *
- * Fuller\ReportBundle\Templating\Excel\Translator\CssXmlStyleTranslator
+ * Earls\RhinoReportBundle\Templating\Excel\Translator\CssXmlStyleTranslator
  */
 class CssXmlStyleTranslator
 {

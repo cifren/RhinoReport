@@ -1,18 +1,18 @@
 <?php
 
-namespace Fuller\ReportBundle\Definition\Table;
+namespace Earls\RhinoReportBundle\Definition\Table;
 
-use Fuller\ReportBundle\Definition\ReportDefinitionBuilder;
-use Fuller\ReportBundle\Definition\ReportDefinition;
-use Fuller\ReportBundle\Definition\Table\TableDefinition;
-use Fuller\ReportBundle\Definition\Table\HeadDefinition;
-use Fuller\ReportBundle\Definition\Table\GroupDefinition;
-use Fuller\ReportBundle\Definition\Table\RowDefinition;
-use Fuller\ReportBundle\Definition\Table\ColumnDefinition;
+use Earls\RhinoReportBundle\Definition\ReportDefinitionBuilder;
+use Earls\RhinoReportBundle\Definition\ReportDefinition;
+use Earls\RhinoReportBundle\Definition\Table\TableDefinition;
+use Earls\RhinoReportBundle\Definition\Table\HeadDefinition;
+use Earls\RhinoReportBundle\Definition\Table\GroupDefinition;
+use Earls\RhinoReportBundle\Definition\Table\RowDefinition;
+use Earls\RhinoReportBundle\Definition\Table\ColumnDefinition;
 use Symfony\Component\DependencyInjection\Container;
 
 /*
- * Fuller\ReportBundle\Definition\Table\TableDefinitionBuilder
+ * Earls\RhinoReportBundle\Definition\Table\TableDefinitionBuilder
  */
 
 class TableDefinitionBuilder
@@ -43,7 +43,7 @@ class TableDefinitionBuilder
     public function head()
     {
         if (!$this->currentDefinition instanceof TableDefinition)
-            throw new \Exception('Expected argument of type "Fuller\ReportBundle\Definition\Table\TableDefinition", "' . get_class($this->currentDefinition) . '" given in function head()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Definition\Table\TableDefinition", "' . get_class($this->currentDefinition) . '" given in function head()');
 
         $this->currentDefinition = $this->currentDefinition->getHeadDefinition();
 
@@ -53,7 +53,7 @@ class TableDefinitionBuilder
     public function body()
     {
         if (!$this->currentDefinition instanceof TableDefinition)
-            throw new \Exception('Expected argument of type "Fuller\ReportBundle\Definition\Table\TableDefinition", "' . get_class($this->currentDefinition) . '" given in function body()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Definition\Table\TableDefinition", "' . get_class($this->currentDefinition) . '" given in function body()');
 
         $this->currentDefinition = $this->currentDefinition->getBodyDefinition();
 
@@ -63,7 +63,7 @@ class TableDefinitionBuilder
     public function headColumns(array $columnNames)
     {
         if (!$this->currentDefinition instanceof HeadDefinition)
-            throw new \Exception('Expected argument of type "Fuller\ReportBundle\Definition\Table\HeadDefinition", "' . get_class($this->currentDefinition) . '" given in function headColumns()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Definition\Table\HeadDefinition", "' . get_class($this->currentDefinition) . '" given in function headColumns()');
 
         $this->currentDefinition = $this->currentDefinition->setColumns($columnNames);
 
@@ -73,7 +73,7 @@ class TableDefinitionBuilder
     public function group($id)
     {
         if (!$this->currentDefinition instanceof GroupDefinition)
-            throw new \Exception('Expected argument of type "Fuller\ReportBundle\Definition\Table\GroupDefinition", "' . get_class($this->currentDefinition) . '" given in function group()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Definition\Table\GroupDefinition", "' . get_class($this->currentDefinition) . '" given in function group()');
 
         $this->currentDefinition = $this->currentDefinition->addGroup($id, $this->availableExport);
 
@@ -83,7 +83,7 @@ class TableDefinitionBuilder
     public function row()
     {
         if (!$this->currentDefinition instanceof GroupDefinition)
-            throw new \Exception('Expected argument of type "Fuller\ReportBundle\Definition\Table\GroupDefinition", "' . get_class($this->currentDefinition) . '" given in function row()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Definition\Table\GroupDefinition", "' . get_class($this->currentDefinition) . '" given in function row()');
 
         $this->currentDefinition = $this->currentDefinition->addRow(array(), $this->availableExport);
 
@@ -93,7 +93,7 @@ class TableDefinitionBuilder
     public function rowUnique()
     {
         if (!$this->currentDefinition instanceof GroupDefinition)
-            throw new \Exception('Expected argument of type "Fuller\ReportBundle\Definition\Table\GroupDefinition", "' . get_class($this->currentDefinition) . '" given in function rowUnique()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Definition\Table\GroupDefinition", "' . get_class($this->currentDefinition) . '" given in function rowUnique()');
 
         $this->currentDefinition = $this->currentDefinition->addRow(array('unique' => true), $this->availableExport);
 
@@ -103,7 +103,7 @@ class TableDefinitionBuilder
     public function attr(array $attributes = array())
     {
         if (!$this->currentDefinition instanceof TableDefinition and !$this->currentDefinition instanceof RowDefinition and !$this->currentDefinition instanceof ColumnDefinition and !$this->currentDefinition instanceof HeadDefinition)
-            throw new \Exception('Expected argument of type "Fuller\ReportBundle\Definition\Table\TableDefinition" or "Fuller\ReportBundle\Definition\Table\RowDefinition" or "Fuller\ReportBundle\Definition\Table\ColumnDefinition" or "Fuller\ReportBundle\Definition\Table\HeadDefinition", "' . get_class($this->currentDefinition) . '" given in function attr()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Definition\Table\TableDefinition" or "Earls\RhinoReportBundle\Definition\Table\RowDefinition" or "Earls\RhinoReportBundle\Definition\Table\ColumnDefinition" or "Earls\RhinoReportBundle\Definition\Table\HeadDefinition", "' . get_class($this->currentDefinition) . '" given in function attr()');
 
         if (isset($attributes['class']) && !is_array($attributes['class'])) {
             throw new \Exception('Attribute `class´ should be an array on element `' . $this->currentDefinition->getPath() . '´');
@@ -119,7 +119,7 @@ class TableDefinitionBuilder
     public function groupBy($id)
     {
         if (!$this->currentDefinition instanceof GroupDefinition)
-            throw new \Exception('Expected argument of type "Fuller\ReportBundle\Definition\Table\GroupDefinition", "' . get_class($this->currentDefinition) . '" given in function groupBy()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Definition\Table\GroupDefinition", "' . get_class($this->currentDefinition) . '" given in function groupBy()');
 
         $this->currentDefinition->setGroupBy($id);
 
@@ -130,13 +130,13 @@ class TableDefinitionBuilder
      * order data by columns
      *
      * @param  array or string                                              $columns
-     * @return \Fuller\ReportBundle\Definition\Table\TableDefinitionBuilder
+     * @return \Earls\RhinoReportBundle\Definition\Table\TableDefinitionBuilder
      * @throws \Exception
      */
     public function orderBy($columns)
     {
         if (!$this->currentDefinition instanceof GroupDefinition)
-            throw new \Exception('Expected argument of type "Fuller\ReportBundle\Definition\Table\GroupDefinition", "' . get_class($this->currentDefinition) . '" given in function groupBy()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Definition\Table\GroupDefinition", "' . get_class($this->currentDefinition) . '" given in function groupBy()');
 
         if (!is_array($columns)) {
             $columns = array($columns);
@@ -163,7 +163,7 @@ class TableDefinitionBuilder
     protected function createColumn($displayId, $type, $dataId)
     {
         if (!$this->currentDefinition instanceof RowDefinition)
-            throw new \Exception('Expected argument of type "Fuller\ReportBundle\Definition\Table\RowDefinition", "' . get_class($this->currentDefinition) . '" given in function columnData()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Definition\Table\RowDefinition", "' . get_class($this->currentDefinition) . '" given in function columnData()');
 
         if (!$dataId) {
             //dont close columnDefinition
@@ -183,7 +183,7 @@ class TableDefinitionBuilder
     public function baseData($type, $arg)
     {
         if (!$this->currentDefinition instanceof ColumnDefinition)
-            throw new \Exception('Expected argument of type "Fuller\ReportBundle\Definition\Table\ColumnDefinition", "' . get_class($this->currentDefinition) . '" given in function baseData()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Definition\Table\ColumnDefinition", "' . get_class($this->currentDefinition) . '" given in function baseData()');
 
         $this->currentDefinition->setBaseData($type, $arg);
 
@@ -194,7 +194,7 @@ class TableDefinitionBuilder
     public function baseValue(array $arg)
     {
         if (!$this->currentDefinition instanceof ColumnDefinition)
-            throw new \Exception('Expected argument of type "Fuller\ReportBundle\Definition\Table\ColumnDefinition", "' . get_class($this->currentDefinition) . '" given in function baseValue()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Definition\Table\ColumnDefinition", "' . get_class($this->currentDefinition) . '" given in function baseValue()');
 
         $this->currentDefinition->addAction('basevalue', $arg);
 
@@ -204,7 +204,7 @@ class TableDefinitionBuilder
     public function formulaExcel($formula, $columns)
     {
         if (!$this->currentDefinition instanceof ColumnDefinition)
-            throw new \Exception('Expected argument of type "Fuller\ReportBundle\Definition\Table\ColumnDefinition", "' . get_class($this->currentDefinition) . '" given in function formulaExcel()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Definition\Table\ColumnDefinition", "' . get_class($this->currentDefinition) . '" given in function formulaExcel()');
 
         if (!$this->currentDefinition->getType() == ColumnDefinition::TYPE_DATA)
             throw new \Exception('Function "formatExcel" can\'t work on columnData');
@@ -217,7 +217,7 @@ class TableDefinitionBuilder
     public function action($name, array $arg)
     {
         if (!$this->currentDefinition instanceof ColumnDefinition && !$this->currentDefinition instanceof RowDefinition && !$this->currentDefinition instanceof GroupDefinition)
-            throw new \Exception('Expected argument of type "Fuller\ReportBundle\Definition\Table\ColumnDefinition" or "Fuller\ReportBundle\Definition\Table\RowDefinition" or "Fuller\ReportBundle\Definition\Table\GroupDefinition", "' . get_class($this->currentDefinition) . '" given in function columnAction()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Definition\Table\ColumnDefinition" or "Earls\RhinoReportBundle\Definition\Table\RowDefinition" or "Earls\RhinoReportBundle\Definition\Table\GroupDefinition", "' . get_class($this->currentDefinition) . '" given in function columnAction()');
 
         $this->currentDefinition->addAction($name, $arg);
 
@@ -227,7 +227,7 @@ class TableDefinitionBuilder
     public function groupAction($name, array $arg, $dependences = array())
     {
         if (!$this->currentDefinition instanceof ColumnDefinition && !$this->currentDefinition instanceof RowDefinition && !$this->currentDefinition instanceof GroupDefinition)
-            throw new \Exception('Expected argument of type "Fuller\ReportBundle\Definition\Table\ColumnDefinition" or "Fuller\ReportBundle\Definition\Table\RowDefinition" or "Fuller\ReportBundle\Definition\Table\GroupDefinition", "' . get_class($this->currentDefinition) . '" given in function groupAction()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Definition\Table\ColumnDefinition" or "Earls\RhinoReportBundle\Definition\Table\RowDefinition" or "Earls\RhinoReportBundle\Definition\Table\GroupDefinition", "' . get_class($this->currentDefinition) . '" given in function groupAction()');
 
         $this->currentDefinition->setGroupAction($name, $arg, $dependences);
 
@@ -237,7 +237,7 @@ class TableDefinitionBuilder
     public function extendingGroupAction($dependences = array())
     {
         if (!$this->currentDefinition instanceof ColumnDefinition && !$this->currentDefinition instanceof RowDefinition && !$this->currentDefinition instanceof GroupDefinition)
-            throw new \Exception('Expected argument of type "Fuller\ReportBundle\Definition\Table\ColumnDefinition" or "Fuller\ReportBundle\Definition\Table\RowDefinition" or "Fuller\ReportBundle\Definition\Table\GroupDefinition", "' . get_class($this->currentDefinition) . '" given in function extendingGroupAction()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Definition\Table\ColumnDefinition" or "Earls\RhinoReportBundle\Definition\Table\RowDefinition" or "Earls\RhinoReportBundle\Definition\Table\GroupDefinition", "' . get_class($this->currentDefinition) . '" given in function extendingGroupAction()');
 
         $this->currentDefinition->setExtendingGroupAction($dependences);
 
@@ -247,7 +247,7 @@ class TableDefinitionBuilder
     public function columnSpan($displayId, $number)
     {
         if (!$this->currentDefinition instanceof RowDefinition)
-            throw new \Exception('Expected argument of type "Fuller\ReportBundle\Definition\Table\RowDefinition", "' . get_class($this->currentDefinition) . '" given in function columnSpan()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Definition\Table\RowDefinition", "' . get_class($this->currentDefinition) . '" given in function columnSpan()');
 
         $this->currentDefinition->setColSpan($displayId, $number);
 
@@ -257,7 +257,7 @@ class TableDefinitionBuilder
     public function rowSpan($displayIds)
     {
         if (!$this->currentDefinition instanceof GroupDefinition)
-            throw new \Exception('Expected argument of type "Fuller\ReportBundle\Definition\Table\GroupDefinition", "' . get_class($this->currentDefinition) . '" given in function rowSpan()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Definition\Table\GroupDefinition", "' . get_class($this->currentDefinition) . '" given in function rowSpan()');
 
         $this->currentDefinition->setRowSpans($displayIds);
 
@@ -297,21 +297,21 @@ class TableDefinitionBuilder
 
     protected function getExcelExportConfigClass()
     {
-        return '\Fuller\ReportBundle\Templating\ExportConfigurator\XlsExportConfigurator';
+        return '\Earls\RhinoReportBundle\Templating\ExportConfigurator\XlsExportConfigurator';
     }
 
     protected function getHtmlExportConfigClass()
     {
-        return '\Fuller\ReportBundle\Templating\ExportConfigurator\HtmlExportConfigurator';
+        return '\Earls\RhinoReportBundle\Templating\ExportConfigurator\HtmlExportConfigurator';
     }
 
     //define a set of data
     public function setData(array $data)
     {
         if (!$this->currentDefinition instanceof TableDefinition)
-            throw new \Exception('Expected argument of type "Fuller\ReportBundle\Definition\Table\TableDefinition", "' . get_class($this->currentDefinition) . '" given in function setData()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Definition\Table\TableDefinition", "' . get_class($this->currentDefinition) . '" given in function setData()');
 
-        $dataObject = new \Fuller\ReportBundle\Util\Table\DataObject($data);
+        $dataObject = new \Earls\RhinoReportBundle\Util\Table\DataObject($data);
         $this->currentDefinition->setData($dataObject);
 
         return $this;

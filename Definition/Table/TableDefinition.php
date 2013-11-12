@@ -1,16 +1,16 @@
 <?php
 
-namespace Fuller\ReportBundle\Definition\Table;
+namespace Earls\RhinoReportBundle\Definition\Table;
 
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
-use Fuller\ReportBundle\Definition\Table\HeadDefinition;
-use Fuller\ReportBundle\Definition\Table\GroupDefinition;
-use Fuller\ReportBundle\Definition\Table\ColumnDefinition;
-use Fuller\ReportBundle\Definition\ReportDefinition;
-use Fuller\ReportBundle\Definition\ReportDefinitionInterface;
+use Earls\RhinoReportBundle\Definition\Table\HeadDefinition;
+use Earls\RhinoReportBundle\Definition\Table\GroupDefinition;
+use Earls\RhinoReportBundle\Definition\Table\ColumnDefinition;
+use Earls\RhinoReportBundle\Definition\ReportDefinition;
+use Earls\RhinoReportBundle\Definition\ReportDefinitionInterface;
 
 /**
- * Fuller\ReportBundle\Definition\Table\TableDefinition
+ * Earls\RhinoReportBundle\Definition\Table\TableDefinition
  *
  */
 class TableDefinition extends Definition implements ReportDefinitionInterface
@@ -71,7 +71,7 @@ class TableDefinition extends Definition implements ReportDefinitionInterface
     public function setParent($parent)
     {
         if (isset($parent) && !$parent instanceof ReportDefinition) {
-            throw new UnexpectedTypeException($this->parent, 'Fuller\ReportBundle\Definition\ReportDefinition');
+            throw new UnexpectedTypeException($this->parent, 'Earls\RhinoReportBundle\Definition\ReportDefinition');
         }
         parent::setParent($parent);
     }

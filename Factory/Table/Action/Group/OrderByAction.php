@@ -1,14 +1,14 @@
 <?php
 
-namespace Fuller\ReportBundle\Factory\Table\Action\Group;
+namespace Earls\RhinoReportBundle\Factory\Table\Action\Group;
 
-use Fuller\ReportBundle\Factory\Table\Action\Group\Action;
-use Fuller\ReportBundle\Factory\TableRetriever;
-use \Fuller\ReportBundle\Model\Table\ReportObject\Group;
-use \Fuller\ReportBundle\Model\Table\ReportObject\Row;
+use Earls\RhinoReportBundle\Factory\Table\Action\Group\Action;
+use Earls\RhinoReportBundle\Factory\TableRetriever;
+use \Earls\RhinoReportBundle\Model\Table\ReportObject\Group;
+use \Earls\RhinoReportBundle\Model\Table\ReportObject\Row;
 
 /**
- * Fuller\ReportBundle\Factory\Table\Action\Group\OrderByAction
+ * Earls\RhinoReportBundle\Factory\Table\Action\Group\OrderByAction
  *
  * reorder groups via rowUnique->column name, only for now
  */

@@ -1,11 +1,11 @@
 <?php
 
-namespace Fuller\ReportBundle\Templating\ExportConfigurator;
+namespace Earls\RhinoReportBundle\Templating\ExportConfigurator;
 
-use Fuller\ReportBundle\Templating\ExportConfigurator\ExportConfigurator;
+use Earls\RhinoReportBundle\Templating\ExportConfigurator\ExportConfigurator;
 
 /**
- * Fuller\ReportBundle\Templating\ExportConfigurator\HtmlExportConfigurator
+ * Earls\RhinoReportBundle\Templating\ExportConfigurator\HtmlExportConfigurator
  */
 class HtmlExportConfigurator implements ExportConfigurator
 {

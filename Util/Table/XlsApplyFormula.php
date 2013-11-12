@@ -1,14 +1,14 @@
 <?php
 
-namespace Fuller\ReportBundle\Util\Table;
+namespace Earls\RhinoReportBundle\Util\Table;
 
-use Fuller\ReportBundle\Model\Table\ReportObject\Table;
-use Fuller\ReportBundle\Model\Table\ReportObject\Group;
-use Fuller\ReportBundle\Model\Table\ReportObject\Row;
-use Fuller\ReportBundle\Definition\Table\ColumnDefinition;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Table;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Group;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Row;
+use Earls\RhinoReportBundle\Definition\Table\ColumnDefinition;
 
 /**
- * Fuller\ReportBundle\Util\Table\XlsApplyFormula
+ * Earls\RhinoReportBundle\Util\Table\XlsApplyFormula
  */
 class XlsApplyFormula
 {
@@ -20,7 +20,7 @@ class XlsApplyFormula
 
     public function __construct()
     {
-        $this->tableRetriever = new \Fuller\ReportBundle\Factory\TableRetriever;
+        $this->tableRetriever = new \Earls\RhinoReportBundle\Factory\TableRetriever;
         $this->rowShift = 3; //+2 because of the empty line + header
     }
 

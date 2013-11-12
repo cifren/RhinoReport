@@ -1,12 +1,12 @@
 <?php
 
-namespace Fuller\ReportBundle\Factory\Table\GroupAction\Group;
+namespace Earls\RhinoReportBundle\Factory\Table\GroupAction\Group;
 
-use Fuller\ReportBundle\Model\Table\ReportObject\Table;
-use Fuller\ReportBundle\Model\Table\ReportObject\Group;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Table;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Group;
 
 /**
- *  Fuller\ReportBundle\Factory\Table\GroupAction\Group\GroupAction
+ *  Earls\RhinoReportBundle\Factory\Table\GroupAction\Group\GroupAction
  *
  */
 abstract class GroupAction implements GroupActionInterface

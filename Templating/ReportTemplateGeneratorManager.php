@@ -1,11 +1,11 @@
 <?php
 
-namespace Fuller\ReportBundle\Templating;
+namespace Earls\RhinoReportBundle\Templating;
 
-use Fuller\ReportBundle\Model\Report;
+use Earls\RhinoReportBundle\Model\Report;
 
 /**
- * Fuller\ReportBundle\Templating\ReportTemplateGeneratorManager
+ * Earls\RhinoReportBundle\Templating\ReportTemplateGeneratorManager
  */
 class ReportTemplateGeneratorManager
 {

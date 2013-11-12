@@ -1,13 +1,13 @@
 <?php
 
-namespace Fuller\ReportBundle\Factory\Table\Action\Column;
+namespace Earls\RhinoReportBundle\Factory\Table\Action\Column;
 
-use Fuller\ReportBundle\Factory\Table\Action\Column\Action;
-use Fuller\ReportBundle\Model\Table\ReportObject\Row;
-use Fuller\ReportBundle\Model\Table\ReportObject\Column;
+use Earls\RhinoReportBundle\Factory\Table\Action\Column\Action;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Row;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Column;
 
 /**
- *  Fuller\ReportBundle\Factory\Table\Action\Column\BaseValueAction
+ *  Earls\RhinoReportBundle\Factory\Table\Action\Column\BaseValueAction
  *
  */
 class BaseValueAction extends Action

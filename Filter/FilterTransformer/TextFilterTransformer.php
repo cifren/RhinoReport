@@ -1,11 +1,11 @@
 <?php
 
-namespace Fuller\ReportBundle\Filter\FilterTransformer;
+namespace Earls\RhinoReportBundle\Filter\FilterTransformer;
 
 /**
  * Used for lexik bundle in order to apply a pattern on the string
  *
- *  Fuller\ReportBundle\Filter\FilterTransformer\TextFilterTransformer
+ *  Earls\RhinoReportBundle\Filter\FilterTransformer\TextFilterTransformer
  *
  */
 class TextFilterTransformer

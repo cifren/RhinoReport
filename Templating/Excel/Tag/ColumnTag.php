@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuller\ReportBundle\Templating\Excel\Tag;
+namespace Earls\RhinoReportBundle\Templating\Excel\Tag;
 
 /**
- * Fuller\ReportBundle\Templating\Excel\Tag\ColumnTag
+ * Earls\RhinoReportBundle\Templating\Excel\Tag\ColumnTag
  * 
  * http://msdn.microsoft.com/en-us/library/aa140066.aspx#odc_xmlss_ss:column
  */

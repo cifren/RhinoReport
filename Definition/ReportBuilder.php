@@ -1,15 +1,15 @@
 <?php
 
-namespace Fuller\ReportBundle\Definition;
+namespace Earls\RhinoReportBundle\Definition;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormTypeInterface;
-use Fuller\ReportBundle\Definition\ReportConfigurationInterface;
-use Fuller\ReportBundle\Util\Table\DataObject;
-use Fuller\ReportBundle\Model\Report;
+use Earls\RhinoReportBundle\Definition\ReportConfigurationInterface;
+use Earls\RhinoReportBundle\Util\Table\DataObject;
+use Earls\RhinoReportBundle\Model\Report;
 
 /**
- * Fuller\ReportBundle\Definition\ReportBuilder
+ * Earls\RhinoReportBundle\Definition\ReportBuilder
  */
 class ReportBuilder
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace Fuller\ReportBundle\Definition\Table;
+namespace Earls\RhinoReportBundle\Definition\Table;
 
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
-use Fuller\ReportBundle\Definition\Table\GroupDefinition;
-use Fuller\ReportBundle\Definition\Table\ColumnDefinition;
+use Earls\RhinoReportBundle\Definition\Table\GroupDefinition;
+use Earls\RhinoReportBundle\Definition\Table\ColumnDefinition;
 
 /*
- * Fuller\ReportBundle\Definition\Table\RowDefinition
+ * Earls\RhinoReportBundle\Definition\Table\RowDefinition
  *
  */
 
@@ -69,7 +69,7 @@ class RowDefinition extends Definition
     public function setParent($parent)
     {
         if (!$parent instanceof GroupDefinition)
-            throw new UnexpectedTypeException($this->parent, 'Fuller\ReportBundle\Definition\GroupDefinition');
+            throw new UnexpectedTypeException($this->parent, 'Earls\RhinoReportBundle\Definition\GroupDefinition');
         parent::setParent($parent);
     }
 

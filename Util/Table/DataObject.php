@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuller\ReportBundle\Util\Table;
+namespace Earls\RhinoReportBundle\Util\Table;
 
 /**
- * Fuller\ReportBundle\Util\Table\DataObject
+ * Earls\RhinoReportBundle\Util\Table\DataObject
  */
 class DataObject implements DataObjectInterface
 {

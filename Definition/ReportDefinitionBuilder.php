@@ -1,12 +1,12 @@
 <?php
 
-namespace Fuller\ReportBundle\Definition;
+namespace Earls\RhinoReportBundle\Definition;
 
-use Fuller\ReportBundle\Definition\ReportDefinition;
-use Fuller\ReportBundle\Definition\Table\TableDefinitionBuilder;
+use Earls\RhinoReportBundle\Definition\ReportDefinition;
+use Earls\RhinoReportBundle\Definition\Table\TableDefinitionBuilder;
 
 /**
- * Fuller\ReportBundle\Definition\ReportDefinitionBuilder
+ * Earls\RhinoReportBundle\Definition\ReportDefinitionBuilder
  */
 class ReportDefinitionBuilder
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Fuller\ReportBundle\Templating\Generator\Table;
+namespace Earls\RhinoReportBundle\Templating\Generator\Table;
 
-use Fuller\ReportBundle\Templating\Generator\TemplateGeneratorInterface;
+use Earls\RhinoReportBundle\Templating\Generator\TemplateGeneratorInterface;
 
 class PdfTableTemplateGenerator implements TemplateGeneratorInterface
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuller\ReportBundle\DependencyInjection\Compiler;
+namespace Earls\RhinoReportBundle\DependencyInjection\Compiler;
 
 /*
- * Fuller\ReportBundle\DependencyInjection\Compiler\ActionPass
+ * Earls\RhinoReportBundle\DependencyInjection\Compiler\ActionPass
  * This file is part of the Symfony package.
  *
  * (c) Fabien Potencier <fabien@symfony.com>

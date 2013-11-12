@@ -1,6 +1,6 @@
 <?php
 
-namespace Fuller\ReportBundle\Templating\Parser;
+namespace Earls\RhinoReportBundle\Templating\Parser;
 
 class CssParser
 {

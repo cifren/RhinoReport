@@ -1,12 +1,12 @@
 <?php
 
-namespace Fuller\ReportBundle;
+namespace Earls\RhinoReportBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Fuller\ReportBundle\DependencyInjection\Compiler\ActionPass;
+use Earls\RhinoReportBundle\DependencyInjection\Compiler\ActionPass;
 
-class FullerReportBundle extends Bundle
+class EarlsRhinoReportBundle extends Bundle
 {
 
     public function build(ContainerBuilder $container)

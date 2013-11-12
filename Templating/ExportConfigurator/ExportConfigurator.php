@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuller\ReportBundle\Templating\ExportConfigurator;
+namespace Earls\RhinoReportBundle\Templating\ExportConfigurator;
 
 /**
- * Fuller\ReportBundle\Templating\ExportConfigurator\ExportConfigurator
+ * Earls\RhinoReportBundle\Templating\ExportConfigurator\ExportConfigurator
  */
 interface ExportConfigurator
 {

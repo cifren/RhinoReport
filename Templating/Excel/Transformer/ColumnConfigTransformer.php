@@ -1,13 +1,13 @@
 <?php
 
-namespace Fuller\ReportBundle\Templating\Excel\Transformer;
+namespace Earls\RhinoReportBundle\Templating\Excel\Transformer;
 
-use Fuller\ReportBundle\Templating\Excel\Tag\ColumnTag;
+use Earls\RhinoReportBundle\Templating\Excel\Tag\ColumnTag;
 
 /**
  * Help on http://msdn.microsoft.com/en-us/library/aa140066.aspx or http://en.wikipedia.org/wiki/Microsoft_Office_XML_formats
  *
- * Fuller\ReportBundle\Templating\Excel\Transformer\ColumnConfigTransformer
+ * Earls\RhinoReportBundle\Templating\Excel\Transformer\ColumnConfigTransformer
  */
 class ColumnConfigTransformer
 {

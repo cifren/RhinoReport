@@ -1,11 +1,11 @@
 <?php
 
-namespace Fuller\ReportBundle\Factory;
+namespace Earls\RhinoReportBundle\Factory;
 
-use Fuller\ReportBundle\Util\Table\DataObjectInterface;
+use Earls\RhinoReportBundle\Util\Table\DataObjectInterface;
 
 /*
- *  Fuller\ReportBundle\Factory\ReportFactoryInterface
+ *  Earls\RhinoReportBundle\Factory\ReportFactoryInterface
  *
  */
 

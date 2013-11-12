@@ -1,6 +1,6 @@
 <?php
 
-namespace Fuller\ReportBundle\Templating\Excel\Transformer;
+namespace Earls\RhinoReportBundle\Templating\Excel\Transformer;
 
 use Symfony\Component\DependencyInjection\Container;
 
@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Container;
  * Help on http://msdn.microsoft.com/en-us/library/aa140066.aspx or http://en.wikipedia.org/wiki/Microsoft_Office_XML_formats
  * Or just open Excel file and save it in format xml and open file.xml with text editor :-)
  *
- * Fuller\ReportBundle\Templating\Excel\Transformer\PrintConfigTransformer
+ * Earls\RhinoReportBundle\Templating\Excel\Transformer\PrintConfigTransformer
  */
 class PrintConfigTransformer
 {

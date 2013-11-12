@@ -1,11 +1,11 @@
 <?php
 
-namespace Fuller\ReportBundle\Model\Table\ReportObject;
+namespace Earls\RhinoReportBundle\Model\Table\ReportObject;
 
-use Fuller\ReportBundle\Util\Table\DataObjectInterface;
+use Earls\RhinoReportBundle\Util\Table\DataObjectInterface;
 
 /*
- * Fuller\ReportBundle\Model\Table\ReportObject\TableObject
+ * Earls\RhinoReportBundle\Model\Table\ReportObject\TableObject
  */
 
 abstract class TableObject

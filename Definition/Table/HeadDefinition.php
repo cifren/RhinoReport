@@ -1,12 +1,12 @@
 <?php
 
-namespace Fuller\ReportBundle\Definition\Table;
+namespace Earls\RhinoReportBundle\Definition\Table;
 
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
-use Fuller\ReportBundle\Definition\Table\TableDefinition;
+use Earls\RhinoReportBundle\Definition\Table\TableDefinition;
 
 /*
- *  Fuller\ReportBundle\Definition\Table\HeadDefinition
+ *  Earls\RhinoReportBundle\Definition\Table\HeadDefinition
  *
  */
 
@@ -52,7 +52,7 @@ class HeadDefinition extends Definition
     public function setParent($parent)
     {
         if (!$parent instanceof TableDefinition) {
-            throw new UnexpectedTypeException($parent, 'Fuller\ReportBundle\Definition\Table\TableDefinition');
+            throw new UnexpectedTypeException($parent, 'Earls\RhinoReportBundle\Definition\Table\TableDefinition');
         }
         parent::setParent($parent);
     }

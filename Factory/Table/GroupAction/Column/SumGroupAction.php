@@ -1,12 +1,12 @@
 <?php
 
-namespace Fuller\ReportBundle\Factory\Table\GroupAction\Column;
+namespace Earls\RhinoReportBundle\Factory\Table\GroupAction\Column;
 
-use Fuller\ReportBundle\Factory\Table\GroupAction\Column\GroupAction;
-use Fuller\ReportBundle\Factory\TableRetriever;
+use Earls\RhinoReportBundle\Factory\Table\GroupAction\Column\GroupAction;
+use Earls\RhinoReportBundle\Factory\TableRetriever;
 
 /**
- *  Fuller\ReportBundle\Factory\Table\GroupAction\Column\SumGroupAction
+ *  Earls\RhinoReportBundle\Factory\Table\GroupAction\Column\SumGroupAction
  *
  */
 class SumGroupAction extends GroupAction

@@ -1,11 +1,11 @@
 <?php
 
-namespace Fuller\ReportBundle\Factory\Table\Action\Row;
+namespace Earls\RhinoReportBundle\Factory\Table\Action\Row;
 
-use Fuller\ReportBundle\Model\Table\ReportObject\Row;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Row;
 
 /**
- *  Fuller\ReportBundle\Factory\Table\Action\Row\ActionInterface
+ *  Earls\RhinoReportBundle\Factory\Table\Action\Row\ActionInterface
  *
  */
 interface ActionInterface

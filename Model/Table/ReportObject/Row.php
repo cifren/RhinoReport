@@ -1,13 +1,13 @@
 <?php
 
-namespace Fuller\ReportBundle\Model\Table\ReportObject;
+namespace Earls\RhinoReportBundle\Model\Table\ReportObject;
 
-use \Fuller\ReportBundle\Model\Table\ReportObject\Column;
-use Fuller\ReportBundle\Model\Table\ReportObject\TableObject;
-use Fuller\ReportBundle\Util\Table\DataObjectInterface;
+use \Earls\RhinoReportBundle\Model\Table\ReportObject\Column;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\TableObject;
+use Earls\RhinoReportBundle\Util\Table\DataObjectInterface;
 
 /**
- * Fuller\ReportBundle\Model\Table\ReportObject\Row
+ * Earls\RhinoReportBundle\Model\Table\ReportObject\Row
  */
 class Row extends TableObject
 {

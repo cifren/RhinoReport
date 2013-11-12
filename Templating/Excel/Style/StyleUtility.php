@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuller\ReportBundle\Templating\Excel\Style;
+namespace Earls\RhinoReportBundle\Templating\Excel\Style;
 
 /**
- * Fuller\ReportBundle\Templating\Excel\Style\StyleUtility
+ * Earls\RhinoReportBundle\Templating\Excel\Style\StyleUtility
  */
 class StyleUtility
 {

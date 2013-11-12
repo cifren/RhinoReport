@@ -1,11 +1,11 @@
 <?php
 
-namespace Fuller\ReportBundle\Factory\Table\Action\Column;
+namespace Earls\RhinoReportBundle\Factory\Table\Action\Column;
 
-use Fuller\ReportBundle\Factory\Table\Action\Column\Action;
+use Earls\RhinoReportBundle\Factory\Table\Action\Column\Action;
 
 /*
- *  Fuller\ReportBundle\Factory\Table\Action\Column\DateAddAction
+ *  Earls\RhinoReportBundle\Factory\Table\Action\Column\DateAddAction
  *
  */
 

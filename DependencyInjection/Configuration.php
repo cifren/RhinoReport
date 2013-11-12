@@ -1,6 +1,6 @@
 <?php
 
-namespace Fuller\ReportBundle\DependencyInjection;
+namespace Earls\RhinoReportBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

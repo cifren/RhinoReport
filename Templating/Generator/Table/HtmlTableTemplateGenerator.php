@@ -1,9 +1,9 @@
 <?php
 
-namespace Fuller\ReportBundle\Templating\Generator\Table;
+namespace Earls\RhinoReportBundle\Templating\Generator\Table;
 
-use Fuller\ReportBundle\Templating\Generator\HtmlTemplateGenerator;
-use Fuller\ReportBundle\Templating\Simplifier\Table\HtmlReportSimplifier;
+use Earls\RhinoReportBundle\Templating\Generator\HtmlTemplateGenerator;
+use Earls\RhinoReportBundle\Templating\Simplifier\Table\HtmlReportSimplifier;
 
 class HtmlTableTemplateGenerator extends HtmlTemplateGenerator
 {

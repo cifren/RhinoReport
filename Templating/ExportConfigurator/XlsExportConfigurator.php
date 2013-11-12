@@ -1,12 +1,12 @@
 <?php
 
-namespace Fuller\ReportBundle\Templating\ExportConfigurator;
+namespace Earls\RhinoReportBundle\Templating\ExportConfigurator;
 
-use Fuller\ReportBundle\Definition\Table\TableDefinition;
-use Fuller\ReportBundle\Templating\ExportConfigurator\ExportConfigurator;
+use Earls\RhinoReportBundle\Definition\Table\TableDefinition;
+use Earls\RhinoReportBundle\Templating\ExportConfigurator\ExportConfigurator;
 
 /**
- * Fuller\ReportBundle\Templating\ExportConfigurator\XlsExportConfigurator
+ * Earls\RhinoReportBundle\Templating\ExportConfigurator\XlsExportConfigurator
  */
 class XlsExportConfigurator implements ExportConfigurator
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace Fuller\ReportBundle\Definition;
+namespace Earls\RhinoReportBundle\Definition;
 
 use Symfony\Component\HttpFoundation\Request;
-use Fuller\ReportBundle\Model\Report;
+use Earls\RhinoReportBundle\Model\Report;
 
 /*
- * Fuller\ReportBundle\Definition\ReportConfigurationInterface
+ * Earls\RhinoReportBundle\Definition\ReportConfigurationInterface
  *
  * Interface of Configuration of report
  *

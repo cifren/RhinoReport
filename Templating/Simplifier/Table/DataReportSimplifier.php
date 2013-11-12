@@ -1,12 +1,12 @@
 <?php
 
-namespace Fuller\ReportBundle\Templating\Simplifier\Table;
+namespace Earls\RhinoReportBundle\Templating\Simplifier\Table;
 
-use Fuller\ReportBundle\Model\Table\ReportObject\Table;
-use Fuller\ReportBundle\Model\Table\ReportObject\Group;
-use Fuller\ReportBundle\Model\Table\ReportObject\Row;
-use Fuller\ReportBundle\Model\Table\ReportObject\Column;
-use Fuller\ReportBundle\Definition\Table\ColumnDefinition;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Table;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Group;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Row;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Column;
+use Earls\RhinoReportBundle\Definition\Table\ColumnDefinition;
 
 class DataReportSimplifier
 {

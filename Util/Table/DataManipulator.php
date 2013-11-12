@@ -1,19 +1,19 @@
 <?php
 
-namespace Fuller\ReportBundle\Util\Table;
+namespace Earls\RhinoReportBundle\Util\Table;
 
 /**
- * Fuller\ReportBundle\Util\Table\DataManipulator
+ * Earls\RhinoReportBundle\Util\Table\DataManipulator
  */
 class DataManipulator implements DataManipulatorInterface
 {
     /**
      * Get an array of all data seperate by filter
      *
-     * @param \Fuller\ReportBundle\Util\Table\DataObject $data
+     * @param \Earls\RhinoReportBundle\Util\Table\DataObject $data
      * @param string                                     $groupByIndex
      *
-     * @return \Fuller\ReportBundle\Util\Table\DataObject
+     * @return \Earls\RhinoReportBundle\Util\Table\DataObject
      */
     public function getArrayGroupBy(DataObject $data, $groupByIndex)
     {
@@ -59,7 +59,7 @@ class DataManipulator implements DataManipulatorInterface
      * @param string     $index
      * @param string     $filter
      *
-     * @return \Fuller\ReportBundle\Util\Table
+     * @return \Earls\RhinoReportBundle\Util\Table
      */
     public function getValueFilterByGroupBy(DataObject $data, $index, $filter)
     {
@@ -81,7 +81,7 @@ class DataManipulator implements DataManipulatorInterface
     /**
      * Select the data from the id, if id doesn't exist return $dataObj untouched
      *
-     * @param \Fuller\ReportBundle\Util\Table\DataObject $dataObj
+     * @param \Earls\RhinoReportBundle\Util\Table\DataObject $dataObj
      * @param type                                       $id
      *
      * @return DataObject

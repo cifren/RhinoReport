@@ -1,13 +1,13 @@
 <?php
 
-namespace Fuller\ReportBundle\Model\Table\ReportObject;
+namespace Earls\RhinoReportBundle\Model\Table\ReportObject;
 
-use Fuller\ReportBundle\Model\Table\ReportObject\TableObject;
-use Fuller\ReportBundle\Definition\Table\HeadDefinition;
-use Fuller\ReportBundle\Model\Table\ReportObject\Table;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\TableObject;
+use Earls\RhinoReportBundle\Definition\Table\HeadDefinition;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\Table;
 
 /*
- * Fuller\ReportBundle\Model\Table\ReportObject\Head
+ * Earls\RhinoReportBundle\Model\Table\ReportObject\Head
  */
 
 class Head extends TableObject

@@ -1,10 +1,10 @@
 <?php
-namespace Fuller\ReportBundle\Model\Extension;
+namespace Earls\RhinoReportBundle\Model\Extension;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 /*
  *
- * Fuller\ReportBundle\Model\Extension\ReportExtension
+ * Earls\RhinoReportBundle\Model\Extension\ReportExtension
  *
  */
 

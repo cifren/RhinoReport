@@ -1,11 +1,11 @@
 <?php
 
-namespace Fuller\ReportBundle\Model\Table\ReportObject;
+namespace Earls\RhinoReportBundle\Model\Table\ReportObject;
 
-use Fuller\ReportBundle\Model\Table\ReportObject\TableObject;
+use Earls\RhinoReportBundle\Model\Table\ReportObject\TableObject;
 
 /*
- * Fuller\ReportBundle\Model\Table\ReportObject\Column
+ * Earls\RhinoReportBundle\Model\Table\ReportObject\Column
  */
 
 class Column extends TableObject

@@ -1,10 +1,10 @@
 <?php
 
-namespace Fuller\ReportBundle\Templating\Generator\Table;
+namespace Earls\RhinoReportBundle\Templating\Generator\Table;
 
 use Symfony\Component\HttpFoundation\Response;
-use Fuller\ReportBundle\Templating\Generator\HtmlTemplateGenerator;
-use Fuller\ReportBundle\Templating\Simplifier\Table\XlsReportSimplifier;
+use Earls\RhinoReportBundle\Templating\Generator\HtmlTemplateGenerator;
+use Earls\RhinoReportBundle\Templating\Simplifier\Table\XlsReportSimplifier;
 
 class XlsTableTemplateGenerator extends HtmlTemplateGenerator
 {
