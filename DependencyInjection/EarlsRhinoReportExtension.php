@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-class FullerReportExtension extends Extension
+class EarlsRhinoReportExtension extends Extension
 {
 
     /**
@@ -24,7 +24,7 @@ class FullerReportExtension extends Extension
 
     public function getAlias()
     {
-        return 'fuller_report';
+        return 'earls_rhino_report';
     }
 
 }

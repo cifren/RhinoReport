@@ -1,4 +1,4 @@
-{% extends "FullerReportBundle:TableTemplate:xls_layout.xml.twig" %}
+{% extends "EarlsRhinoReportBundle:TableTemplate:xls_layout.xml.twig" %}
 
 {% block style %}
     <Styles>
@@ -59,10 +59,10 @@
                 {% endfor %}
             {% endif %}
             {% if table.rpt_info|default(null) is not null %}
-                {% include 'FullerReportBundle:TableTemplate:xls_table.xml.twig' with {'table': table.rpt_info} %}
+                {% include 'EarlsRhinoReportBundle:TableTemplate:xls_table.xml.twig' with {'table': table.rpt_info} %}
                 <Row><Cell> </Cell></Row>
             {% endif %}
-            {% include 'FullerReportBundle:TableTemplate:xls_table.xml.twig' %}
+            {% include 'EarlsRhinoReportBundle:TableTemplate:xls_table.xml.twig' %}
         </Table>
 
         <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">

@@ -11,14 +11,14 @@ parameters:
     report.template.generator.manager.class:          Earls\RhinoReportBundle\Templating\ReportTemplateGeneratorManager
 
     report.template.generator.html.class:             Earls\RhinoReportBundle\Templating\Generator\HtmlReportTemplateGenerator
-    report.template.generator.html.template:          FullerReportBundle:ReportTemplate:html.html.twig
+    report.template.generator.html.template:          EarlsRhinoReportBundle:ReportTemplate:html.html.twig
 
     report.table.template.generator.html.class:       Earls\RhinoReportBundle\Templating\Generator\Table\HtmlTableTemplateGenerator
     report.table.template.generator.xls.class:        Earls\RhinoReportBundle\Templating\Generator\Table\XlsTableTemplateGenerator
     report.table.template.generator.csv.class:        Earls\RhinoReportBundle\Templating\Generator\Table\CsvTableTemplateGenerator
 
-    report.table.template.generator.html.template:    FullerReportBundle:TableTemplate:html.html.twig
-    report.table.template.generator.xls.template:     FullerReportBundle:TableTemplate:xls.xml.twig
+    report.table.template.generator.html.template:    EarlsRhinoReportBundle:TableTemplate:html.html.twig
+    report.table.template.generator.xls.template:     EarlsRhinoReportBundle:TableTemplate:xls.xml.twig
 
     report.table.template.xls.apply_formula.class:    Earls\RhinoReportBundle\Util\Table\XlsApplyFormula
     report.table.template.xls.simplifier.class:       Earls\RhinoReportBundle\Templating\Simplifier\Table\XlsReportSimplifier
