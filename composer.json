@@ -26,5 +26,5 @@
     "autoload":     {
         "psr-0": { "Earls\\RhinoReportBundle": "" }
     },
-    "target-dir": "Earls/Bundle/RhinoReportBundle"
+    "target-dir": "Earls/RhinoReportBundle"
 }
