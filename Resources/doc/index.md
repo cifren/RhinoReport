@@ -139,11 +139,13 @@ class FirstReportConfiguration extends ReportConfiguration
                                 ->column('id', 'catId')
                                 ->column('desc', 'catDescr')
                                 ->column('sold')
-                                    //action on a group, give you the possibility to make the sum of all your items sold
+                                    //action on a group, give you the possibility to make the sum of 
+                                    //all your items sold
                                     ->groupAction('sum', array('column' => '\table\body\catGroup\salesGroup.sold'))
                                 ->end()//column
                                 ->column('sales')
-                                    //action on a group, give you the possibility to make the sum of all your sales, means price * item sold
+                                    //action on a group, give you the possibility to make the sum of all your 
+                                    //sales, means price * item sold
                                     ->groupAction('sum', array('column' => '\table\body\catGroup\salesGroup.sales'))
                                 ->end()//column
                             ->end()//row
@@ -153,7 +155,8 @@ class FirstReportConfiguration extends ReportConfiguration
                                     ->column('id', 'itemId')
                                     ->column('desc', 'itemDesc')
                                     ->column('sold', 'itemSold')
-                                    //column data is a temporary column, used in the configuration and the creation of your report Object but not displayed
+                                    //column data is a temporary column, used in the configuration and the creation of 
+                                    //your report Object but not displayed
                                     ->columnData('priceData', 'itemPrice')
                                     ->column('sales')
                                         //this action will calculate quickly price * item sold, it only needs some arguments
@@ -225,7 +228,9 @@ class ReportController extends Controller
         $firstRptConfig = new FirstReportConfiguration($cem, $calendarManager, $this->getRequest());
         
         //Create your report builder, should be a service...
-        $rptBuilder = new ReportBuilder($firstRptConfig, $this->get('service_container'), $this->get('lexik_form_filter.query_builder_updater'), $this->get('request'), $this->get('form.factory'));
+        $rptBuilder = new ReportBuilder(
+            $firstRptConfig, 
+            $this->get('service_container'), $this->get('lexik_form_filter.query_builder_updater'), $this->get('request'), $this->get('form.factory'));
 
         //if no filter no report
         if ($this->getRequest()->get('first_report_filter')) {
