@@ -1,7 +1,7 @@
 Overview
 ========
 
-This Symfony2 bundle aims to provide classes to build a your own report
+This Symfony2 bundle aims to provide classes to build your own report
 
 The idea is:
 
@@ -11,4 +11,4 @@ The idea is:
 Documentation
 =============
 
-For installation and how to use the bundle refer to [Resources/doc/index.md](https://github.com/Earls/RhinoReportBundle/tree/master/Resources/doc/index.md)
+For installation and how to use the bundle refer to [Resources/doc/index.md](https://github.com/Earls/RhinoReportBundle/blob/master/Resources/doc/index.md)
