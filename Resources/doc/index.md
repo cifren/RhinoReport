@@ -161,7 +161,8 @@ class FirstReportConfiguration extends ReportConfiguration
                                     //your report Object but not displayed
                                     ->columnData('priceData', 'itemPrice')
                                     ->column('sales')
-                                        //this action will calculate quickly price * item sold, it only needs some arguments
+                                        //this action will calculate quickly price * item sold, it only needs some 
+                                        //arguments
                                         ->action('calculation', array(
                                             'formula' => '%1$s * %2$s',
                                             'arg_displayIds' => array('priceData', 'sales')
@@ -232,14 +233,17 @@ class ReportController extends Controller
         //Create your report builder, should be a service...
         $rptBuilder = new ReportBuilder(
             $firstRptConfig, 
-            $this->get('service_container'), $this->get('lexik_form_filter.query_builder_updater'), $this->get('request'), $this->get('form.factory'));
+            $this->get('service_container'), 
+            $this->get('lexik_form_filter.query_builder_updater'), 
+            $this->get('request'), $this->get('form.factory'));
 
         //if no filter no report
         if ($this->getRequest()->get('first_report_filter')) {
             //build your report
             $rptBuilder->build();
 
-            //the export manager help you to generate quickly your report and filter, it will give you directly html or excel
+            //the export manager help you to generate quickly your report and filter, it will give you directly 
+            //html or excel
             $exportManager = $this->get('report.template.generator.manager');
 
             //for example excel, only the report
