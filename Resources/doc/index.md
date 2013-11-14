@@ -40,6 +40,7 @@ Here a simple example of report creation
 
 The structure of our example :
 
+```
 -- src/
 ---- Project/
 ------ ReportBundle/
@@ -53,6 +54,7 @@ The structure of our example :
 ---------- views
 ------------ Report
 -------------- FirstReport.html.twig
+```
 
 First file will be a filterType from [LexikFormBundle](https://github.com/lexik/LexikFormFilterBundle/blob/v1.1.1/Resources/doc/index.md), the installation of this bundle is done automatically by Composer via RhinoReportBundle dependencies.
 This bundle give the possibility to create quickly a form + criteria option like "Contains", "not contain" for character chain for example but as well the possibility to combine a queryBuilder with the form.
@@ -92,7 +94,7 @@ class FirstReportConfiguration extends AbstractType implements ReportFilterInter
 }
 ```
 
-Create your config file :
+Create your configuration file :
 ```php
 namespace Project\ReportBundle\Configuration;
 
