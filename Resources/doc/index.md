@@ -20,7 +20,7 @@ Then run a composer update:
 ```shell
 composer.phar update
 # OR
-composer.phar update earls/earls/rhino-report-bundle # to only update the bundle
+composer.phar update earls/rhino-report-bundle # to only update the bundle
 ```
 
 Register the bundle with your kernel:
