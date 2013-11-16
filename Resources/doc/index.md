@@ -1,7 +1,7 @@
 Installation
 ============
 
-Add the bunde to your composer.json file:
+Add the bunde to your `composer.json` file:
 ```javascript
 require: {
     // ...
@@ -16,14 +16,14 @@ require: {
 ]
 ```
 
-Then run a composer update:
+Then run a `composer update`:
 ```shell
 composer.phar update
 # OR
 composer.phar update earls/earls/rhino-report-bundle # to only update the bundle
 ```
 
-Register the bundle with your kernel:
+Register the bundle with your `kernel`:
 ```php
 // in AppKernel::registerBundles()
 $bundles = array(
@@ -36,7 +36,7 @@ $bundles = array(
 Usage
 =====
 
-Here a simple example of report creation
+Here a simple example of `report` creation
 
 The structure of our example :
 
@@ -56,10 +56,10 @@ The structure of our example :
 -------------- FirstReport.html.twig
 ```
 
-First file will be a filterType from [LexikFormBundle](https://github.com/lexik/LexikFormFilterBundle/blob/v1.1.1/Resources/doc/index.md), the installation of this bundle is done automatically by Composer via RhinoReportBundle dependencies.
-This bundle give the possibility to create quickly a form + criteria option like "Contains", "not contain" for character chain for example but as well the possibility to combine a queryBuilder with the form.
+First file will be a `filterType` from [LexikFormBundle](https://github.com/lexik/LexikFormFilterBundle/blob/v1.1.1/Resources/doc/index.md), the installation of this bundle is done automatically by `Composer` via `RhinoReportBundle` dependencies.
+This bundle give the possibility to create quickly a `form` + `criteria` option like "Contains", "not contain" for character chain for example but as well the possibility to combine a `queryBuilder` with the form.
 
-Create your filter :
+Create your `filter` :
 ```php
 namespace Project\ReportBundle\Filter;
 
@@ -94,7 +94,7 @@ class FirstReportConfiguration extends AbstractType implements ReportFilterInter
 }
 ```
 
-Create your configuration file :
+Create your `configuration file` :
 ```php
 namespace Project\ReportBundle\Configuration;
 
@@ -208,7 +208,7 @@ class FirstReportConfiguration extends ReportConfiguration
 }
 ```
 
-Create your controller :
+Create your `controller` :
 ```php
 namespace Project\ReportBundle\Controller;
 
@@ -272,7 +272,7 @@ class ReportController extends Controller
 }
 ```
 
-Last things, create your view :
+Last things, create your `view` :
 ```twig
 {% extends "::base.html.twig" %}
 
