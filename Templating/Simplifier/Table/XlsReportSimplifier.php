@@ -143,7 +143,7 @@ class XlsReportSimplifier
         if ($table->getDefinition()->getExportConfig('Excel')) {
             $print = $table->getDefinition()->getExportConfig('Excel')->getPrint();
             //print title start after print informations
-            if (isset($print) && !empty($print) && $print['print_titles']) {
+            if (isset($print) && !empty($print) && isset($print['print_titles'])) {
                 $baseShift = 2; //where header start
                 if (isset($shift)) {
                     $shift += $baseShift;
