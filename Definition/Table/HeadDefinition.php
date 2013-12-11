@@ -32,11 +32,11 @@ class HeadDefinition extends Definition
     {
         foreach ($columnNames as $id => $column) {
             if (is_array($column)) {
-                if(isset($column['attr'])){
-                    if(!is_array($column['attr'])){
+                if (isset($column['attr'])) {
+                    if (!is_array($column['attr'])) {
                         throw new Exception('Attr in headcolumn should be a array');
                     }
-                    if(isset($column['attr']['class']) && !is_array($column['attr']['class'])){
+                    if (isset($column['attr']['class']) && !is_array($column['attr']['class'])) {
                         $column['attr']['class'] = array($column['attr']['class']);
                     }
                 }

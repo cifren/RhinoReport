@@ -36,7 +36,7 @@ class HtmlReportSimplifier
         $data = array();
         foreach ($table->getHead()->getColumns() as $displayId => $column) {
             //convert array to string
-            if(isset($column['attr']['class'])){
+            if (isset($column['attr']['class'])) {
                 $column['attr']['class'] = implode(' ', $column['attr']['class']);
             }
             $data[$displayId] = array(
@@ -49,16 +49,16 @@ class HtmlReportSimplifier
         $attr['class'][] = 'group_head';
 
         //convert array to string
-        if(isset($attr['class'])){
+        if (isset($attr['class'])) {
             $attr['class'] = implode(' ', $attr['class']);
         }
 
         $htmlArray['attr'] = $table->getAttributes();
         //convert array to string
-        if(isset($htmlArray['attr']['class'])){
+        if (isset($htmlArray['attr']['class'])) {
             $htmlArray['attr']['class'] = implode(' ', $htmlArray['attr']['class']);
         }
-        
+
         $htmlArray['head'] = array(
             'attr' => $attr,
             'columns' => $data);
@@ -92,10 +92,9 @@ class HtmlReportSimplifier
                     }
 
                     //$attr['class'] = (isset($attr['class']) ? $attr['class'] . ' ' : '') . $class;
-                    if(isset($attr['class']))
-                    {
+                    if (isset($attr['class'])) {
                         $attr['class'] = array_merge($attr['class'], $class);
-                    }else{
+                    } else {
                         $attr['class'] = $class;
                     }
                     $attr['style'] = (!isset($attr['style'])) ? :$this->getAttrStyle($attr['style']);
@@ -134,15 +133,15 @@ class HtmlReportSimplifier
                 //add attribute rowspan for first row
                 if ($item->getRowspans()) {
                     $row = $htmlArray[$indexFirstRow];
-                    
+
                     //explode because class has been implode some step before
                     $row['attr']['class'] = explode(' ', $row['attr']['class']);
                     //rowspan-head appear only on rowspan
-                    $row['attr']['class'][] = 'rowspan-head'; 
+                    $row['attr']['class'][] = 'rowspan-head';
 
                     //convert array to string
                     $row['attr']['class'] = implode(' ', $row['attr']['class']);
-                    
+
                     //for all column add attribute rowspan
                     foreach ($row['columns'] as $displayId => $column) {
                         if (in_array($displayId, $item->getRowspans())) {
@@ -167,6 +166,7 @@ class HtmlReportSimplifier
                 $htmlArray[$displayId] = $this->getColumnHtmlArray($column);
             }
         }
+
         return $htmlArray;
     }
 

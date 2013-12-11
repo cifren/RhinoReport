@@ -39,9 +39,10 @@ class Row extends TableObject
 
     public function getColumn($displayId)
     {
-        if (!isset($this->columns[$displayId])){
+        if (!isset($this->columns[$displayId])) {
             return null;
         }
+
         return $this->columns[$displayId];
     }
 

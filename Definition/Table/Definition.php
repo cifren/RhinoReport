@@ -31,6 +31,7 @@ abstract class Definition
         if ($this->path) {
             return $this->path;
         }
+
         return $this->parent->getPath() . '\\' . $this->excludeSpecialCharacter($this->id);
     }
 

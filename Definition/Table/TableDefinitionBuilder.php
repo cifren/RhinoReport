@@ -129,7 +129,7 @@ class TableDefinitionBuilder
     /**
      * order data by columns
      *
-     * @param  array or string                                              $columns
+     * @param  array or string                                                  $columns
      * @return \Earls\RhinoReportBundle\Definition\Table\TableDefinitionBuilder
      * @throws \Exception
      */

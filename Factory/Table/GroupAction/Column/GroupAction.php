@@ -31,6 +31,7 @@ abstract class GroupAction implements GroupActionInterface
     {
         $this->options = $this->getOptions();
         $this->options = $arguments + $this->options;
+
         return $this;
     }
 

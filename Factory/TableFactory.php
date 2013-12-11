@@ -77,7 +77,7 @@ class TableFactory extends Factory
     {
         $table = new Table($tableDefinition->getId(), $tableDefinition, $data);
         $table->setAttributes($tableDefinition->getAttributes());
-        
+
         return $table;
     }
 
@@ -456,7 +456,6 @@ class TableFactory extends Factory
             $groupAction->setParameters($item, $this->item, $actionGroupDefinition['arg']);
             $item->setData($groupAction->setData());
         }
-
 
         //execute action
         if ($item->getDefinition()->hasActions()) {

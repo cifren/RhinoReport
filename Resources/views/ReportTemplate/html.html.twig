@@ -22,7 +22,7 @@
 <!-- FILTER -->
 {% if filterForm %}
     {% set filterForm = filterForm.createView()%}
-    {% form_theme filterForm ':Form:filterDisplay.html.twig' %}
+    {% form_theme filterForm ':Form:filterDisplay_sparkbox.html.twig' %}
     <div action="{{url}}" class="filterDisplay">
         <form method="GET">
             <fieldset class="filter_legend">

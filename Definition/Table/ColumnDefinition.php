@@ -126,6 +126,7 @@ class ColumnDefinition extends Definition
         if ($this->path) {
             return $this->path;
         }
+
         return $this->path = $this->parent->getPath() . '.' . $this->excludeSpecialCharacter($this->displayId);
     }
 

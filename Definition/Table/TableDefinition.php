@@ -81,6 +81,7 @@ class TableDefinition extends Definition implements ReportDefinitionInterface
         if ($this->path) {
             return $this->path;
         }
+
         return $this->path = '\\' . $this->excludeSpecialCharacter($this->id);
     }
 

@@ -45,7 +45,7 @@ class XlsExportConfigurator implements ExportConfigurator
 
     public function setAttr(array $attr)
     {
-        if( isset($attr['class']) && !is_array($attr['class']) ){
+        if ( isset($attr['class']) && !is_array($attr['class']) ) {
             throw new \Exception('Attribute `class´ for Excel Export `' . $this->getDefinition()->getPath() . '´ should be an array');
         }
         $this->attr = $attr;

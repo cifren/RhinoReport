@@ -11,7 +11,7 @@ use Earls\RhinoReportBundle\Templating\Excel\Style\Style;
  */
 class CssXmlStyleTranslator
 {
-    /* Example : 
+    /* Example :
      *      - 'border-top-style' value css
      *      - 'borderStyle' function executed
      *      - 'top' argument for the function

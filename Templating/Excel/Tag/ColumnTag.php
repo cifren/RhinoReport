@@ -4,7 +4,7 @@ namespace Earls\RhinoReportBundle\Templating\Excel\Tag;
 
 /**
  * Earls\RhinoReportBundle\Templating\Excel\Tag\ColumnTag
- * 
+ *
  * http://msdn.microsoft.com/en-us/library/aa140066.aspx#odc_xmlss_ss:column
  */
 class ColumnTag

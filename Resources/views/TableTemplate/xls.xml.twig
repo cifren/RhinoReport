@@ -45,15 +45,15 @@
                 <NamedRange ss:Name="Print_Titles" ss:RefersTo="=R{{table.printTitleRange.top}}:R{{table.printTitleRange.bottom}}"/>
             </Names>
         {% endif %}
-            
+
         <Table>
             {% if table.columnConfig|default(null) is not null %}
                 {% for column in table.columnConfig %}
-                    <ss:Column 
+                    <ss:Column
                         {% for key, option in column.getOptions() %}
                             {% if option is not null %}
                                 {{key}}="{{option}}"
-                            {% endif %} 
+                            {% endif %}
                         {% endfor %}
                     />
                 {% endfor %}
@@ -66,7 +66,7 @@
         </Table>
 
         <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
-            {{ block('WorksheetOptions') }}        
+            {{ block('WorksheetOptions') }}
         </WorksheetOptions>
         {{ block('PageBreaks') }}
     </Worksheet>

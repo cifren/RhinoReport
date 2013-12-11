@@ -11,7 +11,7 @@ class DataManipulator implements DataManipulatorInterface
      * Get an array of all data seperate by filter
      *
      * @param \Earls\RhinoReportBundle\Util\Table\DataObject $data
-     * @param string                                     $groupByIndex
+     * @param string                                         $groupByIndex
      *
      * @return \Earls\RhinoReportBundle\Util\Table\DataObject
      */
@@ -82,7 +82,7 @@ class DataManipulator implements DataManipulatorInterface
      * Select the data from the id, if id doesn't exist return $dataObj untouched
      *
      * @param \Earls\RhinoReportBundle\Util\Table\DataObject $dataObj
-     * @param type                                       $id
+     * @param type                                           $id
      *
      * @return DataObject
      */

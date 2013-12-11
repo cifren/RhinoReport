@@ -15,6 +15,7 @@ class HtmlTableTemplateGenerator extends HtmlTemplateGenerator
         //$nameFile not used for html
         $simplifier = new HtmlReportSimplifier($table);
         $simpleTable = $simplifier->getSimpleTable();
+
         return $this->renderView($this->template, array_merge(array('table' => $simpleTable, 'js' => true, 'css' => true), $arg));
     }
 

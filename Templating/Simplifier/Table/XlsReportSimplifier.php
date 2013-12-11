@@ -291,13 +291,13 @@ class XlsReportSimplifier
 
     /**
      * Create column xml
-     * 
+     *
      * Priority for attr for inheritance (parent to own)
      *      - Default-style (style of table)
      *      - Attr from general config
      *      - Attr from export config
-     * 
-     * @param \Earls\RhinoReportBundle\Model\Table\ReportObject\Column $column
+     *
+     * @param  \Earls\RhinoReportBundle\Model\Table\ReportObject\Column $column
      * @return string
      * @throws \Exception
      */
@@ -375,7 +375,7 @@ class XlsReportSimplifier
     private function xmlReplaceIllegalCharacter($data)
     {
         $data = preg_replace('/[^(\x20-\x7F)]*/','', $data);
-        
+
         return str_replace(array('<', '>', '&', "'", '"'), array(htmlspecialchars('<'), htmlspecialchars('>'), htmlspecialchars('&'), htmlspecialchars("'"), htmlspecialchars('"')), $data);
     }
 
@@ -384,9 +384,9 @@ class XlsReportSimplifier
         foreach ($xmlArray as $keyRow => $row) {
             foreach ($row['columns'] as $keyColumn => $column) {
                 $attr = $column['attr'];
-                /**  merge all classes into one class, name will be class1~class2, 
-                 *  inheritance => 
-                 *    default-style -> general classes -> parent classes -> export classes -> style  
+                /**  merge all classes into one class, name will be class1~class2,
+                 *  inheritance =>
+                 *    default-style -> general classes -> parent classes -> export classes -> style
                  */
                 if (isset($attr['class'])) {
                     //will keep only classes declared in excel export config style from body

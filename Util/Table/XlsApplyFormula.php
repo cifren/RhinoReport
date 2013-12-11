@@ -119,14 +119,11 @@ class XlsApplyFormula
 
                 //get column/columns
                 $aryColumn = $this->tableRetriever->getParentOrSubItemsFromGenericPath($columnFormulaPath, $fromItem);
-        
+
                 // Exception: assertion if $aryColumn is empty or doesn't have index 0
-                if(empty($aryColumn))
-                {
+                if (empty($aryColumn)) {
                     throw new \Exception('Array `$aryColumn´ shouldn\'t be null (in path:"'.$columnFormulaPath. '").');
-                }
-                elseif(empty($aryColumn[0]))
-                {
+                } elseif (empty($aryColumn[0])) {
                     throw new \Exception('Array `$aryColumn´ should have an element at index 0 (in path:"'.$columnFormulaPath. '").');
                 }
 

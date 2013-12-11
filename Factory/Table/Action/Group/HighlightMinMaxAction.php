@@ -33,7 +33,7 @@ class HighlightMinMaxAction extends Action
         }
         $aryValues = array();
         $columnsAry = array();
-        
+
         foreach ($subGroup as $group) {
             //for each column get all value
             foreach ($this->options['displayIds'] as $displayId) {
@@ -75,6 +75,7 @@ class HighlightMinMaxAction extends Action
     public function getOptions()
     {
         $defaultClass = 'hl-group-' . $this->minMaxValue;
+
         return array(
             'group' => null,
             'displayIds' => array(),

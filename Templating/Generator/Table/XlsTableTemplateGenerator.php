@@ -25,21 +25,21 @@ class XlsTableTemplateGenerator extends HtmlTemplateGenerator
         $simpleTable = $this->simplifier->setTable($table)->getSimpleTable();
 
         //$privateFilename = sprintf('%s/%s', sys_get_temp_dir(), uniqid('report_table_xls_export_', true));
-        
+
         //create a temporary file
 //        $this->file = fopen($privateFilename, 'w', false);
-        
+
         $content = $this->renderView($this->template, array('table' => $simpleTable));
-        
+
         //format your xml file, indentation etc...
         $dom = new \DOMDocument;
         $dom->preserveWhiteSpace = FALSE;
         $dom->loadXML($content);
         $dom->formatOutput = TRUE;
-        
+
         //define content
         $contentType = 'application/ms-excel';
-        
+
         //create response
         $response = new Response($dom->saveXML(), 200, array(
             'Content-Type' => $contentType,

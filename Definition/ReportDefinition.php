@@ -58,6 +58,7 @@ class ReportDefinition implements ReportDefinitionInterface
     public function removeItem($id)
     {
         unset($this->items[$id]);
+
         return $this;
     }
 

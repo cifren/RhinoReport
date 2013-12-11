@@ -35,6 +35,7 @@ class HrefAction extends Action
         $route = $this->router->generate($this->options['route'], $routeParameters, $this->options['absolute']);
 
         $ahref = '<a href="' . $route . '">' . $this->column->getData() . '</a>';
+
         return $ahref;
     }
 

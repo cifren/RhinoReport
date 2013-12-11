@@ -8,7 +8,7 @@ namespace Earls\RhinoReportBundle\Templating\Excel\Style;
 class StyleUtility
 {
 
-    static public function parseStyle($style)
+    public static function parseStyle($style)
     {
         foreach ($style as $keyClass => $rules) {
             $classes = explode(',', $keyClass);
@@ -20,6 +20,7 @@ class StyleUtility
                 $style[str_replace(' ', '', trim($class))] = $rules;
             }
         }
+
         return $style;
     }
 
