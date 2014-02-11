@@ -394,7 +394,7 @@ function rutime($ru, $rus, $index) {
 
     private function compileStyle(&$xmlArray)
     {
-        
+       
         $rowcount =0;
         $groupcount = 0;
         
@@ -426,8 +426,13 @@ function rutime($ru, $rus, $index) {
                         if (!isset($this->style[$nameClass])) {
                             $newClass = array();
                             
-                            foreach ($tmpClass as $name) {                               
-                                //PPTHREE-165 - removed iteration in favor of a simple merge
+                            foreach ($tmpClass as $name) {
+                                //PPTHREE-165 - commented out - may be ok to delete 
+                                // foreach ($this->style[$name] as $key => $rule) {
+                                    // $newClass[$key] = $rule;
+                                // } 
+                                
+                                //PPTHREE-165 - trying this in an attempt to speed things up
                                 $newClass = array_merge($newClass, $this->style[$name]);
                             }
                            
