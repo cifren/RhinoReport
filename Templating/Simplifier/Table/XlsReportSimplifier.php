@@ -34,10 +34,7 @@ class XlsReportSimplifier
         $this->factoryTable = $factoryTable;
         $this->defaultStyle = $defaultStyle;
     }
-function rutime($ru, $rus, $index) {
-    return ($ru["ru_$index.tv_sec"]*1000 + intval($ru["ru_$index.tv_usec"]/1000))
-     -  ($rus["ru_$index.tv_sec"]*1000 + intval($rus["ru_$index.tv_usec"]/1000));
-}
+
     public function setTable($table)
     {
         $this->table = $table;
@@ -74,23 +71,19 @@ function rutime($ru, $rus, $index) {
         }
         if ($table->getDefinition()->getExportConfig('Excel')) {
 
-        
             //create bloc for report information
             $rptInfo = $table->getDefinition()->getExportConfig('Excel')->getRptInfo();
-
             if (isset($rptInfo)) {
                 $tableObject = $this->factoryTable->setDefinition($rptInfo)->build()->getItem();
 
                 $simplifier = new XlsReportSimplifier($this->xlsApplyFormula, false);
                 $xmlArray['rpt_info']['body'] = $simplifier->setTable($tableObject)->getSimpleTable()['body'];
-               
                 //shift for formula / +1 because of space after report information
                 $shift = count($xmlArray['rpt_info']['body']);
             }
 
-
-            $style = $table->getDefinition()->getExportConfig('Excel')->getStyleTable();
-            $this->style = \Earls\RhinoReportBundle\Templating\Excel\Style\StyleUtility::parseStyle($style);
+            $this->style = $table->getDefinition()->getExportConfig('Excel')->getStyleTable();
+            $this->style = \Earls\RhinoReportBundle\Templating\Excel\Style\StyleUtility::parseStyle($this->style);
 
             //style by default for all columns
             if (!isset($this->style['default-active'])) {
@@ -106,7 +99,6 @@ function rutime($ru, $rus, $index) {
             //convert every column name by column index
             $columnConfigWithIndex = array();
             $columnConfig = $table->getDefinition()->getExportConfig('Excel')->getColumn();
-
             $i = 1;
             foreach (array_keys($table->getHead()->getColumns()) as $displayId) {
                 if (isset($columnConfig[$displayId])) {
@@ -114,7 +106,6 @@ function rutime($ru, $rus, $index) {
                 }
                 ++$i;
             }
-
 
             if (count($columnConfigWithIndex) != count($columnConfig)) {
                 $keyConfig = array_keys($columnConfig);
@@ -125,7 +116,6 @@ function rutime($ru, $rus, $index) {
                 }
                 throw new \Exception('Column(s) \'' . implode(', ', $keyConfig) . '\' from \'column\' in excel configuration don\'t exist, available choices are \'' . implode(', ', array_keys($table->getHead()->getColumns())) . '\'');
             }
-
             //valid and add column options
             $columnTransformer = new \Earls\RhinoReportBundle\Templating\Excel\Transformer\ColumnConfigTransformer($columnConfigWithIndex);
             $xmlArray['columnConfig'] = $columnTransformer->transform();
@@ -148,7 +138,6 @@ function rutime($ru, $rus, $index) {
                 'data' => strip_tags($column['label']),
             );
         }
-
         $printTitleRange = null;
         //if print config exist
         if ($table->getDefinition()->getExportConfig('Excel')) {
@@ -167,7 +156,7 @@ function rutime($ru, $rus, $index) {
 
         $attr = $table->getHead()->getAttributes();
         $attr['class'][] = 'group_head';
-  
+
         //convert array to string
         if (isset($attr['class'])) {
             $attr['class'] = implode(' ', $attr['class']);
@@ -179,9 +168,8 @@ function rutime($ru, $rus, $index) {
 
         //body
         $arrayBody = $this->getGroupXmlArray($table->getBody());
-   
         $this->compileStyle($arrayBody);
-  
+
         $xmlArray['body'] = $arrayBody;
 
         if ($this->style) {
@@ -191,7 +179,6 @@ function rutime($ru, $rus, $index) {
             $style = new Style();
         }
 
-    
         //add pagebreaks
         $xmlArray['pagebreaks'] = $this->pageBreaks;
 
@@ -394,12 +381,7 @@ function rutime($ru, $rus, $index) {
 
     private function compileStyle(&$xmlArray)
     {
-        
-        $rowcount =0;
-        $groupcount = 0;
-        
         foreach ($xmlArray as $keyRow => $row) {
-            $rowcount++;
             foreach ($row['columns'] as $keyColumn => $column) {
                 $attr = $column['attr'];
                 /**  merge all classes into one class, name will be class1~class2,
@@ -407,38 +389,25 @@ function rutime($ru, $rus, $index) {
                  *    default-style -> general classes -> parent classes -> export classes -> style
                  */
                 if (isset($attr['class'])) {
-                    //PPTHREE-165
-                    //first copy all the values to the keys since we aren't using any yet - part of a 2 step process so we can use array_intersect_key later
-                    $tmpClass = array_combine($attr['class'], $attr['class']);
-                    
-                    //PPTHREE-165 - commented out
                     //will keep only classes declared in excel export config style from body
-                   // $tmpClass = array_intersect($attr['class'], array_keys($this->style));
-                    
-                    //PPTHREE-165
-                    //changed to array_intersect_key which apparently is supposed to be faster than array_intersect according to documentation
-                    $tmpClass = array_intersect_key($tmpClass, ($this->style));
-                   
+                    $attr['class'] = array_intersect($attr['class'], array_keys($this->style));
                     //create a new class, merge between all classes
-                    if (!empty($tmpClass)) {
-                        $nameClass = implode('~', $tmpClass);
+                    if (!empty($attr['class'])) {
+                        $nameClass = implode('~', $attr['class']);
                         //create dynamically style from all classes
                         if (!isset($this->style[$nameClass])) {
                             $newClass = array();
-                            
-                            foreach ($tmpClass as $name) {                               
-                                //PPTHREE-165 - removed iteration in favor of a simple merge
-                                $newClass = array_merge($newClass, $this->style[$name]);
+                            foreach ($attr['class'] as $name) {
+                                foreach ($this->style[$name] as $key => $rule) {
+                                    $newClass[$key] = $rule;
+                                }
                             }
-                           
                             $this->style[$nameClass] = $newClass;
-                           
                         }
                         $attr['class'] = $nameClass;
                     } else {
                         $attr['class'] = null;
                     }
-                  
                 }
 
                 if (isset($attr['style'])) {
