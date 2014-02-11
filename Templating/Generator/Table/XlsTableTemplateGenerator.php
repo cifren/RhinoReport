@@ -36,43 +36,24 @@ function rutime($ru, $rus, $index) {
     {
         set_time_limit(600);
     // Script start
-// $rustart = getrusage();
-     
-  
-        // var_dump($table);
-        // exit;
-        //trasnform table object into array easy to read for xml renderView
+
+        //transform table object into array easy to read for xml renderView
         $simpleTable = $this->simplifier->setTable($table)->getSimpleTable();
-// $ru = getrusage();
-// echo "<br>simplifier->setTable used " . $this->rutime($ru, $rustart, "utime") .
-    // " ms for its computations<br>";
-// echo "It spent " . $this->rutime($ru, $rustart, "stime") .
-    // " ms in system calls<br>";
 
         //$privateFilename = sprintf('%s/%s', sys_get_temp_dir(), uniqid('report_table_xls_export_', true));
 
         //create a temporary file
 //        $this->file = fopen($privateFilename, 'w', false);
-// $rustart = getrusage();
-        $content = $this->renderView($this->template, array('table' => $simpleTable));
-// $ru = getrusage();
-// echo "renderView used " . $this->rutime($ru, $rustart, "utime") .
-    // " ms for its computations<br>";
-// echo "It spent " . $this->rutime($ru, $rustart, "stime") .
-    // " ms in system calls<br>";
 
-// $rustart = getrusage();
+        $content = $this->renderView($this->template, array('table' => $simpleTable));
+
+
         //format your xml file, indentation etc...
         $dom = new \DOMDocument;
         $dom->preserveWhiteSpace = FALSE;
         $dom->loadXML($content);
         $dom->formatOutput = TRUE;
-// $ru = getrusage();
-// echo "loadXML used " . $this->rutime($ru, $rustart, "utime") .
-    // " ms for its computations<br>";
-// echo "It spent " . $this->rutime($ru, $rustart, "stime") .
-    // " ms in system calls<br>";
-// exit;
+
         //define content
         $contentType = 'application/ms-excel';
 

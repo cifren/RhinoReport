@@ -34,10 +34,8 @@ class XlsReportSimplifier
         $this->factoryTable = $factoryTable;
         $this->defaultStyle = $defaultStyle;
     }
-function rutime($ru, $rus, $index) {
-    return ($ru["ru_$index.tv_sec"]*1000 + intval($ru["ru_$index.tv_usec"]/1000))
-     -  ($rus["ru_$index.tv_sec"]*1000 + intval($rus["ru_$index.tv_usec"]/1000));
-}
+
+
     public function setTable($table)
     {
         $this->table = $table;
@@ -410,10 +408,7 @@ function rutime($ru, $rus, $index) {
                     //PPTHREE-165
                     //first copy all the values to the keys since we aren't using any yet - part of a 2 step process so we can use array_intersect_key later
                     $tmpClass = array_combine($attr['class'], $attr['class']);
-                    
-                    //PPTHREE-165 - commented out
-                    //will keep only classes declared in excel export config style from body
-                   // $tmpClass = array_intersect($attr['class'], array_keys($this->style));
+                   
                     
                     //PPTHREE-165
                     //changed to array_intersect_key which apparently is supposed to be faster than array_intersect according to documentation
@@ -427,11 +422,7 @@ function rutime($ru, $rus, $index) {
                             $newClass = array();
                             
                             foreach ($tmpClass as $name) {
-                                //PPTHREE-165 - commented out - may be ok to delete 
-                                // foreach ($this->style[$name] as $key => $rule) {
-                                    // $newClass[$key] = $rule;
-                                // } 
-                                
+                              
                                 //PPTHREE-165 - trying this in an attempt to speed things up
                                 $newClass = array_merge($newClass, $this->style[$name]);
                             }
