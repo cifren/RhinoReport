@@ -195,7 +195,6 @@ Last things, create your `view` :
 {% block body %}
     <h1>Sales Report</h1>
     <br>
-    {{ htmlFilter|raw }}
 
     <div class="table-responsive">
         {{ htmlTable|raw }}
