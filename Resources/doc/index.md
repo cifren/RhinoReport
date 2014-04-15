@@ -36,18 +36,18 @@ $bundles = array(
 Usage Documentation
 ===================
 
-[First Report] (https://github.com/earls/RhinoReport/blob/master/Resources/doc/firstReport.md)
-[Advanced report] ()
-[Filter on your report] ()
-[Actions list] ()
-[Add more GroupActions] ()
+* [First Report] (https://github.com/earls/RhinoReport/blob/master/Resources/doc/firstReport.md)
+* [Advanced report]()
+* [Filter on your report]()
+* [Actions list]()
+* [Add more GroupActions]()
 
 
 Developer Documentation
 =======================
 
-[Design Concept]()
-[Add your own Actions] ()
+* [Design Concept]()
+* [Add your own Actions] ()
 
 Improvements
 ============

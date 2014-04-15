@@ -6,12 +6,14 @@ Here a simple example of `report` creation.
 In this Example, we will display the 5 last result of our company.
 
 You need a table structure :
--> yearResult table linked with entity
-    |idData|YearData|resultData|
-    |--|----|------|
-    |1 |2012|135599.59875|
-    |2 |2013|152569.32569|
-    |3 |2014|120000.32588|
+  
+  yearResult table linked with entity
+
+    idData|YearData|resultData  
+    ------|--------|------------
+    1     |2012    |135599.59875
+    2     |2013    |152569.32569
+    3     |2014    |120000.32588
 
 
 The folder structure of our example :
@@ -125,7 +127,7 @@ class FirstReportConfiguration extends ReportConfiguration
     }
 }
 
-```php
+```
 
 
 Create your `controller` :
@@ -203,11 +205,10 @@ Last things, create your `view` :
 
 The page will display a table like :
 
-|Year|Company Results|
-|2014|$120000.32|
-|2013|$152569.32|
-|2012|$135599.59|
-|Total|$408169.23|
-
-
+Year|Company Results
+----|---------------
+2014 |$ 120 000.32
+2013 |$ 152 569.32
+2012 |$ 135 599.59
+Total|$ 408 169.23
 
