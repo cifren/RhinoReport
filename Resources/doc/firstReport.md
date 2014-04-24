@@ -129,6 +129,19 @@ class FirstReportConfiguration extends ReportConfiguration
 
 ```
 
+There are two different type of id you can call in the configuration, `dataId` and `displayId`
+
+#### DataId
+Represent the data created by the getQueryBuilder, all column from this query will be linked with this id
+
+#### DisplayId
+Represent the column in your table, when you want to call a column inside an action
+```
+  ->headColumns(array('yearCol' => 'Year', 'resultCol' => 'Company Results'))
+-----
+  ->column('yearCol', 'yearData')
+```
+`yearCol` and `resultCol` are both DisplayId, in headColumns it is declared and in 'column' it is here to do the link between `yearCol` and the dataId 'yearData'
 
 Create your `controller` :
 ```php
@@ -147,7 +160,7 @@ class ReportController extends Controller
     {
         
         //prepare your entity manager
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         
         //Instantiate your config
         $firstRptConfig = new FirstReportConfiguration($cem, $calendarManager, $this->getRequest());
