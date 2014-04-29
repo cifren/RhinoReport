@@ -161,7 +161,7 @@ class ReportBuilder
 
         if ($this->request->get($this->filterType->getName())) {
             // bind values from the request
-            $this->filterForm->bindRequest($this->request);
+            $this->filterForm->bind($this->request);
         } elseif (!$this->rptConfig->getFilterModel()) {
             $this->filterForm->bind($this->filterType->getDefaultBind());
         }
