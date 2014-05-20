@@ -12,3 +12,10 @@ Documentation
 =============
 
 For installation and how to use the bundle refer to [Resources/doc/index.md](https://github.com/Earls/RhinoReport/blob/master/Resources/doc/index.md)
+
+
+TO DO:
+    - Create a show off plateform 
+    - finish doc
+    - add new report with google doc display via Google API
+    - add chart display (http://www.highcharts.com/demo/)

@@ -1,7 +1,6 @@
 {% if js is defined and js == true %}
     {% block javascripts %}
         {% javascripts
-            'js/filterDisplay.js'
         %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts  %}
@@ -11,8 +10,6 @@
 {% if css is defined and css == true %}
     {% block stylesheets %}
         {% stylesheets
-            'css/form/filterDisplay.css'
-            'css/form/collectionFormDisplay.css'
         %}
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
@@ -22,40 +19,37 @@
 <!-- FILTER -->
 {% if filterForm %}
     {% set filterForm = filterForm.createView()%}
-    {% form_theme filterForm ':Form:filterDisplay_sparkbox.html.twig' %}
-    <div action="{{url}}" class="filterDisplay">
+    {% form_theme filterForm 'EarlsRhinoReportBundle:Form:filter_display.html.twig' %}
+    <div action="{{url}}"  class="reportFilter">
         <form method="GET">
             <fieldset class="filter_legend">
                 <legend class="filter_legend">Filters</legend>
-                    {% set exportName = 'export_report_format' %}
-                    {% if availableExport|length == 1 %}
-                        <input type="hidden" name="{{ exportName }}" value="{{ availableExport[0] }}">
-                    {% else %}
-
-                        <div class="filter_container">
-                            <div>
-                                <div class="row clearfix">
-                                    <div class="labelField"><label>Report output</label></div>
-                                    <div class="input">
-                                        <div class="expanded">
-                                            {% for key, export in availableExport %}
-                                                <input type="radio" id="{{ exportName }}_{{ loop.index -1 }}" name="{{ exportName }}" value="{{ key }}" {% if loop.index == 1 %}checked="checked"{% endif %}>
-                                                <div class="labelField">
-                                                    <label for="{{ exportName }}_{{ loop.index-1 }}">{{ export }}</label>
-                                                </div>
-                                            {% endfor %}
-                                        </div>
+                {% set exportName = 'export_report_format' %}
+                {% if availableExport|length == 1 %}
+                    <input type="hidden" name="{{ exportName }}" value="{{ availableExport[0] }}">
+                {% else %}
+                    <div class="panel panel-default">
+                        <table class="table table-bordered table-condensed">
+                            <tr>
+                                <td><label>Report output</label></td>
+                                <td class="input">
+                                    <div class="horizontal">
+                                        {% for key, export in availableExport %}
+                                            <input type="radio" id="{{ exportName }}_{{ loop.index -1 }}" name="{{ exportName }}" value="{{ key }}" {% if loop.index == 1 %}checked="checked"{% endif %}>
+                                            <label for="{{ exportName }}_{{ loop.index-1 }}">{{ export }}</label>
+                                        {% endfor %}
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
-                <div class="filter_container">
-                    {{ form_widget(filterForm) }}
-                    <div class="actions">
-                        <input class="btn primary" type="submit" name="submit-filter" value="Filter" />
-                        <a class="btn" href="{{ app.request.server.get('SCRIPT_URI') }}">Reset</a>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
+                {% endif %}
+                <div class="panel panel-default">
+                    {{ form_widget(filterForm, {attr: {class: 'table table-bordered table-condensed'}}) }}
+                </div>
+                <div class="well well-sm">
+                    <input class="btn btn-primary" type="submit" name="submit-filter" value="Filter" />
+                    <a class="btn btn-default" href="{{ app.request.server.get('SCRIPT_URI') }}">Reset</a>
                 </div>
             </fieldset>
         </form>
