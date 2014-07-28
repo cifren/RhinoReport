@@ -160,7 +160,7 @@ class ReportController extends Controller
     {
         
         //prepare your entity manager
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         
         //Instantiate your config
         $firstRptConfig = new FirstReportConfiguration($cem, $calendarManager, $this->getRequest());
@@ -203,7 +203,7 @@ class ReportController extends Controller
 
 Last things, create your `view` :
 ```twig
-{% extends "::base.html.twig" %}
+{% extends "::base_sparkbox.html.twig" %}
 
 {% block body %}
     <h1>Sales Report</h1>

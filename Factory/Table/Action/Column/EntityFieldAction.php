@@ -21,7 +21,7 @@ class EntityFieldAction extends Action
 
     public function setData()
     {
-        $em = $this->doctrine->getEntityManager($this->options['em']);
+        $em = $this->doctrine->getManager($this->options['em']);
         $value = (int) $this->rowData[$this->options['dataId']];
 
         //check for an ID
