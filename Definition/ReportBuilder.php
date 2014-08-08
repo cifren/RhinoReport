@@ -61,6 +61,7 @@ class ReportBuilder
             $data = $queryBuilder->getQuery()->getScalarResult();
             $data = $this->rptConfig->getArrayData($data, $dataFilter);
         }
+        $this->runDebugData($data, $dataFilter);
 
         $dataObject = new DataObject($data);
 
@@ -107,9 +108,31 @@ class ReportBuilder
         $this->report->setAvailableExport($this->rptConfig->getAvailableExport());
     }
 
+    protected function runDebugData($data, $dataFilter)
+    {
+        $flag = 'rhino-data-debug';
+        $flagValue = isset($_GET[$flag]) ? $_GET[$flag] : null;
+        if ($flagValue) {
+            $arrayhelper = new \Earls\RhinoReportBundle\Model\Helper\ArrayHelper();
+
+            echo "<h1>Rhino data debug</h1>";
+            if (isset($data[$flagValue])) {
+                echo $arrayhelper->displayArrayDebug($data[$flagValue]);
+            } else {
+                try {
+                    echo $arrayhelper->displayArrayDebug($data);
+                } catch (\Exception $e) {
+                    throw new \Exception('Did you select give me what I want ? In url "?rhino-data-debug=true" or "?rhino-data-debug=tableName"');
+                }
+            }
+
+            die();
+        }
+    }
+
     protected function getFactory()
     {
-
+        
     }
 
     public function getFilterQuery($queryBuilder)
