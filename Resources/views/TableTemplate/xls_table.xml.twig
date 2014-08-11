@@ -1,8 +1,11 @@
 {% if table.head|default(null) is not null %}
     <Row>
         {% for column in table.head.columns %}
-            <Cell ss:StyleID="header">
-                <Data ss:Type="String">{{ column.data }}</Data>
+            <Cell ss:StyleID="header" 
+                {% if column.attr.colspan|default(null) is not null %}ss:MergeAcross="{{ column.attr.colspan-1 }}"{% endif %}
+                {% if column.attr.rowspan|default(null) is not null %}ss:MergeDown="{{ column.attr.rowspan-1 }}"{% endif %}
+                {% if column.columnPosition|default(null) is not null %}ss:Index="{{ column.columnPosition }}"{% endif %} >
+                <Data ss:Type="String">{{ column.attr.colspan|default(null) }}{{ column.data }}</Data>
             </Cell>
         {% endfor %}
     </Row>
