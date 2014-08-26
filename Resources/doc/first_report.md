@@ -187,13 +187,12 @@ class ReportController extends Controller
 {
    
     public function FirstReportAction()
-    {
-        
+    {   
         //prepare your entity manager
         $em = $this->getDoctrine()->getManager();
         
         //Instantiate your config
-        $firstRptConfig = new FirstReportConfiguration($cem, $calendarManager, $this->getRequest());
+        $firstRptConfig = new FirstReportConfiguration($em);
         
         //Create your report builder, should be a service...
         $rptBuilder = new ReportBuilder(
