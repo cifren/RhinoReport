@@ -10,20 +10,20 @@ Contents
 [body()](#body)
 [group()](#group)
 [row()](#row)
-[rowUnique()](#rowUnique)
+[rowUnique()](#rowunique)
 [column()](#column)
-[columnData()](#columnData)
+[columnData()](#columndata)
 [action()](#action)
 [attr()](#attr)
-[extendingGroupAction()](#extendingGroupAction)
-[formulaExcel()](#formulaExcel)
-[configExport()](#configExport)
-[baseData()](#baseData)
-[groupBy()](#groupBy)
-[rowSpan()](#rowSpan)
-[columnSpan()](#columnSpan)
+[extendingGroupAction()](#extendinggroupaction)
+[formulaExcel()](#formulaexcel)
+[configExport()](#configexport)
+[baseData()](#basedata)
+[groupBy()](#groupby)
+[rowSpan()](#rowspan)
+[columnSpan()](#columnspan)
 [end()](#end)
-[headColumns()](#headColumns)
+[headColumns()](#headcolumns)
 
 
 Tree Hierarchy
@@ -91,7 +91,7 @@ Head()
   </tr>
   <tr>
     <td><b>Required elements:</b></td>
-    <td><a href="#headColumns">headColumns()</a></td>
+    <td><a href="#headcolumns">headColumns()</a></td>
   </tr>
   <tr>
     <td><b>Optional elements:</b></td>
@@ -137,10 +137,10 @@ body()
     <td><b>Optional elements:</b></td>
     <td>
       <a href="report_definition.md#table">row()</a>
-      <br><a href="#rowUnique">rowUnique()</a>
+      <br><a href="#rowunique">rowUnique()</a>
       <br><a href="#group">group()</a>
-      <br><a href="#rowSpan">rowSpan()</a>
-      <br><a href="#groupBy">groupBy()</a>
+      <br><a href="#rowspan">rowSpan()</a>
+      <br><a href="#groupby">groupBy()</a>
     </td>
   </tr>
   <tr>
@@ -185,10 +185,10 @@ group()
     <td><b>Optional elements:</b></td>
     <td>
       <a href="report_definition.md#table">row()</a>
-      <br><a href="#rowUnique">rowUnique()</a>
+      <br><a href="#rowunique">rowUnique()</a>
       <br><a href="#group">group()</a>
-      <br><a href="#rowSpan">rowSpan()</a>
-      <br><a href="#groupBy">groupBy()</a>
+      <br><a href="#rowspan">rowSpan()</a>
+      <br><a href="#groupby">groupBy()</a>
     </td>
   </tr>
   <tr>
@@ -235,8 +235,8 @@ row()
     <td><b>Optional elements:</b></td>
     <td>
       <a href="#column">column()</a></td>
-      <br><a href="#columnData">columnData()</a>
-      <br><a href="#columnSpan">columnSpan()</a>
+      <br><a href="#columndata">columnData()</a>
+      <br><a href="#columnspan">columnSpan()</a>
     </td>
   </tr>
   <tr>
@@ -253,7 +253,7 @@ row()
 
 This tag is the description of your row and column contained in it. This definition will 
 be displayed on the screen has many times your set of data from its group contains rows. This tag is 
-the same as [RowUnique](#rowUnique), the difference is RowUnique will be displayed one time, no matter how 
+the same as [RowUnique](#rowunique), the difference is RowUnique will be displayed one time, no matter how 
 many rows is contained by the set of data.
 
 ###Example
@@ -284,8 +284,8 @@ rowUnique()
     <td><b>Optional elements:</b></td>
     <td>
       <a href="#column">column()</a></td>
-      <br><a href="#columnData">columnData()</a>
-      <br><a href="#columnSpan">columnSpan()</a>
+      <br><a href="#columndata">columnData()</a>
+      <br><a href="#columnspan">columnSpan()</a>
     </td>
   </tr>
   <tr>
@@ -321,7 +321,7 @@ column()
     <td><b>Parent element:</b></td>
     <td>
       <a href="#row">row()</a></td>
-      <br><a href="#rowUnique">rowUnique()</a>
+      <br><a href="#rowunique">rowUnique()</a>
     </td>
   </tr>
   <tr>
@@ -332,11 +332,11 @@ column()
     <td><b>Optional elements:</b></td>
     <td>
       <a href="#attr">attr()</a>
-      <br><a href="#baseData">baseData()</a>
-      <br><a href="#extendingGroupAction">extendingGroupAction()</a>
+      <br><a href="#basedata">baseData()</a>
+      <br><a href="#extendinggroupaction">extendingGroupAction()</a>
       <br><a href="#action">action()</a>
-      <br><a href="#groupAction">groupAction()</a>
-      <br><a href="#formulaExcel">formulaExcel()</a>
+      <br><a href="#groupaction">groupAction()</a>
+      <br><a href="#formulaexcel">formulaExcel()</a>
     </td>
   </tr>
   <tr>
@@ -381,7 +381,7 @@ columnData()
     <td><b>Parent element:</b></td>
     <td>
       <a href="#row">row()</a></td>
-      <br><a href="#rowUnique">rowUnique()</a>
+      <br><a href="#rowunique">rowUnique()</a>
     </td>
   </tr>
   <tr>
@@ -392,11 +392,11 @@ columnData()
     <td><b>Optional elements:</b></td>
     <td>
       <a href="#attr">attr()</a>
-      <br><a href="#baseData">baseData()</a>
-      <br><a href="#extendingGroupAction">extendingGroupAction()</a>
+      <br><a href="#basedata">baseData()</a>
+      <br><a href="#extendinggroupaction">extendingGroupAction()</a>
       <br><a href="#action">action()</a>
-      <br><a href="#groupAction">groupAction()</a>
-      <br><a href="#formulaExcel">formulaExcel()</a>
+      <br><a href="#groupaction">groupAction()</a>
+      <br><a href="#formulaexcel">formulaExcel()</a>
     </td>
   </tr>
   <tr>
@@ -445,7 +445,7 @@ attr()
       <br><a href="#body">body()</a>
       <br><a href="#group">group()</a>
       <br><a href="#row">row()</a>
-      <br><a href="#rowUnique">rowUnique()</a>
+      <br><a href="#rowunique">rowUnique()</a>
       <br><a href="#column">column()</a>
     </td>
   </tr>
@@ -502,9 +502,9 @@ action()
       <a href="#body">body()</a>
       <br><a href="#group">group()</a>
       <br><a href="#row">row()</a>
-      <br><a href="#rowUnique">rowUnique()</a>
+      <br><a href="#rowunique">rowUnique()</a>
       <br><a href="#column">column()</a>
-      <br><a href="#columnData">columnData()</a>
+      <br><a href="#columndata">columnData()</a>
     </td>
   </tr>
   <tr>
@@ -555,9 +555,9 @@ groupAction()
       <a href="#body">body()</a>
       <br><a href="#group">group()</a>
       <br><a href="#row">row()</a>
-      <br><a href="#rowUnique">rowUnique()</a>
+      <br><a href="#rowunique">rowUnique()</a>
       <br><a href="#column">column()</a>
-      <br><a href="#columnData">columnData()</a>
+      <br><a href="#columndata">columnData()</a>
     </td>
   </tr>
   <tr>
@@ -609,9 +609,9 @@ extendingGroupAction()
       <a href="#body">body()</a>
       <br><a href="#group">group()</a>
       <br><a href="#row">row()</a>
-      <br><a href="#rowUnique">rowUnique()</a>
+      <br><a href="#rowunique">rowUnique()</a>
       <br><a href="#column">column()</a>
-      <br><a href="#columnData">columnData()</a>
+      <br><a href="#columndata">columnData()</a>
     </td>
   </tr>
   <tr>
@@ -817,7 +817,7 @@ baseData()
     <td><b>Parent element:</b></td>
     <td>
       <a href="#column">column()</a>
-      <br><a href="#columnData">columnData()</a>
+      <br><a href="#columndata">columnData()</a>
     </td>
   </tr>
   <tr>
@@ -994,9 +994,9 @@ end()
       <br><a href="#body">body()</a>
       <br><a href="#group">group()</a>
       <br><a href="#row">row()</a>
-      <br><a href="#rowUnique">rowUnique()</a>
+      <br><a href="#rowunique">rowUnique()</a>
       <br><a href="#column">column()</a>
-      <br><a href="#columnData">columnData()</a>
+      <br><a href="#columndata">columnData()</a>
     </td>
   </tr>
   <tr>
