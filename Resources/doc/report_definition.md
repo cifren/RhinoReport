@@ -44,7 +44,7 @@ Table()
   <tr>
     <td><b>Optional elements:</b></td>
     <td>
-      <a href="https://github.com/earls/RhinoReport/blob/master/Resources/doc/report_table_definition.md#attr">attr()</a>
+      <a href="report_table_definition.md#attr">attr()</a>
       <br><a href="https://github.com/earls/RhinoReport/blob/master/Resources/doc/report_table_definition.md#configExport">configExport()</a>
       <br><a href="https://github.com/earls/RhinoReport/blob/master/Resources/doc/report_table_definition.md#head">head()</a>
       <br><a href="https://github.com/earls/RhinoReport/blob/master/Resources/doc/report_table_definition.md#end">end()</a>
