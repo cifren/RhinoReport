@@ -10,10 +10,25 @@ Contents
 [table()](#table)
 
 
-##Tree Hierarchy
+Tree Hierarchy
+==============
+
+```php
+public function getConfigReportDefinition(Request $request, $dataFilter)
+{
+  $reportDefinitionBuilder = new ReportDefinitionBuilder();
+  $reportDefinitionBuilder
+    ->table() //here start a new builder, table definition builder
+    ->end();
+    
+  //build report definition
+  return $reportDefinitionBuilder->build();
+}
+  
+```
 
 Table()
-=====
+======
 
 <table>
   <tr>
@@ -41,13 +56,17 @@ Table()
   </tr>
   <tr>
     <td><b>Optional attributes:</b></td>
-    <td>string $id</td>
+    <td>
+      string $id    this id is used when you will need to retrieve the object during rendering, by default it will be 'table'
+    </td>
   </tr>
 </table>
 
 ###Description
 
-description here
+This tag will create a new definition builder giving you more tags, the doc for [TableDefinitionBuilder](https://github.com/earls/RhinoReport/blob/master/Resources/doc/report_table_definition.md), 
+this has been like this in order to give the possibility to create new definition builder 
+autonomous, for example charts.
 
 ###Example
 ```php

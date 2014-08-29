@@ -13,7 +13,7 @@ Theory
 
 The report is built in 3 steps:
 
-- Define your data, means simple or very complicated (advise a treatment of the data with [Flamingo](https://github.com/Earls/FlamingoCommandQueue/blob/master/README.md) in order to simplify Data, faster render) SQL statement, can use doctrine too
+- Define your data, means simple or very complicated (advise a treatment of the data with [OxPeckerData](https://github.com/Earls/OxPeckerDataBundle/blob/master/README.md) in order to simplify Data, faster render) SQL statement, can use doctrine too
 
 - Build your display and calculation on top of it, define your excel options and HTML options
 

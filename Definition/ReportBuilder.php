@@ -77,8 +77,9 @@ class ReportBuilder
         $this->buildExport();
 
         //set filter
-        if ($this->rptConfig->getFilter())
+        if ($this->rptConfig->getFilter()){
             $this->report->setFilter($this->getFilterForm());
+        }
     }
 
     /**
