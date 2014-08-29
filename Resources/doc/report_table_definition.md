@@ -87,7 +87,7 @@ Head()
 <table>
   <tr>
     <td><b>Parent element:</b></td>
-    <td><a href="https://github.com/earls/RhinoReport/blob/master/Resources/doc/report_table_definition.md#table">table()</a></td>
+    <td><a href="report_definition.md#table">table()</a></td>
   </tr>
   <tr>
     <td><b>Required elements:</b></td>
@@ -127,7 +127,7 @@ body()
 <table>
   <tr>
     <td><b>Parent element:</b></td>
-    <td><a href="https://github.com/earls/RhinoReport/blob/master/Resources/doc/report_table_definition.md#table">table()</a></td>
+    <td><a href="report_definition.md#table">table()</a></td>
   </tr>
   <tr>
     <td><b>Required elements:</b></td>
@@ -136,7 +136,7 @@ body()
   <tr>
     <td><b>Optional elements:</b></td>
     <td>
-      <a href="https://github.com/earls/RhinoReport/blob/master/Resources/doc/report_table_definition.md#table">row()</a>
+      <a href="report_definition.md#table">row()</a>
       <br><a href="#rowUnique">rowUnique()</a>
       <br><a href="#group">group()</a>
       <br><a href="#rowSpan">rowSpan()</a>
@@ -184,7 +184,7 @@ group()
   <tr>
     <td><b>Optional elements:</b></td>
     <td>
-      <a href="https://github.com/earls/RhinoReport/blob/master/Resources/doc/report_table_definition.md#table">row()</a>
+      <a href="report_definition.md#table">row()</a>
       <br><a href="#rowUnique">rowUnique()</a>
       <br><a href="#group">group()</a>
       <br><a href="#rowSpan">rowSpan()</a>
@@ -441,7 +441,7 @@ attr()
   <tr>
     <td><b>Parent element:</b></td>
     <td>
-      <a href="https://github.com/earls/RhinoReport/blob/master/Resources/doc/report_table_definition.md#table">table()</a>
+      <a href="report_definition.md#table">table()</a>
       <br><a href="#body">body()</a>
       <br><a href="#group">group()</a>
       <br><a href="#row">row()</a>
@@ -531,7 +531,7 @@ action()
 ###Description
 
 This tag will give you possibility to change the content of the column parent. For Example 
-apply on the data a format, add a label etc... You can add your own [action](https://github.com/earls/RhinoReport/blob/master/Resources/doc/dev_addactions.md)
+apply on the data a format, add a label etc... You can add your own [action](dev_addactions.md)
 
 The scope of the action, which means where the action can get data, is only on columns of the same group, 
 except this the action wont be able to get data from a group, you will have to use a groupAction 
@@ -989,7 +989,7 @@ end()
   <tr>
     <td><b>Parent element:</b></td>
     <td>
-      <a href="https://github.com/earls/RhinoReport/blob/master/Resources/doc/report_table_definition.md#table">table()</a>
+      <a href="report_definition.md#table">table()</a>
       <br><a href="#head">head()</a>
       <br><a href="#body">body()</a>
       <br><a href="#group">group()</a>

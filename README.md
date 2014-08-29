@@ -23,5 +23,5 @@ The report is built in 3 steps:
 Documentation
 =============
 
-For installation and how to use the bundle refer to [Resources/doc/index.md](https://github.com/Earls/RhinoReport/blob/master/Resources/doc/index.md)
+For installation and how to use the bundle refer to [Resources/doc/index.md](Resources/doc/index.md)
 

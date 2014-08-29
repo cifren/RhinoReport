@@ -38,16 +38,16 @@ Table()
   <tr>
     <td><b>Required elements:</b></td>
     <td>
-      <a href="https://github.com/earls/RhinoReport/blob/master/Resources/doc/report_table_definition.md#body">body()</a>
+      <a href="report_table_definition.md#body">body()</a>
     </td>
   </tr>
   <tr>
     <td><b>Optional elements:</b></td>
     <td>
       <a href="report_table_definition.md#attr">attr()</a>
-      <br><a href="https://github.com/earls/RhinoReport/blob/master/Resources/doc/report_table_definition.md#configExport">configExport()</a>
-      <br><a href="https://github.com/earls/RhinoReport/blob/master/Resources/doc/report_table_definition.md#head">head()</a>
-      <br><a href="https://github.com/earls/RhinoReport/blob/master/Resources/doc/report_table_definition.md#end">end()</a>
+      <br><a href="report_table_definition.md#configExport">configExport()</a>
+      <br><a href="report_table_definition.md#head">head()</a>
+      <br><a href="report_table_definition.md#end">end()</a>
     </td>
   </tr>
   <tr>
@@ -64,7 +64,7 @@ Table()
 
 ###Description
 
-This tag will create a new definition builder giving you more tags, the doc for [TableDefinitionBuilder](https://github.com/earls/RhinoReport/blob/master/Resources/doc/report_table_definition.md), 
+This tag will create a new definition builder giving you more tags, the doc for [TableDefinitionBuilder](report_table_definition.md), 
 this has been like this in order to give the possibility to create new definition builder 
 autonomous, for example charts.
 
