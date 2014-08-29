@@ -13,6 +13,7 @@ Developer Documentation
 
 * [Add your own Actions] (https://github.com/earls/RhinoReport/blob/master/Resources/doc/dev_addactions.md)
 * [Debug Options](https://github.com/earls/RhinoReport/blob/master/Resources/doc/dev_debug.md)
+* [Templating](https://github.com/earls/RhinoReport/blob/master/Resources/doc/templating.md)
 
 Improvements
 ============
