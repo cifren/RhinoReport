@@ -36,6 +36,7 @@ class CssXmlStyleTranslator
         'border-left-width' => array('borderWidth', array('left')),
         'border-right-width' => array('borderWidth', array('right')),
         'wrap-text' => array('wrapText'),
+        'font-color' => array('fontColor'),
     );
     protected $styleArray = array();
 
@@ -103,6 +104,15 @@ class CssXmlStyleTranslator
         }
 
         return $style->addNewRule('font', 'ss:Size', $xmlValue);
+    }
+
+    protected function fontColor($style, $value = NULL)
+    {
+        if($value == NULL){
+            throw new \Exception('Value css can\'t be translated in `font-color´');            
+        }
+
+        return $style->addNewRule('font', 'ss:Color', $value);
     }
 
     protected function backgroundColor($style, $value)
