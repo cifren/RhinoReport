@@ -122,7 +122,7 @@ class ReportBuilder
                 try {
                     echo $arrayhelper->displayArrayDebug($data);
                 } catch (\Exception $e) {
-                    throw new \Exception('Did you select give me what I want ? In url "?rhino-data-debug=true" or "?rhino-data-debug=tableName"');
+                    throw new \Exception("Did you select give me what I want ? In url '?rhino-data-debug=true' or '?rhino-data-debug=tableName', issue was '{$e->getMessage()}'");
                 }
             }
 
