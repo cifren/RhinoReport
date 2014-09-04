@@ -343,7 +343,12 @@ class XlsReportSimplifier
             }
         }
         if (isset($attr['type']) && $attr['type'] == 'Number') {
-            $column->setData((float) (preg_replace("/[^-0-9\.]/", "", $column->getData())));
+            $data = $column->getData();
+            if(preg_match("/^\(.*\)$/", $data)){
+                $data = preg_replace("/^\(|\)$/", "", $data);
+                $data = (preg_match("/^-/", $data) ? "" : "-") . $data;
+            }
+            $column->setData((float) (preg_replace("/[^-0-9\.]/", "", $data)));
             //make sure first letter is uppercase for excel
             $attr['type'] = ucfirst($attr['type']);
         }
