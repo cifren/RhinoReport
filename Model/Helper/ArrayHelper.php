@@ -13,7 +13,11 @@ class ArrayHelper
      */
     public function displayArrayDebug(array $array)
     {
-        $display = "<div>Count items : ". count($array);
+        if (empty($array)) {
+            return "no data";
+        }
+
+        $display = "<div>Count items : " . count($array);
         $display .= "<table border='1' style='border-collapse:collapse;border-color: silver;'>";
         $display.="<thead><tr>";
         reset($array);
@@ -29,7 +33,7 @@ class ArrayHelper
             $display.="<tr>";
             foreach ($values as $value) {
                 $display .= "<td>";
-                $display .= $value;
+                $display .= $this->getValueToString($value);
                 $display .= "</td>";
             }
             $display.="</tr>";
@@ -37,6 +41,27 @@ class ArrayHelper
         $display.="</tbody>";
 
         return $display;
+    }
+
+    protected function getValueToString($value)
+    {
+        if ($value instanceof \DateTime) {
+            $valueString = $value->format('Y-m-d h-i-s');
+        } elseif (is_object($value)) {
+            if (method_exists($value, '__toString')) {
+                $valueString = $value->__toString();
+            } elseif (method_exists($value, 'getId')) {
+                $valueString = $value->getId();
+            } else {
+                $valueString = "object";
+            }
+        } elseif (is_array($value)) {
+            $valueString = "array";
+        } else {
+            $valueString = $value;
+        }
+
+        return $valueString;
     }
 
 }
