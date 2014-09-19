@@ -12,9 +12,28 @@ use Earls\RhinoReportBundle\Model\Table\ReportObject\Column;
 abstract class Action implements ActionInterface
 {
 
+    /**
+     *
+     * @var Column 
+     */
     protected $column;
+
+    /**
+     *
+     * @var array 
+     */
     protected $rowData;
+
+    /**
+     *
+     * @var Row 
+     */
     protected $rowObject;
+
+    /**
+     *
+     * @var array 
+     */
     protected $options;
 
     public function setParameters(Column $column, array $rowData, Row $rowObject, array $arguments)

@@ -40,7 +40,7 @@ class Row extends TableObject
     public function getColumn($displayId)
     {
         if (!isset($this->columns[$displayId])) {
-            return null;
+            throw new \Exception(sprintf('The column with displayId \'%1$s\' doesn\'t exist', $displayId));
         }
 
         return $this->columns[$displayId];
