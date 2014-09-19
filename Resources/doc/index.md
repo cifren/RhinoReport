@@ -1,55 +1,27 @@
-Installation
-============
-
-Add the bunde to your `composer.json` file:
-```javascript
-require: {
-    // ...
-    "earls/rhino-report-bundle": "dev-master@dev"
-    // ...
-},
-"repositories": [
-    {
-        "type": "vcs",
-        "url": "https://github.com/Earls/RhinoReport.git"
-    }
-]
-```
-
-Then run a `composer update`:
-```shell
-composer.phar update
-# OR
-composer.phar update earls/rhino-report-bundle # to only update the bundle
-```
-
-Register the bundle with your `kernel`:
-```php
-// in AppKernel::registerBundles()
-$bundles = array(
-    // ...
-    new Earls\RhinoReportBundle\EarlsRhinoReportBundle(),
-    // ...
-);
-```
-
 Usage Documentation
 ===================
 
-* [First Report] (https://github.com/earls/RhinoReport/blob/master/Resources/doc/firstReport.md)
-* [Advanced report]()
-* [Filter on your report]()
-* [Actions list]()
-* [Add more GroupActions]()
-
+* [First Report] (first_report.md)
+* [Advanced report](advanced_report.md)
+* [Report definitions](report_definition.md)
+* [Excel export](excel.md)
+* [Filter on your report](filter.md)
+* [Actions list](actions.md)
 
 Developer Documentation
 =======================
 
-* [Design Concept]()
-* [Add your own Actions] ()
+* [Add your own Actions] (dev_addactions.md)
+* [Debug Options](dev_debug.md)
+* [Templating](templating.md)
 
 Improvements
 ============
 
-- Fix bug on group when no groupBy
+TO DO:
+    - Create a show off plateform 
+    - finish doc
+    - add new report with google doc display via Google API
+    - add chart display (http://www.highcharts.com/demo/)
+    - Fix bug on group when no GroupBy
+    - manage several table on html and on excel with option per tab or per page

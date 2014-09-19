@@ -234,12 +234,12 @@ class TableDefinitionBuilder
         return $this;
     }
 
-    public function extendingGroupAction($dependences = array())
+    public function extendingGroupAction($dependencies = array())
     {
         if (!$this->currentDefinition instanceof ColumnDefinition && !$this->currentDefinition instanceof RowDefinition && !$this->currentDefinition instanceof GroupDefinition)
             throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Definition\Table\ColumnDefinition" or "Earls\RhinoReportBundle\Definition\Table\RowDefinition" or "Earls\RhinoReportBundle\Definition\Table\GroupDefinition", "' . get_class($this->currentDefinition) . '" given in function extendingGroupAction()');
 
-        $this->currentDefinition->setExtendingGroupAction($dependences);
+        $this->currentDefinition->setExtendingGroupAction($dependencies);
 
         return $this;
     }
