@@ -65,4 +65,15 @@ abstract class Action implements ActionInterface
         throw new \Exception('did you forget to declare `setData()` in your Action Class `' . get_class($this) . '` ?');
     }
 
+    protected function throwIssue($message)
+    {
+        $groupName = $this->column->getParent()->getParent()->getDefinition()->getId();
+        throw new \Exception(sprintf('An error happened on "%s" Action, "%s" column and "%s" group, with message : %s', $this->getName(), $this->column->getId(), $groupName, $message));
+    }
+
+    protected function getName()
+    {
+        return 'unknown';
+    }
+
 }

@@ -20,12 +20,11 @@ class CalculationAction extends Action
         foreach ($this->options['arg_displayIds'] as $columnName) {
             $columnArg = $this->rowObject->getColumn($columnName);
             if ($columnArg == null || empty($columnArg)) {
-                 throw new \UnexpectedValueException('Error on column \''.$columnName.'\''.' in \''.$this->column->getDefinition()->getPath().'\'');
+                throw new \UnexpectedValueException('Error on column \'' . $columnName . '\'' . ' in \'' . $this->column->getDefinition()->getPath() . '\'');
             }
 
             if ($columnArg->getData() == null) {
                 $data[] = 0;
-
             } else {
                 $data[] = $columnArg->getData();
             }
@@ -35,7 +34,11 @@ class CalculationAction extends Action
 
         $total = null;
 
-        eval('$total = ' . $formula . ';');
+        try {
+            eval('$total = ' . $formula . ';');
+        } catch (\Exception $e) {
+            $this->throwIssue($e->getMessage());
+        }
 
         return $total;
     }
@@ -47,6 +50,11 @@ class CalculationAction extends Action
             'arg_displayIds' => array(),
             'operator' => null
         );
+    }
+
+    public function getName()
+    {
+        return 'calculation';
     }
 
 }
