@@ -173,6 +173,12 @@ services:
         arguments: ["@router"]
         tags:
             - { name: report.table.action.column, alias: href }
+
+    report.table.action.column.basichref:
+        class: Earls\RhinoReportBundle\Factory\Table\Action\Column\BasicHrefAction
+        arguments: ["@router"]
+        tags:
+            - { name: report.table.action.column, alias: basic_href }
 #default Column - action#
 
 #default Column - Group Action#
