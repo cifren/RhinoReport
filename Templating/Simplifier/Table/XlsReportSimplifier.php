@@ -82,6 +82,7 @@ class XlsReportSimplifier
                 $shift = count($xmlArray['rpt_info']['body']);
             }
 
+            $this->tableOddEven = $table->getDefinition()->getExportConfig('Excel')->getTableOddEven();
             $this->style = $table->getDefinition()->getExportConfig('Excel')->getStyleTable();
             $this->style = \Earls\RhinoReportBundle\Templating\Excel\Style\StyleUtility::parseStyle($this->style);
 
@@ -278,10 +279,21 @@ class XlsReportSimplifier
             $this->lastRowPosition = $row->getPosition();
         }
 
+
+        $inheritedAttr['class'] = array();
+        //oddEven class row
+        if (isset($this->tableOddEven['row']) && $this->tableOddEven['row']['active'] == true) {
+            if ($row->getPosition() % 2 == 0) {
+                $inheritedAttr['class'][] = $this->tableOddEven['row']['classes']['even'];
+            } else {
+                $inheritedAttr['class'][] = $this->tableOddEven['row']['classes']['odd'];
+            }
+        }
+
         $xmlArray = array();
         foreach ($row->getColumns() as $displayId => $column) {
             if ($column->getDefinition()->getType() != ColumnDefinition::TYPE_DATA) {
-                $xmlArray[$displayId] = $this->getColumnArray($column);
+                $xmlArray[$displayId] = $this->getColumnArray($column, $inheritedAttr);
                 $xmlArray[$displayId]['columnPosition'] = $column->getPosition();
             }
         }
@@ -301,10 +313,20 @@ class XlsReportSimplifier
      * @return string
      * @throws \Exception
      */
-    protected function getColumnArray(Column $column)
+    protected function getColumnArray(Column $column, array $attr)
     {
+        $attr['class'] = $attr['class'] ? $attr['class'] : array();
+
+        //oddEven class column
+        if (isset($this->tableOddEven['column']) && $this->tableOddEven['column']['active'] == true) {
+            if ($column->getPosition() % 2 == 0) {
+                $attr['class'][] = $this->tableOddEven['column']['classes']['even'];
+            } else {
+                $attr['class'][] = $this->tableOddEven['column']['classes']['odd'];
+            }
+        }
+
         //default style for all column
-        $attr['class'] = array();
         if ($this->defaultStyle) {
             //will add default-active at the first position, can be overwrite
             $attr['class'][] = 'default-active';
@@ -344,7 +366,7 @@ class XlsReportSimplifier
         }
         if (isset($attr['type']) && $attr['type'] == 'Number') {
             $data = $column->getData();
-            if(preg_match("/^\(.*\)$/", $data)){
+            if (preg_match("/^\(.*\)$/", $data)) {
                 $data = preg_replace("/^\(|\)$/", "", $data);
                 $data = (preg_match("/^-/", $data) ? "" : "-") . $data;
             }
@@ -379,7 +401,7 @@ class XlsReportSimplifier
 
     private function xmlReplaceIllegalCharacter($data)
     {
-        $data = preg_replace('/[^(\x20-\x7F)]*/','', $data);
+        $data = preg_replace('/[^(\x20-\x7F)]*/', '', $data);
 
         return str_replace(array('<', '>', '&', "'", '"'), array(htmlspecialchars('<'), htmlspecialchars('>'), htmlspecialchars('&'), htmlspecialchars("'"), htmlspecialchars('"')), $data);
     }
