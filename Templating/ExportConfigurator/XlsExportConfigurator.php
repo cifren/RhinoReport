@@ -12,6 +12,10 @@ class XlsExportConfigurator implements ExportConfigurator
 {
 
     protected $styleTable = array();
+    protected $tableOddEven = array(
+        'column' => array('active' => true, 'classes' => array('even' => 'evenColumnClass', 'odd' => 'oddColumnClass')),
+        'row' => array('active' => true, 'classes' => array('even' => 'evenRowClass', 'odd' => 'oddRowClass'))
+    );
     protected $pagebreak = false;
     protected $attr = array();
     protected $print = array();
@@ -31,6 +35,18 @@ class XlsExportConfigurator implements ExportConfigurator
         return $this->styleTable;
     }
 
+    public function setTableOddEven(array $tableOddEven)
+    {
+        $this->tableOddEven = array_merge($this->tableOddEven, $tableOddEven);
+
+        return $this;
+    }
+
+    public function getTableOddEven()
+    {
+        return $this->tableOddEven;
+    }
+
     public function setPagebreak($pagebreak)
     {
         $this->pagebreak = $pagebreak;
@@ -45,7 +61,7 @@ class XlsExportConfigurator implements ExportConfigurator
 
     public function setAttr(array $attr)
     {
-        if ( isset($attr['class']) && !is_array($attr['class']) ) {
+        if (isset($attr['class']) && !is_array($attr['class'])) {
             throw new \Exception('Attribute `class´ for Excel Export `' . $this->getDefinition()->getPath() . '´ should be an array');
         }
         $this->attr = $attr;
