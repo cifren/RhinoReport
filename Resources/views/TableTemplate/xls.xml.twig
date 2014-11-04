@@ -101,6 +101,7 @@
     </PageSetup>
     {% if table.printConfig|default(null).scaling|default(null) is not null %}<FitToPage/>{% endif %}
     <Print>
+    	{% if table.printConfig|default(null).papersize|default(null) is not null %}<PaperSizeIndex>{{table.printConfig.papersize}}</PaperSizeIndex>{% endif %}
         {% if table.printConfig|default(null).scaling|default(null) is not null %}
             <FitWidth>1</FitWidth>
             <FitHeight>0</FitHeight>

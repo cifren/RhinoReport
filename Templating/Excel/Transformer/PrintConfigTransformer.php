@@ -18,7 +18,8 @@ class PrintConfigTransformer
         'orientation',
         'margin',
         'scaling',
-        'print_titles'
+        'print_titles',
+        'papersize'
     );
 
     public function __construct(array $config)
@@ -97,4 +98,14 @@ class PrintConfigTransformer
         }
     }
 
+    public function papersizeTransformer($config)
+    {
+        $availableValue = array('letter' => 1, 'legal' => 5);
+        if(isset($availableValue[$config])){
+            return $availableValue[$config];
+        }
+        else{
+            throw new \Exception("This printConfig value for paper size is not valid");
+        }
+    }
 }
