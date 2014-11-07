@@ -293,7 +293,7 @@ class XlsReportSimplifier
         $xmlArray = array();
         foreach ($row->getColumns() as $displayId => $column) {
             if ($column->getDefinition()->getType() != ColumnDefinition::TYPE_DATA) {
-                $xmlArray[$displayId] = $this->getColumnArray($column);
+                $xmlArray[$displayId] = $this->getColumnArray($column, $inheritedAttr);
                 $xmlArray[$displayId]['columnPosition'] = $column->getPosition();
             }
         }
