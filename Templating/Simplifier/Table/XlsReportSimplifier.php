@@ -27,6 +27,7 @@ class XlsReportSimplifier
     protected $factoryTable;
     protected $xlsApplyFormula;
     protected $defaultStyle;
+    protected $currentEvenOddRowSpan = 'even';
 
     public function __construct(XlsApplyFormula $xlsApplyFormula, $defaultStyle = true, TableFactory $factoryTable = null)
     {
@@ -168,7 +169,7 @@ class XlsReportSimplifier
             'columns' => $data);
 
         //body
-        $arrayBody = $this->getGroupXmlArray($table->getBody());
+        $arrayBody = $this->getRowsXmlArrayFromGroup($table->getBody());
         $this->compileStyle($arrayBody);
 
         $xmlArray['body'] = $arrayBody;
@@ -192,7 +193,7 @@ class XlsReportSimplifier
         return $xmlArray;
     }
 
-    protected function getGroupXmlArray(Group $group, $class = array())
+    protected function getRowsXmlArrayFromGroup(Group $group, $class = array())
     {
         $xmlArray = array();
 
@@ -203,7 +204,7 @@ class XlsReportSimplifier
 
             if ($item instanceof Row) {
                 //if no column in $xmlArrayColumn => row are all columnData
-                $xmlArrayColumn = $this->getRowXmlArray($item);
+                $xmlArrayColumn = $this->getRowsXmlArray($item);
                 if (!empty($xmlArrayColumn)) {
                     $attr = $item->getAttributes();
                     if (!isset($attr['class'])) {
@@ -229,7 +230,7 @@ class XlsReportSimplifier
             if ($item instanceof Group) {
                 //count for rowspan
                 $i = 0;
-                foreach ($this->getGroupXmlArray($item, $class) as $row) {
+                foreach ($this->getRowsXmlArrayFromGroup($item, $class) as $row) {
                     if ($item->getRowspans()) {
                         //do nothing for first line
                         if ($i == 0) {
@@ -252,33 +253,66 @@ class XlsReportSimplifier
                     $this->pageBreaks[] = $this->lastRowPosition;
                 }
 
-                //add attribute rowspan for first row
-                if ($item->getRowspans()) {
-                    $row = $xmlArray[$indexFirstRow];
-
-                    //for all column add attribute rowspan
-                    foreach ($row['columns'] as $displayId => $column) {
-                        $row['columns'][$displayId]['attr']['class'][] = 'rowspan-head';
-                        if (in_array($displayId, $item->getRowspans())) {
-                            $row['columns'][$displayId]['attr']['rowspan'] = $i;
-                        }
-                    }
-
-                    $xmlArray[$indexFirstRow] = $row;
-                }
+                $xmlArray[$indexFirstRow] = $this->applyRowSpanOnFirstRow($item, $xmlArray[$indexFirstRow], $i);
+                $xmlArray[$indexFirstRow] = $this->applyEvenOddOnRowSpan($item, $xmlArray[$indexFirstRow]);
             }
         }
 
         return $xmlArray;
     }
 
-    protected function getRowXmlArray(Row $row)
+    protected function applyRowSpanOnFirstRow(Group $item, array $row, $nbRow)
+    {
+        //add attribute rowspan for first row
+        if ($item->getRowspans()) {
+            //for all column add attribute rowspan
+            foreach ($row['columns'] as $displayId => $column) {
+                $row['columns'][$displayId]['attr']['class'][] = 'rowspan-head';
+                if (in_array($displayId, $item->getRowspans())) {
+                    $row['columns'][$displayId]['attr']['rowspan'] = $nbRow;
+                }
+            }
+        }
+
+        return $row;
+    }
+
+    protected function applyEvenOddOnRowSpan(Group $item, array $row)
+    {
+
+
+        if ($item->getRowspans()) {
+            if (isset($this->tableOddEven['row']) && $this->tableOddEven['row']['active'] == true) {
+                //for all column add new class even/odd
+                foreach ($row['columns'] as $displayId => $column) {
+                    //remove existing class even/odd
+                    $row['columns'][$displayId]['attr']['class'] = $this->removeEvenOddClassFromColumn($row['columns'][$displayId]['attr']['class']);
+                    //apply the new class
+                    $row['columns'][$displayId]['attr']['class'][] = $this->tableOddEven['row']['classes'][$this->currentEvenOddRowSpan];
+                }
+            }
+
+            //switch class
+            $this->currentEvenOddRowSpan = $this->currentEvenOddRowSpan == 'even' ? 'odd' : 'even';
+        }
+
+
+        return $row;
+    }
+
+    protected function removeEvenOddClassFromColumn(array $classes)
+    {
+        $arrayEvenOddClasses = array($this->tableOddEven['row']['classes']['even'], $this->tableOddEven['row']['classes']['odd']);
+                
+        return array_diff($classes, $arrayEvenOddClasses);
+    }
+
+    protected function getRowsXmlArray(Row $row)
     {
         //if position exist means it is a row not containing only columnData
         if ($row->getPosition()) {
             $this->lastRowPosition = $row->getPosition();
         }
-
 
         $inheritedAttr['class'] = array();
         //oddEven class row
