@@ -27,7 +27,7 @@ class XlsReportSimplifier
     protected $factoryTable;
     protected $xlsApplyFormula;
     protected $defaultStyle;
-    protected $currentEvenOddRowSpan = 'even';
+    protected $currentEvenOddRowSpanByGroupParent;
 
     public function __construct(XlsApplyFormula $xlsApplyFormula, $defaultStyle = true, TableFactory $factoryTable = null)
     {
@@ -253,8 +253,11 @@ class XlsReportSimplifier
                     $this->pageBreaks[] = $this->lastRowPosition;
                 }
 
-                $xmlArray[$indexFirstRow] = $this->applyRowSpanOnFirstRow($item, $xmlArray[$indexFirstRow], $i);
-                $xmlArray[$indexFirstRow] = $this->applyEvenOddOnRowSpan($item, $xmlArray[$indexFirstRow]);
+
+                if ($item->getRowspans()) {
+                    $xmlArray[$indexFirstRow] = $this->applyRowSpanOnFirstRow($item, $xmlArray[$indexFirstRow], $i);
+                    $xmlArray[$indexFirstRow] = $this->applyEvenOddOnRowSpan($group, $item, $xmlArray[$indexFirstRow]);
+                }
             }
         }
 
@@ -264,38 +267,39 @@ class XlsReportSimplifier
     protected function applyRowSpanOnFirstRow(Group $item, array $row, $nbRow)
     {
         //add attribute rowspan for first row
-        if ($item->getRowspans()) {
-            //for all column add attribute rowspan
-            foreach ($row['columns'] as $displayId => $column) {
-                $row['columns'][$displayId]['attr']['class'][] = 'rowspan-head';
-                if (in_array($displayId, $item->getRowspans())) {
-                    $row['columns'][$displayId]['attr']['rowspan'] = $nbRow;
-                }
+        //for all column add attribute rowspan
+        foreach ($row['columns'] as $displayId => $column) {
+            $row['columns'][$displayId]['attr']['class'][] = 'rowspan-head';
+            if (in_array($displayId, $item->getRowspans())) {
+                $row['columns'][$displayId]['attr']['rowspan'] = $nbRow;
             }
         }
 
         return $row;
     }
 
-    protected function applyEvenOddOnRowSpan(Group $item, array $row)
+    protected function applyEvenOddOnRowSpan(Group $parent, Group $item, array $row)
     {
+        $parentId = $parent->getParentPath();
+        if (isset($this->currentEvenOddRowSpan[$parentId])) {
+            //switch class
+            $this->currentEvenOddRowSpan[$parentId] = $this->currentEvenOddRowSpan[$parentId] == 'even' ? 'odd' : 'even';
+        } else {
+            //init current
+            $this->currentEvenOddRowSpan[$parentId] = 'even';
+        }
 
-
-        if ($item->getRowspans()) {
-            if (isset($this->tableOddEven['row']) && $this->tableOddEven['row']['active'] == true) {
-                //for all column add new class even/odd
-                foreach ($row['columns'] as $displayId => $column) {
+        if (isset($this->tableOddEven['row']) && $this->tableOddEven['row']['active'] == true) {
+            //for all column add new class even/odd
+            foreach ($row['columns'] as $displayId => $column) {
+                if (in_array($displayId, $item->getRowspans())) {
                     //remove existing class even/odd
                     $row['columns'][$displayId]['attr']['class'] = $this->removeEvenOddClassFromColumn($row['columns'][$displayId]['attr']['class']);
                     //apply the new class
-                    $row['columns'][$displayId]['attr']['class'][] = $this->tableOddEven['row']['classes'][$this->currentEvenOddRowSpan];
+                    $row['columns'][$displayId]['attr']['class'][] = $this->tableOddEven['row']['classes'][$this->currentEvenOddRowSpan[$parentId]];
                 }
             }
-
-            //switch class
-            $this->currentEvenOddRowSpan = $this->currentEvenOddRowSpan == 'even' ? 'odd' : 'even';
         }
-
 
         return $row;
     }
@@ -303,7 +307,7 @@ class XlsReportSimplifier
     protected function removeEvenOddClassFromColumn(array $classes)
     {
         $arrayEvenOddClasses = array($this->tableOddEven['row']['classes']['even'], $this->tableOddEven['row']['classes']['odd']);
-                
+
         return array_diff($classes, $arrayEvenOddClasses);
     }
 
