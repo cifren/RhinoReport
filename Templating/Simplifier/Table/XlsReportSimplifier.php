@@ -403,18 +403,13 @@ class XlsReportSimplifier
             }
         }
         if (isset($attr['type']) && $attr['type'] == 'Number') {
-            $data = $column->getData();
-            if (preg_match("/^\(.*\)$/", $data)) {
-                $data = preg_replace("/^\(|\)$/", "", $data);
-                $data = (preg_match("/^-/", $data) ? "" : "-") . $data;
-            }
-            $column->setData((float) (preg_replace("/[^-0-9\.]/", "", $data)));
+            $column->setData((float) (preg_replace("/[^-0-9\.]/", "", $this->getColumnValue($column))));
             //make sure first letter is uppercase for excel
             $attr['type'] = ucfirst($attr['type']);
         }
 
         //automatically determine if number or string type for excel
-        if (!isset($attr['type']) && is_numeric($column->getData())) {
+        if (!isset($attr['type']) && is_numeric($this->getColumnValue($column))) {
             $attr['type'] = 'Number';
         }
 
@@ -430,7 +425,7 @@ class XlsReportSimplifier
             'uniqueId' => $column->getDefinition()->getPath() . $column->getPosition() . $column->getRow()->getPosition(),
             'attr' => $attr,
             'colspan' => null,
-            'data' => $this->xmlReplaceIllegalCharacter($column->getData()),
+            'data' => $this->xmlReplaceIllegalCharacter($this->getColumnValue($column)),
             'formula' => $this->xmlReplaceIllegalCharacter($column->getFormula())
         );
 
