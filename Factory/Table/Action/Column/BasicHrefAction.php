@@ -21,20 +21,32 @@ class BasicHrefAction extends Action
     public function setData()
     {
         $routeParameters = array();
+        $missingParam = false;
         // Link the routing name, e.g. storeid with the data storeId
         foreach ($this->options['arg_dataIds'] as $key => $columnName) {
             $routeParameters[$key] = $this->rowData[$columnName];
+            if ($this->rowData[$columnName] === null) {
+                $missingParam = true;
+            }
         }
         // Link the routing name with the display to screen data, e.g. /{packsize}
         foreach ($this->options['arg_displayIds'] as $key => $columnName) {
             $routeParameters[$key] = $this->rowObject[$columnName];
+            if ($this->rowObject[$columnName] === null) {
+                $missingParam = true;
+            }
         }
+        //if one of the param are missing (=null), no data displayed
+        if ($this->options['strictParameters'] && $missingParam) {
+            return null;
+        }
+        
         // Link the routing name with the display to screen data, e.g. /{packsize}
         $fullParameters = array_merge($routeParameters, $this->options['custom_data']);
         $route = $this->getUrl($fullParameters);
 
-        $attrConcat= array();
-        foreach($this->options['attr'] as $key => $value){
+        $attrConcat = array();
+        foreach ($this->options['attr'] as $key => $value) {
             $attrConcat[] = "$key='$value'";
         }
         $attrString = implode(' ', $attrConcat);
@@ -62,7 +74,9 @@ class BasicHrefAction extends Action
             'arg_dataIds' => array(),
             'arg_displayIds' => array(),
             'custom_data' => array(),
-            'attr' => array()
+            'attr' => array(),
+            //if one param is missing action return null
+            'strictParameters' => false
         );
     }
 

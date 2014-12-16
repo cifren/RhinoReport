@@ -434,7 +434,7 @@ class XlsReportSimplifier
 
     protected function getColumnValue(Column $column)
     {
-        return $column->getBaseValue() ? $column->getBaseValue() : $column->getData();
+        return $column->getBaseValue() !== null ? $column->getBaseValue() : $column->getData();
     }
 
     private function xmlReplaceIllegalCharacter($data)
