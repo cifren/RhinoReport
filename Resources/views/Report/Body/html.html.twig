@@ -19,7 +19,7 @@
 <!-- FILTER -->
 {% if filterForm %}
     {% set filterForm = filterForm.createView()%}
-    {% form_theme filterForm '@RhinoReportReport/Form/filter_display.html.twig' %}
+    {% form_theme filterForm 'EarlsRhinoReportBundle:Report/Form:filter_display.html.twig' %}
     <div action="{{url}}"  class="reportFilter">
         <form method="GET">
             <fieldset class="filter_legend">
