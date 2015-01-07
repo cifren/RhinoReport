@@ -47,8 +47,8 @@ Create your `configuration file` :
 ```php
 namespace Project\ReportBundle\Configuration;
 
-use Earls\RhinoReportBundle\Definition\Table\TableDefinitionBuilder;
-use Earls\RhinoReportBundle\Definition\ReportConfiguration;
+use Earls\RhinoReportBundle\Module\Table\Definition\TableDefinitionBuilder;
+use Earls\RhinoReportBundle\Report\Definition\ReportConfiguration;
 use Doctrine\ORM\EntityManager;
 
 /**

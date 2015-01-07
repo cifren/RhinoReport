@@ -106,6 +106,9 @@ class ActionPass implements CompilerPassInterface
         }
 
         $container->getDefinition('report.table.extension')->replaceArgument(6, $actions);
-
+        
+        $loader = $container->getDefinition('twig.loader.filesystem');
+        $loader->addMethodCall('addPath', array(__DIR__.'/../../Report/Resources/views', 'RhinoReportReport'));
+        $loader->addMethodCall('addPath', array(__DIR__.'/../../Module/Table/Resources/views', 'RhinoReportTable'));
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Earls\RhinoReportBundle\Templating\ExportConfigurator;
 
-use Earls\RhinoReportBundle\Definition\Table\TableDefinition;
+use Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition;
 use Earls\RhinoReportBundle\Templating\ExportConfigurator\ExportConfigurator;
 
 /**
