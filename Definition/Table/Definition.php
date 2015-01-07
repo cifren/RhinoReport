@@ -87,8 +87,17 @@ abstract class Definition
             throw new \Exception('This export `' . $type . '´ is not available');
         }
     }
-
     public function setAttribute($attr, $value)
+    {
+        if ($attr == 'class' && !is_array($value)) {
+            throw new \Exception('Attribute `class´ for `' . get_class($this) . '´ `' . $this->getDefinition()->getPath() . '´ should be an array');
+        }
+        $this->attributes[$attr] = $value;
+        
+        return $this;
+    }
+
+    public function addAttribute($attr, $value)
     {
         if ($attr == 'class' && !is_array($value)) {
             throw new \Exception('Attribute `class´ for `' . get_class($this) . '´ `' . $this->getDefinition()->getPath() . '´ should be an array');
