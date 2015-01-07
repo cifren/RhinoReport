@@ -15,7 +15,7 @@ class EarlsRhinoReportBundle extends Bundle
         parent::build($container);
 
         $container->addCompilerPass(new ActionPass());
-        $container->addCompilerPass(new TemplatingPass());
+        //$container->addCompilerPass(new TemplatingPass());
     }
 
 }
