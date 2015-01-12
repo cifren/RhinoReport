@@ -106,6 +106,5 @@ class ActionPass implements CompilerPassInterface
         }
 
         $container->getDefinition('report.table.extension')->replaceArgument(6, $actions);
-
     }
 }

@@ -1,0 +1,37 @@
+parameters:
+    report.factory.class:                             Earls\RhinoReportBundle\Report\Factory\ReportFactory
+    report.builder.class:                             Earls\RhinoReportBundle\Report\Definition\ReportBuilder
+    report.definition.builder.class:                  Earls\RhinoReportBundle\Report\Definition\ReportDefinitionBuilder
+
+    report.template.generator.manager.class:          Earls\RhinoReportBundle\Report\Templating\ReportTemplateGeneratorManager
+
+    report.template.generator.html.class:             Earls\RhinoReportBundle\Report\Templating\Generator\HtmlReportTemplateGenerator
+    report.template.generator.html.template:          EarlsRhinoReportBundle:Report/Body:html.html.twig
+
+    report_type:
+        report:
+            class:  Earls\RhinoReportBundle\Report\ReportObject\Report
+            export: [ html ]
+            
+services:
+    report.factory:
+        class:      %report.factory.class%
+        arguments: ["@service_container"]
+
+    report.builder:
+        class:       %report.builder.class%
+
+    report.definition.builder:
+        class:      %report.definition.builder.class%
+        arguments: ["@service_container"]
+
+    report.template.generator.manager:
+        class:    %report.template.generator.manager.class%
+        arguments:
+            - "@service_container"
+
+    report.template.generator.html:
+        class:    %report.template.generator.html.class%
+        arguments:
+            - "@templating"
+            - "%report.template.generator.html.template%"

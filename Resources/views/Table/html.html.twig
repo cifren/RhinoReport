@@ -1,0 +1,43 @@
+{% if js is defined and js == true %}
+    {% javascripts
+        '@EarlsRhinoReportBundle/Module/Table/Resources/public/js/report_table.js'
+        'js/jquery.simpleCollapseTable.js'
+        'cross-browser.com/x/lib/xtableheaderfixed.js'
+        'cross-browser.com/x/x.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts  %}
+{% endif %}
+
+{% set item = table %}
+
+{% set attr = item.attr|default(null) %}
+<table id='report_table' {{_self.report_attributes(attr)}}>
+    <thead>
+        {% set attr = item.head.attr|default(null) %}
+        <tr {{_self.report_attributes(attr)}}>
+            {% for column in item.head.columns %}
+                {% set attr = column.attr|default(null) %}
+                <th {{ _self.report_attributes(attr) }} >{{ column.data|raw }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for row in item.body %}
+            {% set attr = row.attr|default(null) %}
+            <tr {{_self.report_attributes(attr)}}>
+                {% for column in row.columns %}
+                    {% set attr = column.attr|default(null) %}
+                    <td {{ _self.report_attributes(attr) }}>{{ column.data|raw }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% macro report_attributes(attr)%}
+    {% spaceless %}
+        {% for attrname,attrvalue in attr %}{{attrname}}="{{attrvalue}}" {% endfor %}
+    {% endspaceless %}
+{% endmacro report_attributes %}

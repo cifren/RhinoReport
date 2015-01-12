@@ -1,9 +1,0 @@
-{% if htmlTable|default(null) is not null %}
-    {% javascripts
-        '@EarlsRhinoReportBundle/Resources/public/js/reportExpandAll.js'
-    %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts  %}
-    <br>
-    <br>
-{% endif %}
