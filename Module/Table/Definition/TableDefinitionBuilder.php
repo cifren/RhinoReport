@@ -60,6 +60,16 @@ class TableDefinitionBuilder
         return $this;
     }
 
+    public function footer()
+    {
+        if (!$this->currentDefinition instanceof TableDefinition)
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition", "' . get_class($this->currentDefinition) . '" given in function footer()');
+
+        $this->currentDefinition = $this->currentDefinition->getFooterDefinition();
+
+        return $this;
+    }
+
     public function headColumns(array $columnNames)
     {
         if (!$this->currentDefinition instanceof HeadDefinition)

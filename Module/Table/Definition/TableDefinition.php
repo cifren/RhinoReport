@@ -19,6 +19,7 @@ class TableDefinition extends Definition implements ReportDefinitionInterface
     protected $id;
     protected $headDefinition;
     protected $bodyDefinition;
+    protected $footerDefinition;
     protected $factoryService;
 
     public function __construct(array $exportConfigs, $id = 'table')
@@ -28,6 +29,7 @@ class TableDefinition extends Definition implements ReportDefinitionInterface
         $this->setFactoryService("report.table.factory");
         $this->initHeadDefinition($exportConfigs);
         $this->initBodyDefinition($exportConfigs);
+        $this->initFooterDefinition($exportConfigs);
     }
 
     protected function initHeadDefinition(array $exportConfigs)
@@ -44,6 +46,14 @@ class TableDefinition extends Definition implements ReportDefinitionInterface
         $this->bodyDefinition->setParent($this);
 
         return $this->bodyDefinition;
+    }
+
+    protected function initFooterDefinition(array $exportConfigs)
+    {
+        $this->footerDefinition = new GroupDefinition('footer', $exportConfigs);
+        $this->footerDefinition->setParent($this);
+        
+        return $this->footerDefinition;
     }
 
     public function setId($id)
@@ -66,6 +76,11 @@ class TableDefinition extends Definition implements ReportDefinitionInterface
     public function getBodyDefinition()
     {
         return $this->bodyDefinition;
+    }
+
+    public function getFooterDefinition()
+    {
+        return $this->footerDefinition;
     }
 
     public function setParent($parent)
