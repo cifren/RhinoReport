@@ -49,6 +49,18 @@ class Table extends TableObject
         return $this->body;
     }
 
+    public function setFooter(Group $footer)
+    {
+        $this->footer = $footer;
+
+        return $this;
+    }
+
+    public function getFooter()
+    {
+        return $this->footer;
+    }
+
     public function getParentPath()
     {
         return '';
