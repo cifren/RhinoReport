@@ -58,6 +58,7 @@ class TableFactory extends Factory
         //create object head
         $this->item->setHead($this->createHead($head));
 
+        //---- Build Body ----
         $body = new Group('body', $this->definition->getBodyDefinition()->getId(), $this->definition->getBodyDefinition(), $this->item, $this->item->getDataObject());
         $this->setListGroupActionOrExecuteActions($this->definition->getBodyDefinition(), $body);
 
@@ -69,6 +70,20 @@ class TableFactory extends Factory
 
         //Fill up body with groupAction
         $body = $this->fillUpGroupAction($this->item);
+
+
+        //---- Build Footer ----
+        $footer = new Group('footer', $this->definition->getFooterDefinition()->getId(), $this->definition->getFooterDefinition(), $this->item, $this->item->getDataObject());
+        $this->setListGroupActionOrExecuteActions($this->definition->getFooterDefinition(), $footer);
+
+        //create structure + data + simple action
+        $footer = $this->createGroupAndRow($footer);
+
+        //Almost Ready, missing GroupAction
+        $this->item->setFooter($footer);
+
+        //Fill up body with groupAction
+        $footer = $this->fillUpGroupAction($this->item);
         
         return $this;
     }
