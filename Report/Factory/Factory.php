@@ -35,4 +35,10 @@ abstract class Factory implements ReportFactoryInterface
         return $this->item;
     }
 
+    public function setItem($item)
+    {
+        $this->item = $item;
+        return $this;
+    }
+
 }

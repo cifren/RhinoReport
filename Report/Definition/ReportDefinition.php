@@ -2,32 +2,19 @@
 
 namespace Earls\RhinoReportBundle\Report\Definition;
 
-/*
+/**
  *  Earls\RhinoReportBundle\Report\Definition\ReportDefinition
  *
  */
-
-class ReportDefinition implements ReportDefinitionInterface
+class ReportDefinition extends ModuleDefinition
 {
 
     protected $items;
     protected $factoryService;
 
-    public function __construct()
+    public function __construct($factoryServiceName = "report.factory")
     {
-        $this->setFactoryService("report.factory");
-    }
-
-    public function setFactoryService($serviceName)
-    {
-        $this->factoryService = $serviceName;
-
-        return $this;
-    }
-
-    public function getFactoryService()
-    {
-        return $this->factoryService;
+        parent::__construct($factoryServiceName);
     }
 
     public function setItem($id, $item)
