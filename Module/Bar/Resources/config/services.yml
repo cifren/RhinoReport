@@ -1,0 +1,8 @@
+parameters:
+    report.bar.factory.class:                         Earls\RhinoReportBundle\Module\Bar\Factory\BarFactory
+    report.table.template.generator.html.template:    EarlsRhinoReportBundle:Bar:html.html.twig
+
+services:
+    report.bar.factory:
+        class:      %report.bar.factory.class%
+    
