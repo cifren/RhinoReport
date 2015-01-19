@@ -3,23 +3,21 @@
 namespace Earls\RhinoReportBundle\Module\Table\Definition;
 
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
-use Earls\RhinoReportBundle\Module\Table\Definition\HeadDefinition;
+use Earls\RhinoReportBundle\Report\Definition\ReportDefinition;
 use Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition;
 use Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition;
-use Earls\RhinoReportBundle\Report\Definition\ReportDefinition;
-use Earls\RhinoReportBundle\Report\Definition\ReportDefinitionInterface;
 
 /**
  * Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition
  *
  */
-class TableDefinition extends Definition implements ReportDefinitionInterface
+class TableDefinition extends Definition
 {
 
     protected $id;
     protected $headDefinition;
     protected $bodyDefinition;
-    protected $factoryService;
+    protected $factoryServiceName;
 
     public function __construct(array $exportConfigs, $id = 'table')
     {
@@ -85,16 +83,16 @@ class TableDefinition extends Definition implements ReportDefinitionInterface
         return $this->path = '\\' . $this->excludeSpecialCharacter($this->id);
     }
 
-    public function setFactoryService($serviceName)
+    public function setFactoryService($factoryServiceName)
     {
-        $this->factoryService = $serviceName;
+        $this->factoryServiceName = $factoryServiceName;
 
         return $this;
     }
 
     public function getFactoryService()
     {
-        return $this->factoryService;
+        return $this->factoryServiceName;
     }
 
     public function build()
