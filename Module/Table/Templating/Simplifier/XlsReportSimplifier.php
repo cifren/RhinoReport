@@ -125,6 +125,9 @@ class XlsReportSimplifier
             //Valid and add print options
             $printTransformer = new \Earls\RhinoReportBundle\Templating\Excel\Transformer\PrintConfigTransformer($table->getDefinition()->getExportConfig('Excel')->getPrint());
             $xmlArray['printConfig'] = $printTransformer->transform();
+            
+            //Valid and add print options
+            $xmlArray['protectionConfig'] = $table->getDefinition()->getExportConfig('Excel')->getProtection();
         } else {
             $this->style['default-active'] = $defaultActiveStyle;
             $this->style['header'] = $defaultHeaderStyle + $defaultActiveStyle;

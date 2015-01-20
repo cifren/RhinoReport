@@ -19,6 +19,16 @@ class XlsExportConfigurator implements ExportConfigurator
     protected $pagebreak = false;
     protected $attr = array();
     protected $print = array();
+    protected $protection = array(
+        'activated' => false,
+        'options' => array(
+            //permissions
+            'protectAllCells' => true, //will set the protect on all cells
+            'selectLockedCells' => true, //if selectLockedCells is true, selectUnlockedCells will be true be default
+            'selectUnlockedCells' => true, 
+            'formatCells' => false
+        )
+    );
     protected $column = array();
     protected $header = null;
     protected $rptInfo;
@@ -108,6 +118,18 @@ class XlsExportConfigurator implements ExportConfigurator
     public function getRptInfo()
     {
         return $this->rptInfo;
+    }
+
+    public function getProtection()
+    {
+        return $this->protection;
+    }
+
+    public function setProtection(array $protection)
+    {
+        $this->protection = array_replace_recursive($this->protection, $protection);
+
+        return $this;
     }
 
 }
