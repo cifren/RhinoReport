@@ -37,6 +37,7 @@ class CssXmlStyleTranslator
         'border-right-width' => array('borderWidth', array('right')),
         'wrap-text' => array('wrapText'),
         'font-color' => array('fontColor'),
+        'protection' => array('protection'),
     );
     protected $styleArray = array();
 
@@ -274,6 +275,21 @@ class CssXmlStyleTranslator
                 break;
         }
         $style->addNewRule('alignment', 'ss:WrapText', $value);
+
+        return $style;
+    }
+    
+    protected function protection($style, $value)
+    {
+        switch ($value) {
+            case true:
+                $value = "1"; //Medium
+                break;
+            default:
+                $value = "0";
+                break;
+        }
+        $style->addNewRule('protection', 'ss:Protected', $value);
 
         return $style;
     }
