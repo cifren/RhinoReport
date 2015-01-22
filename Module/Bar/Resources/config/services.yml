@@ -1,8 +1,23 @@
 parameters:
     report.bar.factory.class:                         Earls\RhinoReportBundle\Module\Bar\Factory\BarFactory
-    report.table.template.generator.html.template:    EarlsRhinoReportBundle:Bar:html.html.twig
+    report.bar.definition.class:                      Earls\RhinoReportBundle\Module\Bar\Definition\BarDefinition
+    report.bar.definition.builder.class:              Earls\RhinoReportBundle\Module\Bar\Definition\BarDefinitionBuilder
+    report.bar.template.generator.html.class:         Earls\RhinoReportBundle\Module\Bar\Templating\Generator\HtmlBarTemplateGenerator
+    
+    report.bar.template.generator.html.template:    EarlsRhinoReportBundle:Bar:html.html.twig
 
 services:
     report.bar.factory:
         class:      %report.bar.factory.class%
-    
+        
+    report.bar.definition.builder:
+        class:      %report.bar.definition.builder.class%
+        arguments: ["%report.bar.definition.class%"]
+        tags:
+            - { name: report.definition.builder, alias: bar } 
+            
+    report.bar.template.generator.html:
+        class:    %report.bar.template.generator.html.class%
+        arguments:
+            - "@templating"
+            - %report.bar.template.generator.html.template%

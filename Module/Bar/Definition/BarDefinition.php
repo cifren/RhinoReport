@@ -1,6 +1,6 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Module\Definition;
+namespace Earls\RhinoReportBundle\Module\Bar\Definition;
 
 use Earls\RhinoReportBundle\Report\Definition\ModuleDefinition;
 
@@ -13,33 +13,12 @@ class BarDefinition extends ModuleDefinition
 {
 
     protected $options = array();
-    protected $data = array();
-    protected $dataset = array();
-    protected $labels = array();
+    protected $labelColumn;
+    protected $dataColumns;
 
-    public function __construct($factoryServiceName = "report.bar.factory")
+    public function __construct($factoryServiceName = "report.bar.factory", $id = 'bar')
     {
-        parent::__construct($factoryServiceName);
-    }
-
-    public function getOptions()
-    {
-        return $this->options;
-    }
-
-    public function getData()
-    {
-        return $this->data;
-    }
-
-    public function getDataset()
-    {
-        return $this->dataset;
-    }
-
-    public function getLabels()
-    {
-        return $this->labels;
+        parent::__construct($factoryServiceName, $id);
     }
 
     public function setOptions($options)
@@ -48,22 +27,31 @@ class BarDefinition extends ModuleDefinition
         return $this;
     }
 
-    public function setData($data)
+    public function setLabelColumn($labelColumn)
     {
-        $this->data = $data;
+        $this->labelColumn = $labelColumn;
         return $this;
     }
 
-    public function setDataset($dataset)
+    public function setDataColumns(array $dataColumns)
     {
-        $this->dataset = $dataset;
+        $this->dataColumns = $dataColumns;
         return $this;
     }
 
-    public function setLabels($labels)
+    public function getOptions()
     {
-        $this->labels = $labels;
-        return $this;
+        return $this->options;
+    }
+
+    public function getLabelColumn()
+    {
+        return $this->labelColumn;
+    }
+
+    public function getDataColumns()
+    {
+        return $this->dataColumns;
     }
 
 }
