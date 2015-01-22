@@ -76,15 +76,17 @@ class TableFactory extends Factory
         $footer = new Group('footer', $this->definition->getFooterDefinition()->getId(), $this->definition->getFooterDefinition(), $this->item, $this->item->getDataObject());
         $this->setListGroupActionOrExecuteActions($this->definition->getFooterDefinition(), $footer);
 
-        //create structure + data + simple action
-        $footer = $this->createGroupAndRow($footer);
+        if($footer->getDefinition()->getItems() !== NULL){
+            //create structure + data + simple action
+            $footer = $this->createGroupAndRow($footer);
 
-        //Almost Ready, missing GroupAction
-        $this->item->setFooter($footer);
+            //Almost Ready, missing GroupAction
+            $this->item->setFooter($footer);
 
-        //Fill up body with groupAction
-        $footer = $this->fillUpGroupAction($this->item);
-        
+            //Fill up body with groupAction
+            $footer = $this->fillUpGroupAction($this->item);
+        }
+
         return $this;
     }
 

@@ -174,6 +174,14 @@ class XlsReportSimplifier
 
         $xmlArray['body'] = $arrayBody;
 
+        //Footer
+        if($table->getFooter() !== NULL){
+            $arrayFooter = $this->getRowsXmlArrayFromGroup($table->getFooter());
+            $this->compileStyle($arrayFooter);
+
+            $xmlArray['footer'] = $arrayFooter;
+        }
+
         if ($this->style) {
             $translator = new CssXmlStyleTranslator();
             $style = $translator->translate($this->style);
