@@ -61,14 +61,14 @@ class ReportTemplateGeneratorManager
     protected function getReportTypeName($className, $id)
     {
         $reportType = $this->container->getParameter('report_type');
-
+        
         $type = array();
         foreach ($reportType as $key => $parameter) {
             $type[$parameter['class']] = $key;
         }
 
         if (!key_exists($className, $type)) {
-            throw new \UnexpectedValueException("The type of class '$className' is not valid for item with id '$id'");
+            throw new \UnexpectedValueException("The type of class '$className' is not valid for item with id '$id' and type '$type', check your services");
         }
 
         return $type[$className];

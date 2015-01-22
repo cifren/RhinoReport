@@ -1,6 +1,7 @@
 parameters:
     report.factory.class:                             Earls\RhinoReportBundle\Report\Factory\ReportFactory
     report.builder.class:                             Earls\RhinoReportBundle\Report\Definition\ReportBuilder
+    report.definition.class:                          Earls\RhinoReportBundle\Report\Definition\ReportDefinition
     report.definition.builder.class:                  Earls\RhinoReportBundle\Report\Definition\ReportDefinitionBuilder
 
     report.template.generator.manager.class:          Earls\RhinoReportBundle\Report\Templating\ReportTemplateGeneratorManager
@@ -11,6 +12,12 @@ parameters:
     report_type:
         report:
             class:  Earls\RhinoReportBundle\Report\ReportObject\Report
+            export: [ html ]
+        table:
+            class:  Earls\RhinoReportBundle\Module\Table\TableObject\Table
+            export: [ csv, xls, html ]
+        bar:
+            class:  Earls\RhinoReportBundle\Module\Bar\BarObject\Bar
             export: [ html ]
             
 services:
@@ -23,7 +30,7 @@ services:
 
     report.definition.builder:
         class:      %report.definition.builder.class%
-        arguments: ["@service_container"]
+        arguments: ["%report.definition.class%"]
 
     report.template.generator.manager:
         class:    %report.template.generator.manager.class%

@@ -67,7 +67,7 @@ class ReportBuilder
 
         $this->reportDefinition = $this->rptConfig->getConfigReportDefinition($this->request, $dataFilter);
 
-        $reportfactory = $this->container->get($this->reportDefinition->getFactoryService());
+        $reportfactory = $this->container->get($this->reportDefinition->getFactoryServiceName());
         $reportfactory->setDefinition($this->reportDefinition);
         $reportfactory->setData($dataObject);
         $reportfactory->build();

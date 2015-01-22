@@ -12,6 +12,13 @@ use Earls\RhinoReportBundle\Report\ReportObject\Report;
 abstract class ReportConfiguration implements ReportConfigurationInterface
 {
 
+    protected $reportDefinitionBuilder;
+
+    public function __construct($reportDefinitionBuilder)
+    {
+        $this->reportDefinitionBuilder = $reportDefinitionBuilder;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -42,7 +49,7 @@ abstract class ReportConfiguration implements ReportConfigurationInterface
      */
     public function getConfigReportDefinition(Request $request, $dataFilter)
     {
-
+        
     }
 
     /**
@@ -81,6 +88,21 @@ abstract class ReportConfiguration implements ReportConfigurationInterface
     public function getAvailableExport()
     {
         return array('html' => 'Display onscreen', 'xls' => 'Excel');
+    }
+
+    /**
+     * 
+     * @return ReportDefinitionBuilder
+     */
+    public function getReportDefinitionBuilder()
+    {
+        return $this->reportDefinitionBuilder;
+    }
+
+    public function setReportDefinitionBuilder($reportDefinitionBuilder)
+    {
+        $this->reportDefinitionBuilder = $reportDefinitionBuilder;
+        return $this;
     }
 
 }
