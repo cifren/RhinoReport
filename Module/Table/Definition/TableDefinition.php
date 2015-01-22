@@ -3,6 +3,7 @@
 namespace Earls\RhinoReportBundle\Module\Table\Definition;
 
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
+use Earls\RhinoReportBundle\Report\Definition\ReportDefinitionInterface;
 use Earls\RhinoReportBundle\Report\Definition\ReportDefinition;
 use Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition;
 use Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition;
@@ -11,7 +12,7 @@ use Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition;
  * Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition
  *
  */
-class TableDefinition extends Definition
+class TableDefinition extends Definition implements ReportDefinitionInterface
 {
 
     protected $id;
@@ -23,14 +24,14 @@ class TableDefinition extends Definition
     {
         parent::__construct($exportConfigs);
         $this->id = $id;
-        $this->setFactoryService("report.table.factory");
+        $this->setFactoryServiceName("report.table.factory");
         $this->initHeadDefinition($exportConfigs);
         $this->initBodyDefinition($exportConfigs);
     }
 
     protected function initHeadDefinition(array $exportConfigs)
     {
-        $this->headDefinition = new headDefinition($exportConfigs);
+        $this->headDefinition = new HeadDefinition($exportConfigs);
         $this->headDefinition->setParent($this);
 
         return $this->headDefinition;
@@ -83,14 +84,14 @@ class TableDefinition extends Definition
         return $this->path = '\\' . $this->excludeSpecialCharacter($this->id);
     }
 
-    public function setFactoryService($factoryServiceName)
+    public function setFactoryServiceName($factoryServiceName)
     {
         $this->factoryServiceName = $factoryServiceName;
 
         return $this;
     }
 
-    public function getFactoryService()
+    public function getFactoryServiceName()
     {
         return $this->factoryServiceName;
     }

@@ -1,5 +1,6 @@
 parameters:
     report.table.factory.class:                       Earls\RhinoReportBundle\Module\Table\Factory\TableFactory
+    report.table.definition.class:                    Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition
     report.table.definition.builder.class:            Earls\RhinoReportBundle\Module\Table\Definition\TableDefinitionBuilder
     report.table.retriever.class:                     Earls\RhinoReportBundle\Module\Table\Helper\TableRetrieverHelper
     report.table.manipulator.class:                   Earls\RhinoReportBundle\Module\Table\Util\DataManipulator
@@ -14,11 +15,6 @@ parameters:
 
     report.table.template.xls.apply_formula.class:    Earls\RhinoReportBundle\Module\Table\Util\XlsApplyFormula
     report.table.template.xls.simplifier.class:       Earls\RhinoReportBundle\Module\Table\Templating\Simplifier\XlsReportSimplifier
-
-    report_type:
-        table:
-            class:  Earls\RhinoReportBundle\Module\Table\TableObject\Table
-            export: [ csv, xls, html ]
             
 services:
     report.table.factory:
@@ -27,7 +23,9 @@ services:
 
     report.table.definition.builder:
         class:      %report.table.definition.builder.class%
-        arguments: ["@service_container"]
+        arguments: ["%report.table.definition.class%"]
+        tags:
+            - { name: report.definition.builder, alias: table }        
 
     report.table.retriever:
         class:      %report.table.retriever.class%

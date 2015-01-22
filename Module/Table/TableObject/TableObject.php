@@ -3,15 +3,15 @@
 namespace Earls\RhinoReportBundle\Module\Table\TableObject;
 
 use Earls\RhinoReportBundle\Module\Table\Util\DataObjectInterface;
+use Earls\RhinoReportBundle\Report\ReportObject\ModuleObject;
 
 /*
  * Earls\RhinoReportBundle\Module\Table\TableObject\TableObject
  */
 
-abstract class TableObject
+abstract class TableObject extends ModuleObject
 {
 
-    protected $id;
     protected $data;
     protected $type = null;
     protected $definition;
@@ -27,18 +27,6 @@ abstract class TableObject
         $this->id = $id;
         $this->definition = $definition;
         $this->parent = $parent;
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     public function getType()

@@ -2,8 +2,7 @@
 
 namespace Earls\RhinoReportBundle\Module\Table\Definition;
 
-use Earls\RhinoReportBundle\Report\Definition\ReportDefinitionBuilder;
-use Earls\RhinoReportBundle\Report\Definition\ReportDefinition;
+use Earls\RhinoReportBundle\Report\Definition\AbstractDefinitionBuilder;
 use Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition;
 use Earls\RhinoReportBundle\Module\Table\Definition\HeadDefinition;
 use Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition;
@@ -15,29 +14,20 @@ use Symfony\Component\DependencyInjection\Container;
  * Earls\RhinoReportBundle\Module\Table\Definition\TableDefinitionBuilder
  */
 
-class TableDefinitionBuilder
+class TableDefinitionBuilder extends AbstractDefinitionBuilder
 {
 
-    protected $tableDefinition;
     protected $parent;
     protected $currentDefinition;
     protected $availableExport;
 
-    public function __construct(ReportDefinition $reportDefinition = null, ReportDefinitionBuilder $parentBuilder = null, $idTable = null)
+    public function __construct($definitionClass)
     {
         $this->availableExport = array('html' => $this->getHtmlExportConfigClass(), 'excel' => $this->getExcelExportConfigClass());
 
-        $this->tableDefinition = new TableDefinition($this->availableExport, $idTable);
-        $this->tableDefinition->setParent($reportDefinition);
+        $this->definition = new $definitionClass($this->availableExport);
 
-        $this->currentDefinition = $this->tableDefinition;
-
-        $this->parent = $parentBuilder;
-    }
-
-    public function getTableDefinition()
-    {
-        return $this->tableDefinition;
+        $this->currentDefinition = $this->definition;
     }
 
     public function head()
@@ -319,7 +309,8 @@ class TableDefinitionBuilder
 
     public function build()
     {
-        return $this->getTableDefinition()->build();
+        $this->getDefinition()->build();
+        return $this;
     }
 
 }
