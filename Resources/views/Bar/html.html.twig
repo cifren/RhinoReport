@@ -1,1 +1,55 @@
+{% javascripts
+    'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js'
+%}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts  %}
 
+<canvas id="myChart" width="400" height="400"></canvas>
+<div id="legendDiv"></div>
+<div id="datasets" data-labels="{{bar.getLabels()|json_encode()}}">
+    {% set datasets = bar.getDatasets() %}
+    {% for dataset in datasets %}
+        <dataset data-label="{{dataset.getLabel()|json_encode()}}" data-values="{{dataset.getData()|json_encode()}}" data-options="{{dataset.getOptions()|json_encode()}}"></dataset>
+    {% endfor %}
+</div>
+
+<script>
+    var ctx = document.getElementById("myChart").getContext("2d");
+
+    function getLabels() {
+        var labelsObj = JSON.parse($("#datasets").attr('data-labels'));
+
+        var labels = [];
+        for (var index in labelsObj) {
+            labels.push(labelsObj[index])
+
+        }
+        
+        return labels;
+    }
+
+    function getDataSets() {
+        var $datasets = $("#datasets dataset");
+
+        var structuredDatasets = [];
+        $.each($datasets, function (index, value) {
+            var $element = $(value);
+            var dataset = {};
+            dataset.label = $element.attr('data-label');
+            dataset.data = JSON.parse($element.attr('data-values'));
+            structuredDatasets.push(dataset);
+        });
+
+        console.log(structuredDatasets)
+        return structuredDatasets;
+    }
+
+    var data = {
+        labels: getLabels(),
+        datasets: getDataSets()
+    };
+
+    var myBarChart = new Chart(ctx).Bar(data);
+    document.getElementById("legendDiv").innerHTML = myLineChart.generateLegend();
+
+</script>
