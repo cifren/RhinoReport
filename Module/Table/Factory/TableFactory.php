@@ -108,10 +108,14 @@ class TableFactory extends Factory
                     }
                 } else {
                     $dataObj = $groupParent->getDataObject();
-                    $this->reOrderData($groupDefinition, $dataObj);
+                    //create new set of data if reorder, else keep the data of the parent
+                    if($groupDefinition->getOrderBy()){
+                        $dataObj = clone $dataObj;
+                        $this->reOrderData($groupDefinition, $dataObj);
+                    }
                     $group = new Group($itemDefinition->getId(), $itemDefinition->getId(), $itemDefinition, $groupParent, $dataObj);
-                    $this->reOrderData($itemDefinition, $group);
 
+                    $group = $this->createGroupAndRow($group);
                     $group = $this->setListGroupActionOrExecuteActions($groupDefinition, $group);
                     $groupParent->addItem($group);
                 }
@@ -160,8 +164,9 @@ class TableFactory extends Factory
     protected function reOrderData(GroupDefinition $groupDefinition, DataObjectInterface $objData)
     {
         $groupByAry = $groupDefinition->getOrderBy();
-        if (empty($groupByAry))
+        if (empty($groupByAry)){
             return;
+        }
 
         $data = $objData->getData();
         $objData->setData($this->reOrderDataRecursive($groupByAry, $data, $groupByAry[0]));

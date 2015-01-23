@@ -23,5 +23,4 @@ TO DO:
     - finish doc
     - add new report with google doc display via Google API
     - add chart display (http://www.highcharts.com/demo/)
-    - Fix bug on group when no GroupBy
     - manage several table on html and on excel with option per tab or per page
