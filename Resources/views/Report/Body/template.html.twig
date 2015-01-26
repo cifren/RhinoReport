@@ -1,0 +1,55 @@
+{% use 'EarlsRhinoReportBundle:Report/Body:filter.html.twig' %}
+{% use 'EarlsRhinoReportBundle:Bar:template.html.twig' %}
+{% use 'EarlsRhinoReportBundle:Table:template.html.twig' %}
+
+{% block rhino_report %}
+    {# unique block #}
+    {{ block('report_unique_bar') }}
+    {{ block('report_unique_table') }}
+    
+    {# filter block #}
+    {% if template.getFilter() %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    {{ block('report_filter') }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    
+    {# modules block #}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                {% set position = 'position-1' %}
+                {% if template.getModulesOnPostion(position) %}
+                    {{ block('report_block') }}
+                {% endif %}
+            </div>
+            <div class="col-md-4">
+                {% set position = 'position-2' %}
+                {% if template.getModulesOnPostion(position) %}
+                    {{ block('report_block') }}
+                {% endif %}
+            </div>
+            <div class="col-md-4">
+                {% set position = 'position-3' %}
+                {% if template.getModulesOnPostion(position) %}
+                    {{ block('report_block') }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block report_block %}
+    {% set elements = template.getModulesOnPostion(position) %}
+    {% for element in elements %}
+        {% if element.type == 'bar' %}
+            {{ block('report_bar') }}
+        {% elseif element.type == 'table' %}
+            {{ block('report_table') }}
+        {% endif %}
+    {% endfor %}
+{% endblock %}

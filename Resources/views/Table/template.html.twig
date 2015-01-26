@@ -1,0 +1,46 @@
+{% block report_unique_table %}
+    {% javascripts
+        '@EarlsRhinoReportBundle/Module/Table/Resources/public/js/report_table.js'
+        'js/jquery.simpleCollapseTable.js'
+        'cross-browser.com/x/lib/xtableheaderfixed.js'
+        'cross-browser.com/x/x.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts  %}
+{% endblock %}
+
+{% block report_table %}
+    {% set tableTemplate = element %}
+    {% set item = tableTemplate.getSimpleTable() %}
+
+    {% set attr = item.attr|default(null) %}
+    <table id='report_table' {{ block('report_attributes') }}>
+        <thead>
+            {% set attr = item.head.attr|default(null) %}
+            <tr {{ block('report_attributes') }}>
+                {% for column in item.head.columns %}
+                    {% set attr = column.attr|default(null) %}
+                    <th {{ block('report_attributes') }} >{{ column.data|raw }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for row in item.body %}
+                {% set attr = row.attr|default(null) %}
+                <tr {{ block('report_attributes') }}>
+                    {% for column in row.columns %}
+                        {% set attr = column.attr|default(null) %}
+                        <td {{ block('report_attributes') }}>{{ column.data|raw }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>    
+{% endblock %}
+
+{% block report_attributes %}
+    {% spaceless %}
+        {% for attrname,attrvalue in attr %}{{attrname}}="{{attrvalue}}" {% endfor %}
+    {% endspaceless %}
+{% endblock %}
