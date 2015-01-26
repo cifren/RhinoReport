@@ -51,7 +51,7 @@ class Bar extends ModuleObject
         foreach ($datasets as $dataset) {
             $this->addDataset($dataset);
         }
-        
+
         return $this;
     }
 
@@ -64,6 +64,11 @@ class Bar extends ModuleObject
     {
         $this->options = $options;
         return $this;
+    }
+
+    public function getType()
+    {
+        return 'bar';
     }
 
 }

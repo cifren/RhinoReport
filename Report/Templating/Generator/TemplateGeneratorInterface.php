@@ -8,5 +8,5 @@ namespace Earls\RhinoReportBundle\Report\Templating\Generator;
  */
 interface TemplateGeneratorInterface
 {
-    public function getResponse($nameFile, $object, $arg);
+    //public function getResponse($nameFile, $object, $arg);
 }

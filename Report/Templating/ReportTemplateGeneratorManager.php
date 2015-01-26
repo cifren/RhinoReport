@@ -3,6 +3,7 @@
 namespace Earls\RhinoReportBundle\Report\Templating;
 
 use Earls\RhinoReportBundle\Report\ReportObject\Report;
+use Earls\RhinoReportBundle\Report\Templating\Model\Template;
 
 /**
  * Earls\RhinoReportBundle\Report\Templating\ReportTemplateGeneratorManager
@@ -10,8 +11,6 @@ use Earls\RhinoReportBundle\Report\ReportObject\Report;
 class ReportTemplateGeneratorManager
 {
 
-    protected $report;
-    protected $format;
     protected $container;
 
     public function __construct($container)
@@ -58,10 +57,10 @@ class ReportTemplateGeneratorManager
         return $this->container->get("report.$typeNameItem.template.generator.$format")->getResponse($nameFile, $item, $arg);
     }
 
-    protected function getReportTypeName($className, $id)
+    protected function getReportTypeName($className, $id = null)
     {
         $reportType = $this->container->getParameter('report_type');
-        
+
         $type = array();
         foreach ($reportType as $key => $parameter) {
             $type[$parameter['class']] = $key;
@@ -72,6 +71,20 @@ class ReportTemplateGeneratorManager
         }
 
         return $type[$className];
+    }
+
+    public function getTemplating(Report $object, $remoteUrl, $exportUrl)
+    {
+        $template = new Template();
+
+        $template->setFilter($object->getFilter());
+        foreach ($object->getItems() as $item) {
+            $typeNameItem = $this->getReportTypeName(get_class($item));
+            $templateGenerator = $this->container->get("report.$typeNameItem.template.generator.html");
+            $template->addModule($templateGenerator->getTemplating($item, $remoteUrl, $exportUrl));
+        }
+        
+        return $template;
     }
 
 }

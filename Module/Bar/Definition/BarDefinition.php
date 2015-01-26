@@ -14,7 +14,7 @@ class BarDefinition extends ModuleDefinition
 
     protected $options = array();
     protected $labelColumn;
-    protected $dataColumns;
+    protected $datasets;
 
     public function __construct($factoryServiceName = "report.bar.factory", $id = 'bar')
     {
@@ -24,18 +24,14 @@ class BarDefinition extends ModuleDefinition
     public function setOptions($options)
     {
         $this->options = $options;
+        
         return $this;
     }
 
     public function setLabelColumn($labelColumn)
     {
         $this->labelColumn = $labelColumn;
-        return $this;
-    }
-
-    public function setDataColumns(array $dataColumns)
-    {
-        $this->dataColumns = $dataColumns;
+        
         return $this;
     }
 
@@ -49,9 +45,22 @@ class BarDefinition extends ModuleDefinition
         return $this->labelColumn;
     }
 
-    public function getDataColumns()
+    public function getDatasets()
     {
-        return $this->dataColumns;
+        return $this->datasets;
+    }
+
+    public function setDatasets($datasets)
+    {
+        $this->datasets = $datasets;
+        return $this;
+    }
+
+    public function addDataset(DatasetDefinition $dataset)
+    {
+        $this->datasets[] = $dataset;
+        
+        return $this;
     }
 
 }

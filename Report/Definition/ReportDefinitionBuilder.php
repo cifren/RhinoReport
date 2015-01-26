@@ -34,7 +34,7 @@ class ReportDefinitionBuilder extends AbstractDefinitionBuilder
         $instanceDefinitionBuilder = clone $this->getBuilder($type);
         $instanceDefinitionBuilder->setParent($this);
         $instanceDefinitionBuilder->setId($id);
-
+        
         $this->addInstanceBuilder($instanceDefinitionBuilder);
 
         return $instanceDefinitionBuilder;
@@ -85,6 +85,7 @@ class ReportDefinitionBuilder extends AbstractDefinitionBuilder
     public function addInstanceBuilder(AbstractDefinitionBuilder $instanceBuilders)
     {
         $this->instanceBuilders[] = $instanceBuilders;
+        
         return $this;
     }
 

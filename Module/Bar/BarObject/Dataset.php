@@ -26,6 +26,7 @@ class Dataset extends ModuleObject
     public function setOptions($options)
     {
         $this->options = $options;
+
         return $this;
     }
 
@@ -54,6 +55,13 @@ class Dataset extends ModuleObject
     public function getLabel()
     {
         return $this->label;
+    }
+
+    public function setDefaultOptions()
+    {
+        $options = array();
+
+        return $options;
     }
 
 }

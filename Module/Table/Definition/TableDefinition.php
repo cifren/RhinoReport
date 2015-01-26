@@ -19,6 +19,7 @@ class TableDefinition extends Definition implements ReportDefinitionInterface
     protected $headDefinition;
     protected $bodyDefinition;
     protected $factoryServiceName;
+    protected $position;
 
     public function __construct(array $exportConfigs, $id = 'table')
     {
@@ -200,6 +201,18 @@ class TableDefinition extends Definition implements ReportDefinitionInterface
                 $item->reOrderColumns();
             }
         }
+    }
+
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    public function setPosition($position)
+    {
+        $this->position = $position;
+
+        return $this;
     }
 
 }

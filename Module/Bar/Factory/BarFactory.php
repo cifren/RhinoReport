@@ -15,8 +15,9 @@ use Earls\RhinoReportBundle\Module\Bar\BarObject\Dataset;
  */
 class BarFactory extends Factory
 {
+
     protected $dataManipulator;
-    
+
     public function build()
     {
         $item = $this->createBarObject();
@@ -32,12 +33,14 @@ class BarFactory extends Factory
         $data = $this->getData();
         $barObject = new Bar();
 
+        $barObject->setDefinition($barDefinition);
         $barObject->setId($barDefinition->getId());
         $barObject->setLabels($this->getLabelsFromData($barDefinition->getLabelColumn(), $data));
-        $transformedData = $this->getTransformedData($barObject->getLabels(), $barDefinition->getLabelColumn(), $barDefinition->getDataColumns(), $data);
+        $transformedData = $this->getTransformedData($barObject->getLabels(), $barDefinition->getLabelColumn(), $barDefinition->getDatasets(), $data);
         $datasets = array();
-        foreach($barDefinition->getDataColumns() as $columnName => $columnlabel){
-            $dataset = new Dataset($columnlabel, $transformedData[$columnName]);
+        foreach ($barDefinition->getDatasets() as $key => $datasetDef) {
+            $options = array_merge($this->getDefaultOptionsDatasetColors()[$key], $datasetDef->getOptions());
+            $dataset = new Dataset($datasetDef->getLabelColumn(), $transformedData[$datasetDef->getDataColumn()], $options);
             $datasets[] = $dataset;
         }
         $barObject->setDatasets($datasets);
@@ -45,18 +48,19 @@ class BarFactory extends Factory
         return $barObject;
     }
 
-    protected function getTransformedData(array $labels, $labelColumnName, array $columnNames, DataObjectInterface $dataObj)
+    protected function getTransformedData(array $labels, $labelColumnName, array $datasets, DataObjectInterface $dataObj)
     {
         $transformedData = array();
         $data = $dataObj->getData();
-        
+
         foreach ($labels as $label) {
             $callback = function($var) use ($label, $labelColumnName) {
                 return $var[$labelColumnName] == $label;
             };
             $labelData = array_filter($data, $callback);
-            
-            foreach ($columnNames as $columnName => $columnlabel) {
+
+            foreach ($datasets as $dataset) {
+                $columnName = $dataset->getDataColumn();
                 $sumColumnValues = null;
                 foreach ($labelData as $row) {
                     $sumColumnValues += $row[$columnName];
@@ -64,7 +68,7 @@ class BarFactory extends Factory
                 $transformedData[$columnName][] = $sumColumnValues;
             }
         }
-        
+
         return $transformedData;
     }
 
@@ -80,13 +84,57 @@ class BarFactory extends Factory
 
         return $labels;
     }
-    
-    protected function getDataManipulator(){
-        if(!$this->dataManipulator){
+
+    protected function getDataManipulator()
+    {
+        if (!$this->dataManipulator) {
             return $this->dataManipulator = new DataManipulator();
         }
-        
+
         return $this->dataManipulator;
+    }
+
+    protected function getDefaultOptionsDatasetColors()
+    {
+        $colors = array(
+            array(
+                'fillColor' => '#da5859',
+                'strokeColor' => '#CF9898',
+                'highlightFill' => '#D34444',
+                'highlightStroke' => '#da5859',
+            ),
+            array(
+                'fillColor' => '#a5bdd7',
+                'strokeColor' => '#C4CAD0',
+                'highlightFill' => '#4E90D6',
+                'highlightStroke' => '#a5bdd7',
+            ),
+            array(
+                'fillColor' => '#a5d7d0',
+                'strokeColor' => '#C4D9D6',
+                'highlightFill' => '#42D9C2',
+                'highlightStroke' => '#a5d7d0',
+            ),
+            array(
+                'fillColor' => '#fbc987',
+                'strokeColor' => '#FEE4C2',
+                'highlightFill' => '#FBA332',
+                'highlightStroke' => '#fbc987',
+            ),
+            array(
+                'fillColor' => '#f09777',
+                'strokeColor' => '#EFB9A5',
+                'highlightFill' => '#EF602C',
+                'highlightStroke' => '#f09777',
+            ),
+            array(
+                'fillColor' => '#da5859',
+                'strokeColor' => '#DA8484',
+                'highlightFill' => '#DA2626',
+                'highlightStroke' => '#da5859',
+            ),
+        );
+        return $colors;
     }
 
 }

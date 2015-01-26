@@ -13,6 +13,7 @@ abstract class ModuleDefinition implements ReportDefinitionInterface
     protected $factoryServiceName = "";
     protected $id;
     protected $parent;
+    protected $position;
 
     public function __construct($factoryServiceName = "", $id = 'module')
     {
@@ -50,6 +51,18 @@ abstract class ModuleDefinition implements ReportDefinitionInterface
     public function setParent($parent)
     {
         $this->parent = $parent;
+        return $this;
+    }
+
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    public function setPosition($position)
+    {
+        $this->position = $position;
+        
         return $this;
     }
 

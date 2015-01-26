@@ -11,6 +11,11 @@ class Report
 {
 
     protected $items = array();
+
+    /**
+     *
+     * @var Filter
+     */
     protected $filter;
     protected $availableExport = array();
 

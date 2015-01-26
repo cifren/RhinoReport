@@ -14,7 +14,6 @@ abstract class TableObject extends ModuleObject
 
     protected $data;
     protected $type = null;
-    protected $definition;
     protected $parent;
     protected $parentPath;
     protected $partialPath;
@@ -27,18 +26,6 @@ abstract class TableObject extends ModuleObject
         $this->id = $id;
         $this->definition = $definition;
         $this->parent = $parent;
-    }
-
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
     }
 
     public function getPartialPath()
@@ -57,18 +44,6 @@ abstract class TableObject extends ModuleObject
         }
 
         return $this->fullPath;
-    }
-
-    public function setDefinition($definition)
-    {
-        $this->definition = $definition;
-
-        return $this;
-    }
-
-    public function getDefinition()
-    {
-        return $this->definition;
     }
 
     public function setParent(TableObject $parent)
@@ -136,6 +111,11 @@ abstract class TableObject extends ModuleObject
     protected function excludeSpecialCharacter($string)
     {
         return str_replace(array('\\', ':%:', ':@:'), '', $string);
+    }
+
+    public function getType()
+    {
+        return 'table';
     }
 
 }

@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormTypeInterface;
 use Earls\RhinoReportBundle\Report\Definition\ReportConfigurationInterface;
 use Earls\RhinoReportBundle\Module\Table\Util\DataObject;
 use Earls\RhinoReportBundle\Report\ReportObject\Report;
+use Earls\RhinoReportBundle\Report\ReportObject\Filter;
 
 /**
  * Earls\RhinoReportBundle\Report\Definition\ReportBuilder
@@ -14,6 +15,10 @@ use Earls\RhinoReportBundle\Report\ReportObject\Report;
 class ReportBuilder
 {
 
+    /**
+     *
+     * @var Report
+     */
     protected $report = null;
     protected $filterForm;
     protected $rptConfig;
@@ -78,6 +83,9 @@ class ReportBuilder
 
         //set filter
         if ($this->rptConfig->getFilter()){
+            $filter = new Filter();
+            $filter->setForm($this->getFilterForm());
+            $filter->setAvailableExport($this->report->getAvailableExport());
             $this->report->setFilter($this->getFilterForm());
         }
     }

@@ -8,13 +8,15 @@ namespace Earls\RhinoReportBundle\Report\Definition;
 abstract class AbstractDefinitionBuilder implements DefinitionBuilderInterface
 {
 
-    protected $parent;
-    protected $definition;
     protected $id;
+    protected $parent;
+    protected $definitionClass;
+    protected $definition;
+    protected $currentDefinition;
 
     public function __construct($definitionClass)
     {
-        $this->definition = new $definitionClass();
+        $this->definitionClass = $definitionClass;
     }
 
     public function getItemBuild()
@@ -30,7 +32,7 @@ abstract class AbstractDefinitionBuilder implements DefinitionBuilderInterface
     public function setParent(DefinitionBuilderInterface $parent)
     {
         $this->parent = $parent;
-        $this->definition->setParent($parent->getDefinition());
+        $this->getDefinition()->setParent($parent->getDefinition());
 
         return $this;
     }
@@ -46,6 +48,11 @@ abstract class AbstractDefinitionBuilder implements DefinitionBuilderInterface
 
     public function getDefinition()
     {
+        if (!$this->definition) {
+            $definitionClass= $this->getDefinitionClass();
+            $this->definition = new $definitionClass();
+        }
+
         return $this->definition;
     }
 
@@ -59,6 +66,32 @@ abstract class AbstractDefinitionBuilder implements DefinitionBuilderInterface
         $this->id = $id;
         $this->getDefinition()->setId($id);
 
+        return $this;
+    }
+
+    public function getDefinitionClass()
+    {
+        return $this->definitionClass;
+    }
+
+    public function getCurrentDefinition()
+    {
+        if (!$this->currentDefinition) {
+            $this->currentDefinition = $this->getDefinition();
+        }
+        
+        return $this->currentDefinition;
+    }
+
+    public function setDefinitionClass($definitionClass)
+    {
+        $this->definitionClass = $definitionClass;
+        return $this;
+    }
+
+    public function setCurrentDefinition($currentDefinition)
+    {
+        $this->currentDefinition = $currentDefinition;
         return $this;
     }
 

@@ -10,13 +10,6 @@ use Earls\RhinoReportBundle\Report\Definition\AbstractDefinitionBuilder;
 class BarDefinitionBuilder extends AbstractDefinitionBuilder
 {
 
-    public function __construct($definitionClass)
-    {
-        parent::__construct($definitionClass);
-
-        $this->currentDefinition = $this->definition;
-    }
-
     public function labels($columnName)
     {
         $this->getDefinition()->setLabelColumn($columnName);
@@ -24,19 +17,28 @@ class BarDefinitionBuilder extends AbstractDefinitionBuilder
         return $this;
     }
 
-    public function data(array $columnNames)
+    public function dataset($columnData, $labelData, $options = array())
     {
-        $this->getDefinition()->setDataColumns($columnNames);
+        $dataset = new DatasetDefinition($columnData, $labelData, $options);
+        
+        $this->getDefinition()->addDataset($dataset);
+
+        return $this;
+    }
+
+    public function position($position)
+    {
+        $this->getCurrentDefinition()->setPosition($position);
 
         return $this;
     }
 
     public function end()
     {
-        if ($this->currentDefinition instanceof BarDefinition) {
+        if ($this->getCurrentDefinition() instanceof BarDefinition) {
             return $this->parent;
         }
-        $this->currentDefinition = $this->currentDefinition->end();
+        $this->setCurrentDefinition($this->getCurrentDefinition()->end());
 
         return $this;
     }
