@@ -1,12 +1,12 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Report\Templating\Generator;
+namespace Earls\RhinoReportBundle\Report\Templating\Original\Generator;
 
-use Earls\RhinoReportBundle\Report\Templating\Model\ModuleTemplate;
+use Earls\RhinoReportBundle\Report\Templating\Original\Model\ModuleTemplate;
 use Earls\RhinoReportBundle\Report\ReportObject\ModuleObject;
 
 /**
- * Earls\RhinoReportBundle\Report\Templating\Generator\HtmlTemplateGenerator
+ * Earls\RhinoReportBundle\Report\Templating\Original\Generator\HtmlTemplateGenerator
  */
 abstract class HtmlTemplateGenerator implements TemplateGeneratorInterface
 {

@@ -4,9 +4,9 @@ parameters:
     report.definition.class:                          Earls\RhinoReportBundle\Report\Definition\ReportDefinition
     report.definition.builder.class:                  Earls\RhinoReportBundle\Report\Definition\ReportDefinitionBuilder
 
-    report.template.generator.manager.class:          Earls\RhinoReportBundle\Report\Templating\ReportTemplateGeneratorManager
+    report.template.generator.manager.class:          Earls\RhinoReportBundle\Report\Templating\Original\ReportTemplateGeneratorManager
 
-    report.template.generator.html.class:             Earls\RhinoReportBundle\Report\Templating\Generator\HtmlReportTemplateGenerator
+    report.template.generator.html.class:             Earls\RhinoReportBundle\Report\Templating\Original\Generator\HtmlReportTemplateGenerator
     report.template.generator.html.template:          EarlsRhinoReportBundle:Report/Body:html.html.twig
 
     report_type:

@@ -1,8 +1,8 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Module\Table\Templating;
+namespace Earls\RhinoReportBundle\Module\Table\Templating\Original;
 
-use Earls\RhinoReportBundle\Report\Templating\Model\ModuleTemplate;
+use Earls\RhinoReportBundle\Report\Templating\Original\Model\ModuleTemplate;
 
 /**
  * Description of HtmlTemplateTable

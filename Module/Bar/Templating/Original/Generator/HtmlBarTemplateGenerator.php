@@ -1,8 +1,8 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Module\Bar\Templating\Generator;
+namespace Earls\RhinoReportBundle\Module\Bar\Templating\Original\Generator;
 
-use Earls\RhinoReportBundle\Report\Templating\Generator\HtmlTemplateGenerator;
+use Earls\RhinoReportBundle\Report\Templating\Original\Generator\HtmlTemplateGenerator;
 use Earls\RhinoReportBundle\Module\Bar\BarObject\Bar;
 use Earls\RhinoReportBundle\Report\ReportObject\ModuleObject;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Report\Templating\Model;
+namespace Earls\RhinoReportBundle\Report\Templating\Original\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 

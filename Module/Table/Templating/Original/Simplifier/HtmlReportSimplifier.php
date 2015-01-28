@@ -1,6 +1,6 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Module\Table\Templating\Simplifier;
+namespace Earls\RhinoReportBundle\Module\Table\Templating\Original\Simplifier;
 
 use Earls\RhinoReportBundle\Module\Table\TableObject\Table;
 use Earls\RhinoReportBundle\Module\Table\TableObject\Group;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Module\Table\Templating\Simplifier;
+namespace Earls\RhinoReportBundle\Module\Table\Templating\Original\Simplifier;
 
 use Earls\RhinoReportBundle\Module\Table\TableObject\Table;
 use Earls\RhinoReportBundle\Module\Table\TableObject\Group;
@@ -13,7 +13,7 @@ use Earls\RhinoReportBundle\Module\Table\Util\XlsApplyFormula;
 use Earls\RhinoReportBundle\Module\Table\Factory\TableFactory;
 
 /**
- *  Earls\RhinoReportBundle\Module\Table\Templating\Simplifier\XlsReportSimplifier
+ *  Earls\RhinoReportBundle\Module\Table\Templating\Original\Simplifier\XlsReportSimplifier
  *
  *  Transform ReportObject in Array and Convert all formatExcel for example '=sum(A1:A5)+sum(B1:B5)'
  */

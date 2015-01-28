@@ -1,9 +1,9 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Report\Templating\Generator;
+namespace Earls\RhinoReportBundle\Report\Templating\Original\Generator;
 
 /**
- * Earls\RhinoReportBundle\Report\Templating\Generator\HtmlReportTemplateGenerator
+ * Earls\RhinoReportBundle\Report\Templating\Original\Generator\HtmlReportTemplateGenerator
  */
 class HtmlReportTemplateGenerator extends HtmlTemplateGenerator
 {

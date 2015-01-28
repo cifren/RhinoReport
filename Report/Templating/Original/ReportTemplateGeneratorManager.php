@@ -1,12 +1,12 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Report\Templating;
+namespace Earls\RhinoReportBundle\Report\Templating\Original;
 
 use Earls\RhinoReportBundle\Report\ReportObject\Report;
-use Earls\RhinoReportBundle\Report\Templating\Model\Template;
+use Earls\RhinoReportBundle\Report\Templating\Original\Model\Template;
 
 /**
- * Earls\RhinoReportBundle\Report\Templating\ReportTemplateGeneratorManager
+ * Earls\RhinoReportBundle\Report\Templating\Original\ReportTemplateGeneratorManager
  */
 class ReportTemplateGeneratorManager
 {
