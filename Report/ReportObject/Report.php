@@ -2,7 +2,7 @@
 
 namespace Earls\RhinoReportBundle\Report\ReportObject;
 
-use Symfony\Component\Form\Form;
+use Earls\RhinoReportBundle\Report\ReportObject\Filter;
 
 /**
  * Earls\RhinoReportBundle\Report\ReportObject\Report
@@ -61,7 +61,7 @@ class Report
         return $arrayIterator;
     }
 
-    public function setFilter(Form $filter)
+    public function setFilter(Filter $filter)
     {
         $this->filter = $filter;
 

@@ -86,7 +86,7 @@ class ReportBuilder
             $filter = new Filter();
             $filter->setForm($this->getFilterForm());
             $filter->setAvailableExport($this->report->getAvailableExport());
-            $this->report->setFilter($this->getFilterForm());
+            $this->report->setFilter($filter);
         }
     }
 
