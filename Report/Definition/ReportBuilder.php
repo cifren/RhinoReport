@@ -79,13 +79,14 @@ class ReportBuilder
 
         $this->report = $reportfactory->getItem();
         $this->report = $this->rptConfig->getReportObject($this->report, $dataFilter);
-        $this->buildExport();
+        $this->report->setOptions($this->rptConfig->getResolvedOptions());
+        //$this->buildExport();
 
         //set filter
         if ($this->rptConfig->getFilter()){
             $filter = new Filter();
             $filter->setForm($this->getFilterForm());
-            $filter->setAvailableExport($this->report->getAvailableExport());
+            $filter->setOptions($this->rptConfig->getResolvedOptions());
             $this->report->setFilter($filter);
         }
     }
@@ -101,20 +102,20 @@ class ReportBuilder
         if ($this->rptConfig->hasFilter()) {
             $this->report->setFilter($this->getFilterForm());
         }
-        $this->buildExport();
+        //$this->buildExport();
     }
 
     protected function buildExport()
     {
-        if (!is_array($this->rptConfig->getAvailableExport())) {
+        if (!is_array($this->rptConfig->getResolvedOptions()['availableExport'])) {
             throw new \InvalidArgumentException('Expected array');
         }
 
-        $availableExport = $this->rptConfig->getAvailableExport();
-        if (empty($availableExport)) {
+        $options = $this->rptConfig->getResolvedOptions()['availableExport'];
+        if (empty($options[''])) {
             throw new \InvalidArgumentException('Expected at least one export');
         }
-        $this->report->setAvailableExport($this->rptConfig->getAvailableExport());
+        $this->report->setOptions($options);
     }
 
     protected function runDebugData($data, $dataFilter)

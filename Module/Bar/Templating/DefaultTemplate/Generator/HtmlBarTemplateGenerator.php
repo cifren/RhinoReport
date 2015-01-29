@@ -1,8 +1,8 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Module\Bar\Templating\Original\Generator;
+namespace Earls\RhinoReportBundle\Module\Bar\Templating\DefaultTemplate\Generator;
 
-use Earls\RhinoReportBundle\Report\Templating\Original\Generator\HtmlTemplateGenerator;
+use Earls\RhinoReportBundle\Report\Templating\DefaultTemplate\Generator\HtmlTemplateGenerator;
 use Earls\RhinoReportBundle\Module\Bar\BarObject\Bar;
 use Earls\RhinoReportBundle\Report\ReportObject\ModuleObject;
 
@@ -20,8 +20,10 @@ class HtmlBarTemplateGenerator extends HtmlTemplateGenerator
     {
         $arrayData['labels'] = $barObject->getLabels();
         $arrayData['datasets'] =array();
-        foreach ($barObject->getDatasets() as $dataset){
-            $arrayData['datasets'][] = $dataset->getData();
+        foreach ($barObject->getDatasets() as $key => $dataset){
+            $arrayData['datasets'][$key]['label'] = $dataset->getLabel();
+            $arrayData['datasets'][$key]['dataset'] = $dataset->getData();
+            $arrayData['datasets'][$key]['options'] = $dataset->getOptions();
         }
         
         return $arrayData;

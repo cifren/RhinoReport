@@ -6,15 +6,15 @@ parameters:
     report.table.manipulator.class:                   Earls\RhinoReportBundle\Module\Table\Util\DataManipulator
     report.table.extension.class:                     Earls\RhinoReportBundle\Module\Table\Extension\ReportExtension
 
-    report.table.template.generator.html.class:       Earls\RhinoReportBundle\Module\Table\Templating\Original\Generator\HtmlTableTemplateGenerator
-    report.table.template.generator.xls.class:        Earls\RhinoReportBundle\Module\Table\Templating\Original\Generator\XlsTableTemplateGenerator
-    report.table.template.generator.csv.class:        Earls\RhinoReportBundle\Module\Table\Templating\Original\Generator\CsvTableTemplateGenerator
+    report.table.template.generator.html.class:       Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Generator\HtmlTableTemplateGenerator
+    report.table.template.generator.xls.class:        Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Generator\XlsTableTemplateGenerator
+    report.table.template.generator.csv.class:        Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Generator\CsvTableTemplateGenerator
 
     report.table.template.generator.html.template:    EarlsRhinoReportBundle:Table:html.html.twig
     report.table.template.generator.xls.template:     EarlsRhinoReportBundle:Table:xls.xml.twig
 
     report.table.template.xls.apply_formula.class:    Earls\RhinoReportBundle\Module\Table\Util\XlsApplyFormula
-    report.table.template.xls.simplifier.class:       Earls\RhinoReportBundle\Module\Table\Templating\Original\Simplifier\XlsReportSimplifier
+    report.table.template.xls.simplifier.class:       Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Simplifier\XlsReportSimplifier
             
 services:
     report.table.factory:

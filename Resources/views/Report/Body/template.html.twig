@@ -16,6 +16,13 @@
                 </div>
             </div>
         </div>
+        {% if template.getOptions().ajaxEnabled %}
+            {% javascripts
+                '@EarlsRhinoReportBundle/Report/Resources/public/js/ajaxDataLoad.js'
+            %}
+                <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts  %}
+        {% endif %}
     {% endif %}
     
     {# modules block #}

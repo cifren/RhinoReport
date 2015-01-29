@@ -1,10 +1,10 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Module\Table\Templating\Original\Generator;
+namespace Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Generator;
 
-use Earls\RhinoReportBundle\Report\Templating\Original\Generator\HtmlTemplateGenerator;
-use Earls\RhinoReportBundle\Module\Table\Templating\Original\Simplifier\HtmlReportSimplifier;
-use Earls\RhinoReportBundle\Module\Table\Templating\Original\HtmlTemplateTable;
+use Earls\RhinoReportBundle\Report\Templating\DefaultTemplate\Generator\HtmlTemplateGenerator;
+use Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Simplifier\HtmlReportSimplifier;
+use Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\HtmlTemplateTable;
 use Earls\RhinoReportBundle\Report\ReportObject\ModuleObject;
 
 class HtmlTableTemplateGenerator extends HtmlTemplateGenerator

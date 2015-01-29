@@ -17,7 +17,7 @@ class Report
      * @var Filter
      */
     protected $filter;
-    protected $availableExport = array();
+    protected $options;
 
     public function getItems()
     {
@@ -35,10 +35,11 @@ class Report
 
     public function addItem($item)
     {
-        if ($item->getId())
+        if ($item->getId()) {
             $this->items[$item->getId()] = $item;
-        else
+        } else {
             $this->items[] = $item;
+        }
 
         return $this;
     }
@@ -73,15 +74,14 @@ class Report
         return $this->filter;
     }
 
-    public function getAvailableExport()
+    public function getOptions()
     {
-        return $this->availableExport;
+        return $this->options;
     }
 
-    public function setAvailableExport(array $availableExport)
+    public function setOptions($options)
     {
-        $this->availableExport = $availableExport;
-
+        $this->options = $options;
         return $this;
     }
 

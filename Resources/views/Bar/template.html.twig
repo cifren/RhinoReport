@@ -4,89 +4,28 @@
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts  %}
+    {% if template.getOptions().ajaxEnabled %}
+        {% javascripts
+            '@EarlsRhinoReportBundle/Module/Bar/Resources/public/js/rhinoreport_bar.js'
+        %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts  %}
+    {% endif %}
 {% endblock %}
 
 {% block report_bar %}
     {% set barTemplate = element %}
     {% set bar = barTemplate.getModuleObject() %}
-    <canvas id="myChart-{{bar.getId()}}" width="400" height="200" data-remoteUrl="{{ barTemplate.getRemoteUrl() }}"></canvas>
-    <div id="legendDiv-{{bar.getId()}}"></div>
-    <div id="datasets-{{bar.getId()}}" data-labels="{{bar.getLabels()|json_encode()}}">
-        {% set datasets = bar.getDatasets() %}
-        {% for dataset in datasets %}
-            <dataset data-label="{{dataset.getLabel()|json_encode()}}" data-values="{{dataset.getData()|json_encode()}}" data-options="{{dataset.getOptions()|json_encode()}}"></dataset>
-        {% endfor %}
+    {% set id = bar.getId() %}
+    <div id="{{id}}" class="myBar">
+        <canvas class="canvas" width="400" height="200"></canvas>
+        <div class="legend"></div>
+        <div class="barData" data-load="{{ barTemplate.getData()|json_encode() }}"></div>
+        <div class="datasets" data-labels="{{bar.getLabels()|json_encode()}}">
+            {% set datasets = bar.getDatasets() %}
+            {% for dataset in datasets %}
+                <dataset data-label="{{dataset.getLabel()|json_encode()}}" data-values="{{dataset.getData()|json_encode()}}" data-options="{{dataset.getOptions()|json_encode()}}"></dataset>
+            {% endfor %}
+        </div>
     </div>
-
-    <script>
-        var id = "{{bar.getId()}}";
-        var ctx = document.getElementById("myChart-"+id).getContext("2d");
-
-        function getLabels() {
-            var labelsObj = JSON.parse($("#datasets-"+id).attr('data-labels'));
-
-            var labels = [];
-            for (var index in labelsObj) {
-                labels.push(labelsObj[index]);
-            }
-
-            return labels;
-        }
-
-        function getDataSets() {
-            var $datasets = $("#datasets-"+id+" dataset");
-
-            var structuredDatasets = [];
-            $.each($datasets, function (index, value) {
-                var $element = $(value);
-                var dataset = {};
-                dataset.label = $element.attr('data-label');
-                dataset.data = JSON.parse($element.attr('data-values'));
-                
-                var options = JSON.parse($element.attr('data-options'));
-                $.each(options, function (index, value){
-                    dataset[index] = value;
-                });
-                
-                structuredDatasets.push(dataset);
-            });
-
-            return structuredDatasets;
-        }
-
-        var data = {
-            labels: getLabels(),
-            datasets: getDataSets()
-        };
-        var options = {
-            //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
-            scaleBeginAtZero: true,
-            //Boolean - Whether grid lines are shown across the chart
-            scaleShowGridLines: true,
-            //String - Colour of the grid lines
-            scaleGridLineColor: "rgba(0,0,0,.05)",
-            //Number - Width of the grid lines
-            scaleGridLineWidth: 1,
-            //Boolean - Whether to show horizontal lines (except X axis)
-            scaleShowHorizontalLines: true,
-            //Boolean - Whether to show vertical lines (except Y axis)
-            scaleShowVerticalLines: true,
-            //Boolean - If there is a stroke on each bar
-            barShowStroke: true,
-            //Number - Pixel width of the bar stroke
-            barStrokeWidth: 2,
-            //Number - Spacing between each of the X value sets
-            barValueSpacing: 5,
-            //Number - Spacing between data sets within X values
-            barDatasetSpacing: 1,
-            //String - A legend template
-            {% verbatim %}
-            legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
-            {% endverbatim %}
-        }
-
-        var myBarChart = new Chart(ctx).Bar(data, options);
-        document.getElementById("legendDiv-"+id).innerHTML = myBarChart.generateLegend();
-
-    </script>
 {% endblock %}

@@ -11,16 +11,11 @@ class Filter
 {
 
     protected $form;
-    protected $availableExport;
+    protected $options;
 
     public function getForm()
     {
         return $this->form;
-    }
-
-    public function getAvailableExport()
-    {
-        return $this->availableExport;
     }
 
     public function setForm($form)
@@ -29,10 +24,15 @@ class Filter
         return $this;
     }
 
-    public function setAvailableExport($availableExport)
+    public function setOptions($options)
     {
-        $this->availableExport = $availableExport;
+        $this->options = $options;
         return $this;
+    }
+
+    public function getOptions()
+    {
+        return $this->options;
     }
 
 }

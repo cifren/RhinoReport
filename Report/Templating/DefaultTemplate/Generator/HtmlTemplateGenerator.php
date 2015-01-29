@@ -1,12 +1,12 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Report\Templating\Original\Generator;
+namespace Earls\RhinoReportBundle\Report\Templating\DefaultTemplate\Generator;
 
-use Earls\RhinoReportBundle\Report\Templating\Original\Model\ModuleTemplate;
+use Earls\RhinoReportBundle\Report\Templating\DefaultTemplate\Model\ModuleTemplate;
 use Earls\RhinoReportBundle\Report\ReportObject\ModuleObject;
 
 /**
- * Earls\RhinoReportBundle\Report\Templating\Original\Generator\HtmlTemplateGenerator
+ * Earls\RhinoReportBundle\Report\Templating\DefaultTemplate\Generator\HtmlTemplateGenerator
  */
 abstract class HtmlTemplateGenerator implements TemplateGeneratorInterface
 {
@@ -35,9 +35,11 @@ abstract class HtmlTemplateGenerator implements TemplateGeneratorInterface
     {
         $template = new ModuleTemplate();
         $transformedObject = $this->applyTransformers($reportObject);
+        $template->setOptions($reportObject->getOptions());
         $template->setModuleObject($transformedObject);
         $template->setRemoteUrl($remoteUrl);
         $template->setExportUrl($exportUrl);
+        $template->setData($this->getData($reportObject));
         
         return $template;
     }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Module\Table\Templating\Original\Generator;
+namespace Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Generator;
 
 use Exporter\Handler;
 use Symfony\Component\HttpFoundation\Response;
-use Earls\RhinoReportBundle\Module\Table\Templating\Original\Simplifier\DataReportSimplifier;
+use Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Simplifier\DataReportSimplifier;
 
 class CsvTableTemplateGenerator
 {

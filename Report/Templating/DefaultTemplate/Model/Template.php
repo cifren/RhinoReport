@@ -1,6 +1,6 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Report\Templating\Original\Model;
+namespace Earls\RhinoReportBundle\Report\Templating\DefaultTemplate\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -17,6 +17,7 @@ class Template
     protected $filter;
     protected $remoteUrl;
     protected $exportUrl;
+    protected $options;
 
     public function __construct()
     {
@@ -95,6 +96,28 @@ class Template
     public function getType()
     {
         return "table";
+    }
+
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    public function setOptions($options)
+    {
+        $this->options = $options;
+        return $this;
+    }
+
+    public function getRemoteUrl()
+    {
+        return $this->remoteUrl;
+    }
+
+    public function setRemoteUrl($remoteUrl)
+    {
+        $this->remoteUrl = $remoteUrl;
+        return $this;
     }
 
 }

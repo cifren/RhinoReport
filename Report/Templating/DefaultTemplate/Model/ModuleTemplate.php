@@ -1,6 +1,6 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Report\Templating\Original\Model;
+namespace Earls\RhinoReportBundle\Report\Templating\DefaultTemplate\Model;
 
 /**
  * Description of ModuleTemplate
@@ -13,6 +13,8 @@ class ModuleTemplate
     protected $moduleObject;
     protected $remoteUrl;
     protected $exportUrl;
+    protected $options;
+    protected $data;
 
     public function getModuleObject()
     {
@@ -55,6 +57,28 @@ class ModuleTemplate
     public function getType()
     {
         return $this->getModuleObject()->getType();
+    }
+
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    public function setOptions($options)
+    {
+        $this->options = $options;
+        return $this;
+    }
+
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    public function setData($data)
+    {
+        $this->data = $data;
+        return $this;
     }
 
 }
