@@ -113,12 +113,17 @@ class XlsApplyFormula
 
             foreach ($definitionFormula['columns'] as $columnFormulaPath) {
 
+                $groupFromColumnBase = $columnBase->getRow()->getGroup();
+                if($this->TableRetrieverHelper->getReportSection($columnBase) == 'footer'){
+                    $groupFromColumnBase = $this->table->getBody();
+                }
+
                 //get column from a designated group
                 if (is_array($columnFormulaPath)) {
-                    $fromItem = $this->TableRetrieverHelper->getParentOrSubItemsFromGenericPath($columnFormulaPath['fromGroup'], $this->table->getBody());
+                    $fromItem = $this->TableRetrieverHelper->getParentOrSubItemsFromGenericPath($columnFormulaPath['fromGroup'], $groupFromColumnBase);
                     $columnFormulaPath = $columnFormulaPath['column'];
                 } else { //from default group
-                    $fromItem = $this->table->getBody();
+                    $fromItem = $groupFromColumnBase;
                 }
 
                 //get column/columns
