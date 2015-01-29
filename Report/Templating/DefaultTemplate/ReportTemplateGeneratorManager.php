@@ -91,6 +91,19 @@ class ReportTemplateGeneratorManager
         return $template;
     }
 
+    public function getData(Report $object)
+    {
+        $data = array();
+        foreach ($object->getItems() as $key => $item) {
+            $type = $this->getReportTypeName(get_class($item));
+            $templateName = $item->getTemplate();
+            $templateGenerator = $this->getTemplateGenerator($templateName, $type, 'html');
+            $data[$key] = $templateGenerator->getData($item);
+        }
+
+        return $data;
+    }
+
     public function getTemplateGenerator($templateName, $moduleType, $format)
     {
         try {
@@ -101,18 +114,6 @@ class ReportTemplateGeneratorManager
         $serviceName = $configTemplate['generator.service'][$format];
 
         return $this->container->get($serviceName);
-    }
-
-    public function getData(Report $object)
-    {
-        $data = array();
-        foreach ($object->getItems() as $key => $item) {
-            $typeNameItem = $this->getReportTypeName(get_class($item));
-            $templateGenerator = $this->container->get("report.$typeNameItem.template.generator.html");
-            $data[$key] = $templateGenerator->getData($item);
-        }
-
-        return $data;
     }
 
 }
