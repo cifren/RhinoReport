@@ -1,6 +1,6 @@
 {% use 'EarlsRhinoReportBundle:Report/Body:filter.html.twig' %}
-{% use 'EarlsRhinoReportBundle:Bar:template.html.twig' %}
-{% use 'EarlsRhinoReportBundle:Table:template.html.twig' %}
+{% use 'EarlsRhinoReportBundle:Bar/DefaultTemplate:template.html.twig' %}
+{% use 'EarlsRhinoReportBundle:Table/DefaultTemplate:template.html.twig' %}
 
 {% block rhino_report %}
     {# unique block #}
@@ -18,7 +18,7 @@
         </div>
         {% if template.getOptions().ajaxEnabled %}
             {% javascripts
-                '@EarlsRhinoReportBundle/Report/Resources/public/js/ajaxDataLoad.js'
+                '@EarlsRhinoReportBundle/Report/Templating/DefaultTemplate/Resources/public/js/ajaxDataLoad.js'
             %}
                 <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts  %}
