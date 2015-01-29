@@ -25,11 +25,17 @@ class TableRetrieverHelper
     public function getItemFromDataPath($dataPath)
     {
         $parsedPath = $this->parsePath($dataPath);
+        $groupType = $parsedPath[1]['genericId'];
 
         //unset path '\' and 'table' and 'body' => default base
         unset($parsedPath[0], $parsedPath[1]);
 
-        $item = $this->table->getBody();
+        if($groupType == 'body'){
+            $item = $this->table->getBody();
+        }
+        else{
+            $item = $this->table->getFooter();
+        }
 
         foreach ($parsedPath as $dataPath) {
             switch ($dataPath['type']) {
@@ -225,4 +231,12 @@ class TableRetrieverHelper
         return $columns;
     }
 
+    public function getReportSection($item)
+    {
+        while($item->getParent()->getType() !== 'table'){
+            $item = $item->getParent();
+        }
+        
+        return $item;
+    }
 }

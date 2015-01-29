@@ -15,6 +15,8 @@ class Table extends TableObject
 {
 
     protected $head;
+    protected $body;
+    protected $footer;
     protected $type;
 
     public function __construct($id, $definition, DataObjectInterface $data)
