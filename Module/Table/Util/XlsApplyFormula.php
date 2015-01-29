@@ -50,6 +50,10 @@ class XlsApplyFormula
         //add position number for each row with DefinitionType Display and a position letter foreach column with DefinitionType Display
         $this->applyPositionGroup($this->table->getBody(), $this->rowShift);
 
+        if($this->table->getFooter() !== NULL){
+            $this->applyPositionGroup($this->table->getFooter(), $this->rowShift);
+        }
+
         $this->applyFormula($this->table);
     }
 
@@ -111,10 +115,10 @@ class XlsApplyFormula
 
                 //get column from a designated group
                 if (is_array($columnFormulaPath)) {
-                    $fromItem = $this->TableRetrieverHelper->getParentOrSubItemsFromGenericPath($columnFormulaPath['fromGroup'], $columnBase->getRow()->getGroup());
+                    $fromItem = $this->TableRetrieverHelper->getParentOrSubItemsFromGenericPath($columnFormulaPath['fromGroup'], $this->table->getBody());
                     $columnFormulaPath = $columnFormulaPath['column'];
                 } else { //from default group
-                    $fromItem = $columnBase->getRow()->getGroup();
+                    $fromItem = $this->table->getBody();
                 }
 
                 //get column/columns

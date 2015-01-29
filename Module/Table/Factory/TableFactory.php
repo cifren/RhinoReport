@@ -73,7 +73,8 @@ class TableFactory extends Factory
 
 
         //---- Build Footer ----
-        $footer = new Group('footer', $this->definition->getFooterDefinition()->getId(), $this->definition->getFooterDefinition(), $this->item, $this->item->getDataObject());
+        $dataObjectFooter = new DataObject(array(array())); //----Fake data in order to build just one row for the footer
+        $footer = new Group('footer', $this->definition->getFooterDefinition()->getId(), $this->definition->getFooterDefinition(), $this->item, $dataObjectFooter);
         $this->setListGroupActionOrExecuteActions($this->definition->getFooterDefinition(), $footer);
 
         if($footer->getDefinition()->getItems() !== NULL){
