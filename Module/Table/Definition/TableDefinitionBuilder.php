@@ -331,6 +331,13 @@ class TableDefinitionBuilder extends AbstractDefinitionBuilder
         return $this;
     }
 
+    public function template($name)
+    {
+        $this->getCurrentDefinition()->setTemplate($name);
+
+        return $this;
+    }
+
     public function build()
     {
         $this->getDefinition()->build();

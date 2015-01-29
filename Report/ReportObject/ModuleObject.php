@@ -21,13 +21,18 @@ abstract class ModuleObject
     public function setId($id)
     {
         $this->id = $id;
-        
+
         return $this;
     }
 
     public function getPosition()
     {
         return $this->getDefinition()->getPosition();
+    }
+
+    public function getTemplate()
+    {
+        return $this->getDefinition()->getTemplate();
     }
 
     public function setDefinition($definition)
@@ -46,6 +51,5 @@ abstract class ModuleObject
     {
         return 'noType';
     }
-
 
 }

@@ -4,8 +4,12 @@ parameters:
     report.bar.definition.builder.class:              Earls\RhinoReportBundle\Module\Bar\Definition\BarDefinitionBuilder
     report.bar.template.generator.html.class:         Earls\RhinoReportBundle\Module\Bar\Templating\DefaultTemplate\Generator\HtmlBarTemplateGenerator
     
-    report.bar.template.generator.html.template:    EarlsRhinoReportBundle:Bar:html.html.twig
+    report.bar.template.generator.html.template:    EarlsRhinoReportBundle:Bar/DefaultTemplate:html.html.twig
 
+    bar.DefaultTemplate:
+        generator.service:
+            html:       report.bar.template.generator.html
+            
 services:
     report.bar.factory:
         class:      %report.bar.factory.class%

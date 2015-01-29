@@ -20,6 +20,7 @@ class TableDefinition extends Definition implements ReportDefinitionInterface
     protected $bodyDefinition;
     protected $factoryServiceName;
     protected $position;
+    protected $template = 'DefaultTemplate';
 
     public function __construct(array $exportConfigs, $id = 'table')
     {
@@ -212,6 +213,17 @@ class TableDefinition extends Definition implements ReportDefinitionInterface
     {
         $this->position = $position;
 
+        return $this;
+    }
+
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+
+    public function setTemplate($template)
+    {
+        $this->template = $template;
         return $this;
     }
 

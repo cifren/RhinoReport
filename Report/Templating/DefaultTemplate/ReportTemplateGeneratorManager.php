@@ -80,14 +80,27 @@ class ReportTemplateGeneratorManager
         $template->setFilter($object->getFilter());
         $template->setRemoteUrl($remoteUrl);
         $template->setOptions($object->getOptions());
-        
+
         foreach ($object->getItems() as $item) {
-            $typeNameItem = $this->getReportTypeName(get_class($item));
-            $templateGenerator = $this->container->get("report.$typeNameItem.template.generator.html");
+            $type = $this->getReportTypeName(get_class($item));
+            $templateName = $item->getTemplate();
+            $templateGenerator = $this->getTemplateGenerator($templateName, $type, 'html');
             $template->addModule($templateGenerator->getTemplating($item, $remoteUrl, $exportUrl));
         }
-        
+
         return $template;
+    }
+
+    public function getTemplateGenerator($templateName, $moduleType, $format)
+    {
+        try {
+            $configTemplate = $this->container->getParameter("$moduleType.$templateName");
+        } catch (\Exception $e) {
+            throw new \Exception(sprintf('The template name "%s" doesn\'t exist for the module %s', $templateName, ucfirst($moduleType)));
+        }
+        $serviceName = $configTemplate['generator.service'][$format];
+
+        return $this->container->get($serviceName);
     }
 
     public function getData(Report $object)
@@ -98,7 +111,7 @@ class ReportTemplateGeneratorManager
             $templateGenerator = $this->container->get("report.$typeNameItem.template.generator.html");
             $data[$key] = $templateGenerator->getData($item);
         }
-        
+
         return $data;
     }
 

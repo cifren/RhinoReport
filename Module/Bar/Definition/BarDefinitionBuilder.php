@@ -32,6 +32,12 @@ class BarDefinitionBuilder extends AbstractDefinitionBuilder
 
         return $this;
     }
+    public function template($name)
+    {
+        $this->getCurrentDefinition()->setTemplate($name);
+
+        return $this;
+    }
 
     public function end()
     {

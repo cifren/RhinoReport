@@ -14,6 +14,7 @@ abstract class ModuleDefinition implements ReportDefinitionInterface
     protected $id;
     protected $parent;
     protected $position;
+    protected $template = 'DefaultTemplate';
 
     public function __construct($factoryServiceName = "", $id = 'module')
     {
@@ -62,7 +63,18 @@ abstract class ModuleDefinition implements ReportDefinitionInterface
     public function setPosition($position)
     {
         $this->position = $position;
-        
+
+        return $this;
+    }
+
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+
+    public function setTemplate($template)
+    {
+        $this->template = $template;
         return $this;
     }
 
