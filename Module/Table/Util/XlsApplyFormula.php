@@ -107,6 +107,7 @@ class XlsApplyFormula
         //apply all formula
         foreach ($this->listFormula as $columnPath) {
             $columnBase = $this->TableRetrieverHelper->getItemFromDataPath($columnPath);
+            $tableType = $this->TableRetrieverHelper->getReportSection($columnBase)->getGenericId();
 
             $definitionFormula = $columnBase->getDefinition()->getFormulaExcel();
             $argColumn = array();
@@ -114,7 +115,7 @@ class XlsApplyFormula
             foreach ($definitionFormula['columns'] as $columnFormulaPath) {
 
                 $groupFromColumnBase = $columnBase->getRow()->getGroup();
-                if($this->TableRetrieverHelper->getReportSection($columnBase) == 'footer'){
+                if($tableType == 'footer'){
                     $groupFromColumnBase = $this->table->getBody();
                 }
 
