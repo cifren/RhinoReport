@@ -28,3 +28,4 @@ services:
         arguments:
             - "@templating"
             - %report.bar.template.default.generator.html.template%
+            - 'report_unique_bar_default'

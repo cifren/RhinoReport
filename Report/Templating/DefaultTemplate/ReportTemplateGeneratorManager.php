@@ -3,7 +3,7 @@
 namespace Earls\RhinoReportBundle\Report\Templating\DefaultTemplate;
 
 use Earls\RhinoReportBundle\Report\ReportObject\Report;
-use Earls\RhinoReportBundle\Report\Templating\DefaultTemplate\Model\Template;
+use Earls\RhinoReportBundle\Report\Templating\SystemTemplate\Model\Template;
 
 /**
  * Earls\RhinoReportBundle\Report\Templating\DefaultTemplate\ReportTemplateGeneratorManager
@@ -85,9 +85,11 @@ class ReportTemplateGeneratorManager
             $type = $this->getReportTypeName(get_class($item));
             $templateName = $item->getTemplate();
             $templateGenerator = $this->getTemplateGenerator($templateName, $type, 'html');
-            $template->addModule($templateGenerator->getTemplating($item, $remoteUrl, $exportUrl));
+            $templating = $templateGenerator->getTemplating($item, $remoteUrl, $exportUrl);
+            $template->addModule($templating);
+            $template->addUniqueBlockName($templateGenerator->getUniqueBlockName());
         }
-
+        
         return $template;
     }
 

@@ -2,8 +2,7 @@
 
 namespace Earls\RhinoReportBundle\Module\Bar\Templating\DefaultTemplate\Generator;
 
-use Earls\RhinoReportBundle\Report\Templating\DefaultTemplate\Generator\HtmlTemplateGenerator;
-use Earls\RhinoReportBundle\Module\Bar\BarObject\Bar;
+use Earls\RhinoReportBundle\Report\Templating\SystemTemplate\Generator\HtmlTemplateGenerator;
 use Earls\RhinoReportBundle\Report\ReportObject\ModuleObject;
 
 class HtmlBarTemplateGenerator extends HtmlTemplateGenerator

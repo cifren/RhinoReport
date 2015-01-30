@@ -7,6 +7,7 @@ parameters:
     report.template.generator.manager.class:          Earls\RhinoReportBundle\Report\Templating\DefaultTemplate\ReportTemplateGeneratorManager
 
     report.template.generator.html.class:             Earls\RhinoReportBundle\Report\Templating\DefaultTemplate\Generator\HtmlReportTemplateGenerator
+    report.template.generator.html.template.filter:          EarlsRhinoReportBundle:Report/Body:filter.html.twig
     report.template.generator.html.template:          EarlsRhinoReportBundle:Report/Body:html.html.twig
 
     report_type:

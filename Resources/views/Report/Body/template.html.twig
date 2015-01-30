@@ -1,12 +1,13 @@
 {% use 'EarlsRhinoReportBundle:Report/Body:filter.html.twig' %}
-{% use 'EarlsRhinoReportBundle:Bar/DefaultTemplate:template.html.twig' %}
-{% use 'EarlsRhinoReportBundle:Table/DefaultTemplate:template.html.twig' %}
+{% use 'EarlsRhinoReportBundle:Bar/SystemTemplate:template.html.twig' %}
+{% use 'EarlsRhinoReportBundle:Table/SystemTemplate:template.html.twig' %}
 
 {% block rhino_report %}
     {# unique block #}
-    {{ block('report_unique_bar') }}
-    {{ block('report_unique_table') }}
-    
+    {% for blockName in template.getUniqueBlockNames() %}
+        {{ block(blockName) }}
+    {% endfor %}
+        
     {# filter block #}
     {% if template.getFilter() %}
         <div class="container">

@@ -3,8 +3,8 @@
 namespace Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Generator;
 
 use Symfony\Component\HttpFoundation\Response;
-use Earls\RhinoReportBundle\Report\Templating\DefaultTemplate\Generator\HtmlTemplateGenerator;
-use Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Simplifier\XlsReportSimplifier;
+use Earls\RhinoReportBundle\Report\Templating\SystemTemplate\Generator\HtmlTemplateGenerator;
+use Earls\RhinoReportBundle\Module\Table\Templating\SystemTemplate\Simplifier\XlsReportSimplifier;
 
 class XlsTableTemplateGenerator extends HtmlTemplateGenerator
 {

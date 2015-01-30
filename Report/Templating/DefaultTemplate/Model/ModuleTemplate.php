@@ -10,6 +10,7 @@ namespace Earls\RhinoReportBundle\Report\Templating\DefaultTemplate\Model;
 class ModuleTemplate
 {
 
+    protected $templatingName;
     protected $moduleObject;
     protected $remoteUrl;
     protected $exportUrl;
@@ -78,6 +79,17 @@ class ModuleTemplate
     public function setData($data)
     {
         $this->data = $data;
+        return $this;
+    }
+
+    public function getTemplatingName()
+    {
+        return $this->templatingName;
+    }
+
+    public function setTemplatingName($templatingName)
+    {
+        $this->templatingName = $templatingName;
         return $this;
     }
 

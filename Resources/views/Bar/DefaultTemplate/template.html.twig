@@ -1,4 +1,4 @@
-{% block report_unique_bar %}
+{% block report_unique_bar_default %}
     {% javascripts
         'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js'
     %}
@@ -13,7 +13,7 @@
     {% endif %}
 {% endblock %}
 
-{% block report_bar %}
+{% block report_bar_default %}
     {% set barTemplate = element %}
     {% set bar = barTemplate.getModuleObject() %}
     {% set id = bar.getId() %}

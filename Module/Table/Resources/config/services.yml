@@ -13,8 +13,8 @@ parameters:
     report.table.template.default.generator.csv.class:        Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Generator\CsvTableTemplateGenerator    
     report.table.template.default.generator.html.template:    EarlsRhinoReportBundle:Table/DefaultTemplate:html.html.twig
     report.table.template.default.generator.xls.template:     EarlsRhinoReportBundle:Table/DefaultTemplate:xls.xml.twig
-    report.table.template.default.xls.apply_formula.class:    Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Util\XlsApplyFormula
-    report.table.template.default.xls.simplifier.class:       Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Simplifier\XlsReportSimplifier
+    report.table.template.default.xls.apply_formula.class:    Earls\RhinoReportBundle\Module\Table\Templating\SystemTemplate\Util\XlsApplyFormula
+    report.table.template.default.xls.simplifier.class:       Earls\RhinoReportBundle\Module\Table\Templating\SystemTemplate\Simplifier\XlsReportSimplifier
 
     table.DefaultTemplate:
         generator.service:
@@ -70,6 +70,7 @@ services:
         arguments:
             - "@templating"
             - %report.table.template.default.generator.html.template%
+            - 'report_unique_table_default'
 
     report.table.template.default.generator.xls:
         class:    %report.table.template.default.generator.xls.class%

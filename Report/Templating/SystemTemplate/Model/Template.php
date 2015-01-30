@@ -1,6 +1,6 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Report\Templating\DefaultTemplate\Model;
+namespace Earls\RhinoReportBundle\Report\Templating\SystemTemplate\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -18,6 +18,7 @@ class Template
     protected $remoteUrl;
     protected $exportUrl;
     protected $options;
+    protected $uniqueBlockNames = array();
 
     public function __construct()
     {
@@ -117,6 +118,27 @@ class Template
     public function setRemoteUrl($remoteUrl)
     {
         $this->remoteUrl = $remoteUrl;
+        return $this;
+    }
+
+    public function getUniqueBlockNames()
+    {
+        return $this->uniqueBlockNames;
+    }
+
+    public function setUniqueBlockNames(array $uniqueBlockNames)
+    {
+        $this->uniqueBlockNames = $uniqueBlockNames;
+
+        return $this;
+    }
+
+    public function addUniqueBlockName($uniqueBlockName)
+    {
+        if ($uniqueBlockName) {
+            $this->uniqueBlockNames[] = $uniqueBlockName;
+        }
+
         return $this;
     }
 

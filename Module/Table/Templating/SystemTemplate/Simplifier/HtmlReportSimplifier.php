@@ -1,6 +1,6 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Simplifier;
+namespace Earls\RhinoReportBundle\Module\Table\Templating\SystemTemplate\Simplifier;
 
 use Earls\RhinoReportBundle\Module\Table\TableObject\Table;
 use Earls\RhinoReportBundle\Module\Table\TableObject\Group;
@@ -8,6 +8,9 @@ use Earls\RhinoReportBundle\Module\Table\TableObject\Row;
 use Earls\RhinoReportBundle\Module\Table\TableObject\Column;
 use Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition;
 
+/**
+ * Earls\RhinoReportBundle\Module\Table\Templating\SystemTemplate\Simplifier\HtmlReportSimplifier
+ */
 class HtmlReportSimplifier
 {
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Module\Table\Util;
+namespace Earls\RhinoReportBundle\Module\Table\Templating\SystemTemplate\Util;
 
 use Earls\RhinoReportBundle\Module\Table\TableObject\Table;
 use Earls\RhinoReportBundle\Module\Table\TableObject\Group;
@@ -8,7 +8,7 @@ use Earls\RhinoReportBundle\Module\Table\TableObject\Row;
 use Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition;
 
 /**
- * Earls\RhinoReportBundle\Module\Table\Util\XlsApplyFormula
+ * Earls\RhinoReportBundle\Module\Table\Templating\SystemTemplate\Util\XlsApplyFormula
  */
 class XlsApplyFormula
 {
