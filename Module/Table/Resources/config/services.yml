@@ -2,6 +2,7 @@ parameters:
     report.table.factory.class:                       Earls\RhinoReportBundle\Module\Table\Factory\TableFactory
     report.table.definition.class:                    Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition
     report.table.definition.builder.class:            Earls\RhinoReportBundle\Module\Table\Definition\TableDefinitionBuilder
+    report.advanced_table.definition.builder.class:   Earls\RhinoReportBundle\Module\Table\Definition\AdvancedTableDefinitionBuilder
     report.table.retriever.class:                     Earls\RhinoReportBundle\Module\Table\Helper\TableRetrieverHelper
     report.table.manipulator.class:                   Earls\RhinoReportBundle\Module\Table\Util\DataManipulator
     report.table.extension.class:                     Earls\RhinoReportBundle\Module\Table\Extension\ReportExtension
@@ -13,8 +14,8 @@ parameters:
     report.table.template.default.generator.csv.class:        Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Generator\CsvTableTemplateGenerator    
     report.table.template.default.generator.html.template:    EarlsRhinoReportBundle:Table/DefaultTemplate:html.html.twig
     report.table.template.default.generator.xls.template:     EarlsRhinoReportBundle:Table/DefaultTemplate:xls.xml.twig
-    report.table.template.default.xls.apply_formula.class:    Earls\RhinoReportBundle\Module\Table\Templating\SystemTemplate\Util\XlsApplyFormula
-    report.table.template.default.xls.simplifier.class:       Earls\RhinoReportBundle\Module\Table\Templating\SystemTemplate\Simplifier\XlsReportSimplifier
+    report.table.template.system.xls.apply_formula.class:    Earls\RhinoReportBundle\Module\Table\Templating\SystemTemplate\Util\XlsApplyFormula
+    report.table.template.system.xls.simplifier.class:       Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Simplifier\XlsReportSimplifier
 
     table.DefaultTemplate:
         generator.service:
@@ -23,11 +24,11 @@ parameters:
             csv:        report.table.template.default.generator.csv
     
     #Templating DataTableTemplate
+    report.table.template.datatable.generator.html.class:         Earls\RhinoReportBundle\Module\Table\Templating\DataTableTemplate\Generator\HtmlTableTemplateGenerator
+    report.table.template.datatable.generator.html.template:    EarlsRhinoReportBundle:Table/DataTableTemplate:html.html.twig
     table.DataTableTemplate:
         generator.service:
-            html:       report.table.template.default.generator.html
-            xls:        report.table.template.default.generator.xls
-            csv:        report.table.template.default.generator.csv
+            html:       report.table.template.datatable.generator.html
     
             
 services:
@@ -39,7 +40,13 @@ services:
         class:      %report.table.definition.builder.class%
         arguments: ["%report.table.definition.class%"]
         tags:
-            - { name: report.definition.builder, alias: table }        
+            - { name: report.definition.builder, alias: table }
+
+    report.advanced_table.definition.builder:
+        class:      %report.advanced_table.definition.builder.class%
+        arguments: ["%report.table.definition.class%"]
+        tags:
+            - { name: report.definition.builder, alias: advanced_table }
 
     report.table.retriever:
         class:      %report.table.retriever.class%
@@ -77,21 +84,28 @@ services:
         arguments:
             - "@templating"
             - %report.table.template.default.generator.xls.template%
-            - "@report.table.template.default.xls.simplifier"
+            - "@report.table.template.system.xls.simplifier"
 
     report.table.template.default.generator.csv:
         class:    %report.table.template.default.generator.csv.class%
 
-    report.table.template.default.xls.apply_formula:
-        class:    %report.table.template.default.xls.apply_formula.class%
+    report.table.template.system.xls.apply_formula:
+        class:    %report.table.template.system.xls.apply_formula.class%
 
-    report.table.template.default.xls.simplifier:
-        class:    %report.table.template.default.xls.simplifier.class%
+    report.table.template.system.xls.simplifier:
+        class:    %report.table.template.system.xls.simplifier.class%
         arguments:
-            - "@report.table.template.default.xls.apply_formula"
+            - "@report.table.template.system.xls.apply_formula"
             - true
             - "@report.table.factory"
 
+    report.table.template.datatable.generator.html:
+        class:    %report.table.template.datatable.generator.html.class%
+        arguments:
+            - "@templating"
+            - %report.table.template.datatable.generator.html.template%
+            - 'report_unique_table_datatable'
+            
 #default Column - Action#
     report.table.action.column.basevalue:
         class: Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\BaseValueAction
