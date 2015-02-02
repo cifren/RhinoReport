@@ -11,7 +11,7 @@
 
 {% block report_table_default %}
     {% set tableTemplate = element %}
-    {% set item = tableTemplate.getSimpleTable() %}
+    {% set item = tableTemplate.getData() %}
 
     {% set attr = item.attr|default(null) %}
     <table id='report_table' {{ block('report_attributes') }}>
