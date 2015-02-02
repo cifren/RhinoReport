@@ -19,6 +19,11 @@ class ReportDefinitionBuilder extends AbstractDefinitionBuilder
         parent::__construct($definitionClass);
     }
 
+    public function advancedTable($id = null)
+    {
+        return $this->startInstanceBuilder('advanced_table', $id);
+    }
+    
     public function table($id = null)
     {
         return $this->startInstanceBuilder('table', $id);

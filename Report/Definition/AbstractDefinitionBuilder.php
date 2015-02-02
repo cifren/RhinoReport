@@ -46,11 +46,17 @@ abstract class AbstractDefinitionBuilder implements DefinitionBuilderInterface
         return $this->parent;
     }
 
+    public function buildDefinition()
+    {
+        $definitionClass = $this->getDefinitionClass();
+        
+        return new $definitionClass();
+    }
+
     public function getDefinition()
     {
         if (!$this->definition) {
-            $definitionClass= $this->getDefinitionClass();
-            $this->definition = new $definitionClass();
+            $this->definition = $this->buildDefinition();
         }
 
         return $this->definition;
@@ -79,7 +85,7 @@ abstract class AbstractDefinitionBuilder implements DefinitionBuilderInterface
         if (!$this->currentDefinition) {
             $this->currentDefinition = $this->getDefinition();
         }
-        
+
         return $this->currentDefinition;
     }
 
