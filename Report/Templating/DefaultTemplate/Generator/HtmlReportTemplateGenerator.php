@@ -2,6 +2,8 @@
 
 namespace Earls\RhinoReportBundle\Report\Templating\DefaultTemplate\Generator;
 
+use Earls\RhinoReportBundle\Report\Templating\SystemTemplate\Generator\HtmlTemplateGenerator;
+
 /**
  * Earls\RhinoReportBundle\Report\Templating\DefaultTemplate\Generator\HtmlReportTemplateGenerator
  */

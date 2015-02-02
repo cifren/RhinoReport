@@ -12,6 +12,7 @@ abstract class ModuleObject
 
     protected $id;
     protected $definition;
+    protected $options = array();
 
     public function getId()
     {
@@ -50,6 +51,17 @@ abstract class ModuleObject
     public function getType()
     {
         return 'noType';
+    }
+
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    public function setOptions($options)
+    {
+        $this->options = $options;
+        return $this;
     }
 
 }
