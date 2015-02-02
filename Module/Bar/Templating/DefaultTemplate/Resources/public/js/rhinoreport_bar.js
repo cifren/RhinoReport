@@ -105,7 +105,6 @@ RhinoReportBarInstance.prototype = {
     },
     getData: function () {
         if (this.data === null) {
-            console.log(this.$container.find('.barData').attr('data-load'));
             this.data = JSON.parse(this.$container.find('.barData').attr('data-load'));
         }
         return this.data;

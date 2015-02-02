@@ -16,7 +16,6 @@ class Bar extends ModuleObject
 
     protected $labels = array();
     protected $datasets;
-    protected $options = array();
 
     public function __construct()
     {
@@ -52,17 +51,6 @@ class Bar extends ModuleObject
             $this->addDataset($dataset);
         }
 
-        return $this;
-    }
-
-    public function getOptions()
-    {
-        return $this->options;
-    }
-
-    public function setOptions($options)
-    {
-        $this->options = $options;
         return $this;
     }
 
