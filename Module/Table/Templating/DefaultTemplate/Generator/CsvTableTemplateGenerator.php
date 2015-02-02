@@ -4,7 +4,7 @@ namespace Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Genera
 
 use Exporter\Handler;
 use Symfony\Component\HttpFoundation\Response;
-use Earls\RhinoReportBundle\Module\Table\Templating\SystemTemplate\Simplifier\DataReportSimplifier;
+use Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Simplifier\DataReportSimplifier;
 
 class CsvTableTemplateGenerator
 {
