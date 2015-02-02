@@ -1,10 +1,9 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Generator;
-
+namespace Earls\RhinoReportBundle\Module\Table\Templating\DataTableTemplate\Generator;
+    
 use Earls\RhinoReportBundle\Report\Templating\SystemTemplate\Generator\HtmlTemplateGenerator;
-use Earls\RhinoReportBundle\Module\Table\Templating\SystemTemplate\Simplifier\HtmlReportSimplifier;
-use Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\HtmlTemplateTable;
+use Earls\RhinoReportBundle\Module\Table\Templating\DataTableTemplate\Simplifier\DataReportSimplifier;
 use Earls\RhinoReportBundle\Report\ReportObject\ModuleObject;
 
 class HtmlTableTemplateGenerator extends HtmlTemplateGenerator
@@ -16,21 +15,13 @@ class HtmlTableTemplateGenerator extends HtmlTemplateGenerator
     {
         return $this->renderView($this->template, array_merge(array('table' => $simpleTable, 'js' => true, 'css' => true), $arg));
     }
-
-    public function getTemplating(ModuleObject $reportObject, $remoteUrl, $exportUrl)
+    
+    public function getData(ModuleObject $object)
     {
-        $template = new HtmlTemplateTable();
-        $transformedObject = $this->applyTransformers($reportObject);
-        
-        $simplifier = new HtmlReportSimplifier($reportObject);
+        $simplifier = new DataReportSimplifier($object);
         $simpleTable = $simplifier->getSimpleTable();
-        $template->setSimpleTable($simpleTable);
         
-        $template->setModuleObject($transformedObject);
-        $template->setRemoteUrl($remoteUrl);
-        $template->setExportUrl($exportUrl);
-        
-        return $template;
+        return $simpleTable;
     }
 
 }
