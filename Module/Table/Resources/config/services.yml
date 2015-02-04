@@ -150,6 +150,16 @@ services:
         arguments: ["@report.table.retriever"]
         tags:
             - { name: report.table.group_action.column, alias: sum }
+    report.table.group_action.column.max:
+        class: Earls\RhinoReportBundle\Module\Table\Actions\GroupAction\Column\MaxGroupAction
+        arguments: ["@report.table.retriever"]
+        tags:
+            - { name: report.table.group_action.column, alias: max }
+    report.table.group_action.column.min:
+        class: Earls\RhinoReportBundle\Module\Table\Actions\GroupAction\Column\MinGroupAction
+        arguments: ["@report.table.retriever"]
+        tags:
+            - { name: report.table.group_action.column, alias: min }
 #default Column - Group Action#
 
 #default Column - Group Action#
