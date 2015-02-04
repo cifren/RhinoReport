@@ -82,7 +82,7 @@ RhinoReportDataTableInstance.prototype = {
     initEvent: function () {
         var $container = this.$container;
         // Order by the grouping
-        $(this.id + ' .dataTable tbody').on('click', 'tr.group td', function () {
+        $('#' + this.id + ' .dataTable tbody').on('click', 'tr.group td', function () {
             var table = $container.find('.dataTable').dataTable().api();
             var currentOrder = table.order()[0];
             var colIndex = $(this).attr('data-colIndex');
@@ -106,10 +106,10 @@ RhinoReportDataTableInstance.prototype = {
 
         table.draw();
     },
-    getStructuredData: function(){
+    getStructuredData: function () {
         var transformedData = [];
         var tableData = this.getData();
-        
+
         var rows = tableData.bodyRows;
         $.each(rows, function (key, item) {
             var newItem = [];
@@ -127,7 +127,7 @@ RhinoReportDataTableInstance.prototype = {
 
             transformedData[key] = newItem;
         });
-        
+
         return transformedData;
     },
     writeData: function (data) {
