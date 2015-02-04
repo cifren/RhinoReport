@@ -6,7 +6,8 @@
     {% endjavascripts  %}
     {% if template.getOptions().ajaxEnabled %}
         {% javascripts
-            '@EarlsRhinoReportBundle/Module/Bar/Templating/DefaultTemplate/Resources/public/js/rhinoreport_bar.js'
+            '@EarlsRhinoReportBundle/Module/Bar/Templating/DefaultTemplate/Resources/public/js/barManager.js'
+            '@EarlsRhinoReportBundle/Module/Bar/Templating/DefaultTemplate/Resources/public/js/barInstance.js'
         %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts  %}

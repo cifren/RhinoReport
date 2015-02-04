@@ -1,155 +1,43 @@
 {% block report_unique_table_datatable %}
     {% javascripts
         '//cdn.datatables.net/1.10.4/js/jquery.dataTables.js'
+
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts  %}
 
     {% stylesheets
        '//cdn.datatables.net/1.10.4/css/jquery.dataTables.css'
+       '@EarlsRhinoReportBundle/Module/Table/Templating/DataTableTemplate/Resources/public/css/style.css'
     %}
     <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
+
+    {% if template.getOptions().ajaxEnabled %}
+        {% javascripts
+            '@EarlsRhinoReportBundle/Module/Table/Templating/DataTableTemplate/Resources/public/js/tableManager.js'
+            '@EarlsRhinoReportBundle/Module/Table/Templating/DataTableTemplate/Resources/public/js/tableInstance.js'
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts  %}
+    {% endif %}
 {% endblock %}
 
 {% block report_table_datatable %}
-    <style>
-        tr.group:hover td {
-            cursor: pointer;
-        }
-        tr.group_0,
-        tr.group_0:hover {
-            background-color: #C4C4C4 !important;
-        }
-        tr.group_1,
-        tr.group_1:hover {
-            background-color: #ddd !important;
-        }
-        tr.group_1 td:first-child{
-            text-indent: 15px;
-        }
-
-    </style>
     {% set tableTemplate = element %}
-    <data id="tableData" data-table="{{tableTemplate.getData()|json_encode()}}"></data>
-    <table id="example" class="display" width="100%" cellspacing="0">
-        <thead>
-            <tr>
-                {% for head in tableTemplate.getData().head %}
-                    <th>{{head}}</th>
+    {% set table = tableTemplate.getModuleObject() %}
+    {% set id = table.getId() %}
+    
+    <div id="{{id}}" class="myDataTable">
+        <data class="dataTableData" data-load="{{tableTemplate.getData()|json_encode()}}"></data>
+        <table class="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    {% for head in tableTemplate.getData().head %}
+                        <th>{{head}}</th>
                     {% endfor %}
-            </tr>
-        </thead>
-    </table>
-    <script>
-        $(document).ready(function () {
-            var tableData = JSON.parse($('#tableData').attr('data-table'));
-            var rows = tableData.bodyRows;
-            var hiddenColumns = [];
-            for (i = tableData.nbColumns; i < tableData.nbColumns + (tableData.nbColumns * tableData.groupHeadingLevel); i++) {
-                hiddenColumns.push(i);
-            }
-            var groupIdIndex = [];
-            for (i = 0; i < tableData.groupHeadingLevel; i++) {
-                groupIdIndex.push(tableData.nbColumns * (i + 1));
-            }
-            $.each(rows, function (key, item) {
-                var newItem = [];
-                for (i = 0; i < item.length - tableData.groupHeadingLevel; i++) {
-                    newItem.push(item[i]);
-                }
-
-                for (i = 0; i < tableData.groupHeadingLevel; i++) {
-                    for (y = 0; y < tableData.nbColumns; y++) {
-                        var groupIndex = tableData.nbColumns + i;
-                        var groupId = item[groupIndex];
-                        newItem.push(tableData.groupHeadingRows[groupId][y]);
-                    }
-                }
-
-                rows[key] = newItem;
-            });
-
-            var table = $('#example').dataTable({
-                'data': rows,
-                "aoColumnDefs": [{"bVisible": false, "aTargets": hiddenColumns}],
-                "drawCallback": function (settings) {
-                    var api = this.api();
-                    var rows = api.rows({page: 'current'}).nodes();
-
-                    for (y = 0; y < groupIdIndex.length; y++) {
-                        var last = null;
-                        var groupIndex = groupIdIndex[y];
-                        api.column(groupIndex, {page: 'current'}).data().each(function (group, i) {
-                            if (last !== group) {
-                                var $row = $('<tr class="group group_' + y + '"></tr>');
-
-                                    var colspan = 0;
-                                // build row
-                                for (c = 0; c < tableData.nbColumns; c++) {
-                                    if(colspan){
-                                        colspan--;
-                                        continue;
-                                    }
-                                    var colIndex = groupIndex + c;
-                                    var colData = api.column(colIndex).data()[i];
-                                    //auto colspan
-                                    for (ac = 0; ac < 1; ac++) {
-                                        if (api.column(3 + colspan + 1).data() [i] === null) {
-                                            ac--;
-                                            colspan++;
-                                        }
-                                    }
-                                    console.log(colspan);
-                                    var $td = $('<td>' + colData + '</td>');
-                                    $td.attr('data-colIndex', colIndex);
-                                    if (colspan) {
-                                        $td.attr('colspan', colspan+1);
-                                    }
-                                    $row.append($td);
-                                }
-
-                                $(rows).eq(i)
-                                        .before(
-                                                $row
-                                                );
-
-                                last = group;
-                            }
-                        });
-                    }
-                }
-            });
-
-            // Order by the grouping
-            $('#example tbody').on('click', 'tr.group td', function () {
-                var table = $('#example').dataTable().api();
-                var currentOrder = table.order()[0];
-                var colIndex = $(this).attr('data-colIndex');
-                if (currentOrder[0] === colIndex && currentOrder[1] === 'asc') {
-                    table.order([colIndex, 'desc']).draw();
-                }
-                else {
-                    table.order([colIndex, 'asc']).draw();
-                }
-            });
-
-            /*
-             $.extend($.fn.dataTableExt.oSort, {
-             "custom-data-asc": function (a, b) {
-             console.log(a);
-             var valueB = b.html;
-             var valueA = a.html;
-             
-             return ((valueA < valueB) ? -1 : ((valueA > valueB) ? 1 : 0));
-             },
-             "custom-data-desc": function (a, b) {
-             var valueB = b.html;
-             var valueA = a.html;
-             
-             return ((valueA < valueB) ? 1 : ((valueA > valueB) ? -1 : 0));
-             }
-             });*/
-        });
-    </script>
+                </tr>
+            </thead>
+        </table>
+    </div>
 {% endblock %}
