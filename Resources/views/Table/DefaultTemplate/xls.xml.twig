@@ -1,4 +1,4 @@
-{% extends "EarlsRhinoReportBundle:Table:xls_layout.xml.twig" %}
+{% extends "EarlsRhinoReportBundle:Table/DefaultTemplate:xls_layout.xml.twig" %}
 
 {% block style %}
     <Styles>
@@ -59,10 +59,10 @@
                 {% endfor %}
             {% endif %}
             {% if table.rpt_info|default(null) is not null %}
-                {% include 'EarlsRhinoReportBundle:Table:xls_table.xml.twig' with {'table': table.rpt_info} %}
+                {% include 'EarlsRhinoReportBundle:Table/DefaultTemplate:xls_table.xml.twig' with {'table': table.rpt_info} %}
                 <Row><Cell> </Cell></Row>
             {% endif %}
-            {% include 'EarlsRhinoReportBundle:Table:xls_table.xml.twig' %}
+            {% include 'EarlsRhinoReportBundle:Table/DefaultTemplate:xls_table.xml.twig' %}
         </Table>
 
         <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">

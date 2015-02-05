@@ -10,7 +10,6 @@ class XlsTableTemplateGenerator extends HtmlTemplateGenerator
 {
 
     protected $file;
-    protected $template;
     protected $simplifier;
 
     public function __construct($templatingService, $templateTwig, XlsReportSimplifier $simplifier)
@@ -23,8 +22,7 @@ class XlsTableTemplateGenerator extends HtmlTemplateGenerator
     {
         //trasnform table object into array easy to read for xml renderView
         $simpleTable = $this->simplifier->setTable($table)->getSimpleTable();
-        $content = $this->renderView($this->template, array('table' => $simpleTable));
-        
+        $content = $this->renderView($this->twigTemplateName, array('table' => $simpleTable));
         //format your xml file, indentation etc...
         $dom = new \DOMDocument;
         $dom->preserveWhiteSpace = FALSE;

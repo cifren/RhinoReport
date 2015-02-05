@@ -2,7 +2,7 @@
     {% set availableExport = filter.getOptions().availableExport %}
     {% set ajaxEnabled = filter.getOptions().ajaxEnabled %}
     {% set filterForm = filter.getForm() %}
-    
+
     <!-- FILTER -->
     {% if filterForm %}
         {% set filterForm = filterForm.createView()%}
@@ -11,29 +11,23 @@
             <form method="GET">
                 <fieldset class="filter_legend">
                     <legend class="filter_legend">Filters</legend>
-                    {% if ajaxEnabled %}
-                        {% set exportName = 'export_report_format' %}
-                        {% if availableExport|length == 1 %}
-                            {% for key, export in availableExport %}
-                                <input type="hidden" name="{{ exportName }}" value="{{ key }}">
-                            {% endfor %}
-                        {% else %}
-                            <div class="panel panel-default">
-                                <table class="table table-bordered table-condensed">
-                                    <tr>
-                                        <td><label>Report output</label></td>
-                                        <td class="input">
-                                            <div class="horizontal">
-                                                {% for key, export in availableExport %}
-                                                    <input type="radio" id="{{ exportName }}_{{ loop.index -1 }}" name="{{ exportName }}" value="{{ key }}" {% if loop.index == 1 %}checked="checked"{% endif %}>
-                                                    <label for="{{ exportName }}_{{ loop.index-1 }}">{{ export }}</label>
-                                                {% endfor %}
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        {% endif %}
+                    {% set exportName = 'export_report_format' %}
+                    {% if availableExport|length > 1 %}
+                        <div class="panel panel-default">
+                            <table class="table table-bordered table-condensed">
+                                <tr>
+                                    <td><label>Report output</label></td>
+                                    <td class="input">
+                                        <div class="horizontal">
+                                            {% for key, export in availableExport %}
+                                                <input type="radio" id="{{ exportName }}_{{ loop.index -1 }}" name="{{ exportName }}" value="{{ key }}" {% if loop.index == 1 %}checked="checked"{% endif %}>
+                                                <label for="{{ exportName }}_{{ loop.index-1 }}">{{ export }}</label>
+                                            {% endfor %}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
                     {% endif %}
                     <div class="panel panel-default">
                         {{ form_widget(filterForm, {attr: {class: 'table table-bordered table-condensed'}}) }}
