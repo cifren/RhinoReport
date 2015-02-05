@@ -13,6 +13,7 @@ abstract class AbstractDefinitionBuilder implements DefinitionBuilderInterface
     protected $definitionClass;
     protected $definition;
     protected $currentDefinition;
+    protected $build = false;
 
     public function __construct($definitionClass)
     {
@@ -21,11 +22,15 @@ abstract class AbstractDefinitionBuilder implements DefinitionBuilderInterface
 
     public function getItemBuild()
     {
+        if(!$this->build){
+            $this->build();
+        }
         return $this->getDefinition();
     }
 
     public function build()
     {
+        $this->build = true;
         return $this;
     }
 

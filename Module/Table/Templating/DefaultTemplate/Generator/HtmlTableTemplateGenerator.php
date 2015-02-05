@@ -21,7 +21,13 @@ class HtmlTableTemplateGenerator extends HtmlTemplateGenerator
 
     public function getResponse($nameFile, $table, $arg)
     {
-        return $this->renderView($this->twigResponseTemplateName, array('element' => $this->getTemplating($table, null, null)));
+        $htmlConfigExport = $table->getDefinition()->getExportConfig('html');
+        if ($htmlConfigExport->getResponse()['uniqueBlock'] === false) {
+            $displayUniqueBloc = false;
+        } else {
+            $displayUniqueBloc = true;
+        }
+        return $this->renderView($this->twigResponseTemplateName, array('element' => $this->getTemplating($table, null, null), 'uniqueBlock' => $displayUniqueBloc));
     }
 
     public function getData(ModuleObject $object)
