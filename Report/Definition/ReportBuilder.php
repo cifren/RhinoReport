@@ -98,9 +98,13 @@ class ReportBuilder
     public function buildFilter()
     {
         $this->report = new Report();
+        $this->report->setOptions($this->rptConfig->getResolvedOptions());
 
         if ($this->rptConfig->hasFilter()) {
-            $this->report->setFilter($this->getFilterForm());
+            $filter = new Filter();
+            $filter->setForm($this->getFilterForm());
+            $filter->setOptions($this->rptConfig->getResolvedOptions());
+            $this->report->setFilter($filter);
         }
         //$this->buildExport();
     }
@@ -186,8 +190,9 @@ class ReportBuilder
             return null;
         }
 
-        if ($this->filterForm)
+        if ($this->filterForm){
             return $this->filterForm;
+        }
 
         //-- FILTER FORM
         $this->filterForm = $this->formFactory->create($this->filterType, $this->rptConfig->getFilterModel());

@@ -4,6 +4,7 @@ namespace Earls\RhinoReportBundle\Report\Templating\DefaultTemplate;
 
 use Earls\RhinoReportBundle\Report\ReportObject\Report;
 use Earls\RhinoReportBundle\Report\Templating\SystemTemplate\Model\Template;
+use Earls\RhinoReportBundle\Report\ReportObject\Filter;
 
 /**
  * Earls\RhinoReportBundle\Report\Templating\DefaultTemplate\ReportTemplateGeneratorManager
@@ -24,7 +25,7 @@ class ReportTemplateGeneratorManager
      *
      * @param  string $format   html, xls, pdf...
      * @param  string $nameFile name files for xls, pdf or other
-     * @param  Report $object   object will be managed by the service
+     * @param  ModuleObject|Filter $object   object will be managed by the service
      * @param  string $id       id selected in report object
      * @param  array  $arg      arguments like with js or not, css or not....
      * @return string
@@ -39,7 +40,11 @@ class ReportTemplateGeneratorManager
 
         //return only html for now, only for filter
         if ('filter' == $id && 'html' == $format) {
-            return $this->container->get("report.template.generator.$format")->getResponse($nameFile, $object, $arg);
+            $type = $this->getReportTypeName(get_class($object));
+            $templateName = $object->getOptions()['template'];
+            $templateGenerator = $this->getTemplateGenerator($templateName, $type, 'html');
+            
+            return $templateGenerator->getResponse($nameFile, $object, $arg, 'filter');
         } elseif ('filter' == $id && 'html' != $format) {
             throw new \UnexpectedValueException('This feature is not available yet, you can\'t export filter in other format as html');
         }
@@ -53,8 +58,11 @@ class ReportTemplateGeneratorManager
         if (!in_array($format, $validExport)) {
             throw new \UnexpectedValueException("The format '$format' is not valid");
         }
+        $type = $this->getReportTypeName(get_class($item));
+        $templateName = $item->getTemplate();
+        $templateGenerator = $this->getTemplateGenerator($templateName, $type, $format);
 
-        return $this->container->get("report.$typeNameItem.template.generator.$format")->getResponse($nameFile, $item, $arg);
+        return $templateGenerator->getResponse($nameFile, $item, $arg);
     }
 
     protected function getReportTypeName($className, $id = null)

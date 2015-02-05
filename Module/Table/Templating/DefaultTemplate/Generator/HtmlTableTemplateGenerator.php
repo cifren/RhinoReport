@@ -9,18 +9,26 @@ use Earls\RhinoReportBundle\Report\ReportObject\ModuleObject;
 class HtmlTableTemplateGenerator extends HtmlTemplateGenerator
 {
 
-    protected $template;
+    protected $twigResponseTemplateName;
 
-    public function getResponse($nameFile, ModuleObject $table, $arg)
+    public function __construct($templatingService, $twigTemplateName, $twigResponseTemplateName, $uniqueBlockName = null)
     {
-        return $this->renderView($this->template, array_merge(array('table' => $simpleTable, 'js' => true, 'css' => true), $arg));
+        $this->templatingService = $templatingService;
+        $this->twigTemplateName = $twigTemplateName;
+        $this->twigResponseTemplateName = $twigResponseTemplateName;
+        $this->uniqueBlockName = $uniqueBlockName;
     }
-    
+
+    public function getResponse($nameFile, $table, $arg)
+    {
+        return $this->renderView($this->twigResponseTemplateName, array('element' => $this->getTemplating($table, null, null)));
+    }
+
     public function getData(ModuleObject $object)
     {
         $simplifier = new HtmlReportSimplifier($object);
         $simpleTable = $simplifier->getSimpleTable();
-        
+
         return $simpleTable;
     }
 

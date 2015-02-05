@@ -1,0 +1,6 @@
+{% use 'EarlsRhinoReportBundle:Table/DefaultTemplate:template.html.twig' %}
+
+{% block report_table_html %}
+    {{ block('report_unique_table_default') }}
+    {{ block('report_table_default') }}
+{% endblock %}

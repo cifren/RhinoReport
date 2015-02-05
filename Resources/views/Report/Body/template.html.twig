@@ -13,6 +13,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
+                    {% set filter = template.filter %}
                     {{ block('report_filter') }}
                 </div>
             </div>

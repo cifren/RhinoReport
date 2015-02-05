@@ -12,7 +12,8 @@ parameters:
     report.table.template.default.generator.html.class:       Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Generator\HtmlTableTemplateGenerator
     report.table.template.default.generator.xls.class:        Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Generator\XlsTableTemplateGenerator
     report.table.template.default.generator.csv.class:        Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Generator\CsvTableTemplateGenerator    
-    report.table.template.default.generator.html.template:    EarlsRhinoReportBundle:Table/DefaultTemplate:html.html.twig
+    report.table.template.default.generator.html.template:    EarlsRhinoReportBundle:Table/DefaultTemplate:template.html.twig
+    report.table.template.default.generator.html.response.template:    EarlsRhinoReportBundle:Table/DefaultTemplate:response.html.twig
     report.table.template.default.generator.xls.template:     EarlsRhinoReportBundle:Table/DefaultTemplate:xls.xml.twig
     report.table.template.system.xls.apply_formula.class:    Earls\RhinoReportBundle\Module\Table\Templating\SystemTemplate\Util\XlsApplyFormula
     report.table.template.system.xls.simplifier.class:       Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Simplifier\XlsReportSimplifier
@@ -77,6 +78,7 @@ services:
         arguments:
             - "@templating"
             - %report.table.template.default.generator.html.template%
+            - %report.table.template.default.generator.html.response.template%
             - 'report_unique_table_default'
 
     report.table.template.default.generator.xls:

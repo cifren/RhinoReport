@@ -69,6 +69,9 @@ abstract class AbstractDefinitionBuilder implements DefinitionBuilderInterface
 
     public function setId($id)
     {
+        if(!$id){
+            $id = uniqid();
+        }
         $this->id = $id;
         $this->getDefinition()->setId($id);
 

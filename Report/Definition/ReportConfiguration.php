@@ -4,6 +4,7 @@ namespace Earls\RhinoReportBundle\Report\Definition;
 
 use Symfony\Component\HttpFoundation\Request;
 use Earls\RhinoReportBundle\Report\ReportObject\Report;
+use Earls\RhinoReportBundle\Report\Definition\AbstractDefinitionBuilder;
 
 /**
  * Earls\RhinoReportBundle\Report\Definition\ReportConfiguration
@@ -13,7 +14,7 @@ abstract class ReportConfiguration implements ReportConfigurationInterface
 
     protected $reportDefinitionBuilder;
 
-    public function __construct($reportDefinitionBuilder)
+    public function __construct(AbstractDefinitionBuilder $reportDefinitionBuilder)
     {
         $this->reportDefinitionBuilder = $reportDefinitionBuilder;
     }
@@ -101,6 +102,7 @@ abstract class ReportConfiguration implements ReportConfigurationInterface
     
     public function getDefaultOptions(){
         return array(
+            'template' => 'DefaultTemplate',
             'availableExport' => array('html' => 'Display onscreen'),
             'ajaxEnabled' => true
         );

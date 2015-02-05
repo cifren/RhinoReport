@@ -10,7 +10,7 @@ class HtmlBarTemplateGenerator extends HtmlTemplateGenerator
 
     protected $template;
 
-    public function getResponse($nameFile, ModuleObject $barObject, $arg)
+    public function getResponse($nameFile, $barObject, $arg)
     {
         return $this->renderView($this->template, array_merge(array('bar' => $barObject), $arg));
     }

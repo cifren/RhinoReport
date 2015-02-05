@@ -1,5 +1,4 @@
 {% block report_filter %}
-    {% set filter = template.filter %}
     {% set availableExport = filter.getOptions().availableExport %}
     {% set ajaxEnabled = filter.getOptions().ajaxEnabled %}
     {% set filterForm = filter.getForm() %}
@@ -8,7 +7,7 @@
     {% if filterForm %}
         {% set filterForm = filterForm.createView()%}
         {% form_theme filterForm 'EarlsRhinoReportBundle:Report/Form:filter_display.html.twig' %}
-        <div class="reportFilter" data-urlRemote="{{template.getRemoteUrl()}}">
+        <div class="reportFilter" data-urlRemote="{{template.getRemoteUrl()|default(null)}}">
             <form method="GET">
                 <fieldset class="filter_legend">
                     <legend class="filter_legend">Filters</legend>

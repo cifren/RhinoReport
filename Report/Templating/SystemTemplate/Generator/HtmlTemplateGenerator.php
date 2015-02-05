@@ -22,7 +22,7 @@ abstract class HtmlTemplateGenerator implements TemplateGeneratorInterface
         $this->uniqueBlockName = $uniqueBlockName;
     }
 
-    public function getResponse($nameFile, ModuleObject $object, $arg)
+    public function getResponse($nameFile, $object, $arg)
     {
         //$nameFile not used for html
         return $this->renderView($this->twigTemplateName, array('object' => $object));

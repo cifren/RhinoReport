@@ -11,24 +11,35 @@ class HtmlReportTemplateGenerator extends HtmlTemplateGenerator
 {
 
     protected $templatingService;
+    protected $twigTemplateName;
+    protected $twigTemplateFilterName;
 
-    public function __construct($templatingService, $templateTwig)
+    public function __construct($templatingService, $twigTemplateName, $twigTemplateFilterName)
     {
         $this->templatingService = $templatingService;
-        $this->template = $templateTwig;
+        $this->twigTemplateName = $twigTemplateName;
+        $this->twigTemplateFilterName = $twigTemplateFilterName;
     }
 
-    public function getResponse($nameFile, $object, $arg)
+    public function getResponse($nameFile, $object, $arg, $id = null)
     {
-        $filterForm = $object->getItem('filter');
-        $availableExport = $object->getAvailableExport();
-        //if only one option, hidden field, need only the key
-        if (count($availableExport) == 1) {
-            $flipArray = array_flip($availableExport);
-            $availableExport = array(array_shift($flipArray));
+        if($id == 'filter'){
+            $filterObject = $object->getFilter();
+            
+            return $this->getFilterResponse($filterObject, $arg);
         }
-        //$nameFile not used for html
-        return $this->renderView($this->template, array_merge(array('filterForm' => $filterForm, 'availableExport' => $availableExport, 'js' => true, 'css' => true, 'url' => null), $arg));
+        
+        return $this->getAllReportResponse($object, $arg);
+    }
+
+    protected function getFilterResponse($filterObject, $arg)
+    {
+        return $this->renderView($this->twigTemplateFilterName, array('filter' => $filterObject));
+    }
+
+    protected function getAllReportResponse($reportObject, $arg)
+    {
+        return $this->renderView($this->getTwigTemplateName(), array('template' => $this->getTemplating($reportObject, null, null)));
     }
 
 }

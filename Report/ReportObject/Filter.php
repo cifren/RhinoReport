@@ -12,6 +12,7 @@ class Filter
 
     protected $form;
     protected $options;
+    protected $templateName;
 
     public function getForm()
     {
@@ -33,6 +34,17 @@ class Filter
     public function getOptions()
     {
         return $this->options;
+    }
+
+    public function getTemplateName()
+    {
+        return $this->templateName;
+    }
+
+    public function setTemplateName($templateName)
+    {
+        $this->templateName = $templateName;
+        return $this;
     }
 
 }
