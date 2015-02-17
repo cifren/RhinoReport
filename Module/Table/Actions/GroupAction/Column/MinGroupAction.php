@@ -6,10 +6,10 @@ use Earls\RhinoReportBundle\Module\Table\Actions\GroupAction\Column\GroupAction;
 use Earls\RhinoReportBundle\Module\Table\Helper\TableRetrieverHelper;
 
 /**
- *  Earls\RhinoReportBundle\Module\Table\Actions\GroupAction\Column\SumGroupAction
+ *  Earls\RhinoReportBundle\Module\Table\Actions\GroupAction\Column\MinGroupAction
  *
  */
-class SumGroupAction extends GroupAction
+class MinGroupAction extends GroupAction
 {
 
     protected $retriever;
@@ -32,19 +32,19 @@ class SumGroupAction extends GroupAction
             $group = $this->column->getRow()->getGroup();
         }
         $items = $this->retriever->getParentOrSubItemsFromGenericPath($this->options['column'], $group);
-        $sum = 0;
+        $dataList = array();
         foreach ($items as $item) {
-            $sum += $item->getData();
+            $dataList[] = $item->getData();
         }
-
-        return $sum;
+        
+        return min($dataList);
     }
 
     public function getOptions()
     {
         return array(
-            'fromGroup' => null,
-            'column' => null
+            'column' => null,
+            'fromGroup' => null
         );
     }
 

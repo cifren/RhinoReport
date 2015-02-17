@@ -39,7 +39,7 @@
 {% endblock %}
 
 {% block body %}
-    <Worksheet ss:Name="Sheet1">
+    <Worksheet ss:Name="Sheet1" {% if table.protectionConfig.activated and table.protectionConfig.options.protectAllCells %} ss:Protected="1" {% endif %} >
         {% if table.printConfig|default(null).print_titles|default(null) is not null and table.printTitleRange|default(null) %}
             <Names>
                 <NamedRange ss:Name="Print_Titles" ss:RefersTo="=R{{table.printTitleRange.top}}:R{{table.printTitleRange.bottom}}"/>
@@ -83,8 +83,6 @@
             <RangeSelection>R5</RangeSelection>#}
         </Pane>
     </Panes>
-    <ProtectObjects>False</ProtectObjects>
-    <ProtectScenarios>False</ProtectScenarios>
 {% endblock %}
 
 {% block Print %}
@@ -110,6 +108,10 @@
         <HorizontalResolution>600</HorizontalResolution>
         <VerticalResolution>600</VerticalResolution>
     </Print>
+    {# protection settings #}
+        {{ block('Protection') }}
+    {# protection settings #}
+    
 {% endblock %}
 
 {% block PageBreaks %}
@@ -123,5 +125,25 @@
                 {% endfor %}
             </RowBreaks>
         </PageBreaks>
+    {% endif %}
+{% endblock %}
+
+{% block Protection %}
+    {% if table.protectionConfig.activated %}
+        <ProtectObjects>True</ProtectObjects>
+        <ProtectScenarios>True</ProtectScenarios>
+        {% if table.protectionConfig.options %}
+            {% if table.protectionConfig.options.selectLockedCells == false and table.protectionConfig.options.selectUnlockedCells == false %}
+                <EnableSelection>NoSelection</EnableSelection>
+            {% elseif table.protectionConfig.options.selectLockedCells == false and table.protectionConfig.options.selectUnlockedCells == true %}
+                <EnableSelection>UnlockedCells</EnableSelection>   
+            {% endif %}
+            {% if table.protectionConfig.options.formatCells %}
+                <AllowFormatCells/>
+            {% endif %}
+        {% endif %}
+    {% else %}
+        <ProtectObjects>False</ProtectObjects>
+        <ProtectScenarios>False</ProtectScenarios>
     {% endif %}
 {% endblock %}
