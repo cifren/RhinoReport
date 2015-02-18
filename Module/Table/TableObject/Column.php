@@ -54,6 +54,10 @@ class Column extends TableObject
     {
         return $this->data;
     }
+    
+    public function getNakedData(){
+        return $this->getBaseValue() !== null?$this->getBaseValue():$this->getData();
+    }
 
     public function setFormula($formula)
     {

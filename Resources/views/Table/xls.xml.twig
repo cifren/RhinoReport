@@ -68,6 +68,7 @@
         <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
             {{ block('WorksheetOptions') }}
         </WorksheetOptions>
+        {{ block('ConditionalFormatting') }}
         {{ block('PageBreaks') }}
     </Worksheet>
 {% endblock %}
@@ -112,6 +113,21 @@
         {{ block('Protection') }}
     {# protection settings #}
     
+{% endblock %}
+
+{% block ConditionalFormatting %}
+    {% if table.conditionalFormatting|length > 0 %}
+        {% for condFormat in table.conditionalFormatting %}
+            <ConditionalFormatting xmlns="urn:schemas-microsoft-com:office:excel">
+                <Range>{{condFormat.getRange()}}</Range>
+                {% set condition = condFormat.getCondition() %}
+                <Condition>
+                    <Value1>{{condition.value}}</Value1>
+                    <Format Style='{{condition.format}}'/>
+                </Condition>
+            </ConditionalFormatting>
+        {% endfor %}
+    {% endif %}
 {% endblock %}
 
 {% block PageBreaks %}

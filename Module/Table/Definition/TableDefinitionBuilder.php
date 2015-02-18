@@ -102,7 +102,7 @@ class TableDefinitionBuilder
 
     public function attr(array $attributes = array())
     {
-        if (!$this->currentDefinition instanceof TableDefinition and !$this->currentDefinition instanceof RowDefinition and !$this->currentDefinition instanceof ColumnDefinition and !$this->currentDefinition instanceof HeadDefinition)
+        if (!$this->currentDefinition instanceof TableDefinition and ! $this->currentDefinition instanceof RowDefinition and ! $this->currentDefinition instanceof ColumnDefinition and ! $this->currentDefinition instanceof HeadDefinition)
             throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition" or "Earls\RhinoReportBundle\Module\Table\Definition\RowDefinition" or "Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition" or "Earls\RhinoReportBundle\Module\Table\Definition\HeadDefinition", "' . get_class($this->currentDefinition) . '" given in function attr()');
 
         if (isset($attributes['class']) && !is_array($attributes['class'])) {
@@ -303,6 +303,26 @@ class TableDefinitionBuilder
     protected function getHtmlExportConfigClass()
     {
         return '\Earls\RhinoReportBundle\Templating\ExportConfigurator\HtmlExportConfigurator';
+    }
+
+    /**
+     * 
+     * @param string $selectedColumn    where you want ot apply the condition/format, displayId only
+     * @param array $displayIds         column used in the condition
+     * @param string $condition         condition you want, function sprintf is use behind
+     * @param array $classes            classe you want to apply
+     * @return RowDefinition
+     * @throws \Exception
+     */
+    public function conditionalFormatting($selectedColumn, array $displayIds, $condition, array $classes)
+    {
+        if (!$this->currentDefinition instanceof GroupDefinition) {
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "' . get_class($this->currentDefinition) . '" given in function rowSpan()');
+        }
+
+        $this->currentDefinition->addConditionalFormatting($selectedColumn, $displayIds, $condition, $classes);
+
+        return $this;
     }
 
     //define a set of data

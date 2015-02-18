@@ -22,6 +22,7 @@ class GroupDefinition extends Definition
     protected $actions = array();
     protected $groupAction = null;
     protected $extendingGroupAction = false;
+    protected $conditionalFormattings = array();
 
     public function __construct($id, array $exportConfigs)
     {
@@ -186,6 +187,24 @@ class GroupDefinition extends Definition
     public function getHead()
     {
         return $this->getParent()->getHead();
+    }
+
+    public function getConditionalFormattings()
+    {
+        return $this->conditionalFormattings;
+    }
+
+    public function addConditionalFormatting($selectedColumn, array $displayIds, $condition, array $classes)
+    {
+        $conditionalFormatting = array(
+            'selectedColumn' => $selectedColumn,
+            'displayIds' => $displayIds,
+            'condition' => $condition,
+            'classes' => $classes
+        );
+        $this->conditionalFormattings[] = $conditionalFormatting;
+        
+        return $this;
     }
 
 }
