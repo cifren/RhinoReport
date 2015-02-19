@@ -18,6 +18,8 @@ class CssXmlStyleConditionalFormattingTranslator
      */
     protected $dictionnary = array(
         'color' => 'fontColor',
+        'font-color' => 'fontColor',
+        'background-color' => 'backgrounColor',
     );
     protected $styleArray = array();
 
@@ -43,4 +45,15 @@ class CssXmlStyleConditionalFormattingTranslator
 
         return array($newRuleName => $value);
     }
+
+    protected function backgrounColor($ruleName, $value = NULL)
+    {
+        if ($value == NULL) {
+            throw new \Exception('Value css can\'t be translated in `font-color´');
+        }
+        $newRuleName = 'background';
+
+        return array($newRuleName => $value);
+    }
+
 }

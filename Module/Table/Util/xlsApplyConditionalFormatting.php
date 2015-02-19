@@ -93,7 +93,8 @@ class xlsApplyConditionalFormatting
             foreach ($condFormat['displayIds'] as $displayId) {
                 $args[] = 'RC' . $row->getColumn($displayId)->getPosition();
             }
-            $condition = vsprintf($condFormat['condition'], $args);
+            $reformatCondition = str_replace('==', '=', $condFormat['condition']);
+            $condition = vsprintf($reformatCondition, $args);
 
             $blocList[] = $this->getNewBloc($range, $condition, $condFormat['classes']);
         }
