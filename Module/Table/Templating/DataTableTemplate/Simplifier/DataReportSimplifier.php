@@ -13,9 +13,29 @@ class DataReportSimplifier
 {
 
     protected $table;
+
+    /**
+     *
+     * @var array  Rows will be displayed as Headers
+     */
     protected $groupHeadingRows = array();
-    protected $groupHeadingLevel = array();
+
+    /**
+     *
+     * @var array   Level count of recursive headers
+     */
+    protected $groupHeadingLevel;
+
+    /**
+     *
+     * @var array   rows onwed by group, the ids of headers will be added to the data
+     */
     protected $rows = array();
+
+    /**
+     *
+     * @var array   list of column name 
+     */
     protected $columnList;
 
     public function __construct($table)
@@ -35,7 +55,6 @@ class DataReportSimplifier
      */
     protected function getTableArray($table)
     {
-
         $data = array();
 
         //Table Head

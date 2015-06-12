@@ -75,7 +75,7 @@ class AdvancedTableDefinitionBuilder extends AbstractDefinitionBuilder
             throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function row()');
         }
 
-        $this->setCurrentDefinition($this->getCurrentDefinition()->addRow(array('unique' => true), $this->availableExport));
+        $this->setCurrentDefinition($this->getCurrentDefinition()->addRow(array('unique' => false), $this->availableExport));
 
         return $this;
     }

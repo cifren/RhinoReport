@@ -116,19 +116,16 @@ class TableDefinition extends Definition implements ReportDefinitionInterface
         //not used, too complicated stuff, sorry...
         foreach ($itemDefinition->getItems() as $item) {
             if ($item instanceof GroupDefinition) {
-                //echo "<br>groupDef : ".$item->getId();
                 $this->subGroupDefinition($item);
             }
 
             //compare head to rowDefinition, add column missing, sort new items
             if ($item instanceof RowDefinition) {
-                //echo "<br>rowDef";
                 $headColumnDefinitions = $this->headDefinition->getColumns();
                 ksort($headColumnDefinitions);
 
                 $itemColumnDefinitions = $item->getColumns();
 
-                //echo '<br>row ';
                 $colSpanCounter = 0;
 
                 // array complete with colspan ColumnDefinition
