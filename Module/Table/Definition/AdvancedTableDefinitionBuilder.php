@@ -75,7 +75,7 @@ class AdvancedTableDefinitionBuilder extends AbstractDefinitionBuilder
             throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function row()');
         }
 
-        $this->setCurrentDefinition($this->getCurrentDefinition()->addRow(array(), $this->availableExport));
+        $this->setCurrentDefinition($this->getCurrentDefinition()->addRow(array('unique' => true), $this->availableExport));
 
         return $this;
     }
@@ -112,7 +112,7 @@ class AdvancedTableDefinitionBuilder extends AbstractDefinitionBuilder
         if (!$this->getCurrentDefinition() instanceof GroupDefinition) {
             throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function groupBy()');
         }
-        if(!$this->getCurrentDefinition()->getId() == 'body'){
+        if (!$this->getCurrentDefinition()->getId() == 'body') {
             throw new \Exception('groupBy is not allowed on body, you need to create a group');
         }
 
@@ -349,10 +349,30 @@ class AdvancedTableDefinitionBuilder extends AbstractDefinitionBuilder
     public function buildDefinition()
     {
         $defClass = $this->getDefinitionClass();
-        $def =  new $defClass($this->availableExport);
+        $def = new $defClass($this->availableExport);
         $def->setTemplate('DefaultTemplate');
 
         return $def;
+    }
+
+    /**
+     * 
+     * @param string $selectedColumn    where you want ot apply the condition/format, displayId only
+     * @param array $displayIds         column used in the condition
+     * @param string $condition         condition you want, function sprintf is use behind
+     * @param array $classes            classe you want to apply
+     * @return RowDefinition
+     * @throws \Exception
+     */
+    public function conditionalFormatting($selectedColumn, array $displayIds, $condition, array $classes)
+    {
+        if (!$this->getCurrentDefinition() instanceof GroupDefinition) {
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function rowSpan()');
+        }
+
+        $this->getCurrentDefinition()->addConditionalFormatting($selectedColumn, $displayIds, $condition, $classes);
+
+        return $this;
     }
 
 }

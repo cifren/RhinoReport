@@ -20,7 +20,7 @@ class XlsApplyFormula
 
     public function __construct()
     {
-        $this->TableRetrieverHelper = new \Earls\RhinoReportBundle\Module\Table\Helper\TableRetrieverHelper;
+        $this->TableRetrieverHelper = new \Earls\RhinoReportBundle\Module\Table\Helper\TableRetrieverHelper();
         $this->rowShift = 3; //+2 because of the empty line + header
     }
 
@@ -30,13 +30,6 @@ class XlsApplyFormula
 
         return $this;
     }
-
-//    public function addRowShift($shift)
-//    {
-//        $this->setRowShift($this->rowShift + 1);
-//
-//        return $this;
-//    }
 
     protected function setRowShift($shift)
     {
@@ -99,7 +92,7 @@ class XlsApplyFormula
     {
         $this->TableRetrieverHelper->setTable($table);
 
-        //Basic stuff without class managing this like action or actionGroup, maybe some day
+        //Basic stuff without class managing this, as an action or actionGroup, maybe some day
         //apply all formula
         foreach ($this->listFormula as $columnPath) {
             $columnBase = $this->TableRetrieverHelper->getItemFromDataPath($columnPath);

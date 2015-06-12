@@ -11,6 +11,7 @@ use Earls\RhinoReportBundle\Templating\Excel\Style\Style;
 use Earls\RhinoReportBundle\Templating\Excel\Translator\CssXmlStyleTranslator;
 use Earls\RhinoReportBundle\Module\Table\Templating\SystemTemplate\Util\XlsApplyFormula;
 use Earls\RhinoReportBundle\Module\Table\Factory\TableFactory;
+use Earls\RhinoReportBundle\Module\Table\Util\xlsApplyConditionalFormatting;
 
 /**
  *  Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Simplifier\XlsReportSimplifier
@@ -34,6 +35,7 @@ class XlsReportSimplifier
         $this->xlsApplyFormula = $xlsApplyFormula;
         $this->factoryTable = $factoryTable;
         $this->defaultStyle = $defaultStyle;
+        $this->xlsApplyConditionalFormatting = new xlsApplyConditionalFormatting();
     }
 
     public function setTable($table)
@@ -135,7 +137,10 @@ class XlsReportSimplifier
 
         $this->xlsApplyFormula->setTable($table);
         $this->xlsApplyFormula->applyPositionAndFormula();
-
+        
+        $this->xlsApplyConditionalFormatting->setTable($table);
+        $xmlArray['conditionalFormatting'] = $this->xlsApplyConditionalFormatting->getObjectBloc();
+        
         //Table Head
         foreach ($table->getHead()->getColumns() as $displayId => $column) {
             $data[$displayId] = array(

@@ -104,10 +104,10 @@ class TableDefinitionBuilder extends AdvancedTableDefinitionBuilder
                 }
             }
         }
-        
-        if($groupCount && $rowCount){
+
+        if ($groupCount && $rowCount) {
             throw new \Exception('A group can\'t contain a group item and a row item at the same time, you need to replace the row item by a rowUnique');
-        }elseif($groupCount && !$rowUniqueCount && $group->getId() !== 'body'){
+        } elseif ($groupCount && !$rowUniqueCount && $group->getId() !== 'body') {
             throw new \Exception('A group always needs a rowUnique item when it contains a group item');
         }
     }

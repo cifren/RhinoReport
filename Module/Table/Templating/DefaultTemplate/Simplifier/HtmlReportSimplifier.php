@@ -7,6 +7,7 @@ use Earls\RhinoReportBundle\Module\Table\TableObject\Group;
 use Earls\RhinoReportBundle\Module\Table\TableObject\Row;
 use Earls\RhinoReportBundle\Module\Table\TableObject\Column;
 use Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition;
+use Earls\RhinoReportBundle\Module\Table\Helper\TableRetrieverHelper;
 
 /**
  * Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Simplifier\HtmlReportSimplifier
@@ -16,9 +17,16 @@ class HtmlReportSimplifier
 
     protected $table;
 
+    /**
+     *
+     * @var TableRetrieverHelper 
+     */
+    protected $tableRetrieverHelper;
+
     public function __construct($table)
     {
         $this->table = $table;
+        $this->tableRetrieverHelper = new TableRetrieverHelper();
     }
 
     public function getSimpleTable()
@@ -65,6 +73,9 @@ class HtmlReportSimplifier
         $htmlArray['head'] = array(
             'attr' => $attr,
             'columns' => $data);
+
+        $this->applyConditionalFormating($table);
+
         //body
         $arrayBody = $this->getGroupHtmlArray($table->getBody());
 
@@ -100,7 +111,7 @@ class HtmlReportSimplifier
                     } else {
                         $attr['class'] = $class;
                     }
-                    $attr['style'] = (!isset($attr['style'])) ? :$this->getAttrStyle($attr['style']);
+                    $attr['style'] = (!isset($attr['style'])) ? : $this->getAttrStyle($attr['style']);
 
                     //convert array to string
                     $attr['class'] = implode(' ', $attr['class']);
@@ -149,7 +160,6 @@ class HtmlReportSimplifier
                     foreach ($row['columns'] as $displayId => $column) {
                         if (in_array($displayId, $item->getRowspans())) {
                             $row['columns'][$displayId]['attr']['rowspan'] = $i;
-
                         }
                     }
 
@@ -186,7 +196,7 @@ class HtmlReportSimplifier
 
         $attr = array_map("unserialize", array_unique(array_map("serialize", $attr)));
 
-        $attr['style'] = (!isset($attr['style'])) ? :$this->getAttrStyle($attr['style']);
+        $attr['style'] = (!isset($attr['style'])) ? : $this->getAttrStyle($attr['style']);
 
         //convert array to string
         $attr['class'] = implode(' ', $attr['class']);
@@ -210,9 +220,67 @@ class HtmlReportSimplifier
     {
         $styleString[] = null;
         foreach ($style as $key => $value) {
-            $styleString[] .= $key.':'.$value.';';
+            $styleString[] .= $key . ':' . $value . ';';
         }
 
         return implode('', $styleString);
     }
+
+    protected function applyConditionalFormating(Table $table)
+    {
+        $body = $table->getBody();
+
+        $this->applyConditionalFormatingOnGroup($body);
+    }
+
+    protected function applyConditionalFormatingOnGroup(Group $group)
+    {
+        if (count($group->getDefinition()->getConditionalFormattings()) > 0) {
+            $this->applyConditionalFormatingOnColumns($group);
+        }
+        foreach ($group->getItems() as $item) {
+            if ($item instanceof Group) {
+                $this->applyConditionalFormatingOnGroup($item);
+            }
+        }
+    }
+
+    protected function applyConditionalFormatingOnColumns(Group $group)
+    {
+        foreach ($group->getItems() as $item) {
+            if ($item instanceof Row) {
+                $conditionalFormattings = $group->getDefinition()->getConditionalFormattings();
+                foreach ($conditionalFormattings as $condFormat) {
+                    $columns = $this->tableRetrieverHelper->getColumns($condFormat['selectedColumn'], $group);
+                    foreach ($columns as $column) {
+                        $row = $column->getParent();
+                        $data = $this->fetchValues($row, $condFormat['displayIds']);
+                        $evalStr = '$condition = ' . vsprintf($condFormat['condition'], $data) . ';';
+                        eval($evalStr);
+                        if ($condition) {
+                            $column = $row->getColumn($column->getId());
+                            $column->setAttribute('class', (is_array($column->getAttribute('class')) ? array_merge($column->getAttribute('class'), $condFormat['classes']) : $condFormat['classes']));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    protected function fetchValues($row, $columnsName)
+    {
+        $aryValues = array();
+        foreach ($columnsName as $columnName) {
+            if ($row->getColumn($columnName) == NULL) {
+                $aryValues[] = 0;
+            } else {
+                $data = $row->getColumn($columnName)->getNakedData();
+
+                $aryValues[] = floatval($data);
+            }
+        }
+
+        return $aryValues;
+    }
+
 }
