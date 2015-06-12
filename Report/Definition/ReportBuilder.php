@@ -53,7 +53,7 @@ class ReportBuilder
                 $dataFilter = $this->getFilterForm()->getData();
             }
 
-            $data = $this->rptConfig->getArrayData(array(), $dataFilter);
+            $data = array();
         } else { // report use queryBuilder
             $queryBuilder = $this->rptConfig->getQueryBuilder();
             if ($this->rptConfig->hasFilter()) {
@@ -64,11 +64,12 @@ class ReportBuilder
             }
 
             $data = $queryBuilder->getQuery()->getScalarResult();
-            $data = $this->rptConfig->getArrayData($data, $dataFilter);
         }
-        $this->runDebugData($data, $dataFilter);
+        
+        $dataAlterated = $this->rptConfig->getArrayData($data, $dataFilter);
+        $this->runDebugData($dataAlterated, $dataFilter);
 
-        $dataObject = new DataObject($data);
+        $dataObject = new DataObject($dataAlterated);
 
         $this->reportDefinition = $this->rptConfig->getConfigReportDefinition($this->request, $dataFilter);
 
