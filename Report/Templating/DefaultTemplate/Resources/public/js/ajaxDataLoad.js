@@ -1,5 +1,12 @@
 $(document).ready(function () {
     $(document).on('click', '#filter-btn', function () {
+        var $btn = $(this);
+        var btnArg = $btn.attr('name') + '=' + $btn.attr('value');
+        var urlArg = $btn.closest('form').serialize();
+        var newUrl = window.location.pathname + '?' + urlArg + '&' + btnArg;
+
+        //change the url but doesnt reload the page
+        window.history.pushState("report", "Report", newUrl);
         var $filterContainer = $('.reportFilter');
         var url = $filterContainer.attr('data-urlRemote');
         var $formFilter = $filterContainer.find('form');
