@@ -1,14 +1,16 @@
 {% block report_unique_table_datatable %}
     {% javascripts
-        '//cdn.datatables.net/1.10.4/js/jquery.dataTables.js'
+        '@EarlsRhinoReportBundle/Resources/public/Table/vendor/DataTables/media/js/jquery.dataTables.min.js'
+        '@EarlsRhinoReportBundle/Resources/public/Table/vendor/DataTables/plugins/boostrap/bootstrap.js'
 
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts  %}
 
     {% stylesheets
-       '//cdn.datatables.net/1.10.4/css/jquery.dataTables.css'
-       '@EarlsRhinoReportBundle/Module/Table/Templating/DataTableTemplate/Resources/public/css/style.css'
+        '@EarlsRhinoReportBundle/Resources/public/Table/vendor/DataTables/media/css/jquery.dataTables.min.js'
+        '@EarlsRhinoReportBundle/Resources/public/Table/vendor/DataTables/plugins/boostrap/bootstrap.css'
+        '@EarlsRhinoReportBundle/Module/Table/Templating/DataTableTemplate/Resources/public/css/style.css'
     %}
     <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
@@ -25,12 +27,13 @@
 
 {% block report_table_datatable %}
     {% set tableTemplate = element %}
-    {% set table = tableTemplate.getModuleObject() %}
-    {% set id = table.getId() %}
+    {% set table = tableTemplate.getTransformedModuleObject() %}
+    {% set id = table.id %}
+    {% set attr = table.attr|default(null) %}
     
     <div id="{{id}}" class="myDataTable">
         <data class="dataTableData" data-load="{{tableTemplate.getData()|json_encode()}}"></data>
-        <table class="dataTable" width="100%" cellspacing="0">
+        <table {{ block('report_attributes') }}>
             <thead>
                 <tr>
                     {% for head in tableTemplate.getData().head %}
@@ -40,4 +43,10 @@
             </thead>
         </table>
     </div>
+{% endblock %}
+
+{% block report_attributes %}
+    {% spaceless %}
+        {% for attrname,attrvalue in attr %}{{attrname}}="{{attrvalue}}" {% endfor %}
+    {% endspaceless %}
 {% endblock %}
