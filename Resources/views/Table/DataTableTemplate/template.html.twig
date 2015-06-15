@@ -34,13 +34,6 @@
     <div id="{{id}}" class="myDataTable">
         <data class="dataTableData" data-load="{{tableTemplate.getData()|json_encode()}}"></data>
         <table {{ block('report_attributes') }}>
-            <thead>
-                <tr>
-                    {% for head in tableTemplate.getData().head %}
-                        <th>{{head}}</th>
-                    {% endfor %}
-                </tr>
-            </thead>
         </table>
     </div>
 {% endblock %}

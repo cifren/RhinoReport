@@ -17,20 +17,54 @@ RhinoReportDataTableInstance.prototype = {
         this.setListener();
     },
     buildTable: function () {
+
+        this.myTable = this.$container.find('.dataTable').dataTable(this.getConfigTable());
+
+    },
+    initEvent: function () {
+        var $container = this.$container;
+        // Order by the grouping
+        $('#' + this.id + ' .dataTable tbody').on('click', 'tr.group td', function () {
+            var table = $container.find('.dataTable').dataTable().api();
+            var currentOrder = table.order()[0];
+            var colIndex = $(this).attr('data-colIndex');
+            if (currentOrder[0] === colIndex && currentOrder[1] === 'asc') {
+                table.order([colIndex, 'desc']).draw();
+            }
+            else {
+                table.order([colIndex, 'asc']).draw();
+            }
+        });
+    },
+    reloadDataTable: function () {
+        var $container = $('#' + this.id);
+        var tableId = $container.find('.dataTable').attr('id');
+
+        var config = this.getConfigTable();
+        config.bDestroy = true;
+
+        var table = $('#' + tableId).DataTable(config);
+
+        table.clear();
+
+        table.rows.add(this.getStructuredData());
+
+        table.draw();
+    },
+    getConfigTable: function () {
         var tableData = this.getData();
-        var hiddenColumns = [];
-        for (i = tableData.nbColumns; i < tableData.nbColumns + (tableData.nbColumns * tableData.groupHeadingLevel); i++) {
-            hiddenColumns.push(i);
-        }
+
         var groupIdIndex = [];
         for (i = 0; i < tableData.groupHeadingLevel; i++) {
             groupIdIndex.push(tableData.nbColumns * (i + 1));
         }
 
-        this.myTable = this.$container.find('.dataTable').dataTable({
+        var config = {
             "iDisplayLength": 50,
+            "lengthMenu": [[50, 100, 1000, -1], [50, 100, 1000, "All"]],
             'data': this.getStructuredData(),
-            "aoColumnDefs": [{"bVisible": false, "aTargets": hiddenColumns}],
+            'aoColumns': this.getColumnNames(),
+            "aoColumnDefs": [{"bVisible": false, "aTargets": this.getHiddenColumns()}],
             "drawCallback": function (settings) {
                 var api = this.api();
                 var rows = api.rows({page: 'current'}).nodes();
@@ -77,35 +111,20 @@ RhinoReportDataTableInstance.prototype = {
                     });
                 }
             }
-        });
+        }
 
+        return config;
     },
-    initEvent: function () {
-        var $container = this.$container;
-        // Order by the grouping
-        $('#' + this.id + ' .dataTable tbody').on('click', 'tr.group td', function () {
-            var table = $container.find('.dataTable').dataTable().api();
-            var currentOrder = table.order()[0];
-            var colIndex = $(this).attr('data-colIndex');
-            if (currentOrder[0] === colIndex && currentOrder[1] === 'asc') {
-                table.order([colIndex, 'desc']).draw();
-            }
-            else {
-                table.order([colIndex, 'asc']).draw();
-            }
-        });
-    },
-    reloadDataTable: function () {
-        var $container = $('#' + this.id);
-        var tableId = $container.find('.dataTable').attr('id');
+    getHiddenColumns: function () {
+        var hiddenColumns = [];
+        var tableData = this.getData();
+        var i;
 
-        var table = $('#' + tableId).DataTable();
+        for (i = tableData.nbColumns; i < tableData.nbColumns + (tableData.nbColumns * tableData.groupHeadingLevel); i++) {
+            hiddenColumns.push(i);
+        }
 
-        table.clear();
-
-        table.rows.add(this.getStructuredData());
-
-        table.draw();
+        return hiddenColumns;
     },
     getStructuredData: function () {
         var transformedData = [];
@@ -153,5 +172,15 @@ RhinoReportDataTableInstance.prototype = {
     },
     clearData: function () {
         this.data = null;
+    },
+    getColumnNames: function () {
+        var columnNames = [];
+        var columnData = this.getData().head;
+        $.each(columnData, function (index, value) {
+            var col = {"sTitle": value};
+            columnNames.push(col);
+        });
+
+        return columnNames;
     }
 };
