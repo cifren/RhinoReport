@@ -28,6 +28,7 @@ RhinoReportDataTableInstance.prototype = {
         }
 
         this.myTable = this.$container.find('.dataTable').dataTable({
+            "iDisplayLength": 50,
             'data': this.getStructuredData(),
             "aoColumnDefs": [{"bVisible": false, "aTargets": hiddenColumns}],
             "drawCallback": function (settings) {
@@ -95,7 +96,7 @@ RhinoReportDataTableInstance.prototype = {
         });
     },
     reloadDataTable: function () {
-        var $container = $('#tableIng');
+        var $container = $('#' + this.id);
         var tableId = $container.find('.dataTable').attr('id');
 
         var table = $('#' + tableId).DataTable();
