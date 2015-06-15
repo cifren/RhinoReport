@@ -71,14 +71,14 @@ abstract class ReportConfiguration implements ReportConfigurationInterface
     /**
      * {@inheritDoc}
      */
-    public function getQueryBuilder()
+    public function getQueryBuilder($dataFilter)
     {
         return null;
     }
 
-    public function hasQueryBuilder()
+    public function hasQueryBuilder($dataFilter)
     {
-        if ($this->getQueryBuilder()) {
+        if ($this->getQueryBuilder($dataFilter)) {
             return true;
         } else {
             return false;

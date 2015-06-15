@@ -8,6 +8,8 @@ use Earls\RhinoReportBundle\Report\Definition\ReportConfigurationInterface;
 use Earls\RhinoReportBundle\Module\Table\Util\DataObject;
 use Earls\RhinoReportBundle\Report\ReportObject\Report;
 use Earls\RhinoReportBundle\Report\ReportObject\Filter;
+use Symfony\Component\Form\Exception\UnexpectedTypeException;
+use Earls\RhinoReportBundle\Report\Filter\ReportFilterInterface;
 
 /**
  * Earls\RhinoReportBundle\Report\Definition\ReportBuilder
@@ -42,31 +44,28 @@ class ReportBuilder
     public function build()
     {
         $data = array();
-
+        if (!$this->rptConfig->hasFilter()) {
+            $dataFilter = array();
+        } else {
+            //can be object or array
+            $dataFilter = $this->getFilterForm()->getData();
+        }
+        
         // initialize a query builder if existing
-        if (!$this->rptConfig->hasQueryBuilder()) { //report dont use query builder
+        if (!$this->rptConfig->hasQueryBuilder($dataFilter)) { //report dont use query builder
             // check to see if a filter exists
-            if (!$this->rptConfig->hasFilter()) {
-                $dataFilter = array();
-            } else {
-                //can be object or array
-                $dataFilter = $this->getFilterForm()->getData();
-            }
-
             $data = array();
         } else { // report use queryBuilder
-            $queryBuilder = $this->rptConfig->getQueryBuilder();
-            if ($this->rptConfig->hasFilter()) {
+            $queryBuilder = $this->rptConfig->getQueryBuilder($dataFilter);
+            if (!empty($dataFilter)) {
                 $queryBuilder = $this->getFilterQuery($queryBuilder);
-                $dataFilter = $this->getFilterForm()->getData();
-            } else {
-                $dataFilter = array();
             }
 
             $data = $queryBuilder->getQuery()->getScalarResult();
         }
-        
+
         $dataAlterated = $this->rptConfig->getArrayData($data, $dataFilter);
+        
         $this->runDebugData($dataAlterated, $dataFilter);
 
         $dataObject = new DataObject($dataAlterated);
@@ -82,9 +81,8 @@ class ReportBuilder
         $this->report = $this->rptConfig->getReportObject($this->report, $dataFilter);
         $this->report->setOptions($this->rptConfig->getResolvedOptions());
         //$this->buildExport();
-
         //set filter
-        if ($this->rptConfig->getFilter()){
+        if ($this->rptConfig->getFilter()) {
             $filter = new Filter();
             $filter->setForm($this->getFilterForm());
             $filter->setOptions($this->rptConfig->getResolvedOptions());
@@ -191,8 +189,12 @@ class ReportBuilder
             return null;
         }
 
-        if ($this->filterForm){
+        if ($this->filterForm) {
             return $this->filterForm;
+        }
+
+        if (!$this->filterType instanceof ReportFilterInterface) {
+            throw new UnexpectedTypeException($this->filterType, 'Earls\RhinoReportBundle\Report\Filter\ReportFilterInterface');
         }
 
         //-- FILTER FORM
