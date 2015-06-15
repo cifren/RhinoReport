@@ -1,15 +1,15 @@
 {% block report_unique_table_datatable %}
     {% javascripts
         '@EarlsRhinoReportBundle/Resources/public/Table/vendor/DataTables/media/js/jquery.dataTables.min.js'
-        '@EarlsRhinoReportBundle/Resources/public/Table/vendor/DataTables/plugins/boostrap/bootstrap.js'
+        '@EarlsRhinoReportBundle/Resources/public/Table/vendor/DataTables/plugins/bootstrap/bootstrap.js'
 
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts  %}
 
     {% stylesheets
-        '@EarlsRhinoReportBundle/Resources/public/Table/vendor/DataTables/media/css/jquery.dataTables.min.js'
-        '@EarlsRhinoReportBundle/Resources/public/Table/vendor/DataTables/plugins/boostrap/bootstrap.css'
+        '@EarlsRhinoReportBundle/Resources/public/Table/vendor/DataTables/media/css/jquery.dataTables.min.css'
+        '@EarlsRhinoReportBundle/Resources/public/Table/vendor/DataTables/plugins/bootstrap/bootstrap.css'
         '@EarlsRhinoReportBundle/Module/Table/Templating/DataTableTemplate/Resources/public/css/style.css'
     %}
     <link rel="stylesheet" href="{{ asset_url }}" />
