@@ -12,6 +12,7 @@ class ModuleTemplate
 
     protected $templatingName;
     protected $moduleObject;
+    protected $transformedModuleObject;
     protected $remoteUrl;
     protected $exportUrl;
     protected $options;
@@ -90,6 +91,17 @@ class ModuleTemplate
     public function setTemplatingName($templatingName)
     {
         $this->templatingName = $templatingName;
+        return $this;
+    }
+
+    public function getTransformedModuleObject()
+    {
+        return $this->transformedModuleObject;
+    }
+
+    public function setTransformedModuleObject($transformedModuleObject)
+    {
+        $this->transformedModuleObject = $transformedModuleObject;
         return $this;
     }
 

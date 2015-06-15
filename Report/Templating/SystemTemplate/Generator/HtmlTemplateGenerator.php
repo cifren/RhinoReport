@@ -38,7 +38,8 @@ abstract class HtmlTemplateGenerator implements TemplateGeneratorInterface
         $template = new ModuleTemplate();
         $transformedObject = $this->applyTransformers($reportObject);
         $template->setOptions($reportObject->getOptions());
-        $template->setModuleObject($transformedObject);
+        $template->setTransformedModuleObject($transformedObject);
+        $template->setModuleObject($reportObject);
         $template->setRemoteUrl($remoteUrl);
         $template->setExportUrl($exportUrl);
         $template->setData($this->getData($reportObject));

@@ -4,6 +4,7 @@ namespace Earls\RhinoReportBundle\Module\Table\Templating\DataTableTemplate\Gene
 
 use Earls\RhinoReportBundle\Report\Templating\SystemTemplate\Generator\HtmlTemplateGenerator;
 use Earls\RhinoReportBundle\Module\Table\Templating\DataTableTemplate\Simplifier\DataReportSimplifier;
+use Earls\RhinoReportBundle\Module\Table\Templating\DataTableTemplate\Simplifier\ModuleObjectSimplifier;
 use Earls\RhinoReportBundle\Report\ReportObject\ModuleObject;
 
 class HtmlTableTemplateGenerator extends HtmlTemplateGenerator
@@ -22,4 +23,11 @@ class HtmlTableTemplateGenerator extends HtmlTemplateGenerator
         return $simpleTable;
     }
 
+    public function applyTransformers(ModuleObject $object)
+    {
+        $simplifier = new ModuleObjectSimplifier();
+        $simpleObject = $simplifier->getSimplifyObject($object);
+        
+        return $simpleObject;
+    }
 }
