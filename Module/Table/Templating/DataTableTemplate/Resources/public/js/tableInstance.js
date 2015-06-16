@@ -12,14 +12,30 @@ RhinoReportDataTableInstance.prototype = {
     myTable: null,
     init: function () {
         this.$container = $('#' + this.id);
+        var $container = this.$container;
+        $.fn.dataTable.TableTools.buttons.export_to_xls = $.extend(
+                true,
+                {},
+                $.fn.dataTable.TableTools.buttonBase,
+                {
+                    "sNewLine": "<br>",
+                    "sButtonText": "Copy to element",
+                    "target": "",
+                    "fnClick": function (button, conf) {
+                        var url = $container.find('.dataTableData').attr('data-export');
+                        var args = window.location.search.substring(1);
+                        if (args) {
+                            window.open(url + "?" + args + "&format=xls");
+                        }
+                    }
+                }
+        );
         this.buildTable();
         this.initEvent();
         this.setListener();
     },
     buildTable: function () {
-
         this.myTable = this.$container.find('.dataTable').dataTable(this.getConfigTable());
-
     },
     initEvent: function () {
         var $container = this.$container;
@@ -60,6 +76,20 @@ RhinoReportDataTableInstance.prototype = {
         }
 
         var config = {
+            "dom": 'T<"clear">lfrtip',
+            "tableTools": {
+                "aButtons": [
+                    "print",
+                    {
+                        "sExtends": "collection",
+                        "sButtonText": "Export",
+                        "aButtons": [{
+                                "sExtends": "export_to_xls",
+                                "sButtonText": "Export to xls"
+                            }]
+                    }
+                ]
+            },
             "iDisplayLength": 50,
             "lengthMenu": [[50, 100, 1000, -1], [50, 100, 1000, "All"]],
             'data': this.getStructuredData(),
