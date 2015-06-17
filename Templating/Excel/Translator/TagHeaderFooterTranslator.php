@@ -44,6 +44,8 @@ class TagHeaderFooterTranslator
     {
         $replace = array_keys($this->dictionnary);
         $subject = array_values($this->dictionnary);
+        
+        //should be replaced by regex
         $xmlString = $this->start . str_replace($replace, $subject, $str);
 
         return $xmlString;
