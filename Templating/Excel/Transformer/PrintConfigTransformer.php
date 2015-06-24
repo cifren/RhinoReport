@@ -3,6 +3,7 @@
 namespace Earls\RhinoReportBundle\Templating\Excel\Transformer;
 
 use Symfony\Component\DependencyInjection\Container;
+use Earls\RhinoReportBundle\Templating\Excel\Translator\TagHeaderFooterTranslator;
 
 /**
  * Help on http://msdn.microsoft.com/en-us/library/aa140066.aspx or http://en.wikipedia.org/wiki/Microsoft_Office_XML_formats
@@ -19,7 +20,8 @@ class PrintConfigTransformer
         'margin',
         'scaling',
         'print_titles',
-        'papersize'
+        'papersize',
+        'footer'
     );
 
     public function __construct(array $config)
@@ -101,11 +103,43 @@ class PrintConfigTransformer
     public function papersizeTransformer($config)
     {
         $availableValue = array('letter' => 1, 'legal' => 5);
-        if(isset($availableValue[$config])){
+        if (isset($availableValue[$config])) {
             return $availableValue[$config];
-        }
-        else{
+        } else {
             throw new \Exception("This printConfig value for paper size is not valid");
         }
     }
+
+    /**
+     * {{page}}         current page
+     * {{pages}}        count of page
+     * {{linebreak}}    line break
+     * {{date}}         date of the day
+     * {{time}}         time
+     * {{path}}         path of the file
+     * {{file}}         filename
+     * {{sheet}}        sheetname
+     * 
+     * @param mixed $config
+     */
+    public function footerTransformer($config)
+    {
+        if (isset($config)) {
+            $translator = new TagHeaderFooterTranslator();
+            return $translator->translate($config);
+        } else {
+            throw new \Exception("This printConfig value for footer is not valid");
+        }
+    }
+
+    public function headerTransformer($config)
+    {
+        if (isset($config)) {
+            $translator = new TagHeaderFooterTranslator();
+            return $translator->translate($config);
+        } else {
+            throw new \Exception("This printConfig value for header is not valid");
+        }
+    }
+
 }

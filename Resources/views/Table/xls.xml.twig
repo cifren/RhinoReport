@@ -88,8 +88,8 @@
 
 {% block Print %}
     <PageSetup>
-        {% if table.printConfig|default(null).orientation|default(null) is not null %}<Layout x:Orientation="{{table.printConfig.orientation}}"/>{% endif %}
-        {% if table.printConfig|default(null).margin|default(null) is not null %}
+        {% if table.printConfig.orientation|default(null) is not null %}<Layout x:Orientation="{{table.printConfig.orientation}}"/>{% endif %}
+        {% if table.printConfig.margin|default(null) is not null %}
             <PageMargins
                 {% if table.printConfig.margin.bottom|default(null) is not null %}x:Bottom="{{table.printConfig.margin.bottom}}"{% endif %}
                 {% if table.printConfig.margin.left|default(null) is not null %}x:Left="{{table.printConfig.margin.left}}"{% endif %}
@@ -97,11 +97,13 @@
                 {% if table.printConfig.margin.top|default(null) is not null %}x:Top="{{table.printConfig.margin.top}}"{% endif %}
             />
         {% endif %}
+        {% if table.printConfig.footer|default(null) is not null %}<Footer x:Data="{{table.printConfig.footer}}"/>{% endif %}
+        {% if table.printConfig.header|default(null) is not null %}<Header x:Data="{{table.printConfig.header}}"/>{% endif %}
     </PageSetup>
-    {% if table.printConfig|default(null).scaling|default(null) is not null %}<FitToPage/>{% endif %}
+    {% if table.printConfig.scaling|default(null) is not null %}<FitToPage/>{% endif %}
     <Print>
-    	{% if table.printConfig|default(null).papersize|default(null) is not null %}<PaperSizeIndex>{{table.printConfig.papersize}}</PaperSizeIndex>{% endif %}
-        {% if table.printConfig|default(null).scaling|default(null) is not null %}
+    	{% if table.printConfig.papersize|default(null) is not null %}<PaperSizeIndex>{{table.printConfig.papersize}}</PaperSizeIndex>{% endif %}
+        {% if table.printConfig.scaling|default(null) is not null %}
             <FitWidth>1</FitWidth>
             <FitHeight>0</FitHeight>
         {% endif %}
