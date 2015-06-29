@@ -1,29 +1,26 @@
-Report table definition builder
-=========================
-
 This file will give you the information to build your definition.
 
 Contents
 =====
 
-[head()](#head)
-[body()](#body)
-[group()](#group)
-[row()](#row)
-[rowUnique()](#rowunique)
-[column()](#column)
-[columnData()](#columndata)
-[action()](#action)
-[attr()](#attr)
-[extendingGroupAction()](#extendinggroupaction)
-[formulaExcel()](#formulaexcel)
-[configExport()](#configexport)
-[baseData()](#basedata)
-[groupBy()](#groupby)
-[rowSpan()](#rowspan)
-[columnSpan()](#columnspan)
-[end()](#end)
-[headColumns()](#headcolumns)
+- [head()](#head)
+- [body()](#body)
+- [group()](#group)
+- [row()](#row)
+- [rowUnique()](#rowunique)
+- [column()](#column)
+- [columnData()](#columndata)
+- [action()](#action)
+- [attr()](#attr)
+- [extendingGroupAction()](#extendinggroupaction)
+- [formulaExcel()](#formulaexcel)
+- [configExport()](#configexport)
+- [baseData()](#basedata)
+- [groupBy()](#groupby)
+- [rowSpan()](#rowspan)
+- [columnSpan()](#columnspan)
+- [end()](#end)
+- [headColumns()](#headcolumns)
 
 
 Tree Hierarchy
@@ -81,7 +78,7 @@ public function getConfigReportDefinition(Request $request, $dataFilter)
   
 ```
 
-Head()
+head()
 =====
 
 <table>
@@ -173,13 +170,13 @@ group()
   <tr>
     <td><b>Parent element:</b></td>
     <td>
-      <a href="#body">body()</a></td>
+      <a href="#body">body()</a>
       <br><a href="#group">group()</a>
     </td>
   </tr>
   <tr>
     <td><b>Required elements:</b></td>
-    <td></td>
+    <td>(none)</td>
   </tr>
   <tr>
     <td><b>Optional elements:</b></td>
@@ -223,7 +220,7 @@ row()
   <tr>
     <td><b>Parent element:</b></td>
     <td>
-      <a href="#body">body()</a></td>
+      <a href="#body">body()</a>
       <br><a href="#group">group()</a>
     </td>
   </tr>
@@ -234,7 +231,7 @@ row()
   <tr>
     <td><b>Optional elements:</b></td>
     <td>
-      <a href="#column">column()</a></td>
+      <a href="#column">column()</a>
       <br><a href="#columndata">columnData()</a>
       <br><a href="#columnspan">columnSpan()</a>
     </td>
@@ -283,7 +280,7 @@ rowUnique()
   <tr>
     <td><b>Optional elements:</b></td>
     <td>
-      <a href="#column">column()</a></td>
+      <a href="#column">column()</a>
       <br><a href="#columndata">columnData()</a>
       <br><a href="#columnspan">columnSpan()</a>
     </td>
@@ -320,13 +317,13 @@ column()
   <tr>
     <td><b>Parent element:</b></td>
     <td>
-      <a href="#row">row()</a></td>
+      <a href="#row">row()</a>
       <br><a href="#rowunique">rowUnique()</a>
     </td>
   </tr>
   <tr>
     <td><b>Required elements:</b></td>
-    <td></td>
+    <td>(none)</td>
   </tr>
   <tr>
     <td><b>Optional elements:</b></td>
@@ -380,13 +377,13 @@ columnData()
   <tr>
     <td><b>Parent element:</b></td>
     <td>
-      <a href="#row">row()</a></td>
+      <a href="#row">row()</a>
       <br><a href="#rowunique">rowUnique()</a>
     </td>
   </tr>
   <tr>
     <td><b>Required elements:</b></td>
-    <td></td>
+    <td>(none)</td>
   </tr>
   <tr>
     <td><b>Optional elements:</b></td>
@@ -822,7 +819,7 @@ baseData()
   </tr>
   <tr>
     <td><b>Required elements:</b></td>
-    <td></td>
+    <td>(none)</td>
   </tr>
   <tr>
     <td><b>Optional elements:</b></td>

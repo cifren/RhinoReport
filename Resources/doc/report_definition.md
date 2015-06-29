@@ -1,6 +1,3 @@
-Report definition builder
-=========================
-
 The report definition builder is the class that will help you to build your display. 
 This class will create the report definition in background.
 
@@ -27,7 +24,7 @@ public function getConfigReportDefinition(Request $request, $dataFilter)
   
 ```
 
-Table()
+table()
 ======
 
 <table>

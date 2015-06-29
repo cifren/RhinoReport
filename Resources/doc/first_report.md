@@ -1,6 +1,3 @@
-Your first report
-=================
-
 Here a simple example of `report` creation. 
 
 In this Example, we will display the 5 last result of our company.
