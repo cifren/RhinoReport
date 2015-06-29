@@ -1,0 +1,47 @@
+{% block report_unique_table_datatable %}
+    {% javascripts
+        '@EarlsRhinoReportBundle/Resources/public/Table/vendor/DataTables/media/js/jquery.dataTables.min.js'
+        '@EarlsRhinoReportBundle/Resources/public/Table/vendor/DataTables/plugins/bootstrap/bootstrap.js'
+        '@EarlsRhinoReportBundle/Resources/public/Table/vendor/DataTables/extensions/TableTools/js/dataTables.tableTools.min.js'
+
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts  %}
+
+    {% stylesheets
+        '@EarlsRhinoReportBundle/Resources/public/Table/vendor/DataTables/media/css/jquery.dataTables.min.css'
+        '@EarlsRhinoReportBundle/Resources/public/Table/vendor/DataTables/plugins/bootstrap/bootstrap.css'
+        '@EarlsRhinoReportBundle/Resources/public/Table/vendor/DataTables/extensions/TableTools/css/dataTables.tableTools.min.css'
+        '@EarlsRhinoReportBundle/Module/Table/Templating/DataTableTemplate/Resources/public/css/style.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+    {% if template.getOptions().ajaxEnabled %}
+        {% javascripts
+            '@EarlsRhinoReportBundle/Module/Table/Templating/DataTableTemplate/Resources/public/js/tableManager.js'
+            '@EarlsRhinoReportBundle/Module/Table/Templating/DataTableTemplate/Resources/public/js/tableInstance.js'
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts  %}
+    {% endif %}
+{% endblock %}
+
+{% block report_table_datatable %}
+    {% set tableTemplate = element %}
+    {% set table = tableTemplate.getTransformedModuleObject() %}
+    {% set id = table.id %}
+    {% set attr = table.attr|default(null) %}
+    
+    <div id="{{id}}" class="myDataTable">
+        <data class="dataTableData" data-load="{{tableTemplate.getData()|json_encode()}}" data-export="{{path('pp3_inventory_variancesummary_report_export')}}"></data>
+        <table {{ block('report_attributes') }}>
+        </table>
+    </div>
+{% endblock %}
+
+{% block report_attributes %}
+    {% spaceless %}
+        {% for attrname,attrvalue in attr %}{{attrname}}="{{attrvalue}}" {% endfor %}
+    {% endspaceless %}
+{% endblock %}

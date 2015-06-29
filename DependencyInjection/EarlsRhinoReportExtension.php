@@ -21,6 +21,7 @@ class EarlsRhinoReportExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../'));
         $loader->load('Report/Resources/config/services.yml');
         $loader->load('Module/Table/Resources/config/services.yml');
+        $loader->load('Module/Bar/Resources/config/services.yml');
     }
 
     public function getAlias()

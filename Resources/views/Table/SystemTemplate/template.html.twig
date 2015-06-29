@@ -1,0 +1,12 @@
+{% use 'EarlsRhinoReportBundle:Table/DefaultTemplate:template.html.twig' %}
+{% use 'EarlsRhinoReportBundle:Table/DataTableTemplate:template.html.twig' %}
+
+{% block report_table %}
+    {% if element.getTemplatingName() == 'DefaultTemplate'%}
+        {{ block('report_table_default') }}
+    {% elseif element.getTemplatingName() == 'DataTableTemplate' %}
+        {{ block('report_table_datatable') }}
+    {% else %}
+        {{ 'The templating "'~ element.getTemplatingName() ~ '" doesnt exist' }}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,32 @@
+{% block report_unique_bar_default %}
+    {% javascripts
+        'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts  %}
+    {% if template.getOptions().ajaxEnabled %}
+        {% javascripts
+            '@EarlsRhinoReportBundle/Module/Bar/Templating/DefaultTemplate/Resources/public/js/barManager.js'
+            '@EarlsRhinoReportBundle/Module/Bar/Templating/DefaultTemplate/Resources/public/js/barInstance.js'
+        %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts  %}
+    {% endif %}
+{% endblock %}
+
+{% block report_bar_default %}
+    {% set barTemplate = element %}
+    {% set bar = barTemplate.getModuleObject() %}
+    {% set id = bar.getId() %}
+    <div id="{{id}}" class="myBar">
+        <canvas class="canvas" width="400" height="200"></canvas>
+        <div class="legend"></div>
+        <div class="barData" data-load="{{ barTemplate.getData()|json_encode() }}"></div>
+        <div class="datasets" data-labels="{{bar.getLabels()|json_encode()}}">
+            {% set datasets = bar.getDatasets() %}
+            {% for dataset in datasets %}
+                <dataset data-label="{{dataset.getLabel()|json_encode()}}" data-values="{{dataset.getData()|json_encode()}}" data-options="{{dataset.getOptions()|json_encode()}}"></dataset>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

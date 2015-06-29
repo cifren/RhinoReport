@@ -55,9 +55,9 @@ interface ReportConfigurationInterface
     public function getConfigReportDefinition(Request $request, $dataFilter);
 
     /**
-     * Give available export
+     * Give options
      *
      * @return array
      */
-    public function getAvailableExport();
+    public function getResolvedOptions();
 }

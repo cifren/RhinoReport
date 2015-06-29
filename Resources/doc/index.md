@@ -19,8 +19,9 @@ Improvements
 ============
 
 TO DO:
-    - Create a show off plateform 
+    - create example on OpenSource earls (earls.cifren.com)
     - finish doc
-    - add new report with google doc display via Google API
-    - add chart display (http://www.highcharts.com/demo/)
-    - manage several table on html and on excel with option per tab or per page
+    - add new report with google doc display via Google API (maybe not, google API are unstable and not unlimited in time)
+    - add chart display (http://www.chartjs.org/)
+    - manage several table/bar on html and on excel with option per tab or per page, create templating system
+    - in getConfigReportDefinition ReportConfig method, builder should be given as a parameter

@@ -28,7 +28,7 @@ class ReportFactory extends Factory
     public function build()
     {
         foreach ($this->definition->getItems() as $itemDefinition) {
-            $itemFactory = $this->container->get($itemDefinition->getFactoryService());
+            $itemFactory = $this->container->get($itemDefinition->getFactoryServiceName());
 
             $itemFactory->setDefinition($itemDefinition);
             $itemFactory->setData($this->data);

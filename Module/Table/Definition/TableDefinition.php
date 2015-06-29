@@ -3,11 +3,10 @@
 namespace Earls\RhinoReportBundle\Module\Table\Definition;
 
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
-use Earls\RhinoReportBundle\Module\Table\Definition\HeadDefinition;
+use Earls\RhinoReportBundle\Report\Definition\ReportDefinitionInterface;
+use Earls\RhinoReportBundle\Report\Definition\ReportDefinition;
 use Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition;
 use Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition;
-use Earls\RhinoReportBundle\Report\Definition\ReportDefinition;
-use Earls\RhinoReportBundle\Report\Definition\ReportDefinitionInterface;
 
 /**
  * Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition
@@ -19,20 +18,22 @@ class TableDefinition extends Definition implements ReportDefinitionInterface
     protected $id;
     protected $headDefinition;
     protected $bodyDefinition;
-    protected $factoryService;
+    protected $factoryServiceName;
+    protected $position;
+    protected $template = 'DefaultTemplate';
 
     public function __construct(array $exportConfigs, $id = 'table')
     {
         parent::__construct($exportConfigs);
         $this->id = $id;
-        $this->setFactoryService("report.table.factory");
+        $this->setFactoryServiceName("report.table.factory");
         $this->initHeadDefinition($exportConfigs);
         $this->initBodyDefinition($exportConfigs);
     }
 
     protected function initHeadDefinition(array $exportConfigs)
     {
-        $this->headDefinition = new headDefinition($exportConfigs);
+        $this->headDefinition = new HeadDefinition($exportConfigs);
         $this->headDefinition->setParent($this);
 
         return $this->headDefinition;
@@ -85,16 +86,16 @@ class TableDefinition extends Definition implements ReportDefinitionInterface
         return $this->path = '\\' . $this->excludeSpecialCharacter($this->id);
     }
 
-    public function setFactoryService($serviceName)
+    public function setFactoryServiceName($factoryServiceName)
     {
-        $this->factoryService = $serviceName;
+        $this->factoryServiceName = $factoryServiceName;
 
         return $this;
     }
 
-    public function getFactoryService()
+    public function getFactoryServiceName()
     {
-        return $this->factoryService;
+        return $this->factoryServiceName;
     }
 
     public function build()
@@ -115,19 +116,16 @@ class TableDefinition extends Definition implements ReportDefinitionInterface
         //not used, too complicated stuff, sorry...
         foreach ($itemDefinition->getItems() as $item) {
             if ($item instanceof GroupDefinition) {
-                //echo "<br>groupDef : ".$item->getId();
                 $this->subGroupDefinition($item);
             }
 
             //compare head to rowDefinition, add column missing, sort new items
             if ($item instanceof RowDefinition) {
-                //echo "<br>rowDef";
                 $headColumnDefinitions = $this->headDefinition->getColumns();
                 ksort($headColumnDefinitions);
 
                 $itemColumnDefinitions = $item->getColumns();
 
-                //echo '<br>row ';
                 $colSpanCounter = 0;
 
                 // array complete with colspan ColumnDefinition
@@ -201,6 +199,29 @@ class TableDefinition extends Definition implements ReportDefinitionInterface
                 $item->reOrderColumns();
             }
         }
+    }
+
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    public function setPosition($position)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+        return $this;
     }
 
 }

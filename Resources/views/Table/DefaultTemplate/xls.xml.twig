@@ -1,0 +1,167 @@
+{% extends "EarlsRhinoReportBundle:Table/DefaultTemplate:xls_layout.xml.twig" %}
+
+{% block style %}
+    <Styles>
+        <Style ss:ID="Default" ss:Name="Normal">
+            <Alignment ss:Vertical="Bottom" />
+            <Borders />
+            <Font />
+            <Interior />
+            <NumberFormat />
+            <Protection />
+        </Style>
+        {% for className, styleObject in table.style %}
+            <Style ss:ID="{{className}}" {% if styleObject.getParent() is not null %}ss:Parent="{{styleObject.getParent()}}"{% endif %} >
+                {% for styleTag, styleElement in styleObject.getAllStyle() %}
+                    {% if styleElement|default(null) is not null %}
+                        {% if styleTag ==  'Borders'%}
+                            <{{styleTag}} >
+                                {% for subElement in styleElement %}
+                                    <Border
+                                        {% for rule,value in subElement %}
+                                             {{rule}}="{{value}}"
+                                        {% endfor %}
+                                    />
+                                {% endfor %}
+                            </{{styleTag}}>
+                        {% else %}
+                            <{{styleTag}}
+                            {% for rule,value in styleElement %}
+                                 {{rule}}="{{value}}"
+                            {% endfor %}
+                            />
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </Style>
+        {% endfor %}
+    </Styles>
+{% endblock %}
+
+{% block body %}
+    <Worksheet ss:Name="Sheet1" {% if table.protectionConfig.activated and table.protectionConfig.options.protectAllCells %} ss:Protected="1" {% endif %} >
+        {% if table.printConfig|default(null).print_titles|default(null) is not null and table.printTitleRange|default(null) %}
+            <Names>
+                <NamedRange ss:Name="Print_Titles" ss:RefersTo="=R{{table.printTitleRange.top}}:R{{table.printTitleRange.bottom}}"/>
+            </Names>
+        {% endif %}
+
+        <Table>
+            {% if table.columnConfig|default(null) is not null %}
+                {% for column in table.columnConfig %}
+                    <ss:Column
+                        {% for key, option in column.getOptions() %}
+                            {% if option is not null %}
+                                {{key}}="{{option}}"
+                            {% endif %}
+                        {% endfor %}
+                    />
+                {% endfor %}
+            {% endif %}
+            {% if table.rpt_info|default(null) is not null %}
+                {% include 'EarlsRhinoReportBundle:Table/DefaultTemplate:xls_table.xml.twig' with {'table': table.rpt_info} %}
+                <Row><Cell> </Cell></Row>
+            {% endif %}
+            {% include 'EarlsRhinoReportBundle:Table/DefaultTemplate:xls_table.xml.twig' %}
+        </Table>
+
+        <WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel">
+            {{ block('WorksheetOptions') }}
+        </WorksheetOptions>
+        {{ block('ConditionalFormatting') }}
+        {{ block('PageBreaks') }}
+    </Worksheet>
+{% endblock %}
+
+{% block WorksheetOptions %}
+    {{ block('Print') }}
+    <Selected/>
+    <Panes>
+        <Pane>
+            <Number>3</Number>
+            {#<ActiveRow>1</ActiveRow>
+            <ActiveCol>5</ActiveCol>
+            <RangeSelection>R5</RangeSelection>#}
+        </Pane>
+    </Panes>
+{% endblock %}
+
+{% block Print %}
+    <PageSetup>
+        {% if table.printConfig.orientation|default(null) is not null %}<Layout x:Orientation="{{table.printConfig.orientation}}"/>{% endif %}
+        {% if table.printConfig.margin|default(null) is not null %}
+            <PageMargins
+                {% if table.printConfig.margin.bottom|default(null) is not null %}x:Bottom="{{table.printConfig.margin.bottom}}"{% endif %}
+                {% if table.printConfig.margin.left|default(null) is not null %}x:Left="{{table.printConfig.margin.left}}"{% endif %}
+                {% if table.printConfig.margin.right|default(null) is not null %}x:Right="{{table.printConfig.margin.right}}"{% endif %}
+                {% if table.printConfig.margin.top|default(null) is not null %}x:Top="{{table.printConfig.margin.top}}"{% endif %}
+            />
+        {% endif %}
+        {% if table.printConfig.footer|default(null) is not null %}<Footer x:Data="{{table.printConfig.footer}}"/>{% endif %}
+        {% if table.printConfig.header|default(null) is not null %}<Header x:Data="{{table.printConfig.header}}"/>{% endif %}
+    </PageSetup>
+    {% if table.printConfig.scaling|default(null) is not null %}<FitToPage/>{% endif %}
+    <Print>
+    	{% if table.printConfig.papersize|default(null) is not null %}<PaperSizeIndex>{{table.printConfig.papersize}}</PaperSizeIndex>{% endif %}
+        {% if table.printConfig.scaling|default(null) is not null %}
+            <FitWidth>1</FitWidth>
+            <FitHeight>0</FitHeight>
+        {% endif %}
+        <ValidPrinterInfo/>
+        <HorizontalResolution>600</HorizontalResolution>
+        <VerticalResolution>600</VerticalResolution>
+    </Print>
+    {# protection settings #}
+        {{ block('Protection') }}
+    {# protection settings #}
+    
+{% endblock %}
+
+{% block ConditionalFormatting %}
+    {% if table.conditionalFormatting|length > 0 %}
+        {% for condFormat in table.conditionalFormatting %}
+            <ConditionalFormatting xmlns="urn:schemas-microsoft-com:office:excel">
+                <Range>{{condFormat.getRange()}}</Range>
+                {% set condition = condFormat.getCondition() %}
+                <Condition>
+                    <Value1>{{condition.value}}</Value1>
+                    <Format Style='{{condition.format}}'/>
+                </Condition>
+            </ConditionalFormatting>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+{% block PageBreaks %}
+    {% if table.pagebreaks|default(null) is not null %}
+        <PageBreaks xmlns="urn:schemas-microsoft-com:office:excel">
+            <RowBreaks>
+                {% for pagebreak in table.pagebreaks %}
+                    <RowBreak>
+                        <Row>{{ pagebreak }}</Row>
+                    </RowBreak>
+                {% endfor %}
+            </RowBreaks>
+        </PageBreaks>
+    {% endif %}
+{% endblock %}
+
+{% block Protection %}
+    {% if table.protectionConfig.activated %}
+        <ProtectObjects>True</ProtectObjects>
+        <ProtectScenarios>True</ProtectScenarios>
+        {% if table.protectionConfig.options %}
+            {% if table.protectionConfig.options.selectLockedCells == false and table.protectionConfig.options.selectUnlockedCells == false %}
+                <EnableSelection>NoSelection</EnableSelection>
+            {% elseif table.protectionConfig.options.selectLockedCells == false and table.protectionConfig.options.selectUnlockedCells == true %}
+                <EnableSelection>UnlockedCells</EnableSelection>   
+            {% endif %}
+            {% if table.protectionConfig.options.formatCells %}
+                <AllowFormatCells/>
+            {% endif %}
+        {% endif %}
+    {% else %}
+        <ProtectObjects>False</ProtectObjects>
+        <ProtectScenarios>False</ProtectScenarios>
+    {% endif %}
+{% endblock %}

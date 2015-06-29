@@ -2,7 +2,7 @@
 
 namespace Earls\RhinoReportBundle\Report\ReportObject;
 
-use Symfony\Component\Form\Form;
+use Earls\RhinoReportBundle\Report\ReportObject\Filter;
 
 /**
  * Earls\RhinoReportBundle\Report\ReportObject\Report
@@ -11,8 +11,13 @@ class Report
 {
 
     protected $items = array();
+
+    /**
+     *
+     * @var Filter
+     */
     protected $filter;
-    protected $availableExport = array();
+    protected $options;
 
     public function getItems()
     {
@@ -30,10 +35,11 @@ class Report
 
     public function addItem($item)
     {
-        if ($item->getId())
+        if ($item->getId()) {
             $this->items[$item->getId()] = $item;
-        else
+        } else {
             $this->items[] = $item;
+        }
 
         return $this;
     }
@@ -56,7 +62,7 @@ class Report
         return $arrayIterator;
     }
 
-    public function setFilter(Form $filter)
+    public function setFilter(Filter $filter)
     {
         $this->filter = $filter;
 
@@ -68,15 +74,14 @@ class Report
         return $this->filter;
     }
 
-    public function getAvailableExport()
+    public function getOptions()
     {
-        return $this->availableExport;
+        return $this->options;
     }
 
-    public function setAvailableExport(array $availableExport)
+    public function setOptions($options)
     {
-        $this->availableExport = $availableExport;
-
+        $this->options = $options;
         return $this;
     }
 

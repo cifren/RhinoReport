@@ -1,0 +1,9 @@
+{% use 'EarlsRhinoReportBundle:Bar/DefaultTemplate:template.html.twig' %}
+
+{% block report_bar %}
+    {% if element.getTemplatingName() == 'DefaultTemplate'%}
+        {{ block('report_bar_default') }}
+    {% else %}
+        {{ 'The templating "'~ element.getTemplatingName() ~ '" doesnt exist' }}
+    {% endif %}
+{% endblock %}

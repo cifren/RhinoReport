@@ -17,7 +17,7 @@ class GroupDefinition extends Definition
     protected $parent;
     protected $orderBy = array();
     protected $groupBy;
-    protected $items;
+    protected $items = array();
     protected $rowSpans = array();
     protected $actions = array();
     protected $groupAction = null;

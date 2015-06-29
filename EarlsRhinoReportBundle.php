@@ -5,7 +5,7 @@ namespace Earls\RhinoReportBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Earls\RhinoReportBundle\DependencyInjection\Compiler\ActionPass;
-use Earls\RhinoReportBundle\DependencyInjection\Compiler\TemplatingPass;
+use Earls\RhinoReportBundle\DependencyInjection\Compiler\DefinitionBuilderPass;
 
 class EarlsRhinoReportBundle extends Bundle
 {
@@ -15,6 +15,7 @@ class EarlsRhinoReportBundle extends Bundle
         parent::build($container);
 
         $container->addCompilerPass(new ActionPass());
+        $container->addCompilerPass(new DefinitionBuilderPass());
         //$container->addCompilerPass(new TemplatingPass());
     }
 

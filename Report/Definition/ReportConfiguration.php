@@ -4,13 +4,20 @@ namespace Earls\RhinoReportBundle\Report\Definition;
 
 use Symfony\Component\HttpFoundation\Request;
 use Earls\RhinoReportBundle\Report\ReportObject\Report;
+use Earls\RhinoReportBundle\Report\Definition\AbstractDefinitionBuilder;
 
-/*
+/**
  * Earls\RhinoReportBundle\Report\Definition\ReportConfiguration
  */
-
 abstract class ReportConfiguration implements ReportConfigurationInterface
 {
+
+    protected $reportDefinitionBuilder;
+
+    public function __construct(AbstractDefinitionBuilder $reportDefinitionBuilder)
+    {
+        $this->reportDefinitionBuilder = $reportDefinitionBuilder;
+    }
 
     /**
      * {@inheritDoc}
@@ -42,7 +49,7 @@ abstract class ReportConfiguration implements ReportConfigurationInterface
      */
     public function getConfigReportDefinition(Request $request, $dataFilter)
     {
-
+        
     }
 
     /**
@@ -64,23 +71,49 @@ abstract class ReportConfiguration implements ReportConfigurationInterface
     /**
      * {@inheritDoc}
      */
-    public function getQueryBuilder()
+    public function getQueryBuilder($dataFilter)
     {
         return null;
     }
 
-    public function hasQueryBuilder()
+    public function hasQueryBuilder($dataFilter)
     {
-        if ($this->getQueryBuilder()) {
+        if ($this->getQueryBuilder($dataFilter)) {
             return true;
         } else {
             return false;
         }
     }
-
-    public function getAvailableExport()
+    
+    /**
+     * 
+     * @return ReportDefinitionBuilder
+     */
+    public function getReportDefinitionBuilder()
     {
-        return array('html' => 'Display onscreen', 'xls' => 'Excel');
+        return $this->reportDefinitionBuilder;
+    }
+
+    public function setReportDefinitionBuilder($reportDefinitionBuilder)
+    {
+        $this->reportDefinitionBuilder = $reportDefinitionBuilder;
+        return $this;
+    }
+    
+    public function getDefaultOptions(){
+        return array(
+            'template' => 'DefaultTemplate',
+            'availableExport' => array('html' => 'Display onscreen'),
+            'ajaxEnabled' => true
+        );
+    }
+    
+    public function getOptions($defautOptions){
+        return $defautOptions;
+    }
+    
+    public function getResolvedOptions(){
+        return $this->getOptions($this->getDefaultOptions());
     }
 
 }

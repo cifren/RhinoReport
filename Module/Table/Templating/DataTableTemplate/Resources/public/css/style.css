@@ -1,0 +1,14 @@
+tr.group:hover td {
+    cursor: pointer;
+}
+tr.group_0,
+tr.group_0:hover {
+    background-color: #C4C4C4 !important;
+}
+tr.group_1,
+tr.group_1:hover {
+    background-color: #ddd !important;
+}
+tr.group_1 td:first-child{
+    text-indent: 15px;
+}

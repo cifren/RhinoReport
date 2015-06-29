@@ -1,0 +1,72 @@
+{% use 'EarlsRhinoReportBundle:Report/Body:filter.html.twig' %}
+{% use 'EarlsRhinoReportBundle:Bar/SystemTemplate:template.html.twig' %}
+{% use 'EarlsRhinoReportBundle:Table/SystemTemplate:template.html.twig' %}
+
+{% block rhino_report %}
+    {# unique block #}
+    {% for blockName in template.getUniqueBlockNames() %}
+        {{ block(blockName) }}
+    {% endfor %}
+        
+    {# filter block #}
+    {% if template.getFilter() %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    {% set filter = template.filter %}
+                    {{ block('report_filter') }}
+                </div>
+            </div>
+        </div>
+        {% if template.getOptions().ajaxEnabled %}
+            {% javascripts
+                '@EarlsRhinoReportBundle/Report/Templating/DefaultTemplate/Resources/public/js/ajaxDataLoad.js'
+            %}
+                <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts  %}
+        {% endif %}
+    {% endif %}
+    
+    {# modules block #}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                {% set position = 'position-1' %}
+                {% if template.getModulesOnPostion(position) %}
+                    {{ block('report_block') }}
+                {% endif %}
+            </div>
+            <div class="col-md-4">
+                {% set position = 'position-2' %}
+                {% if template.getModulesOnPostion(position) %}
+                    {{ block('report_block') }}
+                {% endif %}
+            </div>
+            <div class="col-md-4">
+                {% set position = 'position-3' %}
+                {% if template.getModulesOnPostion(position) %}
+                    {{ block('report_block') }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {% set position = 'position-4' %}
+                {% if template.getModulesOnPostion(position) %}
+                    {{ block('report_block') }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block report_block %}
+    {% set elements = template.getModulesOnPostion(position) %}
+    {% for element in elements %}
+        {% if element.type == 'bar' %}
+            {{ block('report_bar') }}
+        {% elseif element.type == 'table' %}
+            {{ block('report_table') }}
+        {% endif %}
+    {% endfor %}
+{% endblock %}

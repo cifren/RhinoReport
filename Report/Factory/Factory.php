@@ -30,6 +30,27 @@ abstract class Factory implements ReportFactoryInterface
         $this->data = $data;
     }
 
+    public function setItem($item)
+    {
+        $this->item = $item;
+        return $this;
+    }
+
+    public function getData()
+    {
+        //select data from id if exist
+        if ($this->data->getDatum($this->getDefinition()->getId())) {
+            return new DataObject($this->data->getDatum($this->getDefinition()->getId()));
+        }
+
+        return $this->data;
+    }
+
+    public function getDefinition()
+    {
+        return $this->definition;
+    }
+
     public function getItem()
     {
         return $this->item;

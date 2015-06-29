@@ -3,18 +3,17 @@
 namespace Earls\RhinoReportBundle\Module\Table\TableObject;
 
 use Earls\RhinoReportBundle\Module\Table\Util\DataObjectInterface;
+use Earls\RhinoReportBundle\Report\ReportObject\ModuleObject;
 
 /*
  * Earls\RhinoReportBundle\Module\Table\TableObject\TableObject
  */
 
-abstract class TableObject
+abstract class TableObject extends ModuleObject
 {
 
-    protected $id;
     protected $data;
     protected $type = null;
-    protected $definition;
     protected $parent;
     protected $parentPath;
     protected $partialPath;
@@ -27,30 +26,6 @@ abstract class TableObject
         $this->id = $id;
         $this->definition = $definition;
         $this->parent = $parent;
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
     }
 
     public function getPartialPath()
@@ -69,18 +44,6 @@ abstract class TableObject
         }
 
         return $this->fullPath;
-    }
-
-    public function setDefinition($definition)
-    {
-        $this->definition = $definition;
-
-        return $this;
-    }
-
-    public function getDefinition()
-    {
-        return $this->definition;
     }
 
     public function setParent(TableObject $parent)
@@ -148,6 +111,11 @@ abstract class TableObject
     protected function excludeSpecialCharacter($string)
     {
         return str_replace(array('\\', ':%:', ':@:'), '', $string);
+    }
+
+    public function getType()
+    {
+        return 'table';
     }
 
 }
