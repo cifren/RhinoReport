@@ -198,16 +198,21 @@ class ReportBuilder
         }
 
         //-- FILTER FORM
-        $this->filterForm = $this->formFactory->create($this->filterType, $this->rptConfig->getFilterModel());
+        $this->filterForm = $this->formFactory->create(get_class($this->filterType), $this->rptConfig->getFilterModel());
 
-        if ($this->request->get($this->filterType->getName())) {
+        if ($this->getRequest($this->filterType->getName())) {
             // bind values from the request
-            $this->filterForm->bind($this->request);
+            $this->filterForm->submit($this->getRequest());
         } elseif (!$this->rptConfig->getFilterModel()) {
-            $this->filterForm->bind($this->filterType->getDefaultBind());
+            $this->filterForm->submit($this->filterType->getDefaultBind());
         }
 
         return $this->filterForm;
+    }
+    
+    protected function getRequest($key)
+    {
+        return $this->request->get($key);
     }
 
 }

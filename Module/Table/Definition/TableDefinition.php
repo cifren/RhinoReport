@@ -10,7 +10,6 @@ use Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition;
 
 /**
  * Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition
- *
  */
 class TableDefinition extends Definition implements ReportDefinitionInterface
 {

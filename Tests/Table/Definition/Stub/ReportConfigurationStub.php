@@ -1,26 +1,25 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Tests\Table\Definition;
+namespace Earls\RhinoReportBundle\Tests\Table\Definition\Stub;
 
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Earls\RhinoReportBundle\Report\Definition\ReportDefinitionBuilder;
-use Earls\RhinoReportBundle\Tests\Table\Definition\Stub\ReportConfigurationStub;
-use Earls\RhinoReportBundle\Report\Definition\ReportBuilder;
-/**
- * PhpBuilder Tests
- */
-class PhpBuilderTest extends KernelTestCase
+use Symfony\Component\HttpFoundation\Request;
+use Earls\RhinoReportBundle\Report\Definition\ReportConfiguration;
+use Earls\RhinoReportBundle\Tests\Table\Definition\Stub\FilterType;
+
+class ReportConfigurationStub extends ReportConfiguration
 {
-    private $container;
-    
-    //simple configuration
-    public function testReportDefinitionBuilder()
+
+    public function getFilter()
     {
-        $defBuilder = $this->getContainer()->get('report.definition.builder');
-        $defBuilder
-                //add bar graph
+        return new FilterType();
+    }
+    
+    public function getConfigReportDefinition(Request $request, $dataFilter)
+    {
+        $definitionBuilder = $this->getReportDefinitionBuilder();
+        
+        $definitionBuilder
                 ->bar('vf')
-                    //defined the position on the template
                     ->position('position-1')
                     ->labels('category')
                     ->dataset('sales', 'Item Sold', array(
@@ -28,7 +27,7 @@ class PhpBuilderTest extends KernelTestCase
                         'strokeColor' => '#EFB9A5',
                         'highlightFill' => '#EF602C',
                         'highlightStroke' => '#f09777',
-                    ))
+                            ))
                     ->dataset('stock', 'Item in stock', array())
                 ->end()
                 ->bar('er')
@@ -77,6 +76,7 @@ class PhpBuilderTest extends KernelTestCase
                         ->end()
                     ->end()
                 ->end()
+                
                 ->advancedtable('tableRecipe')
                     ->position('position-2')
                     ->attr(array('class' => array('table-bordered', 'table-condensed')))                 
@@ -118,93 +118,81 @@ class PhpBuilderTest extends KernelTestCase
                         ->end()
                     ->end()
                 ->end()
-        ;
-        $definition = $defBuilder->build()->getDefinition();
-        $this->assertInstanceOf(
-            'Earls\RhinoReportBundle\Report\Definition\ReportDefinition',
-            $definition
-        );
+                ;
         
-        $this->assertInstanceOf(
-            'Earls\RhinoReportBundle\Module\Bar\Definition\BarDefinition',
-            $definition->getItem('vf')
-        );
-        $this->assertInstanceOf(
-            'Earls\RhinoReportBundle\Module\Bar\Definition\BarDefinition',
-            $definition->getItem('er')
-        );
-        $this->assertInstanceOf(
-            'Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition',
-            $definition->getItem('tableIng')
-        );
-        $this->assertInstanceOf(
-            'Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition',
-            $definition->getItem('tableRecipe')
-        );
+        return $definitionBuilder->getItemBuild();
     }
-
-    public function testTableDefinitionBuilder()
+    
+    public function getArrayData(array $data, $dataFilter)
     {
-        $defBuilder = $this->getContainer()->get('report.definition.builder');
-        
-        $defBuilder
-            ->table('first')
-                ->head()
-                    ->headColumns(array('store_name', 'blank', 'type', 'blank2', 'timeLaps'))
-                ->end()
-            ->end()
-        ;
-        $definition = $defBuilder->build()->getDefinition();
-        $columns = $definition->getItem('first')->getHeadDefinition()->getColumns();
-        foreach($columns as $col){
-            $simpleColmunAry[] = $col['label'];
+        $array = array();
+        $array[] = array(
+            'category' => 'food',
+            'subcategory' => 'app',
+            'item' => 'fish',
+            'stock' => '2',
+            'sales' => '4'
+        );
+        $array[] = array(
+            'category' => 'food',
+            'subcategory' => 'app',
+            'item' => 'fish2',
+            'stock' => '3',
+            'sales' => '5'
+        );
+        $array[] = array(
+            'category' => 'food',
+            'subcategory' => 'entree',
+            'item' => 'meat1',
+            'stock' => '11',
+            'sales' => '6'
+        );
+        $array[] = array(
+            'category' => 'food',
+            'subcategory' => 'entree',
+            'item' => 'meat2',
+            'stock' => '11',
+            'sales' => '6'
+        );
+        $array[] = array(
+            'category' => 'liquor',
+            'subcategory' => 'beer',
+            'item' => 'vodka',
+            'stock' => '3',
+            'sales' => '4'
+        );
+        $array[] = array(
+            'category' => 'liquor',
+            'subcategory' => 'beer',
+            'item' => 'wiskey',
+            'stock' => '9',
+            'sales' => '2'
+        );
+        $array[] = array(
+            'category' => 'liquor',
+            'subcategory' => 'wine',
+            'item' => 'vodka',
+            'stock' => '3',
+            'sales' => '4'
+        );
+        $array[] = array(
+            'category' => 'liquor',
+            'subcategory' => 'wine',
+            'item' => 'wiskey',
+            'stock' => '9',
+            'sales' => '2'
+        );
+
+        if ($dataFilter['cat'] === 1) {
+            $array = array_filter($array, function($var){
+                return $var['category'] == 'food';
+            });
+        } elseif ($dataFilter['cat'] === 2) {
+            $array = array_filter($array, function($var){
+                return $var['category'] == 'liquor';
+            });
         }
         
-        $this->assertEquals(
-            array('store_name', 'blank', 'type', 'blank2', 'timeLaps'), 
-            $simpleColmunAry
-        );
-    }
-    
-    public function testReportBuilder()
-    {
-        $rptConfig = new ReportConfigurationStub(
-            $this->getContainer()->get('report.definition.builder')
-        );
-        $rptBuilder = new ReportBuilder(
-            $rptConfig, 
-            $this->getContainer()->get('service_container'), 
-            $this->getContainer()->get('lexik_form_filter.query_builder_updater'), 
-            $this->getRequest(), 
-            $this->getContainer()->get('form.factory')
-        );
-        
-        $rptBuilder->build();
-
-        $reportObject = $rptBuilder->getReport();
-        
-        $this->assertInstanceOf('Earls\RhinoReportBundle\Report\ReportObject\Report', $reportObject);
-        
-        $this->assertCount(4, $reportObject->getItems());
-    }
-    
-    protected function getContainer()
-    {
-        self::bootKernel();
-        return self::$kernel->getContainer();
-    }
-    
-    protected function getRequest()
-    {
-        $stub = $this->getMockBuilder('Symfony\Component\HttpFoundation\Request')
-                     ->getMock();
-        
-        // Configure the stub
-        $stub
-            ->expects($this->any())
-            ->method('get')
-            ->will($this->returnValueMap(array('stub_filter' => array('cat' => 1))));  
-             
-         return $stub;
+        return $array;
     }
 }

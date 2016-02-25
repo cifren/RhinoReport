@@ -5,8 +5,6 @@ namespace Earls\RhinoReportBundle\Module\Bar\Definition;
 use Earls\RhinoReportBundle\Report\Definition\ModuleDefinition;
 
 /**
- * Description of newPHPClass
- *
  * @author francis
  */
 class BarDefinition extends ModuleDefinition
