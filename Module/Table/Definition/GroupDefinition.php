@@ -3,6 +3,8 @@
 namespace Earls\RhinoReportBundle\Module\Table\Definition;
 
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
 use Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition;
 use Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition;
 
@@ -13,40 +15,39 @@ use Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition;
 class GroupDefinition extends Definition
 {
 
-    protected $id;
     protected $parent;
     protected $orderBy = array();
     protected $groupBy;
-    protected $items = array();
+    
+    /**
+     * @var ArrayCollection $items
+     * Contains Groups and Rows
+     */ 
+    protected $items;
     protected $rowSpans = array();
     protected $actions = array();
     protected $groupAction = null;
     protected $extendingGroupAction = false;
     protected $conditionalFormattings = array();
 
-    public function __construct($id, array $exportConfigs)
+    public function __construct($displayId)
     {
-        parent::__construct($exportConfigs);
-        $this->id = $id;
+        $this->setDisplayId($displayId);
+        $this->items = new ArrayCollection();
     }
-
-    public function getId()
+    
+    public function addGroup($displayId)
     {
-        return $this->id;
-    }
-
-    public function addGroup($id, array $exportConfigs)
-    {
-        $group = new GroupDefinition($id, $exportConfigs);
+        $group = new GroupDefinition($displayId);
         $group->setParent($this);
-        $this->items[$id] = $group;
+        $this->items[] = $group;
 
         return $group;
     }
 
-    public function addRow(array $options, array $exportConfigs)
+    public function addRow(array $options)
     {
-        $row = new RowDefinition($options, $exportConfigs);
+        $row = new RowDefinition($options);
         $row->setParent($this);
         $this->items[] = $row;
 
@@ -160,9 +161,16 @@ class GroupDefinition extends Definition
         return count($this->actions) > 0;
     }
 
-    public function getItem($id)
+    public function getItem($displayId)
     {
-        return $this->items[$id];
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->eq("displayId", $displayId))
+        ;
+
+        $item = $this->items->matching($criteria);
+        $item = ($item->count() > 0) ? $item[0] : null;
+        
+        return $item;
     }
 
     public function getItems()

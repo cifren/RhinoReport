@@ -2,49 +2,49 @@
 
 namespace Earls\RhinoReportBundle\Report\Definition;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
+
 /**
  *  Earls\RhinoReportBundle\Report\Definition\ReportDefinition
  *
  */
-class ReportDefinition extends ModuleDefinition
+class ReportDefinition implements ReportDefinitionInterface
 {
 
+    protected $factory;
     protected $items;
-    protected $factoryService;
+    protected $template = 'DefaultTemplate';
 
-    public function __construct($factoryServiceName = "report.factory")
+    public function __construct()
     {
-        parent::__construct($factoryServiceName);
+        $this->items = new ArrayCollection();
     }
 
-    public function setItem($id, $item)
+    public function getItem($displayId)
     {
-        return $this->items[$id] = $item;
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->eq("displayId", $displayId))
+        ;
+
+        $items = $this->items->matching($criteria);
+        $item = ($items->count() > 0) ? array_shift(array_values($items->toArray())) : null;
+        
+        return $item;
     }
 
-    public function getItem($id)
+    public function addItem(ModuleDefinitionInterface $item)
     {
-        return $this->items[$id];
-    }
-
-    public function addItem($item)
-    {
-        if (!$item->getId()) {
+        if (!$item->getDisplayId()) {
             throw new \UnexpectedValueException('The Id must not be empty');
         }
 
-        if (isset($this->items[$item->getId()])) {
-            throw new \UnexpectedValueException('This Id \'' . $item->getId() . '\' is already used');
+        if (isset($this->items[$item->getDisplayId()])) {
+            throw new \UnexpectedValueException('This Id \'' . $item->getDisplayId() . '\' is already used');
         }
-
-        $this->items[$item->getId()] = $item;
-
-        return $this;
-    }
-
-    public function removeItem($id)
-    {
-        unset($this->items[$id]);
+        
+        $item->setParent($this);
+        $this->items[] = $item;
 
         return $this;
     }
@@ -54,4 +54,30 @@ class ReportDefinition extends ModuleDefinition
         return $this->items;
     }
 
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+        return $this;
+    }
+
+    public function getObjectFactory()
+    {
+        return $this->factory;
+    }
+
+    public function setObjectFactory($factory)
+    {
+        $this->factory = $factory;
+        return $this;
+    }
+    
+    public function getDisplayId()
+    {
+        return 'main_report';
+    }
 }

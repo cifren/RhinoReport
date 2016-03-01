@@ -4,6 +4,7 @@ namespace Earls\RhinoReportBundle\Module\Table\Definition;
 
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Earls\RhinoReportBundle\Report\Definition\ReportDefinitionInterface;
+use Earls\RhinoReportBundle\Report\Definition\ModuleDefinitionInterface;
 use Earls\RhinoReportBundle\Report\Definition\ReportDefinition;
 use Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition;
 use Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition;
@@ -11,60 +12,44 @@ use Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition;
 /**
  * Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition
  */
-class TableDefinition extends Definition implements ReportDefinitionInterface
+class TableDefinition extends Definition implements ReportDefinitionInterface, ModuleDefinitionInterface
 {
 
-    protected $id;
     protected $headDefinition;
     protected $bodyDefinition;
-    protected $factoryServiceName;
+    protected $factory;
+    protected $parent;
     protected $position;
     protected $template = 'DefaultTemplate';
-
-    public function __construct(array $exportConfigs, $id = 'table')
+    protected $moduleType;
+    
+    public function setHeadDefinition($headDefinition)
     {
-        parent::__construct($exportConfigs);
-        $this->id = $id;
-        $this->setFactoryServiceName("report.table.factory");
-        $this->initHeadDefinition($exportConfigs);
-        $this->initBodyDefinition($exportConfigs);
-    }
-
-    protected function initHeadDefinition(array $exportConfigs)
-    {
-        $this->headDefinition = new HeadDefinition($exportConfigs);
-        $this->headDefinition->setParent($this);
-
-        return $this->headDefinition;
-    }
-
-    protected function initBodyDefinition(array $exportConfigs)
-    {
-        $this->bodyDefinition = new GroupDefinition('body', $exportConfigs);
-        $this->bodyDefinition->setParent($this);
-
-        return $this->bodyDefinition;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-
+        $this->headDefinition = $headDefinition;
         return $this;
-    }
-
-    public function getId()
-    {
-        return $this->id;
     }
 
     public function getHeadDefinition()
     {
+        if(!$this->headDefinition){
+            $this->setHeadDefinition(new HeadDefinition);
+            $this->headDefinition->setParent($this);
+        }
         return $this->headDefinition;
+    }
+    
+    public function setBodyDefinition($bodyDefinition)
+    {
+        $this->bodyDefinition = $bodyDefinition;
+        return $this;
     }
 
     public function getBodyDefinition()
     {
+        if(!$this->bodyDefinition){
+            $this->setBodyDefinition(new GroupDefinition('body'));
+            $this->bodyDefinition->setParent($this);
+        }
         return $this->bodyDefinition;
     }
 
@@ -82,19 +67,7 @@ class TableDefinition extends Definition implements ReportDefinitionInterface
             return $this->path;
         }
 
-        return $this->path = '\\' . $this->excludeSpecialCharacter($this->id);
-    }
-
-    public function setFactoryServiceName($factoryServiceName)
-    {
-        $this->factoryServiceName = $factoryServiceName;
-
-        return $this;
-    }
-
-    public function getFactoryServiceName()
-    {
-        return $this->factoryServiceName;
+        return $this->path = '\\' . $this->excludeSpecialCharacter($this->getDisplayId());
     }
 
     public function build()
@@ -200,6 +173,22 @@ class TableDefinition extends Definition implements ReportDefinitionInterface
         }
     }
 
+    public function getObjectFactory()
+    {
+        return $this->factory;
+    }
+
+    public function setObjectFactory($factory)
+    {
+        $this->factory = $factory;
+        return $this;
+    }
+
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
     public function getPosition()
     {
         return $this->position;
@@ -221,6 +210,16 @@ class TableDefinition extends Definition implements ReportDefinitionInterface
     {
         $this->template = $template;
         return $this;
+    }
+    
+    public function setModuleType($type)
+    {
+        $this->moduleType = $type;    
+    }
+    
+    public function getModuleType()
+    {
+        return $this->moduleType;
     }
 
 }

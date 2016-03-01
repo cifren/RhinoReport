@@ -16,10 +16,19 @@ parameters:
 services:
     report.bar.factory:
         class:      %report.bar.factory.class%
+        tags:
+            - { name: report.factory, alias: bar }
+        
+    report.bar.definition:
+        class:      %report.bar.definition.class%
+        scope:      prototype
+        calls:
+            - [setObjectFactory, ['@report.bar.factory']]
         
     report.bar.definition.builder:
         class:      %report.bar.definition.builder.class%
-        arguments: ["%report.bar.definition.class%"]
+        scope:      prototype
+        arguments: ["@report.bar.definition"]
         tags:
             - { name: report.definition.builder, alias: bar } 
             

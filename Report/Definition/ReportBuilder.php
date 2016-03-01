@@ -4,12 +4,14 @@ namespace Earls\RhinoReportBundle\Report\Definition;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\Form\Exception\UnexpectedTypeException;
+use Symfony\Component\HttpFoundation\Request;
 use Earls\RhinoReportBundle\Report\Definition\ReportConfigurationInterface;
 use Earls\RhinoReportBundle\Module\Table\Util\DataObject;
 use Earls\RhinoReportBundle\Report\ReportObject\Report;
 use Earls\RhinoReportBundle\Report\ReportObject\Filter;
-use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Earls\RhinoReportBundle\Report\Filter\ReportFilterInterface;
+use Earls\RhinoReportBundle\Report\Factory\ReportObjectFactoryCollection;
 
 /**
  * Earls\RhinoReportBundle\Report\Definition\ReportBuilder
@@ -30,15 +32,25 @@ class ReportBuilder
     protected $request;
     protected $filterType;
     protected $reportDefinition;
+    protected $reportObjectFactoryCollection;
 
-    public function __construct(ReportConfigurationInterface $rptConfig, ContainerInterface $container, $lexikFormFilter, $request, $formFactory)
+    public function __construct($lexikFormFilter, $formFactory)
     {
-        $this->rptConfig = $rptConfig;
         $this->formFactory = $formFactory;
-        $this->container = $container;
         $this->lexikFormFilter = $lexikFormFilter;
-        $this->request = $request;
+    }
+    
+    public function setConfiguration(ReportConfigurationInterface $config)
+    {
+        $this->rptConfig = $config;
         $this->filterType = $this->rptConfig->getFilter();
+        return $this;
+    }
+    
+    public function setRequest(Request $request)
+    {
+        $this->request = $request;
+        return $this;
     }
 
     public function build()
@@ -72,7 +84,7 @@ class ReportBuilder
 
         $this->reportDefinition = $this->rptConfig->getConfigReportDefinition($this->request, $dataFilter);
 
-        $reportfactory = $this->container->get($this->reportDefinition->getFactoryServiceName());
+        $reportfactory = $this->reportDefinition->getObjectFactory();
         $reportfactory->setDefinition($this->reportDefinition);
         $reportfactory->setData($dataObject);
         $reportfactory->build();
@@ -80,7 +92,7 @@ class ReportBuilder
         $this->report = $reportfactory->getItem();
         $this->report = $this->rptConfig->getReportObject($this->report, $dataFilter);
         $this->report->setOptions($this->rptConfig->getResolvedOptions());
-        //$this->buildExport();
+        
         //set filter
         if ($this->rptConfig->getFilter()) {
             $filter = new Filter();
@@ -141,11 +153,6 @@ class ReportBuilder
 
             die();
         }
-    }
-
-    protected function getFactory()
-    {
-        
     }
 
     public function getFilterQuery($queryBuilder)

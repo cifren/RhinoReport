@@ -8,84 +8,39 @@ namespace Earls\RhinoReportBundle\Report\Definition;
 abstract class AbstractDefinitionBuilder implements DefinitionBuilderInterface
 {
 
-    protected $id;
-    protected $parent;
-    protected $definitionClass;
     protected $definition;
     protected $currentDefinition;
-    protected $build = false;
+    protected $isBuild = false;
 
-    public function __construct($definitionClass)
+    public function __construct(ReportDefinitionInterface $definition)
     {
-        $this->definitionClass = $definitionClass;
+        $this->setDefinition($definition);
     }
 
-    public function getItemBuild()
+    public function getBuildItem()
     {
-        if(!$this->build){
+        if(!$this->isBuild){
             $this->build();
+            $this->isBuild();
         }
         return $this->getDefinition();
     }
 
-    public function build()
+    public function isBuild()
     {
-        $this->build = true;
+        $this->isBuild = true;
         return $this;
-    }
-
-    public function setParent(DefinitionBuilderInterface $parent)
-    {
-        $this->parent = $parent;
-        $this->getDefinition()->setParent($parent->getDefinition());
-
-        return $this;
-    }
-
-    /**
-     * 
-     * @return AbstractDefinitionBuilder
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    public function buildDefinition()
-    {
-        $definitionClass = $this->getDefinitionClass();
-        
-        return new $definitionClass();
     }
 
     public function getDefinition()
     {
-        if (!$this->definition) {
-            $this->definition = $this->buildDefinition();
-        }
-
         return $this->definition;
     }
 
-    public function getId()
+    public function setDefinition($definition)
     {
-        return $this->id;
-    }
-
-    public function setId($id)
-    {
-        if(!$id){
-            $id = uniqid();
-        }
-        $this->id = $id;
-        $this->getDefinition()->setId($id);
-
+        $this->definition = $definition;
         return $this;
-    }
-
-    public function getDefinitionClass()
-    {
-        return $this->definitionClass;
     }
 
     public function getCurrentDefinition()
@@ -95,12 +50,6 @@ abstract class AbstractDefinitionBuilder implements DefinitionBuilderInterface
         }
 
         return $this->currentDefinition;
-    }
-
-    public function setDefinitionClass($definitionClass)
-    {
-        $this->definitionClass = $definitionClass;
-        return $this;
     }
 
     public function setCurrentDefinition($currentDefinition)

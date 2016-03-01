@@ -3,7 +3,6 @@
 namespace Earls\RhinoReportBundle\Module\Table\Definition;
 
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
-use Earls\RhinoReportBundle\Module\Table\Definition\RowDefinition;
 
 /**
  *  Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition
@@ -18,21 +17,17 @@ class ColumnDefinition extends Definition
     protected $parent;
     protected $displayId;
     protected $baseData = array();
-    protected $formatExcel;
     protected $formulaExcel;
     protected $actions = array();
     protected $groupAction = null;
     protected $extendingGroupAction = false;
     protected $type; //type 'display' will be display on screen or type 'data' will be used for display and removed
-    protected $order;
 
-    public function __construct($displayId, $type, array $exportConfigs, $dataId = null)
+    public function __construct($displayId, $type, $dataId = null)
     {
-        parent::__construct($exportConfigs);
-
-        $this->displayId = $displayId;
+        $this->setDisplayId($displayId);
         $this->setAttribute('class', array('column_' . $displayId));
-        $this->type = $type;
+        $this->setType($type);
         if ($dataId) {
             $this->setBaseData('dataId', $dataId);
         }
@@ -51,19 +46,14 @@ class ColumnDefinition extends Definition
         return $this;
     }
 
-    public function getDisplayId()
+    public function getDataId()
     {
-        return $this->displayId;
+        return $this->dataId;
     }
 
-    public function getDataDisplayId()
+    public function setDataId($dataId)
     {
-        return $this->displayId;
-    }
-
-    public function setDataDisplayId($dataDisplayId)
-    {
-        $this->dataDisplayId = $dataDisplayId;
+        $this->dataId = $dataId;
 
         return $this;
     }
@@ -71,6 +61,12 @@ class ColumnDefinition extends Definition
     public function getType()
     {
         return $this->type;
+    }
+
+    public function setType($type)
+    {
+        $this->type = $type;
+        return $this;
     }
 
     public function setFormatExcel($formatExcel)
@@ -190,18 +186,6 @@ class ColumnDefinition extends Definition
     public function hasActions()
     {
         return count($this->actions) > 0;
-    }
-
-    public function setOrder($order)
-    {
-        $this->order = $order;
-
-        return $this;
-    }
-
-    public function getOrder()
-    {
-        return $this->order;
     }
 
 }

@@ -36,16 +36,26 @@ services:
     report.table.factory:
         class:      %report.table.factory.class%
         arguments: ["@report.table.extension", "@report.table.retriever", "@report.table.manipulator"]
+        tags:
+            - { name: report.factory, alias: table }
+        
+    report.table.definition:
+        class:      %report.table.definition.class%
+        scope:      prototype
+        calls:
+            - [setObjectFactory, ['@report.table.factory']]
 
     report.table.definition.builder:
         class:      %report.table.definition.builder.class%
-        arguments: ["%report.table.definition.class%"]
+        scope:      prototype
+        arguments: ["@report.table.definition"]
         tags:
             - { name: report.definition.builder, alias: table }
 
     report.advanced_table.definition.builder:
         class:      %report.advanced_table.definition.builder.class%
-        arguments: ["%report.table.definition.class%"]
+        scope:      prototype
+        arguments: ["@report.table.definition"]
         tags:
             - { name: report.definition.builder, alias: advanced_table }
 
@@ -234,3 +244,8 @@ services:
 
 #default Row - Group Action#
 #default Row - Group Action#
+
+    table.listener.tabledefinition:
+        class: Earls\RhinoReportBundle\Module\Table\Listener\EntityListener
+        tags:
+            - { name: doctrine.event_listener, event: postLoad }

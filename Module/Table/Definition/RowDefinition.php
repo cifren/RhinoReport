@@ -3,65 +3,78 @@
 namespace Earls\RhinoReportBundle\Module\Table\Definition;
 
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
-use Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition;
-use Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
 
-/*
+/**
  * Earls\RhinoReportBundle\Module\Table\Definition\RowDefinition
  *
  */
-
 class RowDefinition extends Definition
 {
 
-    protected $columns;
+    protected $columnDefinitions;
     protected $colSpans;
     protected $options;
     protected $actions = array();
     protected $groupAction = null;
     protected $extendingGroupAction = false;
 
-    public function __construct(array $options, array $exportConfigs)
+    public function __construct(array $options)
     {
-        parent::__construct($exportConfigs);
         $this->options['unique'] = isset($options['unique']) ? $options['unique'] : false;
+        $this->columnDefinitions = new ArrayCollection();
     }
 
-    public function setColumn($displayId, $type, array $exportConfigs, $dataId = null)
+    public function createAndAddColumn($displayId, $type, $dataId = null)
     {
-        $column = new ColumnDefinition($displayId, $type, $exportConfigs, $dataId);
+        $column = new ColumnDefinition($displayId, $type, $dataId);
         $column->setParent($this);
-        $this->columns[$displayId] = $column;
+        
+        $this->addColumn($column);
 
         return $this;
+    }
+    
+    public function addColumn(ColumnDefinition $columnDefinition)
+    {
+        $this->columnDefinitions[] = $columnDefinition;
+        
+        return $columnDefinition;
     }
 
     public function getColumn($displayId)
     {
-        if (!isset($this->columns[$displayId]))
-            return null;
-        return $this->columns[$displayId];
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->eq("displayId", $displayId))
+        ;
+
+        $items = $this->columnDefinitions->matching($criteria);
+        $item = ($items->count() > 0) ? array_shift(array_values($items->toArray())) : null;
+        
+        return $item;
     }
 
     public function getColumns()
     {
-        return $this->columns;
+        return $this->columnDefinitions;
     }
 
-    public function setColumnItem($displayId, ColumnDefinition $column)
+  /*  public function setColumn($displayId, ColumnDefinition $column)
     {
-        $this->columns[$displayId] = $column;
+        $this->columnDefinitions[$displayId] = $column;
 
         return $this;
-    }
+    }*/
 
     public function setColSpan($displayId, $number)
     {
-        if (!isset($this->columns[$displayId])) {
-            throw new \UnexpectedValueException('Column \'' . $displayId . '\' in group \'' . $this->getParent()->getId() . '\' is not yet defined');
+        $column = $this->getColumn($displayId);
+        if (!isset($column)) {
+            throw new \UnexpectedValueException('Column \'' . $displayId . '\' in group \'' . $this->getParent()->getDisplayId() . '\' is not yet defined');
         }
-        $col = $this->columns[$displayId];
-        $col->setColSpan($number);
+        
+        $column->setColSpan($number);
 
         return $this;
     }
@@ -178,7 +191,7 @@ class RowDefinition extends Definition
 
                     return ($columnDefinitionA->getOrder() < $columnDefinitionB->getOrder()) ? -1 : 1;
                 };
-        uasort($this->columns, $func);
+        uasort($this->getColumns(), $func);
 
         return $this;
     }

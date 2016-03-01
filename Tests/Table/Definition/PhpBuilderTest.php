@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Earls\RhinoReportBundle\Report\Definition\ReportDefinitionBuilder;
 use Earls\RhinoReportBundle\Tests\Table\Definition\Stub\ReportConfigurationStub;
 use Earls\RhinoReportBundle\Report\Definition\ReportBuilder;
+
 /**
  * PhpBuilder Tests
  */
@@ -119,27 +120,33 @@ class PhpBuilderTest extends KernelTestCase
                     ->end()
                 ->end()
         ;
-        $definition = $defBuilder->build()->getDefinition();
+        $reportDefinition = $defBuilder->getBuildItem();
+        
         $this->assertInstanceOf(
             'Earls\RhinoReportBundle\Report\Definition\ReportDefinition',
-            $definition
+            $reportDefinition,
+            'for reportDefinition'
         );
         
         $this->assertInstanceOf(
             'Earls\RhinoReportBundle\Module\Bar\Definition\BarDefinition',
-            $definition->getItem('vf')
+            $reportDefinition->getItem('vf'),
+            'for barDefinition id "vf"'
         );
         $this->assertInstanceOf(
             'Earls\RhinoReportBundle\Module\Bar\Definition\BarDefinition',
-            $definition->getItem('er')
+            $reportDefinition->getItem('er'),
+            'for barDefinition id "er"'
         );
         $this->assertInstanceOf(
             'Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition',
-            $definition->getItem('tableIng')
+            $reportDefinition->getItem('tableIng'),
+            'for barDefinition id "tableIng"'
         );
         $this->assertInstanceOf(
             'Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition',
-            $definition->getItem('tableRecipe')
+            $reportDefinition->getItem('tableRecipe'),
+            'for barDefinition id "tableRecipe"'
         );
     }
 
@@ -171,13 +178,17 @@ class PhpBuilderTest extends KernelTestCase
         $rptConfig = new ReportConfigurationStub(
             $this->getContainer()->get('report.definition.builder')
         );
-        $rptBuilder = new ReportBuilder(
-            $rptConfig, 
-            $this->getContainer()->get('service_container'), 
-            $this->getContainer()->get('lexik_form_filter.query_builder_updater'), 
-            $this->getRequest(), 
-            $this->getContainer()->get('form.factory')
+        $reportDefinition = $rptConfig->getConfigReportDefinition($this->getRequest(), array());
+        $this->assertInstanceOf(
+            'Earls\RhinoReportBundle\Report\Definition\ReportDefinition',
+            $reportDefinition,
+            'for reportDefinition'
         );
+        $this->assertCount(4, $reportDefinition->getItems());
+        
+        $rptBuilder = $this->getContainer()->get('report.builder');
+        $rptBuilder->setRequest($this->getRequest());
+        $rptBuilder->setConfiguration($rptConfig);
         
         $rptBuilder->build();
 

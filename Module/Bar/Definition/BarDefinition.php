@@ -13,12 +13,8 @@ class BarDefinition extends ModuleDefinition
     protected $options = array();
     protected $labelColumn;
     protected $datasets;
-
-    public function __construct($factoryServiceName = "report.bar.factory", $id = 'bar')
-    {
-        parent::__construct($factoryServiceName, $id);
-    }
-
+    protected $factory;
+    
     public function setOptions($options)
     {
         $this->options = $options;
@@ -58,6 +54,17 @@ class BarDefinition extends ModuleDefinition
     {
         $this->datasets[] = $dataset;
         
+        return $this;
+    }
+
+    public function getObjectFactory()
+    {
+        return $this->factory;
+    }
+
+    public function setObjectFactory($factory)
+    {
+        $this->factory = $factory;
         return $this;
     }
 

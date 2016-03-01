@@ -4,7 +4,7 @@ namespace Earls\RhinoReportBundle\Module\Bar\Factory;
 
 use Earls\RhinoReportBundle\Module\Table\Util\DataManipulator;
 use Earls\RhinoReportBundle\Module\Table\Util\DataObjectInterface;
-use Earls\RhinoReportBundle\Report\Factory\Factory;
+use Earls\RhinoReportBundle\Report\Factory\AbstractFactory;
 use Earls\RhinoReportBundle\Module\Bar\BarObject\Bar;
 use Earls\RhinoReportBundle\Module\Bar\BarObject\Dataset;
 
@@ -13,13 +13,14 @@ use Earls\RhinoReportBundle\Module\Bar\BarObject\Dataset;
  *
  * @author cifren
  */
-class BarFactory extends Factory
+class BarFactory extends AbstractFactory
 {
 
     protected $dataManipulator;
 
     public function build()
     {
+        $this->dataManipulator = null;
         $item = $this->createBarObject();
 
         $this->setItem($item);
@@ -34,7 +35,7 @@ class BarFactory extends Factory
         $barObject = new Bar();
 
         $barObject->setDefinition($barDefinition);
-        $barObject->setId($barDefinition->getId());
+        $barObject->setId($barDefinition->getDisplayId());
         $barObject->setLabels($this->getLabelsFromData($barDefinition->getLabelColumn(), $data));
         $transformedData = $this->getTransformedData($barObject->getLabels(), $barDefinition->getLabelColumn(), $barDefinition->getDatasets(), $data);
         $datasets = array();

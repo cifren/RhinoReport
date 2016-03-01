@@ -10,18 +10,18 @@ use Earls\RhinoReportBundle\Module\Table\TableObject\Row;
 use Earls\RhinoReportBundle\Module\Table\TableObject\Column;
 use Earls\RhinoReportBundle\Module\Table\Util\DataManipulator;
 use Earls\RhinoReportBundle\Module\Table\Util\DataObject;
-use Earls\RhinoReportBundle\Report\Factory\Factory;
+use Earls\RhinoReportBundle\Report\Factory\AbstractFactory;
 use Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition;
 use Earls\RhinoReportBundle\Module\Table\Definition\RowDefinition;
 use Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition;
 use Earls\RhinoReportBundle\Module\Table\Util\DataObjectInterface;
-use Earls\RhinoReportBundle\Module\Table\Helper\TableRetrieverHelper;
+use Earls\RhinoReportBundle\Module\Table\Helper\tableRetrieverHelper;
 
 /**
  *  Earls\RhinoReportBundle\Module\Table\Factory\TableFactory
  *
  */
-class TableFactory extends Factory
+class TableFactory extends AbstractFactory
 {
 
     protected $data;
@@ -29,15 +29,15 @@ class TableFactory extends Factory
     protected $item;
     protected $dataGrouping;
     protected $reportTableExtension;
-    protected $TableRetrieverHelper;
+    protected $tableRetrieverHelper;
     protected $dataManipulator;
     protected $dataGroupActions = array();
     protected $groupActionAryExploded = array();
 
-    public function __construct(ReportExtension $reportTableExtension, TableRetrieverHelper $TableRetrieverHelper, DataManipulator $dataManipulator)
+    public function __construct(ReportExtension $reportTableExtension, tableRetrieverHelper $tableRetrieverHelper, DataManipulator $dataManipulator)
     {
         $this->reportTableExtension = $reportTableExtension;
-        $this->TableRetrieverHelper = $TableRetrieverHelper;
+        $this->tableRetrieverHelper = $tableRetrieverHelper;
         $this->dataManipulator = $dataManipulator;
     }
 
@@ -48,9 +48,9 @@ class TableFactory extends Factory
         $definitionData = $this->definition->getData();
         if (isset($definitionData)) {
             //select data directly from
-            $data = $this->dataManipulator->selectData($definitionData, $this->definition->getId());
+            $data = $this->dataManipulator->selectData($definitionData, $this->definition->getDisplayId());
         } else {
-            $data = $this->dataManipulator->selectData($this->data, $this->definition->getId());
+            $data = $this->dataManipulator->selectData($this->data, $this->definition->getDisplayId());
         }
         $this->item = $this->createTable($this->definition, $data);
         $head = new Head('head', $this->definition->getHeadDefinition(), $this->item);
@@ -58,7 +58,7 @@ class TableFactory extends Factory
         //create object head
         $this->item->setHead($this->createHead($head));
 
-        $body = new Group('body', $this->definition->getBodyDefinition()->getId(), $this->definition->getBodyDefinition(), $this->item, $this->item->getDataObject());
+        $body = new Group('body', $this->definition->getBodyDefinition()->getDisplayId(), $this->definition->getBodyDefinition(), $this->item, $this->item->getDataObject());
         $this->setListGroupActionOrExecuteActions($this->definition->getBodyDefinition(), $body);
 
         //create structure + data + simple action
@@ -75,7 +75,7 @@ class TableFactory extends Factory
 
     protected function createTable($tableDefinition, $data)
     {
-        $table = new Table($tableDefinition->getId(), $tableDefinition, $data);
+        $table = new Table($tableDefinition->getDisplayId(), $tableDefinition, $data);
         $table->setAttributes($tableDefinition->getAttributes());
 
         return $table;
@@ -113,7 +113,7 @@ class TableFactory extends Factory
                         $dataObj = clone $dataObj;
                         $this->reOrderData($groupDefinition, $dataObj);
                     }
-                    $group = new Group($itemDefinition->getId(), $itemDefinition->getId(), $itemDefinition, $groupParent, $dataObj);
+                    $group = new Group($itemDefinition->getDisplayId(), $itemDefinition->getDisplayId(), $itemDefinition, $groupParent, $dataObj);
 
                     $group = $this->createGroupAndRow($group);
                     $group = $this->setListGroupActionOrExecuteActions($groupDefinition, $group);
@@ -146,7 +146,7 @@ class TableFactory extends Factory
             $groupData = $this->dataManipulator->getValueFilterByGroupBy($dataObj, $groupBy, $subGroup);
 
             //create new group with new data filtered
-            $group = new Group($subGroup, $groupDefinition->getId(), $groupDefinition, $groupParent, $groupData);
+            $group = new Group($subGroup, $groupDefinition->getDisplayId(), $groupDefinition, $groupParent, $groupData);
 
             //reduce array for next group, remove useless data include in previous group
             $dataAry = array_diff_key($dataObj->getData(), $groupData->getData());
@@ -358,14 +358,14 @@ class TableFactory extends Factory
         $column->setAttributes($columnDefinition->getAttributes());
         $column->setColSpan($colspanNoData);
 
-        $row->addColumn($column->getId(), $column);
+        $row->addColumn($column->getDisplayId(), $column);
 
         return $row;
     }
 
     protected function fillUpGroupAction(Table $table)
     {
-        $this->TableRetrieverHelper->setTable($table);
+        $this->tableRetrieverHelper->setTable($table);
         $sortedGroupAction = $this->sortByDependence($this->groupActionAryExploded);
 
         $this->executeGroupActions($sortedGroupAction);
@@ -431,7 +431,7 @@ class TableFactory extends Factory
 
             foreach ($this->dataGroupActions[$genericGroupAction] as $dataGroupAction) {
                 //retrieve column from column->path ex : \table:%:table\group:%:body:@:body\group:%:category:@:FOOD\row:%:0\column:%:ec
-                $item = $this->TableRetrieverHelper->getItemFromDataPath($dataGroupAction);
+                $item = $this->tableRetrieverHelper->getItemFromDataPath($dataGroupAction);
 
                 if ($item instanceof Column) {
                     $this->executeGroupActionOnColumn($item);
@@ -556,7 +556,7 @@ class TableFactory extends Factory
         return $groupActionAry;
     }
 
-    public function getGenericGroupAction($groupActionAry, $item)
+    protected function getGenericGroupAction($groupActionAry, $item)
     {
         if ($item->hasGroupAction() || $item->hasExtendingGroupAction()) {
             //if action or if extending action

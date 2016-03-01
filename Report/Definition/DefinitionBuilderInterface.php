@@ -9,16 +9,9 @@ namespace Earls\RhinoReportBundle\Report\Definition;
  */
 interface DefinitionBuilderInterface
 {
-
-    public function setParent(DefinitionBuilderInterface $parent);
-
-    public function getParent();
-
     public function build();
 
     public function getDefinition();
-
-    public function setId($id);
-
-    public function getId();
+    
+    public function getBuildItem();
 }

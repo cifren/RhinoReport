@@ -2,7 +2,7 @@
 
 namespace Earls\RhinoReportBundle\Module\Table\Definition;
 
-use Earls\RhinoReportBundle\Report\Definition\AbstractDefinitionBuilder;
+use Earls\RhinoReportBundle\Report\Definition\AbstractModuleDefinitionBuilder;
 use Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition;
 use Earls\RhinoReportBundle\Module\Table\Definition\HeadDefinition;
 use Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition;
@@ -13,17 +13,10 @@ use Symfony\Component\DependencyInjection\Container;
 /**
  * Earls\RhinoReportBundle\Module\Table\Definition\AdvancedTableDefinitionBuilder
  */
-class AdvancedTableDefinitionBuilder extends AbstractDefinitionBuilder
+class AdvancedTableDefinitionBuilder extends AbstractModuleDefinitionBuilder
 {
 
     protected $parent;
-    protected $availableExport;
-
-    public function __construct($definitionClass)
-    {
-        parent::__construct($definitionClass);
-        $this->availableExport = array('html' => $this->getHtmlExportConfigClass(), 'excel' => $this->getExcelExportConfigClass());
-    }
 
     public function head()
     {
@@ -64,7 +57,7 @@ class AdvancedTableDefinitionBuilder extends AbstractDefinitionBuilder
             throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function group()');
         }
 
-        $this->setCurrentDefinition($this->getCurrentDefinition()->addGroup($id, $this->availableExport));
+        $this->setCurrentDefinition($this->getCurrentDefinition()->addGroup($id));
 
         return $this;
     }
@@ -75,7 +68,7 @@ class AdvancedTableDefinitionBuilder extends AbstractDefinitionBuilder
             throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function row()');
         }
 
-        $this->setCurrentDefinition($this->getCurrentDefinition()->addRow(array('unique' => false), $this->availableExport));
+        $this->setCurrentDefinition($this->getCurrentDefinition()->addRow(array('unique' => false)));
 
         return $this;
     }
@@ -86,7 +79,7 @@ class AdvancedTableDefinitionBuilder extends AbstractDefinitionBuilder
             throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function rowUnique()');
         }
 
-        $this->setCurrentDefinition($this->getCurrentDefinition()->addRow(array('unique' => true), $this->availableExport));
+        $this->setCurrentDefinition($this->getCurrentDefinition()->addRow(array('unique' => true)));
 
         return $this;
     }
@@ -112,7 +105,7 @@ class AdvancedTableDefinitionBuilder extends AbstractDefinitionBuilder
         if (!$this->getCurrentDefinition() instanceof GroupDefinition) {
             throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function groupBy()');
         }
-        if (!$this->getCurrentDefinition()->getId() == 'body') {
+        if (!$this->getCurrentDefinition()->getDisplayId() == 'body') {
             throw new \Exception('groupBy is not allowed on body, you need to create a group');
         }
 
@@ -145,7 +138,6 @@ class AdvancedTableDefinitionBuilder extends AbstractDefinitionBuilder
     public function column($displayId, $dataId = null)
     {
         $this->createColumn($displayId, ColumnDefinition::TYPE_DISPLAY, $dataId);
-
         return $this;
     }
 
@@ -164,14 +156,15 @@ class AdvancedTableDefinitionBuilder extends AbstractDefinitionBuilder
 
         if (!$dataId) {
             //dont close columnDefinition
-            $this->getCurrentDefinition()->setColumn($displayId, $type, $this->availableExport);
+            $this->getCurrentDefinition()->createAndAddColumn($displayId, $type);
+            
             $this->setCurrentDefinition($this->getCurrentDefinition()->getColumn($displayId));
 
             return $this;
         }
 
         //close ColumnDefinition
-        $this->getCurrentDefinition()->setColumn($displayId, $type, $this->availableExport, $dataId);
+        $this->getCurrentDefinition()->createAndAddColumn($displayId, $type, $dataId);
 
         return $this;
     }
@@ -287,7 +280,13 @@ class AdvancedTableDefinitionBuilder extends AbstractDefinitionBuilder
         foreach ($allExportConfig as $key => $exportConfig) {
 
             $configObject = $this->getCurrentDefinition()->getExportConfig($key);
+            
+            //if doesn't exist create the exportConfig object
+            if(!$configObject){
+                $configObject = new $this->getExportConfigClass($type);
+            }
 
+            //for each parameter in the array, it will {set+ParameterName} in the exportConfig object
             foreach ($exportConfig as $keyParam => $parameter) {
                 $setter = 'set' . ucfirst((string) Container::camelize($keyParam));
                 if (method_exists($configObject, $setter)) {
@@ -301,6 +300,21 @@ class AdvancedTableDefinitionBuilder extends AbstractDefinitionBuilder
         $this->getCurrentDefinition()->setExportConfigs($config);
 
         return $this;
+    }
+    
+    protected function getExportConfigClass($type)
+    {
+        switch ($type){
+            case 'html':
+                return $this->getHtmlExportConfigClass();
+                break;
+            case 'excel':
+                return $this->getExcelExportConfigClass();
+                break;
+            default:
+                throw new \Exception('This Export is not available in this DefinitionBuilder');
+                break;
+        }
     }
 
     protected function getExcelExportConfigClass()
@@ -344,15 +358,6 @@ class AdvancedTableDefinitionBuilder extends AbstractDefinitionBuilder
     {
         $this->getDefinition()->build();
         return $this;
-    }
-
-    public function buildDefinition()
-    {
-        $defClass = $this->getDefinitionClass();
-        $def = new $defClass($this->availableExport);
-        $def->setTemplate('DefaultTemplate');
-
-        return $def;
     }
 
     /**

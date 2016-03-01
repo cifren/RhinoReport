@@ -2,12 +2,12 @@
 
 namespace Earls\RhinoReportBundle\Module\Bar\Definition;
 
-use Earls\RhinoReportBundle\Report\Definition\AbstractDefinitionBuilder;
+use Earls\RhinoReportBundle\Report\Definition\AbstractModuleDefinitionBuilder;
 
 /**
  * Earls\RhinoReportBundle\Module\Bar\Definition\BarDefinitionBuilder
  */
-class BarDefinitionBuilder extends AbstractDefinitionBuilder
+class BarDefinitionBuilder extends AbstractModuleDefinitionBuilder
 {
 
     public function labels($columnName)

@@ -120,7 +120,7 @@ class ReportConfigurationStub extends ReportConfiguration
                 ->end()
                 ;
         
-        return $definitionBuilder->getItemBuild();
+        return $definitionBuilder->getBuildItem();
     }
     
     public function getArrayData(array $data, $dataFilter)

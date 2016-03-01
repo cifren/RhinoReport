@@ -3,7 +3,8 @@
 namespace Earls\RhinoReportBundle\Module\Table\Definition;
 
 use Earls\RhinoReportBundle\Templating\ExportConfigurator\ExportConfigurator;
-use \Earls\RhinoReportBundle\Module\Table\Util\DataObject;
+use Earls\RhinoReportBundle\Module\Table\Util\DataObject;
+use Earls\RhinoReportBundle\Report\Definition\ModuleDefinition;
 
 /**
  * Earls\RhinoReportBundle\Module\Table\Definition\Definition
@@ -18,21 +19,13 @@ abstract class Definition
     protected $data;
     protected $attributes = array();
 
-    public function __construct(array $exportConfigs)
-    {
-        foreach ($exportConfigs as &$class) {
-            $class = new $class();
-        }
-        $this->setExportConfigs($exportConfigs);
-    }
-
     public function getPath()
     {
         if ($this->path) {
             return $this->path;
         }
 
-        return $this->parent->getPath() . '\\' . $this->excludeSpecialCharacter($this->id);
+        return $this->parent->getPath() . '\\' . $this->excludeSpecialCharacter($this->getDisplayId());
     }
 
     public function setData(DataObject $data)
@@ -78,13 +71,10 @@ abstract class Definition
     public function getExportConfig($type = null)
     {
         $type = strtolower($type);
-        if (!$type) {
-            return $this->exportConfig;
-        }
-        if ($type && isset($this->exportConfig[$type])) {
-            return $this->exportConfig[$type];
+        if (!$type || !isset($this->exportConfig[$type])) {
+            return null;
         } else {
-            throw new \Exception('This export `' . $type . '´ is not available');
+            return $this->exportConfig[$type];
         }
     }
 
@@ -124,4 +114,14 @@ abstract class Definition
         return str_replace(array('\\', ':%:', ':@:'), '', $string);
     }
 
+    public function getDisplayId()
+    {
+        return $this->displayId;
+    }
+
+    public function setDisplayId($displayId)
+    {
+        $this->displayId = $displayId;
+        return $this;
+    }
 }

@@ -3,44 +3,28 @@
 namespace Earls\RhinoReportBundle\Report\Definition;
 
 /**
+ * Earls\RhinoReportBundle\Report\Definition\ModuleDefinition
+ * 
  * Description of ModuleDefinition
  *
  * @author cifren
  */
-abstract class ModuleDefinition implements ReportDefinitionInterface
+abstract class ModuleDefinition implements ReportDefinitionInterface, ModuleDefinitionInterface
 {
 
-    protected $factoryServiceName = "";
-    protected $id;
     protected $parent;
     protected $position;
     protected $template = 'DefaultTemplate';
+    protected $moduleType;
 
-    public function __construct($factoryServiceName = "", $id = 'module')
+    public function getDisplayId()
     {
-        $this->factoryServiceName = $factoryServiceName;
+        return $this->displayId;
     }
 
-    public function setFactoryServiceName($factoryServiceName)
+    public function setDisplayId($displayId)
     {
-        $this->factoryServiceName = $factoryServiceName;
-
-        return $this;
-    }
-
-    public function getFactoryServiceName()
-    {
-        return $this->factoryServiceName;
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
+        $this->displayId = $displayId;
         return $this;
     }
 
@@ -76,6 +60,16 @@ abstract class ModuleDefinition implements ReportDefinitionInterface
     {
         $this->template = $template;
         return $this;
+    }
+    
+    public function setModuleType($type)
+    {
+        $this->moduleType = $type;    
+    }
+    
+    public function getModuleType()
+    {
+        return $this->moduleType;
     }
 
 }

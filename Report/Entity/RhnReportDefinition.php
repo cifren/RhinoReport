@@ -5,12 +5,12 @@ namespace Earls\RhinoReportBundle\Report\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Earls\RhinoReportBundle\Report\Entity\ReportDefinition
+ * Earls\RhinoReportBundle\Report\Entity\RhnReportDefinition
  * 
- * @ORM\Table(name="lnb_data_report")
+ * @ORM\Table(name="rhn_report_definition")
  * @ORM\Entity
  */
-class ReportDefinition extends baseReportDefinition  implements ReportDefinitionInterface
+class RhnReportDefinition extends baseReportDefinition  implements ReportDefinitionInterface
 {
     /**
      * @var integer $id
@@ -22,5 +22,12 @@ class ReportDefinition extends baseReportDefinition  implements ReportDefinition
      **/ 
     protected $id;
     
+    /**
+     * @var string $template
+     *
+     * @ORM\Column(type="string", length=255)
+     * 
+     **/ 
+    protected $template;
     
 }

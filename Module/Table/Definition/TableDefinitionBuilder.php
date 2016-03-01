@@ -19,7 +19,7 @@ class TableDefinitionBuilder extends AdvancedTableDefinitionBuilder
         //only one group inside a group
         foreach ($this->getCurrentDefinition()->getItems() as $item) {
             if ($item instanceof GroupDefinition) {
-                throwException(sprintf('The group "%s" can have only one group as child', $this->getCurrentDefinition()->getId()));
+                throwException(sprintf('The group "%s" can have only one group as child', $this->getCurrentDefinition()->getDisplayId()));
             }
         }
 
@@ -35,7 +35,7 @@ class TableDefinitionBuilder extends AdvancedTableDefinitionBuilder
         //only one row inside a group
         foreach ($this->getCurrentDefinition()->getItems() as $item) {
             if ($item instanceof RowDefinition) {
-                throwException(sprintf('The group "%s" can have only one row as child', $this->getCurrentDefinition()->getId()));
+                throwException(sprintf('The group "%s" can have only one row as child', $this->getCurrentDefinition()->getDisplayId()));
             }
         }
 
@@ -51,7 +51,7 @@ class TableDefinitionBuilder extends AdvancedTableDefinitionBuilder
         //only one row inside a group
         foreach ($this->getCurrentDefinition()->getItems() as $item) {
             if ($item instanceof RowDefinition) {
-                throw new \Exception(sprintf('The group "%s" can have only one row as child', $this->getCurrentDefinition()->getId()));
+                throw new \Exception(sprintf('The group "%s" can have only one row as child', $this->getCurrentDefinition()->getDisplayId()));
             }
         }
 
@@ -107,7 +107,7 @@ class TableDefinitionBuilder extends AdvancedTableDefinitionBuilder
 
         if ($groupCount && $rowCount) {
             throw new \Exception('A group can\'t contain a group item and a row item at the same time, you need to replace the row item by a rowUnique');
-        } elseif ($groupCount && !$rowUniqueCount && $group->getId() !== 'body') {
+        } elseif ($groupCount && !$rowUniqueCount && $group->getDisplayId() !== 'body') {
             throw new \Exception('A group always needs a rowUnique item when it contains a group item');
         }
     }

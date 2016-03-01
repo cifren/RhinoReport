@@ -9,7 +9,9 @@ namespace Earls\RhinoReportBundle\Report\Definition;
 interface ReportDefinitionInterface
 {
 
-    public function setFactoryServiceName($factoyrServiceName);
+    public function setObjectFactory($factory);
 
-    public function getFactoryServiceName();
+    public function getObjectFactory();
+    
+    public function getDisplayId();
 }
