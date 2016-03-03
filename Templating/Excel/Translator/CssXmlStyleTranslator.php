@@ -43,10 +43,8 @@ class CssXmlStyleTranslator
 
     public function translate(array $strCss)
     {
-        //var_dump($strCss);
         foreach ($strCss as $class => $rules) {
             $style = new Style();
-            //var_dump($rules);
             $this->styleArray[$class] = $style;
             foreach ($rules as $rule => $value) {
                 //add parent for style
@@ -64,7 +62,7 @@ class CssXmlStyleTranslator
                   } */
             };
         }
-        //var_dump($this->styleArray);
+        
         return $this->styleArray;
     }
 

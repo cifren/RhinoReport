@@ -1,17 +1,17 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Module\Table\Entity;
+namespace Earls\RhinoReportBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition as baseTableDefinition;
 
 /**
- * Earls\RhinoReportBundle\Module\Table\Entity\RhnTblMainDefinition
+ * Earls\RhinoReportBundle\Entity\RhnTblMainDefinition
  * 
  * @ORM\Table(name="rhn_tbl_main_definition")
  * @ORM\Entity
  */
-class RhnTblMainDefinition extends baseTableDefinition  implements ReportDefinitionInterface
+class RhnTblMainDefinition extends baseTableDefinition
 {
     /**
      * @var integer $id
@@ -30,7 +30,7 @@ class RhnTblMainDefinition extends baseTableDefinition  implements ReportDefinit
      * @ORM\Column(type="string", length=255)
      * 
      **/ 
-    protected $template;
+    protected $template = 'DefaultTemplate';
     
     /**
      * @var string $displayId
@@ -52,25 +52,30 @@ class RhnTblMainDefinition extends baseTableDefinition  implements ReportDefinit
     /**
      * @var RhnTblHeadDefinition
      *
-     * @ORM\OneToOne(targetEntity="RhnTblHeadDefinition", inversedBy="rhnTblMainDefinition")
+     * @ORM\OneToOne(targetEntity="RhnTblHeadDefinition", inversedBy="parent", cascade={"all"})
      * @ORM\JoinColumn(name="rhn_tbl_head_definition_id", referencedColumnName="id")
      */
-    protected $rhnTblHeadDefinition;
+    protected $headDefinition;
     
     /**
      * @var RhnTblGroupDefinition
      *
-     * @ORM\ManyToOne(targetEntity="RhnTblGroupDefinition", inversedBy="rhnTblMainDefinition")
+     * @ORM\OneToOne(targetEntity="RhnTblGroupDefinition", mappedBy="rhnTblMainDefinition", cascade={"all"})
      */
-    protected $rhnTblGroupDefinitions;
+    protected $bodyDefinition;
     
     /**
      * @var RhnReportDefinition
      *
-     * @ORM\OneToOne(targetEntity="RhnReportDefinition")
+     * @ORM\ManyToOne(targetEntity="RhnReportDefinition", inversedBy="rhnTblMainDefinitions")
      * @ORM\JoinColumn(name="rhn_report_definition_id", referencedColumnName="id")
      */
-    protected $rhnReportDefinition;
+    protected $parent;
+    
+    public function getId()
+    {
+        return $this->id;
+    }
     
     public function setHeadDefinition($headDefinition)
     {
@@ -89,16 +94,16 @@ class RhnTblMainDefinition extends baseTableDefinition  implements ReportDefinit
     
     public function setBodyDefinition($bodyDefinition)
     {
-        $this->rhnTblGroupDefinition = $bodyDefinition;
+        $this->bodyDefinition = $bodyDefinition;
         return $this;
     }
 
     public function getBodyDefinition()
     {
-        if(!$this->rhnTblGroupDefinition){
-            $this->setBodyfinition(new RhnTblGroupDefinition('body'));
-            $this->rhnTblGroupDefinition->setParent($this);
+        if(!$this->bodyDefinition){
+            $this->setBodyDefinition(new RhnTblGroupDefinition('body'));
+            $this->bodyDefinition->setParent($this);
         }
-        return $this->rhnTblGroupDefinition;
+        return $this->bodyDefinition;
     }
 }

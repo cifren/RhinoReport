@@ -56,3 +56,9 @@ services:
             - "@templating"
             - "%report.template.default.generator.html.template%"
             - "%report.template.default.generator.html.template.filter%"
+    
+    report.listener.report_definition:
+        class:      Earls\RhinoReportBundle\Report\Listener\RhnReportDefinitionListener
+        arguments:  ["@report.factory"]
+        tags:
+            - { name: doctrine.event_listener, event: postLoad }

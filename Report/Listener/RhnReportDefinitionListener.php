@@ -1,14 +1,15 @@
-<?php 
-namespace Earls\RhinoReportBundle\Module\Table\Listener;
+<?php
 
-use Doctrine\ORM\Event\LifecycleEventArgs;
-use Earls\RhinoReportBundle\Entity\RhnTblMainDefinition;
+namespace Earls\RhinoReportBundle\Report\Listener;
+
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Earls\RhinoReportBundle\Entity\RhnReportDefinition;
 use Earls\RhinoReportBundle\Report\Factory\ReportFactoryInterface;
 
 /**
- * Earls\RhinoReportBundle\Module\Table\Listener\EntityListener
- **/ 
-class EntityListener
+ * Earls\RhinoReportBundle\Report\Listener\RhnReportDefinitionListener
+ */
+class RhnReportDefinitionListener
 {
     protected $reportFactory;
     
@@ -22,10 +23,9 @@ class EntityListener
         $entity = $args->getEntity();
 
         // only act on some "Product" entity
-        if (!$entity instanceof RhnTblMainDefinition) {
+        if (!$entity instanceof RhnReportDefinition) {
             return;
         }
-
         $entity->setObjectFactory($this->reportFactory);
     }
 }

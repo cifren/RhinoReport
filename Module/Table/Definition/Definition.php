@@ -46,10 +46,15 @@ abstract class Definition
 
         return $this;
     }
+    
+    public function getParent()
+    {
+        return $this->parent;
+    }
 
     public function end()
     {
-        return $this->parent;
+        return $this->getParent();
     }
 
     public function setExportConfig($type, ExportConfigurator $config)

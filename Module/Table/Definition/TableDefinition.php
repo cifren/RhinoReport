@@ -21,7 +21,7 @@ class TableDefinition extends Definition implements ReportDefinitionInterface, M
     protected $parent;
     protected $position;
     protected $template = 'DefaultTemplate';
-    protected $moduleType;
+    protected $moduleType = 'table';
     
     public function setHeadDefinition($headDefinition)
     {
@@ -56,7 +56,7 @@ class TableDefinition extends Definition implements ReportDefinitionInterface, M
     public function setParent($parent)
     {
         if (isset($parent) && !$parent instanceof ReportDefinition) {
-            throw new UnexpectedTypeException($this->parent, 'Earls\RhinoReportBundle\Report\Definition\ReportDefinition');
+            throw new UnexpectedTypeException($parent, 'Earls\RhinoReportBundle\Report\Definition\ReportDefinition');
         }
         parent::setParent($parent);
     }

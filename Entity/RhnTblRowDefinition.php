@@ -1,17 +1,17 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Module\Table\Entity;
+namespace Earls\RhinoReportBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Earls\RhinoReportBundle\Module\Table\Definition\RowDefinition as baseDefinition;
 
 /**
- * Earls\RhinoReportBundle\Module\Table\Entity\RhnTblRowDefinition
+ * Earls\RhinoReportBundle\Entity\RhnTblRowDefinition
  * 
  * @ORM\Table(name="rhn_tbl_row_definition")
  * @ORM\Entity
  */
-class RhnTblRowDefinition extends baseDefinition  implements ReportDefinitionInterface
+class RhnTblRowDefinition extends baseDefinition
 {
     /**
      * @var integer $id
@@ -58,43 +58,40 @@ class RhnTblRowDefinition extends baseDefinition  implements ReportDefinitionInt
     
     //********  Module Defintion *********//
     /**
-     * @var string $template
-     *
-     * @ORM\Column(type="string", length=255)
-     * 
-     **/ 
-    protected $template;
-    
-    /**
      * @var string $displayId
      *
      * @ORM\Column(type="string", length=255)
      * 
      **/ 
-    protected $displayId;
-    
-    /**
-     * @var string $position
-     *
-     * @ORM\Column(type="string", length=255)
-     * 
-     **/ 
-    protected $position;
+    protected $displayId = 'row';
     //********  END Module Defintion *********//
     
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="RhnTblColumnDefinition", inversedBy="rhnTblRowDefinition")
+     * @ORM\OneToMany(targetEntity="RhnTblColumnDefinition", mappedBy="parent", cascade={"all"})
      */
     protected $columnDefinitions;
-
-    public function addColumn($displayId, $type, array $exportConfigs, $dataId = null)
+    
+    /**
+     * @var RhnTblGroupDefinition
+     *
+     * @ORM\ManyToOne(targetEntity="RhnTblGroupDefinition", inversedBy="rhnTblGroupDefinitions")
+     * @ORM\JoinColumn(name="rhn_tbl_group_definition_id", referencedColumnName="id")
+     */
+    protected $parent;
+    
+    public function getId()
     {
-        $column = new RhnTblColumnDefinition($displayId, $type, $exportConfigs, $dataId);
-        $column->setParent($this);
-        $this->columns[] = $column;
+        return $this->id;
+    }
 
-        return $this;
+    public function createAndAddColumn($displayId, $type, $dataId = null)
+    {
+        $column = new RhnTblColumnDefinition($displayId, $type, $dataId);
+        $column->setParent($this);
+        $this->columnDefinitions[] = $column;
+
+        return $column;
     }
 }

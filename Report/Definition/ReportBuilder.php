@@ -53,6 +53,8 @@ class ReportBuilder
         return $this;
     }
 
+    /**
+     * */
     public function build()
     {
         $data = array();

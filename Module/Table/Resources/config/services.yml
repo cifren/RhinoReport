@@ -245,7 +245,8 @@ services:
 #default Row - Group Action#
 #default Row - Group Action#
 
-    table.listener.tabledefinition:
+    report.table.listener.tabledefinition:
         class: Earls\RhinoReportBundle\Module\Table\Listener\EntityListener
+        arguments:  ["@report.table.factory"]
         tags:
             - { name: doctrine.event_listener, event: postLoad }

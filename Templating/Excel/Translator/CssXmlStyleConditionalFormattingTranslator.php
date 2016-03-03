@@ -32,7 +32,7 @@ class CssXmlStyleConditionalFormattingTranslator
                 }
             };
         }
-        //var_dump($this->styleArray);
+        
         return $this->styleArray;
     }
 

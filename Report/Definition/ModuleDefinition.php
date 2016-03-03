@@ -15,7 +15,7 @@ abstract class ModuleDefinition implements ReportDefinitionInterface, ModuleDefi
     protected $parent;
     protected $position;
     protected $template = 'DefaultTemplate';
-    protected $moduleType;
+    protected $moduleType = 'default';
 
     public function getDisplayId()
     {

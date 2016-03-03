@@ -39,13 +39,13 @@ class ReportDefinition implements ReportDefinitionInterface
             throw new \UnexpectedValueException('The Id must not be empty');
         }
 
-        if (isset($this->items[$item->getDisplayId()])) {
+        if ($this->getItem($item->getDisplayId())) {
             throw new \UnexpectedValueException('This Id \'' . $item->getDisplayId() . '\' is already used');
         }
         
         $item->setParent($this);
         $this->items[] = $item;
-
+        
         return $this;
     }
 

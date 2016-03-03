@@ -174,9 +174,7 @@ class TableRetrieverHelper
 
         //select only difference between 2 path
         $differencePath = str_replace($groupPath, '', $item->getDefinition()->getPath());
-var_dump($fullGenericPath);
-var_dump($item->getDefinition()->getPath());
-var_dump($differencePath);
+        
         //means $groupPath is not a parent of itemPath
         if ($differencePath == $item->getDefinition()->getPath()) {
             throw new \InvalidArgumentException('Issue on argument \'' . $fullGenericPath . '\'');

@@ -175,9 +175,9 @@ class PhpBuilderTest extends KernelTestCase
     
     public function testReportBuilder()
     {
-        $rptConfig = new ReportConfigurationStub(
-            $this->getContainer()->get('report.definition.builder')
-        );
+        $rptConfig = new ReportConfigurationStub();
+        $rptConfig->setReportDefintionBuilder($this->getContainer()->get('report.definition.builder'));
+        
         $reportDefinition = $rptConfig->getConfigReportDefinition($this->getRequest(), array());
         $this->assertInstanceOf(
             'Earls\RhinoReportBundle\Report\Definition\ReportDefinition',

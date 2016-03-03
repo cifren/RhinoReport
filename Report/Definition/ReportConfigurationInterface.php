@@ -3,6 +3,7 @@
 namespace Earls\RhinoReportBundle\Report\Definition;
 
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\QueryBuilder;
 use Earls\RhinoReportBundle\Report\ReportObject\Report;
 
 /*
@@ -53,6 +54,12 @@ interface ReportConfigurationInterface
      * @return Report
      */
     public function getConfigReportDefinition(Request $request, $dataFilter);
+    
+    /**
+     *  Set the report definition in order to give all the 
+     * information about the display
+     */
+     public function setConfigReportDefinition(ReportDefinitionInterface $reportDefinition);
 
     /**
      * Give options
@@ -60,4 +67,13 @@ interface ReportConfigurationInterface
      * @return array
      */
     public function getResolvedOptions();
+    
+    /**
+     * Get doctrine query builder 
+     * 
+     * @return QueryBuilder
+     */
+    public function getQueryBuilder($dataFilter);
+    
+    public function setQueryBuilder(QueryBuilder $queryBuilder);
 }

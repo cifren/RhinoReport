@@ -33,7 +33,7 @@ class RowDefinition extends Definition
         
         $this->addColumn($column);
 
-        return $this;
+        return $column;
     }
     
     public function addColumn(ColumnDefinition $columnDefinition)

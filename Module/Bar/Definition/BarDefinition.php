@@ -14,6 +14,7 @@ class BarDefinition extends ModuleDefinition
     protected $labelColumn;
     protected $datasets;
     protected $factory;
+    protected $moduleType = 'bar';
     
     public function setOptions($options)
     {

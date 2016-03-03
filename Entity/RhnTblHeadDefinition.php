@@ -1,17 +1,17 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Module\Table\Entity;
+namespace Earls\RhinoReportBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Earls\RhinoReportBundle\Module\Table\Definition\HeadDefinition as baseDefinition;
 
 /**
- * Earls\RhinoReportBundle\Module\Table\Entity\RhnTblHeadDefinition
+ * Earls\RhinoReportBundle\Entity\RhnTblHeadDefinition
  * 
  * @ORM\Table(name="rhn_tbl_head_definition")
  * @ORM\Entity
  */
-class RhnTblHeadDefinition extends baseDefinition  implements ReportDefinitionInterface
+class RhnTblHeadDefinition extends baseDefinition
 {
     /**
      * @var integer $id
@@ -32,13 +32,6 @@ class RhnTblHeadDefinition extends baseDefinition  implements ReportDefinitionIn
     protected $columns;
     
     //********  Module Defintion *********//
-    /**
-     * @var string $template
-     *
-     * @ORM\Column(type="string", length=255)
-     * 
-     **/ 
-    protected $template;
     
     /**
      * @var string $displayId
@@ -46,21 +39,18 @@ class RhnTblHeadDefinition extends baseDefinition  implements ReportDefinitionIn
      * @ORM\Column(type="string", length=255)
      * 
      **/ 
-    protected $displayId;
-    
-    /**
-     * @var string $position
-     *
-     * @ORM\Column(type="string", length=255)
-     * 
-     **/ 
-    protected $position;
+    protected $displayId = 'head_def';
     //********  END Module Defintion *********//
     
     /**
-     * @var RhnReportDefinition
+     * @var RhnTblMainDefinition
      *
-     * @ORM\OneToOne(targetEntity="RhnTblMainDefinition", inversedBy="rhnTblHeadDefinition")
+     * @ORM\OneToOne(targetEntity="RhnTblMainDefinition", inversedBy="headDefinition")
      */
-    protected $rhnReportDefinition;
+    protected $parent;
+    
+    public function getId()
+    {
+        return $this->id;
+    }
 }

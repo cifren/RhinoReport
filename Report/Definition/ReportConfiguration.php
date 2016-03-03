@@ -3,28 +3,28 @@
 namespace Earls\RhinoReportBundle\Report\Definition;
 
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\QueryBuilder;
 use Earls\RhinoReportBundle\Report\ReportObject\Report;
 use Earls\RhinoReportBundle\Report\Definition\AbstractDefinitionBuilder;
 
 /**
  * Earls\RhinoReportBundle\Report\Definition\ReportConfiguration
  */
-abstract class ReportConfiguration implements ReportConfigurationInterface
+class ReportConfiguration implements ReportConfigurationInterface
 {
 
     protected $reportDefinitionBuilder;
-
-    public function __construct(AbstractDefinitionBuilder $reportDefinitionBuilder)
-    {
-        $this->reportDefinitionBuilder = $reportDefinitionBuilder;
-    }
+    protected $filter;
+    protected $reportDefinition;
+    protected $queryBuilder;
+    protected $data;
 
     /**
      * {@inheritDoc}
      */
     public function getFilter()
     {
-        return null;
+        return $this->filter;
     }
 
     public function hasFilter()
@@ -49,7 +49,17 @@ abstract class ReportConfiguration implements ReportConfigurationInterface
      */
     public function getConfigReportDefinition(Request $request, $dataFilter)
     {
+        return $this->reportDefinition;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function setConfigReportDefinition(ReportDefinitionInterface $reportDefinition)
+    {
+        $this->reportDefinition = $reportDefinition;
         
+        return $this->reportDefinition;
     }
 
     /**
@@ -57,7 +67,41 @@ abstract class ReportConfiguration implements ReportConfigurationInterface
      */
     public function getArrayData(array $data, $dataFilter)
     {
+        $data = $this->initArrayData($data, $datafilter);
         return $data;
+    }
+    
+    /**
+     * Apply a closure or replace $data
+     * 
+     * @param   $data           data that will be modified
+     * @param   $datafilter     filter request
+     * 
+     * @return array    Modified data
+     */
+    public function initArrayData($data, $datafilter)
+    {
+        if (is_object($this->data) && ($this->data instanceof Closure)){
+            $data = $this->data($data, $datafilter);
+        } elseif(is_array($this->data) && !is_empty($this->data)) {
+            $data = $this->data;
+        }
+        
+        return $data;
+    }
+    
+    /**
+     * Set an array that will replace the one defined or a Closure
+     * that will modified the current array
+     * 
+     * @param $data Closure or Array
+     * @return Closure or Array
+     */ 
+    public function setArrayData($data)
+    {
+        $this->data = $data;
+        
+        return $this->data;
     }
 
     /**
@@ -73,7 +117,17 @@ abstract class ReportConfiguration implements ReportConfigurationInterface
      */
     public function getQueryBuilder($dataFilter)
     {
-        return null;
+        return $this->queryBuilder;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public function setQueryBuilder(QueryBuilder $queryBuilder)
+    {
+        $this->queryBuilder = $queryBuilder;
+        
+        return $this->queryBuilder;
     }
 
     public function hasQueryBuilder($dataFilter)
@@ -93,14 +147,15 @@ abstract class ReportConfiguration implements ReportConfigurationInterface
     {
         return $this->reportDefinitionBuilder;
     }
-
-    public function setReportDefinitionBuilder($reportDefinitionBuilder)
+    
+    public function setReportDefintionBuilder(AbstractDefinitionBuilder $reportDefinitionBuilder)
     {
         $this->reportDefinitionBuilder = $reportDefinitionBuilder;
         return $this;
     }
     
-    public function getDefaultOptions(){
+    public function getDefaultOptions()
+    {
         return array(
             'template' => 'DefaultTemplate',
             'availableExport' => array('html' => 'Display onscreen'),
@@ -108,11 +163,13 @@ abstract class ReportConfiguration implements ReportConfigurationInterface
         );
     }
     
-    public function getOptions($defautOptions){
+    public function getOptions($defautOptions)
+    {
         return $defautOptions;
     }
     
-    public function getResolvedOptions(){
+    public function getResolvedOptions()
+    {
         return $this->getOptions($this->getDefaultOptions());
     }
 

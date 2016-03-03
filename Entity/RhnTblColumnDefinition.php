@@ -1,17 +1,17 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Module\Table\Entity;
+namespace Earls\RhinoReportBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition as baseDefinition;
 
 /**
- * Earls\RhinoReportBundle\Module\Table\Entity\RhnTblColumnDefinition
+ * Earls\RhinoReportBundle\Entity\RhnTblColumnDefinition
  * 
  * @ORM\Table(name="rhn_tbl_column_definition")
  * @ORM\Entity
  */
-class RhnTblColumnDefinition extends baseDefinition  implements ReportDefinitionInterface
+class RhnTblColumnDefinition extends baseDefinition
 {
     /**
      * @var integer $id
@@ -26,7 +26,7 @@ class RhnTblColumnDefinition extends baseDefinition  implements ReportDefinition
     /**
      * @var string $dataId
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * 
      **/ 
     protected $dataId;
@@ -50,7 +50,7 @@ class RhnTblColumnDefinition extends baseDefinition  implements ReportDefinition
     /**
      * @var integer $colSpan
      *
-     * @ORM\Column(type="integer", options={"unsigned": true})
+     * @ORM\Column(type="integer", options={"unsigned": true}, nullable=true)
      * 
      **/ 
     protected $colSpan;
@@ -65,28 +65,12 @@ class RhnTblColumnDefinition extends baseDefinition  implements ReportDefinition
     
     //********  Module Defintion *********//
     /**
-     * @var string $template
-     *
-     * @ORM\Column(type="string", length=255)
-     * 
-     **/ 
-    protected $template;
-    
-    /**
      * @var string $displayId
      *
      * @ORM\Column(type="string", length=255)
      * 
      **/ 
     protected $displayId;
-    
-    /**
-     * @var string $position
-     *
-     * @ORM\Column(type="string", length=255)
-     * 
-     **/ 
-    protected $position;
     //********  END Module Defintion *********//
     
     /**
@@ -95,6 +79,11 @@ class RhnTblColumnDefinition extends baseDefinition  implements ReportDefinition
      * @ORM\ManyToOne(targetEntity="RhnTblRowDefinition", inversedBy="columnsDefinitions")
      * @ORM\JoinColumn(name="rhn_tbl_row_definition_id", referencedColumnName="id")
      */
-    protected $rhnTblRowDefinition;
+    protected $parent;
+    
+    public function getId()
+    {
+        return $this->id;
+    }
     
 }
