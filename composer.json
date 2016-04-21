@@ -10,10 +10,6 @@
         {
             "name": "Francis Le Coq",
             "email": "flecoq@earls.ca"
-        },
-        {
-            "name": "Dev earls",
-            "homepage": "http:\\www.earls.ca"
         }
     ],
     "require": {
@@ -25,5 +21,11 @@
     "autoload":     {
         "psr-0": { "Earls\\RhinoReportBundle": "" }
     },
-    "target-dir": "Earls/RhinoReportBundle"
+    "target-dir": "Earls/RhinoReportBundle",
+    "require-dev": {
+        "phpunit/phpunit": "^4.8"
+    },
+    "scripts": {
+        "test": "vendor/phpunit/phpunit/phpunit src"
+    }
 }
