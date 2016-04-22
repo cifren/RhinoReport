@@ -1,6 +1,6 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Tests\Table\Definition\Stub;
+namespace Earls\RhinoReportBundle\Tests\FunctionalTests\Tests\Database\Table\Definition\Stub;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;

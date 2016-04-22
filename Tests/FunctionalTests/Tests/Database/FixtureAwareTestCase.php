@@ -1,5 +1,5 @@
 <?php
-namespace Earls\RhinoReportBundle\Tests;
+namespace Earls\RhinoReportBundle\Tests\FunctionalTests\Tests\Database;
 
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\FixtureInterface;

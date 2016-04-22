@@ -1,10 +1,10 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Tests\Table\Definition\Stub;
+namespace Earls\RhinoReportBundle\Tests\FunctionalTests\Tests\Database\Table\Definition\Stub;
 
 use Symfony\Component\HttpFoundation\Request;
 use Earls\RhinoReportBundle\Report\Definition\ReportConfiguration;
-use Earls\RhinoReportBundle\Tests\Table\Definition\Stub\FilterType;
+use Earls\RhinoReportBundle\Tests\FunctionalTests\Tests\Database\Table\Definition\Stub\FilterType;
 
 class ReportConfigurationStub extends ReportConfiguration
 {

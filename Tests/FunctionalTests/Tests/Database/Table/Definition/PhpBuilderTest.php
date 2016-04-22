@@ -1,10 +1,10 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Tests\Table\Definition;
+namespace Earls\RhinoReportBundle\Tests\FunctionalTests\Tests\Database\Table\Definition;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Earls\RhinoReportBundle\Report\Definition\ReportDefinitionBuilder;
-use Earls\RhinoReportBundle\Tests\Table\Definition\Stub\ReportConfigurationStub;
+use Earls\RhinoReportBundle\Tests\FunctionalTests\Tests\Database\Table\Definition\Stub\ReportConfigurationStub;
 use Earls\RhinoReportBundle\Report\Definition\ReportBuilder;
 
 /**

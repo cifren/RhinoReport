@@ -1,6 +1,6 @@
 <?php 
 
-namespace Earls\RhinoReportBundle\Tests\Table\Definition\Fixture;
+namespace Earls\RhinoReportBundle\Tests\FunctionalTests\Tests\Database\Table\Definition\Fixture;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;

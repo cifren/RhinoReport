@@ -1,10 +1,10 @@
 <?php
 
-namespace Earls\RhinoReportBundle\Tests\Table\Definition;
+namespace Earls\RhinoReportBundle\Tests\FunctionalTests\Tests\Database\Table\Definition;
 
-use Earls\RhinoReportBundle\Tests\FixtureAwareTestCase;
+use Earls\RhinoReportBundle\Tests\FunctionalTests\Tests\Database\FixtureAwareTestCase;
 use Earls\RhinoReportBundle\Report\Definition\ReportConfiguration;
-use Earls\RhinoReportBundle\Tests\Table\Definition\Fixture\ReportDefinitionFixture;
+use Earls\RhinoReportBundle\Tests\FunctionalTests\Tests\Database\Table\Definition\Fixture\ReportDefinitionFixture;
 
 /**
  * Entity Tests
