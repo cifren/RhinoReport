@@ -5,7 +5,9 @@ namespace Earls\RhinoReportBundle\Report\Definition;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Collections\Collection;
 use Earls\RhinoReportBundle\Report\Definition\ReportConfigurationInterface;
 use Earls\RhinoReportBundle\Module\Table\Util\DataObject;
 use Earls\RhinoReportBundle\Report\ReportObject\Report;
@@ -30,7 +32,6 @@ class ReportBuilder
     protected $container;
     protected $lexikFormFilter;
     protected $request;
-    protected $filterType;
     protected $reportDefinition;
     protected $reportObjectFactoryCollection;
 
@@ -43,7 +44,6 @@ class ReportBuilder
     public function setConfiguration(ReportConfigurationInterface $config)
     {
         $this->rptConfig = $config;
-        $this->filterType = $this->rptConfig->getFilter();
         return $this;
     }
     
@@ -159,7 +159,7 @@ class ReportBuilder
 
     public function getFilterQuery($queryBuilder)
     {
-        if ($this->filterType instanceof FormTypeInterface) {
+        if ($this->getFilterType() instanceof FormTypeInterface) {
             $filterForm = $this->getFilterForm();
 
             // build the query from the given filterForm object
@@ -194,29 +194,58 @@ class ReportBuilder
 
     public function getFilterForm()
     {
-        if (!$this->filterType) {
+        // check if the configuration has a filter
+        if (!$this->getFilterType()) {
             return null;
         }
-
+        
+        // check if the form has already been created
         if ($this->filterForm) {
             return $this->filterForm;
         }
-
-        if (!$this->filterType instanceof ReportFilterInterface) {
-            throw new UnexpectedTypeException($this->filterType, 'Earls\RhinoReportBundle\Report\Filter\ReportFilterInterface');
-        }
-
-        //-- FILTER FORM
-        $this->filterForm = $this->formFactory->create(get_class($this->filterType), $this->rptConfig->getFilterModel());
-
-        if ($this->getRequest($this->filterType->getName())) {
-            // bind values from the request
-            $this->filterForm->submit($this->getRequest());
-        } elseif (!$this->rptConfig->getFilterModel()) {
-            $this->filterForm->submit($this->filterType->getDefaultBind());
-        }
-
+        $this->filterForm = $this->createForm($this->getFilterType());
         return $this->filterForm;
+    }
+    
+    protected function createForm($filterDef){
+        switch(true){
+            case $filterDef instanceof Collection:
+                return $this->createFormWithEntity($filterDef);
+            case $filterDef instanceof ReportFilterInterface:
+                return $this->createFormWithType($filterDef);
+            default:
+                throw new \Exception('Could not create the filter');
+        }
+    }
+    
+    protected function createFormWithEntity($filterEntities)
+    {
+        $form = $this->formFactory->createBuilder(FormType::class, $this->rptConfig->getFilterModel());
+        
+        foreach($filterEntities as $item){
+            $form->add($item->getName(), $item->getType(), $item->getOptions());
+        }
+        
+        return $form->getForm();
+    }
+    
+    protected function createFormWithType($type)
+    {
+        //-- FILTER FORM
+        $filterForm = $this->formFactory->create(get_class($type), $this->rptConfig->getFilterModel());
+
+        if ($this->getRequest($type->getName())) {
+            // bind values from the request
+            $filterForm->submit($this->getRequest());
+        } elseif (!$this->rptConfig->getFilterModel()) {
+            $filterForm->submit($type->getDefaultBind());
+        }
+
+        return $filterForm;
+    }
+    
+    protected function getFilterType(){
+        return $this->rptConfig->getFilter();
     }
     
     protected function getRequest($key)

@@ -42,6 +42,13 @@ class RhnReportDefinition extends baseReportDefinition
      */
     protected $rhnTblMainDefinitions;
     
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="RhnReportFilter", mappedBy="parent", cascade={"all"})
+     */
+    protected $filters;
+    
     protected $initItem = false;
 
     public function __construct()
@@ -75,5 +82,13 @@ class RhnReportDefinition extends baseReportDefinition
             $this->initItem = true;
         }
         return $this->items;
+    }
+    
+    public function addFilter($filter)
+    {
+        $this->filters[] = $filter;
+        $filter->setParent($this);
+        
+        return $this;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Earls\RhinoReportBundle\Tests\FunctionalTests\Tests\Database\Table\Definition;
 
+use Doctrine\Common\Collections\Collection;
 use Earls\RhinoReportBundle\Tests\FunctionalTests\Tests\Database\FixtureAwareTestCase;
 use Earls\RhinoReportBundle\Report\Definition\ReportConfiguration;
 use Earls\RhinoReportBundle\Tests\FunctionalTests\Tests\Database\Table\Definition\Fixture\ReportDefinitionFixture;
@@ -44,6 +45,27 @@ class EntityTest extends FixtureAwareTestCase
         $reportObject = $rptBuilder->getReport();
         
         $this->assertInstanceOf('Earls\RhinoReportBundle\Report\ReportObject\Report', $reportObject);
+        
+        $this->assertCount(1, $reportObject->getItems());
+    }
+    
+    public function testFilter(){
+        $rptConfig = new ReportConfiguration();
+        $rptConfig->setConfigReportDefinition($this->getReportDefinition());
+        $rptConfig->setArrayData($this->getArrayDataClosure());
+        
+        $this->assertInstanceOf(Collection::class, $rptConfig->getFilter());
+        
+        $rptBuilder = $this->getContainer()->get('report.builder');
+        $rptBuilder->setRequest($this->getRequest());
+        $rptBuilder->setConfiguration($rptConfig);
+        $rptBuilder->build();
+
+        $reportObject = $rptBuilder->getReport();
+        $this->assertInstanceOf('Earls\RhinoReportBundle\Report\ReportObject\Report', $reportObject);
+        
+        $reportFilter = $rptBuilder->getFilterForm();
+        $this->assertInstanceOf('Symfony\Component\Form\Form', $reportFilter);
         
         $this->assertCount(1, $reportObject->getItems());
     }

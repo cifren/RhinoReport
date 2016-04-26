@@ -4,9 +4,12 @@ namespace Earls\RhinoReportBundle\Tests\FunctionalTests\Tests\Database\Table\Def
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Earls\RhinoReportBundle\Entity\RhnReportFilter;
 use Earls\RhinoReportBundle\Entity\RhnReportDefinition;
 use Earls\RhinoReportBundle\Entity\RhnTblMainDefinition;
 use Earls\RhinoReportBundle\Entity\RhnTblColumnDefinition;
+use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\ChoiceFilterType;
+use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\NumberFilterType;
 
 /**
  * Earls\RhinoReportBundle\Tests\Table\Definition\Fixture\ReportDefinitionFixture
@@ -59,7 +62,29 @@ class ReportDefinitionFixture implements FixtureInterface
      **/ 
     public function load(ObjectManager $manager)
     {
+        $filter1 = new RhnReportFilter();
+        $filter1
+            ->setName('catId')
+            ->setType(ChoiceFilterType::class)
+            ->setOptions(array(
+                'choices'  => array(
+                    'Cat1' => 1,
+                    'Cat2' => 2,
+                    'Cat3' => 3,
+                    )
+                ));
+        $manager->persist($filter1);
+        $filter2 = new RhnReportFilter();
+        $filter2
+            ->setName('sales')
+            ->setType(NumberFilterType::class)
+            ->setOptions(array());
+        $manager->persist($filter2);
+        
         $rptDef = new RhnReportDefinition();
+        $rptDef
+            ->addFilter($filter1)
+            ->addFilter($filter2);
         $manager->persist($rptDef);
         
         $tableDef = new RhnTblMainDefinition();

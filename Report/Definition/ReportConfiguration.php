@@ -24,7 +24,7 @@ class ReportConfiguration implements ReportConfigurationInterface
      */
     public function getFilter()
     {
-        return $this->filter;
+        return $this->filter?$this->filter:$this->getDefinitionFilter();
     }
 
     public function hasFilter()
@@ -34,6 +34,10 @@ class ReportConfiguration implements ReportConfigurationInterface
         } else {
             return false;
         }
+    }
+    
+    protected function getDefinitionFilter(){
+        return $this->reportDefinition?$this->reportDefinition->getFilters():null;
     }
 
     /**

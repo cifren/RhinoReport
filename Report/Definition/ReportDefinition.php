@@ -14,11 +14,13 @@ class ReportDefinition implements ReportDefinitionInterface
 
     protected $factory;
     protected $items;
+    protected $filters;
     protected $template = 'DefaultTemplate';
 
     public function __construct()
     {
         $this->items = new ArrayCollection();
+        $this->filters = new ArrayCollection();
     }
 
     public function getItem($displayId)
@@ -79,5 +81,15 @@ class ReportDefinition implements ReportDefinitionInterface
     public function getDisplayId()
     {
         return 'main_report';
+    }
+    
+    public function addFilter($filter)
+    {
+        $this->filters[] = $filter; 
+        return $this;
+    }
+    
+    public function getFilters(){
+        return $this->filters;
     }
 }
