@@ -50,7 +50,12 @@ class RowDefinition extends Definition
         ;
 
         $items = $this->columnDefinitions->matching($criteria);
-        $item = ($items->count() > 0) ? array_shift(array_values($items->toArray())) : null;
+        
+        $item = null;
+        if($items->count() > 0){
+            $array = array_values($items->toArray());
+            $item = array_shift($array);
+        }
         
         return $item;
     }
