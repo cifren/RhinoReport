@@ -48,14 +48,11 @@ class ColumnDefinition extends Definition
 
     public function getDataId()
     {
-        return $this->dataId;
-    }
-
-    public function setDataId($dataId)
-    {
-        $this->dataId = $dataId;
-
-        return $this;
+        $dataId = null;
+        if(isset($this->getBaseData()['type']) && $this->getBaseData()['type'] == 'dataId') {
+            $dataId = $this->getBaseData()['column'];
+        }
+        return $dataId;
     }
 
     public function getType()

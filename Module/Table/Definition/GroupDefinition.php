@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 use Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition;
 use Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition;
+use Earls\RhinoReportBundle\Module\Table\Definition\RowDefinition;
 
 /**
  * Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition
@@ -214,5 +215,18 @@ class GroupDefinition extends Definition
         
         return $this;
     }
+    
+    public function getRows()
+    {
+        return array_filter($this->getItems(), function($item){
+            return $item instanceof RowDefinition;
+        });
+    }
 
+    public function getGroups()
+    {
+        return array_filter($this->getItems(), function($item){
+            return $item instanceof GroupDefinition;
+        });
+    }
 }

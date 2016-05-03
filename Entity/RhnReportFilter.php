@@ -58,4 +58,8 @@ class RhnReportFilter extends baseReportFilter
     public function __construct(){
         //nothing
     }
+    
+    public function getId(){
+        return $this->id;
+    }
 }
