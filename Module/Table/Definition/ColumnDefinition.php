@@ -173,6 +173,7 @@ class ColumnDefinition extends Definition
             'name' => $name,
             'arg' => $arg
         );
+        return $this;
     }
 
     public function getActions()
