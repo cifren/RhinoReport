@@ -108,8 +108,9 @@ class ReportDefinitionFixture implements FixtureInterface
                     ->setColSpan('description', 1)
                     ->createAndAddColumn('sales', RhnTblColumnDefinition::TYPE_DISPLAY) //column def
                         ->setGroupAction('sum', array('column' => '\tableIng\body\category\subcategory\items.sales'))
-                        ->getParent()   //row def
-                    ->getParent()   //group def
+                        ->addAction('currency', array())
+                    ->getParent()   //row def
+                ->getParent()   //group def
                 ->addGroup('subcategory')   //group def
                     ->setGroupby('subcategory')
                     ->addRow(array('unique' => true))   //row def
@@ -118,8 +119,9 @@ class ReportDefinitionFixture implements FixtureInterface
                         ->setColSpan('description', 1)
                         ->createAndAddColumn('sales', RhnTblColumnDefinition::TYPE_DISPLAY) //column def
                             ->setGroupAction('sum', array('column' => '\tableIng\body\category\subcategory\items.sales'))
-                            ->getParent()   //row def
-                        ->getParent()   //group def
+                            ->addAction('indent', array('space'=>2))
+                        ->getParent()   //row def
+                    ->getParent()   //group def
                     ->addGroup('items')   //group def
                         ->addRow(array())  //row def
                             ->createAndAddColumn('description', RhnTblColumnDefinition::TYPE_DISPLAY, 'item')->getParent() //row def
