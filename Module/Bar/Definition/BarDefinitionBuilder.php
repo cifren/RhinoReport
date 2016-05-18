@@ -10,7 +10,7 @@ use Earls\RhinoReportBundle\Report\Definition\AbstractModuleDefinitionBuilder;
 class BarDefinitionBuilder extends AbstractModuleDefinitionBuilder
 {
 
-    public function labels($columnName)
+    public function label($columnName)
     {
         $this->getDefinition()->setLabelColumn($columnName);
 
@@ -32,6 +32,7 @@ class BarDefinitionBuilder extends AbstractModuleDefinitionBuilder
 
         return $this;
     }
+    
     public function template($name)
     {
         $this->getCurrentDefinition()->setTemplate($name);

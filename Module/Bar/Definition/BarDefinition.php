@@ -3,8 +3,11 @@
 namespace Earls\RhinoReportBundle\Module\Bar\Definition;
 
 use Earls\RhinoReportBundle\Report\Definition\ModuleDefinition;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
+ * Earls\RhinoReportBundle\Module\Bar\Definition\BarDefinition
+ * 
  * @author francis
  */
 class BarDefinition extends ModuleDefinition
@@ -15,6 +18,11 @@ class BarDefinition extends ModuleDefinition
     protected $datasets;
     protected $factory;
     protected $moduleType = 'bar';
+
+    public function __construct($displayId)
+    {
+        $this->datasets = new ArrayCollection();
+    }
     
     public function setOptions($options)
     {
@@ -47,7 +55,9 @@ class BarDefinition extends ModuleDefinition
 
     public function setDatasets($datasets)
     {
-        $this->datasets = $datasets;
+        foreach($datasets as $dataset){
+            $this->addDataset($dataset);
+        }
         return $this;
     }
 
