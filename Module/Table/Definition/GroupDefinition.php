@@ -21,6 +21,11 @@ class GroupDefinition extends Definition
     protected $groupBy;
     
     /**
+     * Give the position of the group into its parent 
+     */
+    protected $itemOrder;
+    
+    /**
      * @var ArrayCollection $items
      * Contains Groups and Rows
      */ 
@@ -37,12 +42,20 @@ class GroupDefinition extends Definition
         $this->items = new ArrayCollection();
     }
     
+    protected function setItemsOrder(){
+        $count = 0;
+        foreach($this->items as $item){
+            $item->setItemOrder($count);
+            $count++;
+        }
+    }
+    
     public function addGroup($displayId)
     {
         $group = new GroupDefinition($displayId);
         $group->setParent($this);
-        $this->items[] = $group;
-
+        $this->addItem($group);
+        
         return $group;
     }
 
@@ -50,7 +63,7 @@ class GroupDefinition extends Definition
     {
         $row = new RowDefinition($options);
         $row->setParent($this);
-        $this->items[] = $row;
+        $this->addItem($row);
 
         return $row;
     }
@@ -173,6 +186,25 @@ class GroupDefinition extends Definition
         
         return $item;
     }
+    
+    protected function addItem($item, $runOrder = true)
+    {
+        $this->getItems()->add($item);
+        if($runOrder){
+            $this->setItemsOrder();
+        }
+        
+        return $this;
+    }
+    
+    public function setItems($items)
+    {
+        $this->getItems()->clear();
+        foreach($items as $item){
+            $this->addItem($item, false);
+        }
+        $this->setItemsOrder();
+    }
 
     public function getItems()
     {
@@ -218,15 +250,26 @@ class GroupDefinition extends Definition
     
     public function getRows()
     {
-        return array_filter($this->getItems(), function($item){
+        return array_filter($this->getItems()->toArray(), function($item){
             return $item instanceof RowDefinition;
         });
     }
 
     public function getGroups()
     {
-        return array_filter($this->getItems(), function($item){
+        return array_filter($this->getItems()->toArray(), function($item){
             return $item instanceof GroupDefinition;
         });
+    }
+    
+    public function getItemOrder()
+    {
+        return $this->itemOrder;
+    }
+    
+    public function setItemOrder($num)
+    {
+        $this->itemOrder = $num;
+        return $this;
     }
 }

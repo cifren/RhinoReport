@@ -45,6 +45,13 @@ class RhnReportDefinition extends baseReportDefinition
     /**
      * @var ArrayCollection
      *
+     * @ORM\OneToMany(targetEntity="RhnBarDefinition", mappedBy="parent", cascade={"all"})
+     */
+    protected $rhnBarDefinitions;
+    
+    /**
+     * @var ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity="RhnReportFilter", mappedBy="parent", cascade={"all"})
      */
     protected $filters;

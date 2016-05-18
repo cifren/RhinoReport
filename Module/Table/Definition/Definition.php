@@ -13,6 +13,7 @@ use Earls\RhinoReportBundle\Report\Definition\ModuleDefinition;
 abstract class Definition
 {
 
+    protected $displayId;
     protected $parent;
     protected $path;
     protected $exportConfig;

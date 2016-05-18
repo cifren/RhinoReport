@@ -29,6 +29,8 @@ class HeadDefinition extends Definition
 
     public function setColumns(array $columnNames)
     {
+        // reset columns array
+        $this->columns = array();
         foreach ($columnNames as $id => $column) {
             if (is_array($column)) {
                 if (isset($column['attr'])) {

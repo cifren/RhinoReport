@@ -13,6 +13,10 @@ use Doctrine\Common\Collections\Criteria;
 class RowDefinition extends Definition
 {
 
+    /**
+     * Give the position of the row into its parent 
+     */
+    protected $itemOrder;
     protected $columnDefinitions;
     protected $colSpans;
     protected $options;
@@ -34,6 +38,18 @@ class RowDefinition extends Definition
         $this->addColumn($column);
 
         return $column;
+    }
+    
+    public function setColumns($columns = array())
+    {
+        $this->getColumns()->clear();
+        foreach($columns as $col){
+            if(!$this->getColumns()->contains($col)){
+                $this->addColumn($col);
+            }
+        }
+        
+        return $this;
     }
     
     public function addColumn(ColumnDefinition $columnDefinition)
@@ -198,6 +214,17 @@ class RowDefinition extends Definition
                 };
         uasort($this->getColumns(), $func);
 
+        return $this;
+    }
+    
+    public function getItemOrder()
+    {
+        return $this->itemOrder;
+    }
+    
+    public function setItemOrder($num)
+    {
+        $this->itemOrder = $num;
         return $this;
     }
 

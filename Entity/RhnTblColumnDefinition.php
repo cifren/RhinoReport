@@ -63,7 +63,23 @@ class RhnTblColumnDefinition extends baseDefinition
      **/ 
     protected $type;
     
-    //********  Module Defintion *********//
+    /**
+     * @var array $groupAction
+     *
+     * @ORM\Column(type="array")
+     * 
+     **/ 
+    protected $groupAction;
+    
+    /**
+     * @var array $actions
+     *
+     * @ORM\Column(type="array")
+     * 
+     **/
+    protected $actions;
+    
+    //********  Module Definition *********//
     /**
      * @var string $displayId
      *
@@ -71,12 +87,12 @@ class RhnTblColumnDefinition extends baseDefinition
      * 
      **/ 
     protected $displayId;
-    //********  END Module Defintion *********//
+    //********  END Module Definition *********//
     
     /**
      * @var RhnTblRowDefinition
      *
-     * @ORM\ManyToOne(targetEntity="RhnTblRowDefinition", inversedBy="columnsDefinitions")
+     * @ORM\ManyToOne(targetEntity="RhnTblRowDefinition", inversedBy="columnDefinitions")
      * @ORM\JoinColumn(name="rhn_tbl_row_definition_id", referencedColumnName="id")
      */
     protected $parent;
@@ -85,5 +101,14 @@ class RhnTblColumnDefinition extends baseDefinition
     {
         return $this->id;
     }
-    
+
+    public function setParent($parent)
+    {
+        if(!$parent){
+            $this->parent = null;
+            return $this;
+        }
+        
+        return parent::setParent($parent);
+    }
 }

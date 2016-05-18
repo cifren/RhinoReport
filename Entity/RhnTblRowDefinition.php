@@ -3,7 +3,9 @@
 namespace Earls\RhinoReportBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Earls\RhinoReportBundle\Module\Table\Definition\RowDefinition as baseDefinition;
+use Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition;
 
 /**
  * Earls\RhinoReportBundle\Entity\RhnTblRowDefinition
@@ -69,14 +71,14 @@ class RhnTblRowDefinition extends baseDefinition
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="RhnTblColumnDefinition", mappedBy="parent", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="RhnTblColumnDefinition", mappedBy="parent", cascade={"remove", "persist"})
      */
     protected $columnDefinitions;
     
     /**
      * @var RhnTblGroupDefinition
      *
-     * @ORM\ManyToOne(targetEntity="RhnTblGroupDefinition", inversedBy="rhnTblGroupDefinitions")
+     * @ORM\ManyToOne(targetEntity="RhnTblGroupDefinition", inversedBy="rhnTblRowDefinitions")
      * @ORM\JoinColumn(name="rhn_tbl_group_definition_id", referencedColumnName="id")
      */
     protected $parent;
@@ -93,5 +95,46 @@ class RhnTblRowDefinition extends baseDefinition
         $this->columnDefinitions[] = $column;
 
         return $column;
+    }
+    
+    public function addColumn(ColumnDefinition $columnDefinition)
+    {
+        parent::addColumn($columnDefinition);
+        $columnDefinition->setParent($this);
+        
+        return $columnDefinition;
+    }
+    
+    public function setColumns($columns = array())
+    {
+        $columnCollection = new ArrayCollection($columns);
+        
+        $this->removeColumnsNotFromList($columnCollection);
+        
+        parent::setColumns($columns);
+        
+        return $this;
+    }
+    
+    public function removeColumnsNotFromList(ArrayCollection $items)
+    {
+        // remove parent from previous columns
+        foreach($this->getColumns() as $col){
+            if(!$items->contains($col)){
+                $this->getColumns()->removeElement($col);
+                $col->setParent(null);
+            }
+        }
+        return $this;
+    }
+
+    public function setParent($parent)
+    {
+        if(!$parent){
+            $this->parent = null;
+            return $this;
+        }
+        
+        return parent::setParent($parent);
     }
 }

@@ -43,7 +43,7 @@ class RhnTblMainDefinition extends baseTableDefinition
     /**
      * @var string $position
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * 
      **/ 
     protected $position;
@@ -60,7 +60,7 @@ class RhnTblMainDefinition extends baseTableDefinition
     /**
      * @var RhnTblGroupDefinition
      *
-     * @ORM\OneToOne(targetEntity="RhnTblGroupDefinition", mappedBy="rhnTblMainDefinition", cascade={"all"})
+     * @ORM\OneToOne(targetEntity="RhnTblGroupDefinition", mappedBy="rhnTblMainDefinition", cascade={"remove", "persist"}, orphanRemoval=true)
      */
     protected $bodyDefinition;
     
@@ -105,5 +105,15 @@ class RhnTblMainDefinition extends baseTableDefinition
             $this->bodyDefinition->setParent($this);
         }
         return $this->bodyDefinition;
+    }
+
+    public function setParent($parent)
+    {
+        if(!$parent){
+            $this->parent = null;
+            return $this;
+        }
+        
+        return parent::setParent($parent);
     }
 }

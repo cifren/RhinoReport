@@ -109,18 +109,16 @@ class RhnTblGroupDefinition extends baseDefinition
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="RhnTblGroupDefinition", mappedBy="rhnTblGroupDefinition", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="RhnTblGroupDefinition", mappedBy="rhnTblGroupDefinition", cascade={"remove", "persist"}, orphanRemoval=true)
      */
     protected $rhnTblGroupDefinitions;
     
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="RhnTblRowDefinition", mappedBy="parent", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="RhnTblRowDefinition", mappedBy="parent", cascade={"remove", "persist"}, orphanRemoval=true)
      */
     protected $rhnTblRowDefinitions;
-    
-    protected $initItem = false;
     
     public function __construct($displayId)
     {
@@ -138,7 +136,7 @@ class RhnTblGroupDefinition extends baseDefinition
     {
         $group = new RhnTblGroupDefinition($id);
         $group->setParent($this);
-        $this->items[] = $group;
+        $this->addItem($group);
         $this->rhnTblGroupDefinitions[] = $group;
 
         return $group;
@@ -148,7 +146,7 @@ class RhnTblGroupDefinition extends baseDefinition
     {
         $row = new RhnTblRowDefinition($options);
         $row->setParent($this);
-        $this->items[] = $row;
+        $this->addItem($row);
         $this->rhnTblRowDefinitions[] = $row;
 
         return $row;
@@ -156,21 +154,64 @@ class RhnTblGroupDefinition extends baseDefinition
 
     public function setParent($parent)
     {
+        if(!$parent){
+            $this->rhnTblGroupDefinition = null;
+            $this->rhnTblMainDefinition = null;
+            return $this;
+        }
         if ($parent instanceof RhnTblMainDefinition){
             $this->rhnTblMainDefinition = $parent;
         } elseif ($parent instanceof RhnTblGroupDefinition){
             $this->rhnTblGroupDefinition = $parent;
         }
         
-        parent::setParent($parent);
+        return parent::setParent($parent);
+    }
+    
+    public function removeNotFromList(ArrayCollection $items)
+    {
+        $this->removeGroupNotFromList($items);
+        $this->removeRowNotFromList($items);
+        return $this;
+    }
+    
+    public function removeGroupNotFromList(ArrayCollection $items)
+    {
+        foreach($this->getRhnTblGroupDefinitions() as $group){
+            if(!$items->contains($group)){
+                $this->getRhnTblGroupDefinitions()->removeElement($group);
+                $this->getItems()->removeElement($group);
+                $group->setParent(null);
+            }
+        }
+        return $this;
+    }
+    
+    public function removeRowNotFromList(ArrayCollection $items)
+    {
+        foreach($this->getRhnTblRowDefinitions() as $row){
+            if(!$items->contains($row)){
+                $this->getRhnTblRowDefinitions()->removeElement($row);
+                $this->getItems()->removeElement($row);
+                $row->setParent(null);
+            }
+        }
+        return $this;
     }
 
     public function getItems()
     {
-        if(!$this->initItem){
-            $this->items = array_merge($this->getRhnTblGroupDefinitions()->toArray(), $this->getRhnTblRowDefinitions()->toArray());
-            $this->initItem = true;
-        }
+        $this->items = array_merge($this->getRhnTblGroupDefinitions()->toArray(), $this->getRhnTblRowDefinitions()->toArray());
+        uasort($this->items, function($a, $b){
+            $av = $a->getItemOrder();
+            $bv = $b->getItemOrder();
+            if ($av == $bv) {
+                return 0;
+            }
+            return ($av < $bv) ? -1 : 1;
+        });
+        $this->items = new ArrayCollection($this->items);
+            
         return $this->items;
     }
     

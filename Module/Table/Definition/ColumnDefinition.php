@@ -45,6 +45,14 @@ class ColumnDefinition extends Definition
 
         return $this;
     }
+    
+    public function setDataId($dataId)
+    {
+        if($dataId){
+            $this->setBaseData('dataId', $dataId);
+        }
+        return $this;
+    }
 
     public function getDataId()
     {
@@ -165,6 +173,18 @@ class ColumnDefinition extends Definition
     public function hasExtendingGroupAction()
     {
         return $this->extendingGroupAction != null;
+    }
+    
+    public function clearAction()
+    {
+        $this->setActions(array());
+        return $this;
+    }
+    
+    public function setActions($actions)
+    {
+        $this->actions = $actions;
+        return $this;
     }
 
     public function addAction($name, array $arg)
