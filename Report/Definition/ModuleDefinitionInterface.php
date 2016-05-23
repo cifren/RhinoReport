@@ -30,4 +30,8 @@ interface ModuleDefinitionInterface
     
     public function getModuleType();
     
+    public function setFactoryType($type);
+    
+    public function getFactoryType();
+    
 }

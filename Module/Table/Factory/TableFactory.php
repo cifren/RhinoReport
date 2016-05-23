@@ -85,7 +85,9 @@ class TableFactory extends AbstractFactory
     {
         $headDefinition = $head->getDefinition();
 
-        $head->setColumns($headDefinition->getColumns());
+        if($headDefinition->getColumns()){
+            $head->setColumns($headDefinition->getColumns());
+        }
 
         $head->setAttributes($headDefinition->getAttributes());
 
@@ -271,11 +273,13 @@ class TableFactory extends AbstractFactory
 
         //No Data
         if (!$data || empty($data)) {
-            $def = $rowDefinition->getColumns();
+            $def = $rowDefinition->getColumns()->toArray();
             $columnDefinition = array_shift($def);
             $dataObject = new DataObject(array());
             $row = new row(0, $rowDefinition, $groupParent, $dataObject);
-            $rows[] = $this->createRowNoData($row, $columnDefinition);
+            if($columnDefinition){
+                $rows[] = $this->createRowNoData($row, $columnDefinition);
+            }
         }
 
         $i = 0;

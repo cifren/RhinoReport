@@ -22,8 +22,6 @@ services:
     report.bar.definition:
         class:      %report.bar.definition.class%
         scope:      prototype
-        calls:
-            - [setObjectFactory, ['@report.bar.factory']]
         
     report.bar.definition.builder:
         class:      %report.bar.definition.builder.class%

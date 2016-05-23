@@ -2,6 +2,7 @@
 
 namespace Earls\RhinoReportBundle\Module\Bar\Factory;
 
+use Doctrine\Common\Collections\Collection;
 use Earls\RhinoReportBundle\Module\Table\Util\DataManipulator;
 use Earls\RhinoReportBundle\Module\Table\Util\DataObjectInterface;
 use Earls\RhinoReportBundle\Report\Factory\AbstractFactory;
@@ -40,16 +41,20 @@ class BarFactory extends AbstractFactory
         $transformedData = $this->getTransformedData($barObject->getLabels(), $barDefinition->getLabelColumn(), $barDefinition->getDatasets(), $data);
         $datasets = array();
         foreach ($barDefinition->getDatasets() as $key => $datasetDef) {
-            $options = array_merge($this->getDefaultOptionsDatasetColors()[$key], $datasetDef->getOptions());
-            $dataset = new Dataset($datasetDef->getLabelColumn(), $transformedData[$datasetDef->getDataColumn()], $options);
-            $datasets[] = $dataset;
+            if($datasetDef->getOptions()){
+                $options = array_merge($this->getDefaultOptionsDatasetColors()[$key], $datasetDef->getOptions()->toArray());
+            }
+            if(!empty($transformedData)){
+                $dataset = new Dataset($datasetDef->getLabelColumn(), $transformedData[$datasetDef->getDataColumn()], $options);
+                $datasets[] = $dataset;
+            }
         }
         $barObject->setDatasets($datasets);
 
         return $barObject;
     }
 
-    protected function getTransformedData(array $labels, $labelColumnName, array $datasets, DataObjectInterface $dataObj)
+    protected function getTransformedData(array $labels, $labelColumnName, Collection $datasets, DataObjectInterface $dataObj)
     {
         $transformedData = array();
         $data = $dataObj->getData();

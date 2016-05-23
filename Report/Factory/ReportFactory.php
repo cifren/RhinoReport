@@ -13,15 +13,18 @@ use Earls\RhinoReportBundle\Report\Factory\ReportObjectFactoryCollection;
  */
 class ReportFactory extends AbstractFactory
 {
-
-
-    public function __construct()
+    protected $definitionFactoryManager;
+    
+    public function __construct($definitionFactoryManager)
     {
+        $this->definitionFactoryManager = $definitionFactoryManager;
         $this->item = new Report();
     }
 
     public function build()
     {
+        $this->setObjectFactory($this->getDefinition());
+        
         foreach ($this->getDefinition()->getItems() as $itemDefinition) {
             $itemFactory = $itemDefinition->getObjectFactory();
 
@@ -33,6 +36,11 @@ class ReportFactory extends AbstractFactory
 
             $this->getItem()->addItem($newItem);
         }
+    }
+    
+    protected function setObjectFactory($definition)
+    {
+        $this->definitionFactoryManager->setObjectFactory($definition);
     }
 
 }

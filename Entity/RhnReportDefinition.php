@@ -15,7 +15,10 @@ use Earls\RhinoReportBundle\Report\Definition\ModuleDefinitionInterface;
  */
 class RhnReportDefinition extends baseReportDefinition
 {
-    protected $itemMatch = array('table' => 'tblMainDefinitions');
+    protected $itemMatch = array(
+        'table' => 'rhnTblMainDefinitions',
+        'bar' => 'rhnBarDefinitions'
+        );
     
     /**
      * @var integer $id
@@ -55,8 +58,6 @@ class RhnReportDefinition extends baseReportDefinition
      * @ORM\OneToMany(targetEntity="RhnReportFilter", mappedBy="parent", cascade={"all"})
      */
     protected $filters;
-    
-    protected $initItem = false;
 
     public function __construct()
     {
@@ -84,9 +85,11 @@ class RhnReportDefinition extends baseReportDefinition
 
     public function getItems()
     {
-        if(!$this->initItem){
-            $this->items = $this->rhnTblMainDefinitions;
-            $this->initItem = true;
+        if(!$this->items){
+            $this->items = new ArrayCollection(array_merge(
+                $this->rhnTblMainDefinitions->toArray(), 
+                $this->rhnBarDefinitions->toArray()
+            ));
         }
         return $this->items;
     }

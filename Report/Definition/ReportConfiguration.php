@@ -71,7 +71,7 @@ class ReportConfiguration implements ReportConfigurationInterface
      */
     public function getArrayData(array $data, $dataFilter)
     {
-        $data = $this->initArrayData($data, $datafilter);
+        $data = $this->initArrayData($data, $dataFilter);
         return $data;
     }
     

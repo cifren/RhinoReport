@@ -222,4 +222,18 @@ class TableDefinition extends Definition implements ReportDefinitionInterface, M
         return $this->moduleType;
     }
 
+    public function getFactoryType()
+    {
+        if($this->getModuleType()){
+            $this->factoryType = $this->getModuleType();
+        }
+        return $this->factoryType;
+    }
+    
+    public function setFactoryType($factoryType)
+    {
+        $this->factoryType = $factoryType;
+        return $this;
+    }
+
 }

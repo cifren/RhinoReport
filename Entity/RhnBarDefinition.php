@@ -81,6 +81,11 @@ class RhnBarDefinition extends baseBarDefinition
      */
     protected $parent;
     
+    public function __construct()
+    {
+        // nothing
+    }
+    
     public function getId(){
         return $this->id;
     }

@@ -16,6 +16,7 @@ abstract class ModuleDefinition implements ReportDefinitionInterface, ModuleDefi
     protected $position;
     protected $template = 'DefaultTemplate';
     protected $moduleType = 'default';
+    protected $factoryType;
 
     public function getDisplayId()
     {
@@ -72,4 +73,17 @@ abstract class ModuleDefinition implements ReportDefinitionInterface, ModuleDefi
         return $this->moduleType;
     }
 
+    public function getFactoryType()
+    {
+        if($this->getModuleType()){
+            $this->factoryType = $this->getModuleType();
+        }
+        return $this->factoryType;
+    }
+    
+    public function setFactoryType($factoryType)
+    {
+        $this->factoryType = $factoryType;
+        return $this;
+    }
 }

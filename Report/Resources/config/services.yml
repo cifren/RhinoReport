@@ -1,6 +1,7 @@
 parameters:
     report.factory.collection.class:                  Earls\RhinoReportBundle\Report\Factory\ReportObjectFactoryCollection
     report.factory.class:                             Earls\RhinoReportBundle\Report\Factory\ReportFactory
+    report.definition.factory.manager.class:          Earls\RhinoReportBundle\Report\Factory\DefinitionFactoryManager
     report.builder.class:                             Earls\RhinoReportBundle\Report\Definition\ReportBuilder
     report.definition.class:                          Earls\RhinoReportBundle\Report\Definition\ReportDefinition
     report.definition.builder.class:                  Earls\RhinoReportBundle\Report\Definition\ReportDefinitionBuilder
@@ -29,11 +30,13 @@ parameters:
 services:
     report.factory:
         class:      %report.factory.class%
+        arguments: ["@report.definition.factory.manager"]
+        
+    report.definition.factory.manager:
+        class:  %report.definition.factory.manager.class%
         
     report.definition:
         class:      %report.definition.class%
-        calls:
-            - [setObjectFactory, ['@report.factory']]
 
     report.builder:
         class:       %report.builder.class%
