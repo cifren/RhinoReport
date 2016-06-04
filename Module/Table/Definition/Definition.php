@@ -8,7 +8,6 @@ use Earls\RhinoReportBundle\Report\Definition\ModuleDefinition;
 
 /**
  * Earls\RhinoReportBundle\Module\Table\Definition\Definition
- *
  */
 abstract class Definition
 {
@@ -25,8 +24,8 @@ abstract class Definition
         if ($this->path) {
             return $this->path;
         }
-
-        return $this->parent->getPath() . '\\' . $this->excludeSpecialCharacter($this->getDisplayId());
+        
+        return $this->getParent()->getPath() . '\\' . $this->excludeSpecialCharacter($this->getDisplayId());
     }
 
     public function setData(DataObject $data)
@@ -127,7 +126,7 @@ abstract class Definition
 
     public function setDisplayId($displayId)
     {
-        $this->displayId = $displayId;
+        $this->displayId = trim($displayId);
         return $this;
     }
 }

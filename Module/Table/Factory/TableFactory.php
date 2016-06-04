@@ -362,7 +362,7 @@ class TableFactory extends AbstractFactory
         $column->setAttributes($columnDefinition->getAttributes());
         $column->setColSpan($colspanNoData);
 
-        $row->addColumn($column->getDisplayId(), $column);
+        $row->addColumn($column->getId(), $column);
 
         return $row;
     }

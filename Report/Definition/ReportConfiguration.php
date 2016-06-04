@@ -63,7 +63,7 @@ class ReportConfiguration implements ReportConfigurationInterface
     {
         $this->reportDefinition = $reportDefinition;
         
-        return $this->reportDefinition;
+        return $this;
     }
 
     /**
@@ -83,11 +83,11 @@ class ReportConfiguration implements ReportConfigurationInterface
      * 
      * @return array    Modified data
      */
-    public function initArrayData($data, $datafilter)
+    protected function initArrayData($data, $datafilter = null)
     {
         if (is_object($this->data) && ($this->data instanceof Closure)){
             $data = $this->data($data, $datafilter);
-        } elseif(is_array($this->data) && !is_empty($this->data)) {
+        } elseif(is_array($this->data) && !empty($this->data)) {
             $data = $this->data;
         }
         
@@ -95,8 +95,8 @@ class ReportConfiguration implements ReportConfigurationInterface
     }
     
     /**
-     * Set an array that will replace the one defined or a Closure
-     * that will modified the current array
+     * Set an array that will replace the one defined 
+     *  or a Closure that will modified the current array
      * 
      * @param $data Closure or Array
      * @return Closure or Array

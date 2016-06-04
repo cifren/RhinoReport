@@ -22,7 +22,7 @@ class SumGroupAction extends GroupAction
     public function setData()
     {
         if (!$this->options['column']) {
-            throw new \InvalidArgumentException('Argument \'column\' is missing in group action \'' . $this->column->getDefinition()->getPath() . '\'');
+            throw new \InvalidArgumentException('Argument \'column\' is missing in group action SUM on \'' . $this->column->getDefinition()->getPath() . '\'');
         }
         $this->retriever->setTable($this->table);
 
@@ -32,6 +32,7 @@ class SumGroupAction extends GroupAction
             $group = $this->column->getRow()->getGroup();
         }
         $items = $this->retriever->getParentOrSubItemsFromGenericPath($this->options['column'], $group);
+        
         $sum = 0;
         foreach ($items as $item) {
             $sum += $item->getData();

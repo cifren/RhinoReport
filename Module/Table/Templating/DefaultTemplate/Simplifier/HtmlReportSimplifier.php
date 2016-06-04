@@ -45,15 +45,17 @@ class HtmlReportSimplifier
 
         //Table Head
         $data = array();
-        foreach ($table->getHead()->getColumns() as $displayId => $column) {
-            //convert array to string
-            if (isset($column['attr']['class'])) {
-                $column['attr']['class'] = implode(' ', $column['attr']['class']);
+        if($table->getHead()->getColumns()){
+            foreach ($table->getHead()->getColumns() as $displayId => $column) {
+                //convert array to string
+                if (isset($column['attr']['class'])) {
+                    $column['attr']['class'] = implode(' ', $column['attr']['class']);
+                }
+                $data[$displayId] = array(
+                    'attr' => array('id' => 'column_' . $displayId) + $column['attr'],
+                    'data' => $column['label'],
+                );
             }
-            $data[$displayId] = array(
-                'attr' => array('id' => 'column_' . $displayId) + $column['attr'],
-                'data' => $column['label'],
-            );
         }
 
         $attr = $table->getHead()->getAttributes();
@@ -198,8 +200,12 @@ class HtmlReportSimplifier
 
         $attr['style'] = (!isset($attr['style'])) ? : $this->getAttrStyle($attr['style']);
 
-        //convert array to string
-        $attr['class'] = implode(' ', $attr['class']);
+        if(isset($attr['class'])){
+            //convert array to string
+            $attr['class'] = implode(' ', $attr['class']);
+        } else {
+            $attr['class'] = null;
+        }
 
         $htmlArray = array(
             'attr' => $attr,

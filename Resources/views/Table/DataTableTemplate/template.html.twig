@@ -3,7 +3,6 @@
         '@EarlsRhinoReportBundle/Resources/public/Table/vendor/DataTables/media/js/jquery.dataTables.min.js'
         '@EarlsRhinoReportBundle/Resources/public/Table/vendor/DataTables/plugins/bootstrap/bootstrap.js'
         '@EarlsRhinoReportBundle/Resources/public/Table/vendor/DataTables/extensions/TableTools/js/dataTables.tableTools.min.js'
-
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts  %}
@@ -34,7 +33,7 @@
     {% set attr = table.attr|default(null) %}
     
     <div id="{{id}}" class="myDataTable">
-        <data class="dataTableData" data-load="{{tableTemplate.getData()|json_encode()}}" data-export="{{path('pp3_inventory_variancesummary_report_export')}}"></data>
+        <data class="dataTableData" data-load="{{tableTemplate.getData()|json_encode()}}" data-export=""></data>
         <table {{ block('report_attributes') }}>
         </table>
     </div>

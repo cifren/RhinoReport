@@ -168,6 +168,11 @@ class RhnTblGroupDefinition extends baseDefinition
         return parent::setParent($parent);
     }
     
+    public function getParent()
+    {
+        return $this->getRhnTblMainDefinition()?$this->getRhnTblMainDefinition():$this->getRhnTblGroupDefinition();
+    }
+    
     public function removeNotFromList(ArrayCollection $items)
     {
         $this->removeGroupNotFromList($items);
@@ -223,5 +228,15 @@ class RhnTblGroupDefinition extends baseDefinition
     public function getRhnTblRowDefinitions()
     {
         return $this->rhnTblRowDefinitions;
+    }
+    
+    public function getRhnTblGroupDefinition()
+    {
+       return $this->rhnTblGroupDefinition;
+    }
+    
+    public function getRhnTblMainDefinition()
+    {
+       return $this->rhnTblMainDefinition;
     }
 }

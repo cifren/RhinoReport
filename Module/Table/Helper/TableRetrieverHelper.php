@@ -94,10 +94,8 @@ class TableRetrieverHelper
         if (count($parseGenericPath) >= 2 && $genericPath != $fullGenericPath) {
             return $this->getSubItemsFromGenericPath($fullGenericPath, $item);
         } elseif ($genericPath == '') { //get item
-
             return array($item);
         } else {//get parentItems
-
             return $this->getParentItemsFromGenericPath($fullGenericPath, $item);
         }
     }

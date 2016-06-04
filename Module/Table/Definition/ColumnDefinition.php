@@ -18,6 +18,7 @@ class ColumnDefinition extends Definition
     protected $displayId;
     protected $baseData = array();
     protected $formulaExcel;
+    protected $formatExcel;
     protected $actions = array();
     protected $groupAction = null;
     protected $extendingGroupAction = false;

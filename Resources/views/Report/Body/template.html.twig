@@ -3,6 +3,11 @@
 {% use 'EarlsRhinoReportBundle:Table/SystemTemplate:template.html.twig' %}
 
 {% block rhino_report %}
+    {% javascripts
+        '@EarlsRhinoReportBundle/Report/Templating/DefaultTemplate/Resources/public/js/jquery.min.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts  %}
     {# unique block #}
     {% for blockName in template.getUniqueBlockNames() %}
         {{ block(blockName) }}

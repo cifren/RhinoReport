@@ -14,9 +14,9 @@ class ModuleObjectSimplifier
     {
         $array = array();
         $array['object'] = $tableObject;
-        $array['attr'] = $this->formatAttributes($tableObject->getAttributes(), array('class' => array('dataTable'), 'width' => '100%', 'cellspacing' => 0));
+        $array['attr'] = $this->formatAttributes($tableObject->getAttributes(), array('class' => 'dataTable', 'width' => '100%', 'cellspacing' => 0));
         $array['id'] = $tableObject->getId();
-
+        
         return $array;
     }
 
