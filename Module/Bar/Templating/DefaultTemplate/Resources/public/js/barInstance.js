@@ -46,9 +46,11 @@ RhinoReportBarInstance.prototype = {
             dataset.label = value.label;
             dataset.data = value.dataset;
             var options = value.options;
-            $.each(options, function (index, value) {
-                dataset[index] = value;
-            });
+            if(options){
+                $.each(options, function (index, value) {
+                    dataset[index] = value;
+                });
+            }
             structuredDatasets.push(dataset);
         });
         return structuredDatasets;

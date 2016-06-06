@@ -41,6 +41,7 @@ class BarFactory extends AbstractFactory
         $transformedData = $this->getTransformedData($barObject->getLabels(), $barDefinition->getLabelColumn(), $barDefinition->getDatasets(), $data);
         $datasets = array();
         foreach ($barDefinition->getDatasets() as $key => $datasetDef) {
+            $options = null;
             if($datasetDef->getOptions()){
                 $options = array_merge($this->getDefaultOptionsDatasetColors()[$key], $datasetDef->getOptions()->toArray());
             }
