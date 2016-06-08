@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             
             new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
             new Earls\RhinoReportBundle\EarlsRhinoReportBundle(),
+            new Earls\OxPeckerDataBundle\EarlsOxPeckerDataBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

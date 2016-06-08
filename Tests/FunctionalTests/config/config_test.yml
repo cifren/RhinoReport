@@ -32,8 +32,8 @@ doctrine:
   dbal:
     driver:       pdo_mysql
     host:         127.0.0.1
-    dbname:       db_rhino_test
-    user:         rhino
+    dbname:       myapp_test
+    user:         travis
     password:     
     charset:      UTF8
     memory:       true

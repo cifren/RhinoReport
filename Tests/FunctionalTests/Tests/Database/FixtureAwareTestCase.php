@@ -40,15 +40,20 @@ abstract class FixtureAwareTestCase extends WebTestCase
     {
         $this->getFixtureLoader()->addFixture($fixture);
     }
+    
+    protected function initTestDatabase()
+    {
+        $this->runCommand('doctrine:database:drop --force');
+        $this->runCommand('doctrine:database:create');
+        $this->runCommand('doctrine:schema:create');
+    }
 
     /**
      * Executes all the fixtures that have been loaded so far.
      */
     protected function executeFixtures()
     {
-        $this->runCommand('doctrine:database:drop --force');
-        $this->runCommand('doctrine:database:create');
-        $this->runCommand('doctrine:schema:create');
+        $this->initTestDatabase();
         $this->getFixtureExecutor()->execute($this->getFixtureLoader()->getFixtures(), true);
     }
 
