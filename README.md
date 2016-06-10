@@ -1,3 +1,9 @@
+Rhino Report
+===============
+
+[![Build Status](https://travis-ci.org/cifren/RhinoReport.svg?branch=master)](https://travis-ci.org/cifren/RhinoReport)
+[![Coverage Status](https://coveralls.io/repos/github/cifren/RhinoReport/badge.svg?branch=master)](https://coveralls.io/github/cifren/RhinoReport?branch=master)
+
 Overview
 ========
 
