@@ -11,7 +11,6 @@ use Earls\RhinoReportBundle\Report\ReportObject\ModuleObject;
 
 abstract class TableObject extends ModuleObject
 {
-
     protected $data;
     protected $type = null;
     protected $parent;
@@ -31,7 +30,7 @@ abstract class TableObject extends ModuleObject
     public function getPartialPath()
     {
         if (!$this->partialPath) {
-            $this->partialPath = $this->type . ':%:' . $this->excludeSpecialCharacter($this->id);
+            $this->partialPath = $this->type.':%:'.$this->excludeSpecialCharacter($this->id);
         }
 
         return $this->partialPath;
@@ -40,7 +39,7 @@ abstract class TableObject extends ModuleObject
     public function getFullPath()
     {
         if (!$this->fullPath) {
-            $this->fullPath = $this->getParentPath() . '\\' . $this->getPartialPath();
+            $this->fullPath = $this->getParentPath().'\\'.$this->getPartialPath();
         }
 
         return $this->fullPath;
@@ -78,7 +77,7 @@ abstract class TableObject extends ModuleObject
     public function setAttribute($attr, $value)
     {
         if ($attr == 'class' && !is_array($value)) {
-            throw new \Exception('Attribute `class´ for `' . get_class($this) . '´ `' . $this->getDefinition()->getPath() . '´ should be an array');
+            throw new \Exception('Attribute `class´ for `'.get_class($this).'´ `'.$this->getDefinition()->getPath().'´ should be an array');
         }
         $this->attributes[$attr] = $value;
 
@@ -117,5 +116,4 @@ abstract class TableObject extends ModuleObject
     {
         return 'table';
     }
-
 }

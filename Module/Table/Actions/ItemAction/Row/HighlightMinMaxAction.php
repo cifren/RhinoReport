@@ -2,8 +2,6 @@
 
 namespace Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Row;
 
-use Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Row\Action;
-
 /*
  *  Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Row\HighlightMinMaxAction
  *
@@ -52,7 +50,7 @@ class HighlightMinMaxAction extends Action
         //add new class to column
         foreach ($mDisplayIds as $displayId) {
             //merge existing and new class
-            $this->row->getColumn($displayId)->setAttribute('class', is_array($column->getAttribute('class'))?array_merge($column->getAttribute('class'), $this->options['class']):$this->options['class']);
+            $this->row->getColumn($displayId)->setAttribute('class', is_array($column->getAttribute('class')) ? array_merge($column->getAttribute('class'), $this->options['class']) : $this->options['class']);
         }
 
         return $this->row;
@@ -60,9 +58,9 @@ class HighlightMinMaxAction extends Action
 
     private function mFunction(array $values)
     {
-        if ($this->minMaxValue == "max") {
+        if ($this->minMaxValue == 'max') {
             return $m = max($values);
-        } elseif ($this->minMaxValue == "min") {
+        } elseif ($this->minMaxValue == 'min') {
             return $m = min($values);
         }
     }
@@ -73,8 +71,7 @@ class HighlightMinMaxAction extends Action
 
         return array(
             'displayIds' => array(),
-            'class' => $defaultClass
+            'class' => $defaultClass,
         );
     }
-
 }

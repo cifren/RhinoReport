@@ -2,14 +2,11 @@
 
 namespace Earls\RhinoReportBundle\Templating\ExportConfigurator;
 
-use Earls\RhinoReportBundle\Templating\ExportConfigurator\ExportConfigurator;
-
 /**
- * Earls\RhinoReportBundle\Templating\ExportConfigurator\HtmlExportConfigurator
+ * Earls\RhinoReportBundle\Templating\ExportConfigurator\HtmlExportConfigurator.
  */
 class HtmlExportConfigurator implements ExportConfigurator
 {
-
     protected $attr = array();
     protected $response = array();
 
@@ -17,7 +14,7 @@ class HtmlExportConfigurator implements ExportConfigurator
     {
         $this->response = $this->getDefaultResponse();
     }
-    
+
     public function setAttr(array $attr)
     {
         $this->attr = $attr;
@@ -38,14 +35,14 @@ class HtmlExportConfigurator implements ExportConfigurator
     public function setResponse($response)
     {
         $this->response = array_merge($this->getDefaultResponse(), $response);
+
         return $this;
     }
 
     protected function getDefaultResponse()
     {
         return array(
-            'uniqueBlock' => true
+            'uniqueBlock' => true,
         );
     }
-
 }

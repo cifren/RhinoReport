@@ -2,23 +2,20 @@
 
 namespace Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Group;
 
-use Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Group\Action;
 use Earls\RhinoReportBundle\Module\Table\Helper\TableRetrieverHelper;
 
 /**
- *  Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Group\HighlightMinMaxAction
- *
+ *  Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Group\HighlightMinMaxAction.
  */
 class HighlightMinMaxAction extends Action
 {
-
     protected $retriever;
     protected $min_max = array('max', 'min');
 
     public function __construct(TableRetrieverHelper $retriever, $maxMinValue)
     {
         if (!in_array($maxMinValue, $this->min_max)) {
-            throw new \UnexpectedValueException('Error on \'HighlightMinMaxRowAction\' in \'' . $this->group->getDefinition()->getPath() . '\' MIN/MAX value can be only \'max\' or \'min\'');
+            throw new \UnexpectedValueException('Error on \'HighlightMinMaxRowAction\' in \''.$this->group->getDefinition()->getPath().'\' MIN/MAX value can be only \'max\' or \'min\'');
         }
         $this->minMaxValue = $maxMinValue;
         $this->retriever = $retriever;
@@ -65,23 +62,22 @@ class HighlightMinMaxAction extends Action
 
     protected function mFunction(array $values)
     {
-        if ($this->minMaxValue == "max") {
+        if ($this->minMaxValue == 'max') {
             return $m = max($values);
-        } elseif ($this->minMaxValue == "min") {
+        } elseif ($this->minMaxValue == 'min') {
             return $m = min($values);
         }
     }
 
     public function getOptions()
     {
-        $defaultClass = 'hl-group-' . $this->minMaxValue;
+        $defaultClass = 'hl-group-'.$this->minMaxValue;
 
         return array(
             'group' => null,
             'displayIds' => array(),
             'class' => array($defaultClass),
-            'highlightZero' => 0
+            'highlightZero' => 0,
         );
     }
-
 }

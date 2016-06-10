@@ -6,15 +6,12 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Earls\RhinoReportBundle\Report\Definition\ReportDefinitionInterface;
 use Earls\RhinoReportBundle\Report\Definition\ModuleDefinitionInterface;
 use Earls\RhinoReportBundle\Report\Definition\ReportDefinition;
-use Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition;
-use Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition;
 
 /**
- * Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition
+ * Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition.
  */
 class TableDefinition extends Definition implements ReportDefinitionInterface, ModuleDefinitionInterface
 {
-
     protected $headDefinition;
     protected $bodyDefinition;
     protected $factory;
@@ -22,34 +19,38 @@ class TableDefinition extends Definition implements ReportDefinitionInterface, M
     protected $position;
     protected $template = 'DefaultTemplate';
     protected $moduleType = 'table';
-    
+
     public function setHeadDefinition($headDefinition)
     {
         $this->headDefinition = $headDefinition;
+
         return $this;
     }
 
     public function getHeadDefinition()
     {
-        if(!$this->headDefinition){
-            $this->setHeadDefinition(new HeadDefinition);
+        if (!$this->headDefinition) {
+            $this->setHeadDefinition(new HeadDefinition());
             $this->headDefinition->setParent($this);
         }
+
         return $this->headDefinition;
     }
-    
+
     public function setBodyDefinition($bodyDefinition)
     {
         $this->bodyDefinition = $bodyDefinition;
+
         return $this;
     }
 
     public function getBodyDefinition()
     {
-        if(!$this->bodyDefinition){
+        if (!$this->bodyDefinition) {
             $this->setBodyDefinition(new GroupDefinition('body'));
             $this->bodyDefinition->setParent($this);
         }
+
         return $this->bodyDefinition;
     }
 
@@ -67,7 +68,7 @@ class TableDefinition extends Definition implements ReportDefinitionInterface, M
             return $this->path;
         }
 
-        return $this->path = '\\' . $this->excludeSpecialCharacter($this->getDisplayId());
+        return $this->path = '\\'.$this->excludeSpecialCharacter($this->getDisplayId());
     }
 
     public function build()
@@ -111,12 +112,12 @@ class TableDefinition extends Definition implements ReportDefinitionInterface, M
                 // -1 because count is before
                 $columnCount = -1;
 
-                for ($headIndex = 0; $headIndex < count($headColumnDefinitions); $headIndex++) {
-                    $columnCount++;
+                for ($headIndex = 0; $headIndex < count($headColumnDefinitions); ++$headIndex) {
+                    ++$columnCount;
 
                     if ($tempColumnDefinitions[$columnCount]->getType() == ColumnDefinition::TYPE_DATA) {
                         //head count ignore column type 'data'
-                        $headIndex--;
+                        --$headIndex;
 
                         //add column
                         $newColumnDefinitions[] = $tempColumnDefinitions[$columnCount];
@@ -125,10 +126,10 @@ class TableDefinition extends Definition implements ReportDefinitionInterface, M
                     }
 
                     if ($colSpanCounter != 0) {
-                        $colSpanCounter--;
+                        --$colSpanCounter;
 
                         //column count ignore column colspan
-                        $columnCount--;
+                        --$columnCount;
 
                         //definition does'nt exist, need to be created
                         $newColumn = $item->addColumn($headColumnDefinitions[$headIndex]['id'], 'display');
@@ -144,15 +145,14 @@ class TableDefinition extends Definition implements ReportDefinitionInterface, M
 
                     //check the postion of columnDefinition in defintionConfiguration
                     if ($tempColumnDefinitions[$columnCount]->getDisplayId() != $headColumnDefinitions[$headIndex]['id']) {
-
                         if (!$item->getColumn($headColumnDefinitions[$headIndex]['id'])) {
 
                             //doesnt exist
-                            throw new \UnexpectedValueException('The Column definition \'' . $headColumnDefinitions[$headIndex]['id'] . '\' in group \'' . $item->getParent()->getId() . '\' is missing or does\'nt exist in head, did you forget colspan value to skip this column or did you declare as a type \'columnData\' ?');
+                            throw new \UnexpectedValueException('The Column definition \''.$headColumnDefinitions[$headIndex]['id'].'\' in group \''.$item->getParent()->getId().'\' is missing or does\'nt exist in head, did you forget colspan value to skip this column or did you declare as a type \'columnData\' ?');
                         } else {
 
                             //exist but is not at the good posistion
-                            throw new \UnexpectedValueException('The Column definition \'' . $headColumnDefinitions[$headIndex]['id'] . '\' exist but is in the wrong order in group \'' . $item->getParent()->getId() . '\'');
+                            throw new \UnexpectedValueException('The Column definition \''.$headColumnDefinitions[$headIndex]['id'].'\' exist but is in the wrong order in group \''.$item->getParent()->getId().'\'');
                         }
                     }
 
@@ -164,7 +164,7 @@ class TableDefinition extends Definition implements ReportDefinitionInterface, M
                 foreach ($newColumnDefinitions as $column) {
                     $column->setOrder($i);
                     $item->setColumnItem($column->getDisplayId(), $column);
-                    $i++;
+                    ++$i;
                 }
 
                 //reorder column via column->order for create in good order in the factory
@@ -181,6 +181,7 @@ class TableDefinition extends Definition implements ReportDefinitionInterface, M
     public function setObjectFactory($factory)
     {
         $this->factory = $factory;
+
         return $this;
     }
 
@@ -209,14 +210,15 @@ class TableDefinition extends Definition implements ReportDefinitionInterface, M
     public function setTemplate($template)
     {
         $this->template = $template;
+
         return $this;
     }
-    
+
     public function setModuleType($type)
     {
-        $this->moduleType = $type;    
+        $this->moduleType = $type;
     }
-    
+
     public function getModuleType()
     {
         return $this->moduleType;
@@ -224,16 +226,17 @@ class TableDefinition extends Definition implements ReportDefinitionInterface, M
 
     public function getFactoryType()
     {
-        if($this->getModuleType()){
+        if ($this->getModuleType()) {
             $this->factoryType = $this->getModuleType();
         }
+
         return $this->factoryType;
     }
-    
+
     public function setFactoryType($factoryType)
     {
         $this->factoryType = $factoryType;
+
         return $this;
     }
-
 }

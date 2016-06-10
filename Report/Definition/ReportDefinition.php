@@ -6,12 +6,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 
 /**
- *  Earls\RhinoReportBundle\Report\Definition\ReportDefinition
- *
+ *  Earls\RhinoReportBundle\Report\Definition\ReportDefinition.
  */
 class ReportDefinition implements ReportDefinitionInterface
 {
-
     protected $factory;
     protected $items;
     protected $filters;
@@ -26,12 +24,12 @@ class ReportDefinition implements ReportDefinitionInterface
     public function getItem($displayId)
     {
         $criteria = Criteria::create()
-            ->where(Criteria::expr()->eq("displayId", $displayId))
+            ->where(Criteria::expr()->eq('displayId', $displayId))
         ;
 
         $items = $this->items->matching($criteria);
         $item = ($items->count() > 0) ? array_shift(array_values($items->toArray())) : null;
-        
+
         return $item;
     }
 
@@ -42,12 +40,12 @@ class ReportDefinition implements ReportDefinitionInterface
         }
 
         if ($this->getItem($item->getDisplayId())) {
-            throw new \UnexpectedValueException('This Id \'' . $item->getDisplayId() . '\' is already used');
+            throw new \UnexpectedValueException('This Id \''.$item->getDisplayId().'\' is already used');
         }
-        
+
         $item->setParent($this);
         $this->items[] = $item;
-        
+
         return $this;
     }
 
@@ -64,6 +62,7 @@ class ReportDefinition implements ReportDefinitionInterface
     public function setTemplate($template)
     {
         $this->template = $template;
+
         return $this;
     }
 
@@ -75,21 +74,24 @@ class ReportDefinition implements ReportDefinitionInterface
     public function setObjectFactory($factory)
     {
         $this->factory = $factory;
+
         return $this;
     }
-    
+
     public function getDisplayId()
     {
         return 'main_report';
     }
-    
+
     public function addFilter($filter)
     {
-        $this->filters[] = $filter; 
+        $this->filters[] = $filter;
+
         return $this;
     }
-    
-    public function getFilters(){
+
+    public function getFilters()
+    {
         return $this->filters;
     }
 }

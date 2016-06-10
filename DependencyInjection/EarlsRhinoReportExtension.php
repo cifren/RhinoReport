@@ -9,16 +9,15 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 class EarlsRhinoReportExtension extends Extension
 {
-
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../'));
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../'));
         $loader->load('Report/Resources/config/services.yml');
         $loader->load('Module/Table/Resources/config/services.yml');
         $loader->load('Module/Bar/Resources/config/services.yml');
@@ -28,5 +27,4 @@ class EarlsRhinoReportExtension extends Extension
     {
         return 'earls_rhino_report';
     }
-
 }

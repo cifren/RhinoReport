@@ -3,11 +3,10 @@
 namespace Earls\RhinoReportBundle\Templating\Excel\Style;
 
 /**
- * Earls\RhinoReportBundle\Templating\Excel\Style\StyleUtility
+ * Earls\RhinoReportBundle\Templating\Excel\Style\StyleUtility.
  */
 class StyleUtility
 {
-
     public static function parseStyle($style)
     {
         foreach ($style as $keyClass => $rules) {
@@ -23,5 +22,4 @@ class StyleUtility
 
         return $style;
     }
-
 }

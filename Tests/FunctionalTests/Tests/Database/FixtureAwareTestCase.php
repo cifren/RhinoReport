@@ -1,10 +1,10 @@
 <?php
+
 namespace Earls\RhinoReportBundle\Tests\FunctionalTests\Tests\Database;
 
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\DataFixtures\ContainerAwareLoader;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -12,8 +12,8 @@ use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\StreamOutput;
 
 /**
- * Earls\RhinoReportBundle\Tests\FixtureAwareTestCase
- **/ 
+ * Earls\RhinoReportBundle\Tests\FixtureAwareTestCase.
+ **/
 abstract class FixtureAwareTestCase extends WebTestCase
 {
     /**
@@ -29,7 +29,7 @@ abstract class FixtureAwareTestCase extends WebTestCase
     public function __construct()
     {
         // By default, KERNEL_DIR is in phpunit.xml.dist config
-        $_SERVER['KERNEL_DIR'] = __DIR__."/../../";
+        $_SERVER['KERNEL_DIR'] = __DIR__.'/../../';
     }
 
     public function setUp()
@@ -46,7 +46,7 @@ abstract class FixtureAwareTestCase extends WebTestCase
     {
         $this->getFixtureLoader()->addFixture($fixture);
     }
-    
+
     protected function initTestDatabase()
     {
         $this->runCommand('doctrine:database:drop --force');
@@ -73,6 +73,7 @@ abstract class FixtureAwareTestCase extends WebTestCase
             $entityManager = self::$kernel->getContainer()->get('doctrine')->getManager();
             $this->fixtureExecutor = new ORMExecutor($entityManager, new ORMPurger($entityManager));
         }
+
         return $this->fixtureExecutor;
     }
 
@@ -84,9 +85,10 @@ abstract class FixtureAwareTestCase extends WebTestCase
         if (!$this->fixtureLoader) {
             $this->fixtureLoader = new ContainerAwareLoader(self::$kernel->getContainer());
         }
+
         return $this->fixtureLoader;
     }
-    
+
     public function runCommand($command)
     {
         $client = self::createClient();
@@ -105,7 +107,7 @@ abstract class FixtureAwareTestCase extends WebTestCase
             $output = fread($fp, 4096);
         }
         fclose($fp);
-        
+
         return $output;
     }
 }

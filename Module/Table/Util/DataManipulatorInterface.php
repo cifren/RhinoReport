@@ -3,9 +3,8 @@
 namespace Earls\RhinoReportBundle\Module\Table\Util;
 
 /**
- * Earls\RhinoReportBundle\Module\Table\Util\DataManipulatorInterface
+ * Earls\RhinoReportBundle\Module\Table\Util\DataManipulatorInterface.
  */
 interface DataManipulatorInterface
 {
-
 }

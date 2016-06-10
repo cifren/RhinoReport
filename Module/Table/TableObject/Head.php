@@ -2,9 +2,7 @@
 
 namespace Earls\RhinoReportBundle\Module\Table\TableObject;
 
-use Earls\RhinoReportBundle\Module\Table\TableObject\TableObject;
 use Earls\RhinoReportBundle\Module\Table\Definition\HeadDefinition;
-use Earls\RhinoReportBundle\Module\Table\TableObject\Table;
 
 /*
  * Earls\RhinoReportBundle\Module\Table\TableObject\Head
@@ -12,7 +10,6 @@ use Earls\RhinoReportBundle\Module\Table\TableObject\Table;
 
 class Head extends TableObject
 {
-
     protected $columns;
 
     public function __construct($id, HeadDefinition $definition, Table $parent)
@@ -42,5 +39,4 @@ class Head extends TableObject
 
         return $this;
     }
-
 }

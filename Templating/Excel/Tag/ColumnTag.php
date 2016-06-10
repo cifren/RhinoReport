@@ -3,13 +3,12 @@
 namespace Earls\RhinoReportBundle\Templating\Excel\Tag;
 
 /**
- * Earls\RhinoReportBundle\Templating\Excel\Tag\ColumnTag
+ * Earls\RhinoReportBundle\Templating\Excel\Tag\ColumnTag.
  *
  * http://msdn.microsoft.com/en-us/library/aa140066.aspx#odc_xmlss_ss:column
  */
 class ColumnTag
 {
-
     protected $caption;
     protected $autoFitWidth;
     protected $hidden;
@@ -22,10 +21,10 @@ class ColumnTag
     {
         if (!array_key_exists($name, $this->getOptions())) {
             $options = implode(', ', array_keys($this->getOptions()));
-            throw new \Exception('Column option `' . $name . '´ with value `' . $value . '´ is not an possible option, list of possible options ' . $options );
+            throw new \Exception('Column option `'.$name.'´ with value `'.$value.'´ is not an possible option, list of possible options '.$options);
         }
         $name = explode(':', $name)[1];
-        $this->{'set' . ucfirst($name) . 'Option'}($value);
+        $this->{'set'.ucfirst($name).'Option'}($value);
 
         return $this;
     }
@@ -77,5 +76,4 @@ class ColumnTag
     {
         $this->width = $value;
     }
-
 }

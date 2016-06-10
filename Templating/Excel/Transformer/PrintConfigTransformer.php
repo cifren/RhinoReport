@@ -7,13 +7,12 @@ use Earls\RhinoReportBundle\Templating\Excel\Translator\TagHeaderFooterTranslato
 
 /**
  * Help on http://msdn.microsoft.com/en-us/library/aa140066.aspx or http://en.wikipedia.org/wiki/Microsoft_Office_XML_formats
- * Or just open Excel file and save it in format xml and open file.xml with text editor :-)
+ * Or just open Excel file and save it in format xml and open file.xml with text editor :-).
  *
  * Earls\RhinoReportBundle\Templating\Excel\Transformer\PrintConfigTransformer
  */
 class PrintConfigTransformer
 {
-
     protected $config;
     protected $availableConfig = array(
         'orientation',
@@ -21,7 +20,7 @@ class PrintConfigTransformer
         'scaling',
         'print_titles',
         'papersize',
-        'footer'
+        'footer',
     );
 
     public function __construct(array $config)
@@ -33,7 +32,7 @@ class PrintConfigTransformer
     {
         foreach ($this->config as $key => $value) {
             if (in_array($key, $this->availableConfig)) {
-                $this->config[$key] = $this->{(string) Container::camelize($key) . 'Transformer'}($value);
+                $this->config[$key] = $this->{(string) Container::camelize($key).'Transformer'}($value);
             } else {
                 throw new \Exception("This printConfig value '$key' does'n exist");
             }
@@ -71,7 +70,7 @@ class PrintConfigTransformer
                 $shortCut = array(
                     'narrow' => array('top' => 0.75, 'right' => 0.25, 'bottom' => 0.75, 'left' => 0.25),
                     'normal' => array('top' => 0.75, 'right' => 0.7, 'bottom' => 0.75, 'left' => 0.7),
-                    'wide' => array('top' => 1, 'right' => 1, 'bottom' => 1, 'left' => 1)
+                    'wide' => array('top' => 1, 'right' => 1, 'bottom' => 1, 'left' => 1),
                 );
 
                 return $shortCut[$config];
@@ -106,7 +105,7 @@ class PrintConfigTransformer
         if (isset($availableValue[$config])) {
             return $availableValue[$config];
         } else {
-            throw new \Exception("This printConfig value for paper size is not valid");
+            throw new \Exception('This printConfig value for paper size is not valid');
         }
     }
 
@@ -118,17 +117,18 @@ class PrintConfigTransformer
      * {{time}}         time
      * {{path}}         path of the file
      * {{file}}         filename
-     * {{sheet}}        sheetname
-     * 
+     * {{sheet}}        sheetname.
+     *
      * @param mixed $config
      */
     public function footerTransformer($config)
     {
         if (isset($config)) {
             $translator = new TagHeaderFooterTranslator();
+
             return $translator->translate($config);
         } else {
-            throw new \Exception("This printConfig value for footer is not valid");
+            throw new \Exception('This printConfig value for footer is not valid');
         }
     }
 
@@ -136,10 +136,10 @@ class PrintConfigTransformer
     {
         if (isset($config)) {
             $translator = new TagHeaderFooterTranslator();
+
             return $translator->translate($config);
         } else {
-            throw new \Exception("This printConfig value for header is not valid");
+            throw new \Exception('This printConfig value for header is not valid');
         }
     }
-
 }

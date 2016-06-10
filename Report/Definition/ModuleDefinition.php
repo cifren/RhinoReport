@@ -3,15 +3,14 @@
 namespace Earls\RhinoReportBundle\Report\Definition;
 
 /**
- * Earls\RhinoReportBundle\Report\Definition\ModuleDefinition
- * 
+ * Earls\RhinoReportBundle\Report\Definition\ModuleDefinition.
+ *
  * Description of ModuleDefinition
  *
  * @author cifren
  */
 abstract class ModuleDefinition implements ReportDefinitionInterface, ModuleDefinitionInterface
 {
-
     protected $parent;
     protected $position;
     protected $template = 'DefaultTemplate';
@@ -26,6 +25,7 @@ abstract class ModuleDefinition implements ReportDefinitionInterface, ModuleDefi
     public function setDisplayId($displayId)
     {
         $this->displayId = $displayId;
+
         return $this;
     }
 
@@ -37,6 +37,7 @@ abstract class ModuleDefinition implements ReportDefinitionInterface, ModuleDefi
     public function setParent($parent)
     {
         $this->parent = $parent;
+
         return $this;
     }
 
@@ -60,14 +61,15 @@ abstract class ModuleDefinition implements ReportDefinitionInterface, ModuleDefi
     public function setTemplate($template)
     {
         $this->template = $template;
+
         return $this;
     }
-    
+
     public function setModuleType($type)
     {
-        $this->moduleType = $type;    
+        $this->moduleType = $type;
     }
-    
+
     public function getModuleType()
     {
         return $this->moduleType;
@@ -75,15 +77,17 @@ abstract class ModuleDefinition implements ReportDefinitionInterface, ModuleDefi
 
     public function getFactoryType()
     {
-        if($this->getModuleType()){
+        if ($this->getModuleType()) {
             $this->factoryType = $this->getModuleType();
         }
+
         return $this->factoryType;
     }
-    
+
     public function setFactoryType($factoryType)
     {
         $this->factoryType = $factoryType;
+
         return $this;
     }
 }

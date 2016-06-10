@@ -6,9 +6,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 
 /**
- * Earls\RhinoReportBundle\DependencyInjection\Compiler\ActionPass
- * 
- * Adds all services with the tags "..action.." arguments of the 
+ * Earls\RhinoReportBundle\DependencyInjection\Compiler\ActionPass.
+ *
+ * Adds all services with the tags "..action.." arguments of the
  * "report.table.extension" service
  *
  * @author Cifren

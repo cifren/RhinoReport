@@ -7,11 +7,10 @@ use Earls\RhinoReportBundle\Report\Templating\SystemTemplate\Model\Template;
 use Earls\RhinoReportBundle\Report\ReportObject\Filter;
 
 /**
- * Earls\RhinoReportBundle\Report\Templating\DefaultTemplate\ReportTemplateGeneratorManager
+ * Earls\RhinoReportBundle\Report\Templating\DefaultTemplate\ReportTemplateGeneratorManager.
  */
 class ReportTemplateGeneratorManager
 {
-
     protected $container;
 
     public function __construct($container)
@@ -21,13 +20,14 @@ class ReportTemplateGeneratorManager
 
     /**
      * Return a response for the report, an ID need to be selected
-     * Can return filter in HTML only
+     * Can return filter in HTML only.
      *
-     * @param  string $format   html, xls, pdf...
-     * @param  string $nameFile name files for xls, pdf or other
-     * @param  ModuleObject|Filter $object   object will be managed by the service
-     * @param  string $id       id selected in report object
-     * @param  array  $arg      arguments like with js or not, css or not....
+     * @param string              $format   html, xls, pdf...
+     * @param string              $nameFile name files for xls, pdf or other
+     * @param ModuleObject|Filter $object   object will be managed by the service
+     * @param string              $id       id selected in report object
+     * @param array               $arg      arguments like with js or not, css or not....
+     *
      * @return string
      *
      * @throws \UnexpectedValueException
@@ -43,7 +43,7 @@ class ReportTemplateGeneratorManager
             $type = $this->getReportTypeName(get_class($object));
             $templateName = $object->getOptions()['template'];
             $templateGenerator = $this->getTemplateGenerator($templateName, $type, 'html');
-            
+
             return $templateGenerator->getResponse($nameFile, $object, $arg, 'filter');
         } elseif ('filter' == $id && 'html' != $format) {
             throw new \UnexpectedValueException('This feature is not available yet, you can\'t export filter in other format as html');
@@ -52,7 +52,7 @@ class ReportTemplateGeneratorManager
         $item = $object->getItem($id);
         $typeNameItem = $this->getReportTypeName(get_class($item), $id);
 
-        $reportParameter = $this->container->getParameter("report_type");
+        $reportParameter = $this->container->getParameter('report_type');
         $validExport = $reportParameter[$typeNameItem]['export'];
 
         if (!in_array($format, $validExport)) {
@@ -97,7 +97,7 @@ class ReportTemplateGeneratorManager
             $template->addModule($templating);
             $template->addUniqueBlockName($templateGenerator->getUniqueBlockName());
         }
-        
+
         return $template;
     }
 
@@ -125,5 +125,4 @@ class ReportTemplateGeneratorManager
 
         return $this->container->get($serviceName);
     }
-
 }

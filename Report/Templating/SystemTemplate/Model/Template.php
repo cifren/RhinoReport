@@ -5,13 +5,12 @@ namespace Earls\RhinoReportBundle\Report\Templating\SystemTemplate\Model;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Description of Template
+ * Description of Template.
  *
  * @author cifren
  */
 class Template
 {
-
     protected $modules;
     protected $uniqueModules;
     protected $filter;
@@ -50,6 +49,7 @@ class Template
     public function setUniqueModules($uniqueModules)
     {
         $this->uniqueModules = $uniqueModules;
+
         return $this;
     }
 
@@ -96,7 +96,7 @@ class Template
 
     public function getType()
     {
-        return "table";
+        return 'table';
     }
 
     public function getOptions()
@@ -107,6 +107,7 @@ class Template
     public function setOptions($options)
     {
         $this->options = $options;
+
         return $this;
     }
 
@@ -118,6 +119,7 @@ class Template
     public function setRemoteUrl($remoteUrl)
     {
         $this->remoteUrl = $remoteUrl;
+
         return $this;
     }
 
@@ -141,5 +143,4 @@ class Template
 
         return $this;
     }
-
 }

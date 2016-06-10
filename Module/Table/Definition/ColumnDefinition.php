@@ -5,12 +5,10 @@ namespace Earls\RhinoReportBundle\Module\Table\Definition;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
 /**
- *  Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition
- *
+ *  Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition.
  */
 class ColumnDefinition extends Definition
 {
-
     const TYPE_DATA = 'data';
     const TYPE_DISPLAY = 'display';
 
@@ -27,7 +25,7 @@ class ColumnDefinition extends Definition
     public function __construct($displayId, $type, $dataId = null)
     {
         $this->setDisplayId($displayId);
-        $this->setAttribute('class', array('column_' . $displayId));
+        $this->setAttribute('class', array('column_'.$displayId));
         $this->setType($type);
         if ($dataId) {
             $this->setBaseData('dataId', $dataId);
@@ -46,21 +44,23 @@ class ColumnDefinition extends Definition
 
         return $this;
     }
-    
+
     public function setDataId($dataId)
     {
-        if($dataId){
+        if ($dataId) {
             $this->setBaseData('dataId', $dataId);
         }
+
         return $this;
     }
 
     public function getDataId()
     {
         $dataId = null;
-        if(isset($this->getBaseData()['type']) && $this->getBaseData()['type'] == 'dataId') {
+        if (isset($this->getBaseData()['type']) && $this->getBaseData()['type'] == 'dataId') {
             $dataId = $this->getBaseData()['column'];
         }
+
         return $dataId;
     }
 
@@ -72,6 +72,7 @@ class ColumnDefinition extends Definition
     public function setType($type)
     {
         $this->type = $type;
+
         return $this;
     }
 
@@ -129,7 +130,7 @@ class ColumnDefinition extends Definition
             return $this->path;
         }
 
-        return $this->path = $this->parent->getPath() . '.' . $this->excludeSpecialCharacter($this->displayId);
+        return $this->path = $this->parent->getPath().'.'.$this->excludeSpecialCharacter($this->displayId);
     }
 
     public function setGroupAction($name, array $arg, $dependences = array())
@@ -137,7 +138,7 @@ class ColumnDefinition extends Definition
         $this->groupAction = array(
             'name' => $name,
             'arg' => $arg,
-            'dependences' => $dependences
+            'dependences' => $dependences,
         );
         //execute either extendingGroupAction or groupAction
         $this->extendingGroupAction = null;
@@ -158,7 +159,7 @@ class ColumnDefinition extends Definition
     public function setExtendingGroupAction($dependences = array())
     {
         $this->extendingGroupAction = array(
-            'dependences' => $dependences
+            'dependences' => $dependences,
         );
         //execute either extendingGroupAction either groupAction
         $this->groupAction = null;
@@ -175,16 +176,18 @@ class ColumnDefinition extends Definition
     {
         return $this->extendingGroupAction != null;
     }
-    
+
     public function clearAction()
     {
         $this->setActions(array());
+
         return $this;
     }
-    
+
     public function setActions($actions)
     {
         $this->actions = $actions;
+
         return $this;
     }
 
@@ -192,8 +195,9 @@ class ColumnDefinition extends Definition
     {
         $this->actions[] = array(
             'name' => $name,
-            'arg' => $arg
+            'arg' => $arg,
         );
+
         return $this;
     }
 
@@ -206,5 +210,4 @@ class ColumnDefinition extends Definition
     {
         return count($this->actions) > 0;
     }
-
 }

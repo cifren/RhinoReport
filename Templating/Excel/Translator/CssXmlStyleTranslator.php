@@ -5,7 +5,7 @@ namespace Earls\RhinoReportBundle\Templating\Excel\Translator;
 use Earls\RhinoReportBundle\Templating\Excel\Style\Style;
 
 /**
- * Help on http://msdn.microsoft.com/en-us/library/aa140066.aspx or http://en.wikipedia.org/wiki/Microsoft_Office_XML_formats
+ * Help on http://msdn.microsoft.com/en-us/library/aa140066.aspx or http://en.wikipedia.org/wiki/Microsoft_Office_XML_formats.
  *
  * Earls\RhinoReportBundle\Templating\Excel\Translator\CssXmlStyleTranslator
  */
@@ -60,9 +60,9 @@ class CssXmlStyleTranslator
                 } /* else {
                   throw new \Exception('Rule css `' . $rule . '´ can\'t be translated');
                   } */
-            };
+            }
         }
-        
+
         return $this->styleArray;
     }
 
@@ -87,7 +87,7 @@ class CssXmlStyleTranslator
                 break;
 
             default:
-                throw new \Exception('Value css `' . $value . '´ can\'t be translated in `font-weight´');
+                throw new \Exception('Value css `'.$value.'´ can\'t be translated in `font-weight´');
                 break;
         }
 
@@ -99,16 +99,16 @@ class CssXmlStyleTranslator
         if (is_numeric($value)) {
             $xmlValue = $value;
         } else {
-            throw new \Exception('Value css `' . $value . '´ can\'t be translated in `font-size´');
+            throw new \Exception('Value css `'.$value.'´ can\'t be translated in `font-size´');
         }
 
         return $style->addNewRule('font', 'ss:Size', $xmlValue);
     }
 
-    protected function fontColor($style, $value = NULL)
+    protected function fontColor($style, $value = null)
     {
-        if($value == NULL){
-            throw new \Exception('Value css can\'t be translated in `font-color´');            
+        if ($value == null) {
+            throw new \Exception('Value css can\'t be translated in `font-color´');
         }
 
         return $style->addNewRule('font', 'ss:Color', $value);
@@ -117,11 +117,11 @@ class CssXmlStyleTranslator
     protected function backgroundColor($style, $value)
     {
         switch (true) {
-            case preg_match('/(#[0-9a-fA-F]{6})/', $value) :
+            case preg_match('/(#[0-9a-fA-F]{6})/', $value):
                 $xmlValue = $value;
                 break;
             default:
-                throw new \Exception('Value css `' . $value . '´ can\'t be translated in `background-color´');
+                throw new \Exception('Value css `'.$value.'´ can\'t be translated in `background-color´');
                 break;
         }
 
@@ -140,7 +140,7 @@ class CssXmlStyleTranslator
 
     protected function textindent($style, $value)
     {
-        $style->addNewRule('alignment', 'ss:Indent', (float) (preg_replace("/[^-0-9\.]/", "", $value)) / 9);
+        $style->addNewRule('alignment', 'ss:Indent', (float) (preg_replace("/[^-0-9\.]/", '', $value)) / 9);
 
         return $style;
     }
@@ -224,7 +224,7 @@ class CssXmlStyleTranslator
             $style->addNewRule('rightBorder', 'ss:LineStyle', $value);
             $style->addNewRule('leftBorder', 'ss:LineStyle', $value);
         } else {
-            $style->addNewRule($arg[0] . 'Border', 'ss:LineStyle', $value);
+            $style->addNewRule($arg[0].'Border', 'ss:LineStyle', $value);
         }
 
         return $style;
@@ -256,7 +256,7 @@ class CssXmlStyleTranslator
             $style->addNewRule('rightBorder', 'ss:Weight', $value);
             $style->addNewRule('leftBorder', 'ss:Weight', $value);
         } else {
-            $style->addNewRule($arg[0] . 'Border', 'ss:Weight', $value);
+            $style->addNewRule($arg[0].'Border', 'ss:Weight', $value);
         }
 
         return $style;
@@ -276,20 +276,19 @@ class CssXmlStyleTranslator
 
         return $style;
     }
-    
+
     protected function protection($style, $value)
     {
         switch ($value) {
             case true:
-                $value = "1"; //Medium
+                $value = '1'; //Medium
                 break;
             default:
-                $value = "0";
+                $value = '0';
                 break;
         }
         $style->addNewRule('protection', 'ss:Protected', $value);
 
         return $style;
     }
-
 }

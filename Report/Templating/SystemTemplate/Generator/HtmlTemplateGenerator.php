@@ -6,11 +6,10 @@ use Earls\RhinoReportBundle\Report\Templating\DefaultTemplate\Model\ModuleTempla
 use Earls\RhinoReportBundle\Report\ReportObject\ModuleObject;
 
 /**
- * Earls\RhinoReportBundle\Report\Templating\SystemTemplate\Generator\HtmlTemplateGenerator
+ * Earls\RhinoReportBundle\Report\Templating\SystemTemplate\Generator\HtmlTemplateGenerator.
  */
 abstract class HtmlTemplateGenerator implements TemplateGeneratorInterface
 {
-
     protected $templatingService;
     protected $twigTemplateName;
     protected $uniqueBlockName;
@@ -71,13 +70,14 @@ abstract class HtmlTemplateGenerator implements TemplateGeneratorInterface
     public function setTwigTemplateName($twigTemplateName)
     {
         $this->twigTemplateName = $twigTemplateName;
+
         return $this;
     }
 
     public function setUniqueBlockName($uniqueBlockName)
     {
         $this->uniqueBlockName = $uniqueBlockName;
+
         return $this;
     }
-
 }

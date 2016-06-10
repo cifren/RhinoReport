@@ -5,12 +5,10 @@ namespace Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Group;
 use Earls\RhinoReportBundle\Module\Table\TableObject\Group;
 
 /**
- *  Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Group\Action
- *
+ *  Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Group\Action.
  */
 abstract class Action implements ActionInterface
 {
-
     protected $group;
     protected $options;
 
@@ -40,5 +38,4 @@ abstract class Action implements ActionInterface
     {
         throw new \Exception('did you forget to declare `getGroup()` in your Action Class ?');
     }
-
 }

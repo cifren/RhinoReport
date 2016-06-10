@@ -3,14 +3,12 @@
 namespace Earls\RhinoReportBundle\Report\Filter\FilterTransformer;
 
 /**
- * Used for lexik bundle in order to apply a pattern on the string
+ * Used for lexik bundle in order to apply a pattern on the string.
  *
  *  Earls\RhinoReportBundle\Report\Filter\FilterTransformer\TextFilterTransformer
- *
  */
 class TextFilterTransformer
 {
-
     const PATTERN_EQUALS = '%s';
     const PATTERN_START_WITH = '%s%%';
     const PATTERN_END_WITH = '%%%s';
@@ -31,5 +29,4 @@ class TextFilterTransformer
 
         return $transformField;
     }
-
 }

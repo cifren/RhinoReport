@@ -10,16 +10,14 @@ use Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition;
 use Earls\RhinoReportBundle\Module\Table\Helper\TableRetrieverHelper;
 
 /**
- * Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Simplifier\HtmlReportSimplifier
+ * Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Simplifier\HtmlReportSimplifier.
  */
 class HtmlReportSimplifier
 {
-
     protected $table;
 
     /**
-     *
-     * @var TableRetrieverHelper 
+     * @var TableRetrieverHelper
      */
     protected $tableRetrieverHelper;
 
@@ -35,7 +33,7 @@ class HtmlReportSimplifier
     }
 
     /**
-     * Array with html class from groups and Data
+     * Array with html class from groups and Data.
      *
      * @return array $arrayHtml
      */
@@ -45,14 +43,14 @@ class HtmlReportSimplifier
 
         //Table Head
         $data = array();
-        if($table->getHead()->getColumns()){
+        if ($table->getHead()->getColumns()) {
             foreach ($table->getHead()->getColumns() as $displayId => $column) {
                 //convert array to string
                 if (isset($column['attr']['class'])) {
                     $column['attr']['class'] = implode(' ', $column['attr']['class']);
                 }
                 $data[$displayId] = array(
-                    'attr' => array('id' => 'column_' . $displayId) + $column['attr'],
+                    'attr' => array('id' => 'column_'.$displayId) + $column['attr'],
                     'data' => $column['label'],
                 );
             }
@@ -74,7 +72,7 @@ class HtmlReportSimplifier
 
         $htmlArray['head'] = array(
             'attr' => $attr,
-            'columns' => $data);
+            'columns' => $data, );
 
         $this->applyConditionalFormating($table);
 
@@ -91,10 +89,9 @@ class HtmlReportSimplifier
         $htmlArray = array();
 
         //class
-        $class[] = 'group_' . $group->getGenericId();
+        $class[] = 'group_'.$group->getGenericId();
 
         foreach ($group->getItems() as $item) {
-
             if ($item instanceof Row) {
                 //if column inside row are all columnData
                 $htmlArrayColumn = $this->getRowHtmlArray($item);
@@ -113,13 +110,13 @@ class HtmlReportSimplifier
                     } else {
                         $attr['class'] = $class;
                     }
-                    $attr['style'] = (!isset($attr['style'])) ? : $this->getAttrStyle($attr['style']);
+                    $attr['style'] = (!isset($attr['style'])) ?: $this->getAttrStyle($attr['style']);
 
                     //convert array to string
                     $attr['class'] = implode(' ', $attr['class']);
                     $htmlArray[] = array(
                         'attr' => $attr,
-                        'columns' => $this->getRowHtmlArray($item)
+                        'columns' => $this->getRowHtmlArray($item),
                     );
                 }
             }
@@ -140,7 +137,7 @@ class HtmlReportSimplifier
                                 }
                             }
                         }
-                        $i++;
+                        ++$i;
                     }
 
                     $htmlArray[] = $row;
@@ -196,11 +193,11 @@ class HtmlReportSimplifier
             $attr = $column->getAttributes();
         }
 
-        $attr = array_map("unserialize", array_unique(array_map("serialize", $attr)));
+        $attr = array_map('unserialize', array_unique(array_map('serialize', $attr)));
 
-        $attr['style'] = (!isset($attr['style'])) ? : $this->getAttrStyle($attr['style']);
+        $attr['style'] = (!isset($attr['style'])) ?: $this->getAttrStyle($attr['style']);
 
-        if(isset($attr['class'])){
+        if (isset($attr['class'])) {
             //convert array to string
             $attr['class'] = implode(' ', $attr['class']);
         } else {
@@ -210,23 +207,24 @@ class HtmlReportSimplifier
         $htmlArray = array(
             'attr' => $attr,
             'colspan' => null,
-            'data' => $column->getData()
+            'data' => $column->getData(),
         );
 
         return $htmlArray;
     }
 
     /**
-     * Convert array of style into string for html render
+     * Convert array of style into string for html render.
      *
-     * @param  array  $style
+     * @param array $style
+     *
      * @return string
      */
     protected function getAttrStyle(array $style)
     {
         $styleString[] = null;
         foreach ($style as $key => $value) {
-            $styleString[] .= $key . ':' . $value . ';';
+            $styleString[] .= $key.':'.$value.';';
         }
 
         return implode('', $styleString);
@@ -261,7 +259,7 @@ class HtmlReportSimplifier
                     foreach ($columns as $column) {
                         $row = $column->getParent();
                         $data = $this->fetchValues($row, $condFormat['displayIds']);
-                        $evalStr = '$condition = ' . vsprintf($condFormat['condition'], $data) . ';';
+                        $evalStr = '$condition = '.vsprintf($condFormat['condition'], $data).';';
                         eval($evalStr);
                         if ($condition) {
                             $column = $row->getColumn($column->getId());
@@ -277,7 +275,7 @@ class HtmlReportSimplifier
     {
         $aryValues = array();
         foreach ($columnsName as $columnName) {
-            if ($row->getColumn($columnName) == NULL) {
+            if ($row->getColumn($columnName) == null) {
                 $aryValues[] = 0;
             } else {
                 $data = $row->getColumn($columnName)->getNakedData();
@@ -288,5 +286,4 @@ class HtmlReportSimplifier
 
         return $aryValues;
     }
-
 }

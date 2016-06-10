@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Earls\RhinoReportBundle\Tests\FunctionalTests\Tests\Database\Table\Definition\Fixture;
 
@@ -12,54 +12,14 @@ use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\ChoiceFilterType;
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\NumberFilterType;
 
 /**
- * Earls\RhinoReportBundle\Tests\Table\Definition\Fixture\ReportDefinitionFixture
+ * Earls\RhinoReportBundle\Tests\Table\Definition\Fixture\ReportDefinitionFixture.
  */
 class ReportDefinitionFixture implements FixtureInterface
 {
     /**
      * We will create de equivalent of the php builder
-     *  ->table('tableIng')
-            ->position('position-2')
-            ->attr(array('class' => array('table-bordered', 'table-condensed')))                 
-            ->head()
-                ->headColumns(array(
-                    'description' => 'Description',
-                    'stock' => 'Stock',
-                    'sales' => 'Sales'
-                ))
-            ->end()
-            ->body()
-                ->group('category')
-                    ->groupBy('category')
-                    ->rowUnique()
-                        ->column('description', 'category')
-                        ->columnSpan('description', 1)
-                        ->column('sales')
-                            ->groupAction('sum', array('column' => '\tableIng\body\category\subcategory\items.sales'))
-                        ->end()
-                    ->end()
-                    ->group('subcategory')
-                        ->groupBy('subcategory')
-                        ->rowUnique()
-                            ->column('description', 'subcategory')
-                            ->columnSpan('description', 1)
-                            ->column('sales')
-                                ->groupAction('sum', array('column' => '\tableIng\body\category\subcategory\items.sales'))
-                            ->end()
-                        ->end()
-        
-                        ->group('items')
-                            ->row()
-                                ->column('description', 'item')
-                                ->column('stock', 'stock')
-                                ->column('sales', 'sales')
-                            ->end()
-                        ->end()
-                    ->end()
-                ->end()
-            ->end()
-        ->end()
-     **/ 
+     *  ->table('tableIng').
+     **/
     public function load(ObjectManager $manager)
     {
         $filter1 = new RhnReportFilter();
@@ -67,11 +27,11 @@ class ReportDefinitionFixture implements FixtureInterface
             ->setName('catId')
             ->setType(ChoiceFilterType::class)
             ->setOptions(array(
-                'choices'  => array(
+                'choices' => array(
                     'Cat1' => 1,
                     'Cat2' => 2,
                     'Cat3' => 3,
-                    )
+                    ),
                 ));
         $manager->persist($filter1);
         $filter2 = new RhnReportFilter();
@@ -80,13 +40,13 @@ class ReportDefinitionFixture implements FixtureInterface
             ->setType(NumberFilterType::class)
             ->setOptions(array());
         $manager->persist($filter2);
-        
+
         $rptDef = new RhnReportDefinition();
         $rptDef
             ->addFilter($filter1)
             ->addFilter($filter2);
         $manager->persist($rptDef);
-        
+
         $tableDef = new RhnTblMainDefinition();
         $tableDef //table def
             ->setDisplayId('tableIng')
@@ -96,7 +56,7 @@ class ReportDefinitionFixture implements FixtureInterface
                 ->setColumns(array(
                     'description' => 'Description',
                     'stock' => 'Stock',
-                    'sales' => 'Sales'
+                    'sales' => 'Sales',
                 ))
                 ->getParent()   //table def
             ->getBodyDefinition() //group def
@@ -119,7 +79,7 @@ class ReportDefinitionFixture implements FixtureInterface
                         ->setColSpan('description', 1)
                         ->createAndAddColumn('sales', RhnTblColumnDefinition::TYPE_DISPLAY) //column def
                             ->setGroupAction('sum', array('column' => '\tableIng\body\category\subcategory\items.sales'))
-                            ->addAction('indent', array('space'=>2))
+                            ->addAction('indent', array('space' => 2))
                         ->getParent()   //row def
                     ->getParent()   //group def
                     ->addGroup('items')   //group def
@@ -128,7 +88,7 @@ class ReportDefinitionFixture implements FixtureInterface
                             ->createAndAddColumn('stock', RhnTblColumnDefinition::TYPE_DISPLAY, 'stock')->getParent() //row def
                             ->createAndAddColumn('sales', RhnTblColumnDefinition::TYPE_DISPLAY, 'sales')->getParent() //row def
         ;
-        
+
         $tableDef->setParent($rptDef);
         $manager->persist($tableDef);
 

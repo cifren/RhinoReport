@@ -7,9 +7,9 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Earls\RhinoReportBundle\DependencyInjection\Compiler\ActionPass
- * 
- * Adds all services with the tags "report.factory" arguments of the 
+ * Earls\RhinoReportBundle\DependencyInjection\Compiler\ActionPass.
+ *
+ * Adds all services with the tags "report.factory" arguments of the
  * "report.entity.factory" service
  *
  * @author Cifren

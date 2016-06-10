@@ -2,10 +2,8 @@
 
 namespace Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column;
 
-use Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\Action;
-
 /**
- *  Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\CustomPhpAction
+ *  Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\CustomPhpAction.
  *
  * This class will call a custom function you want invoke
  *
@@ -17,23 +15,23 @@ use Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\Action;
  */
 class CustomPhpAction extends Action
 {
-
     public function setData()
     {
         if (!$this->options['functionName']) {
-            throw new \UnexpectedValueException('Error on column \'' . $this->options['displayId'] . '\'' . ' in \'' . $this->column->getDefinition()->getPath() . '\', `functionName` can\'t be empty');
+            throw new \UnexpectedValueException('Error on column \''.$this->options['displayId'].'\''.' in \''.$this->column->getDefinition()->getPath().'\', `functionName` can\'t be empty');
         }
 
-        if ($this->options['dataId'])
+        if ($this->options['dataId']) {
             $data = $this->rowData[$this->options['dataId']];
-        elseif ($this->options['displayId']) {
+        } elseif ($this->options['displayId']) {
             $columnArg = $this->rowObject->getColumn($this->options['displayId']);
             if ($columnArg == null || empty($columnArg)) {
-                throw new \UnexpectedValueException('Error on column \'' . $this->options['displayId'] . '\'' . ' in \'' . $this->column->getDefinition()->getPath() . '\'');
+                throw new \UnexpectedValueException('Error on column \''.$this->options['displayId'].'\''.' in \''.$this->column->getDefinition()->getPath().'\'');
             }
             $data = $columnArg->getData();
-        } else
+        } else {
             $data = $this->column->getData();
+        }
 
         $argQuery = implode(',', $this->options['arguments']);
 
@@ -50,8 +48,7 @@ class CustomPhpAction extends Action
             'dataId' => null,
             'displayId' => null,
             'functionName' => null, //function name called
-            'arguments' => array()  // function arguments, $data is value you want modify
+            'arguments' => array(),  // function arguments, $data is value you want modify
         );
     }
-
 }

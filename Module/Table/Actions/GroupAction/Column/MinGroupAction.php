@@ -2,16 +2,13 @@
 
 namespace Earls\RhinoReportBundle\Module\Table\Actions\GroupAction\Column;
 
-use Earls\RhinoReportBundle\Module\Table\Actions\GroupAction\Column\GroupAction;
 use Earls\RhinoReportBundle\Module\Table\Helper\TableRetrieverHelper;
 
 /**
- *  Earls\RhinoReportBundle\Module\Table\Actions\GroupAction\Column\MinGroupAction
- *
+ *  Earls\RhinoReportBundle\Module\Table\Actions\GroupAction\Column\MinGroupAction.
  */
 class MinGroupAction extends GroupAction
 {
-
     protected $retriever;
 
     public function __construct(TableRetrieverHelper $retriever)
@@ -22,7 +19,7 @@ class MinGroupAction extends GroupAction
     public function setData()
     {
         if (!$this->options['column']) {
-            throw new \InvalidArgumentException('Argument \'column\' is missing in group action \'' . $this->column->getDefinition()->getPath() . '\'');
+            throw new \InvalidArgumentException('Argument \'column\' is missing in group action \''.$this->column->getDefinition()->getPath().'\'');
         }
         $this->retriever->setTable($this->table);
 
@@ -36,7 +33,7 @@ class MinGroupAction extends GroupAction
         foreach ($items as $item) {
             $dataList[] = $item->getData();
         }
-        
+
         return min($dataList);
     }
 
@@ -44,8 +41,7 @@ class MinGroupAction extends GroupAction
     {
         return array(
             'column' => null,
-            'fromGroup' => null
+            'fromGroup' => null,
         );
     }
-
 }

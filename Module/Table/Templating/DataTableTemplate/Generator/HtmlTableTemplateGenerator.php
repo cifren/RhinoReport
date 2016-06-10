@@ -9,7 +9,6 @@ use Earls\RhinoReportBundle\Report\ReportObject\ModuleObject;
 
 class HtmlTableTemplateGenerator extends HtmlTemplateGenerator
 {
-
     public function getResponse($nameFile, $table, $arg)
     {
         return $this->renderView($this->twigTemplateName, array('element' => $this->getTemplating($table, null, null)));
@@ -27,7 +26,7 @@ class HtmlTableTemplateGenerator extends HtmlTemplateGenerator
     {
         $simplifier = new ModuleObjectSimplifier();
         $simpleObject = $simplifier->getSimplifyObject($object);
-        
+
         return $simpleObject;
     }
 }

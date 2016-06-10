@@ -2,18 +2,15 @@
 
 namespace Earls\RhinoReportBundle\Module\Table\Definition;
 
-use Earls\RhinoReportBundle\Module\Table\Definition\AdvancedTableDefinitionBuilder;
-
 /**
- * Earls\RhinoReportBundle\Module\Table\Definition\TableDefinitionBuilder
+ * Earls\RhinoReportBundle\Module\Table\Definition\TableDefinitionBuilder.
  */
 class TableDefinitionBuilder extends AdvancedTableDefinitionBuilder
 {
-
     public function group($id)
     {
         if (!$this->getCurrentDefinition() instanceof GroupDefinition) {
-            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function group()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "'.get_class($this->getCurrentDefinition()).'" given in function group()');
         }
 
         //only one group inside a group
@@ -29,7 +26,7 @@ class TableDefinitionBuilder extends AdvancedTableDefinitionBuilder
     public function row()
     {
         if (!$this->getCurrentDefinition() instanceof GroupDefinition) {
-            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function row()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "'.get_class($this->getCurrentDefinition()).'" given in function row()');
         }
 
         //only one row inside a group
@@ -45,7 +42,7 @@ class TableDefinitionBuilder extends AdvancedTableDefinitionBuilder
     public function rowUnique()
     {
         if (!$this->getCurrentDefinition() instanceof GroupDefinition) {
-            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function row()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "'.get_class($this->getCurrentDefinition()).'" given in function row()');
         }
 
         //only one row inside a group
@@ -61,7 +58,7 @@ class TableDefinitionBuilder extends AdvancedTableDefinitionBuilder
     public function attr(array $attributes = array())
     {
         if (!$this->getCurrentDefinition() instanceof TableDefinition && !$this->getCurrentDefinition() instanceof HeadDefinition) {
-            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition" or "Earls\RhinoReportBundle\Module\Table\Definition\HeadDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function attr()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition" or "Earls\RhinoReportBundle\Module\Table\Definition\HeadDefinition", "'.get_class($this->getCurrentDefinition()).'" given in function attr()');
         }
 
         return parent::attr($attributes);
@@ -78,6 +75,7 @@ class TableDefinitionBuilder extends AdvancedTableDefinitionBuilder
     public function build()
     {
         $this->defintionValidation();
+
         return $this;
     }
 
@@ -93,14 +91,14 @@ class TableDefinitionBuilder extends AdvancedTableDefinitionBuilder
         $rowCount = 0;
 
         foreach ($group->getItems() as $item) {
-            if ($item instanceOf GroupDefinition) {
-                $groupCount++;
+            if ($item instanceof GroupDefinition) {
+                ++$groupCount;
                 $this->groupValidation($item);
             } elseif ($item instanceof RowDefinition) {
                 if ($item->getOption('unique')) {
-                    $rowUniqueCount++;
+                    ++$rowUniqueCount;
                 } else {
-                    $rowCount++;
+                    ++$rowCount;
                 }
             }
         }
@@ -111,5 +109,4 @@ class TableDefinitionBuilder extends AdvancedTableDefinitionBuilder
             throw new \Exception('A group always needs a rowUnique item when it contains a group item');
         }
     }
-
 }

@@ -2,27 +2,24 @@
 
 namespace Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column;
 
-use Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\Action;
-
 /**
- *  Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\RoundAction
- *
+ *  Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\RoundAction.
  */
 class RoundAction extends Action
 {
-
     public function setData()
     {
-        if ($this->options['dataId'])
+        if ($this->options['dataId']) {
             $data = $this->rowData[$this->options['dataId']];
-        elseif ($this->options['displayId']) {
+        } elseif ($this->options['displayId']) {
             $columnArg = $this->rowObject->getColumn($this->options['displayId']);
             if ($columnArg == null || empty($columnArg)) {
-                throw new \UnexpectedValueException('Error on column \'' . $this->options['displayId'] . '\'' . ' in \'' . $this->column->getDefinition()->getPath() . '\'');
+                throw new \UnexpectedValueException('Error on column \''.$this->options['displayId'].'\''.' in \''.$this->column->getDefinition()->getPath().'\'');
             }
             $data = $columnArg->getData();
-        } else
+        } else {
             $data = $this->column->getData();
+        }
 
         $data = round((float) $data, $this->options['precision'], $this->options['mode']);
 
@@ -38,5 +35,4 @@ class RoundAction extends Action
             'mode' => PHP_ROUND_HALF_UP,
         );
     }
-
 }

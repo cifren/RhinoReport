@@ -12,7 +12,6 @@ use Earls\RhinoReportBundle\Module\Table\TableObject\Row;
 
 class TableRetrieverHelper
 {
-
     protected $table;
 
     public function setTable(Table $table)
@@ -33,7 +32,7 @@ class TableRetrieverHelper
 
         foreach ($parsedPath as $dataPath) {
             switch ($dataPath['type']) {
-                case 'row';
+                case 'row':
                 case 'group':
                     $item = $item->getItem($dataPath['partialPath']);
                     break;
@@ -57,7 +56,6 @@ class TableRetrieverHelper
 
         $parsedPath = array();
         foreach ($itemPathes as $itemPath) {
-
             $details = explode(':%:', $itemPath);
             $type = $details[0];
 
@@ -76,7 +74,7 @@ class TableRetrieverHelper
                 'genericId' => $genericId,
                 'dataId' => $dataId,
                 'fullPath' => $path,
-                'partialPath' => $itemPath
+                'partialPath' => $itemPath,
             );
         }
 
@@ -95,7 +93,8 @@ class TableRetrieverHelper
             return $this->getSubItemsFromGenericPath($fullGenericPath, $item);
         } elseif ($genericPath == '') { //get item
             return array($item);
-        } else {//get parentItems
+        } else {
+            //get parentItems
             return $this->getParentItemsFromGenericPath($fullGenericPath, $item);
         }
     }
@@ -135,7 +134,7 @@ class TableRetrieverHelper
 
         //unexpected error, that means there is more than one '.'
         if (count($column) > 2) {
-            throw new \InvalidArgumentException('Issue on argument \'' . $fullGenericPath . '\'');
+            throw new \InvalidArgumentException('Issue on argument \''.$fullGenericPath.'\'');
         }
         $items = array();
 
@@ -165,33 +164,34 @@ class TableRetrieverHelper
 
         //unexpected error, that means there is more than one '.'
         if (count($column) > 2) {
-            throw new \InvalidArgumentException('Issue on argument \'' . $fullGenericPath . '\'');
+            throw new \InvalidArgumentException('Issue on argument \''.$fullGenericPath.'\'');
         }
         //only group path
         $groupPath = $column[0];
 
         //select only difference between 2 path
         $differencePath = str_replace($groupPath, '', $item->getDefinition()->getPath());
-        
+
         //means $groupPath is not a parent of itemPath
         if ($differencePath == $item->getDefinition()->getPath()) {
-            throw new \InvalidArgumentException('Issue on argument \'' . $fullGenericPath . '\'');
+            throw new \InvalidArgumentException('Issue on argument \''.$fullGenericPath.'\'');
         }
 
         $parseDifferencePath = explode('\\', $differencePath);
 
         foreach ($parseDifferencePath as $groupRelativePath) {
             if ($item->getParent() == null) {
-                throw new \InvalidArgumentException('Issue on argument \'' . $fullGenericPath . '\'');
+                throw new \InvalidArgumentException('Issue on argument \''.$fullGenericPath.'\'');
             }
             if ($groupRelativePath != '') {
-                 $item = $item->getParent();
+                $item = $item->getParent();
             }
         }
         //is column
         if (count($column) > 1) {
             return $this->getColumns($column[1], $item);
-        } else {//is a group
+        } else {
+            //is a group
 
             return $item;
         }
@@ -201,7 +201,7 @@ class TableRetrieverHelper
     {
         $groups = array();
         foreach ($item->getItems() as $subItem) {
-            if ($subItem instanceOf Group) {
+            if ($subItem instanceof Group) {
                 if ($subItem->getGenericId() == $genericId) {
                     $groups[] = $subItem;
                 }
@@ -215,12 +215,11 @@ class TableRetrieverHelper
     {
         $columns = array();
         foreach ($item->getItems() as $subItem) {
-            if ($subItem instanceOf Row) {
+            if ($subItem instanceof Row) {
                 $columns[] = $subItem->getColumn($displayId);
             }
         }
 
         return $columns;
     }
-
 }

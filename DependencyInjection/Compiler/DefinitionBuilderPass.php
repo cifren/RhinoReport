@@ -7,8 +7,8 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Earls\RhinoReportBundle\DependencyInjection\Compiler\DefinitionBuilderPass
- * 
+ * Earls\RhinoReportBundle\DependencyInjection\Compiler\DefinitionBuilderPass.
+ *
  * Adds all services with the tags "report.definition.builder" as
  * arguments of the "report.definition.builder" service
  *
@@ -35,6 +35,5 @@ class DefinitionBuilderPass implements CompilerPassInterface
                 array($alias, new Reference($serviceId))
             );
         }
-        
     }
 }

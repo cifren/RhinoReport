@@ -5,12 +5,10 @@ namespace Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Row;
 use Earls\RhinoReportBundle\Module\Table\TableObject\Row;
 
 /**
- *  Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Row\ActionInterface
- *
+ *  Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Row\ActionInterface.
  */
 interface ActionInterface
 {
-
     public function setParameters(Row $row, array $arguments);
 
     public function setOptions(array $arguments);

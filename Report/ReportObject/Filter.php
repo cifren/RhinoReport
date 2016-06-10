@@ -3,13 +3,12 @@
 namespace Earls\RhinoReportBundle\Report\ReportObject;
 
 /**
- * Description of Filter
+ * Description of Filter.
  *
  * @author cifren
  */
 class Filter
 {
-
     protected $form;
     protected $options;
     protected $templateName;
@@ -22,12 +21,14 @@ class Filter
     public function setForm($form)
     {
         $this->form = $form;
+
         return $this;
     }
 
     public function setOptions($options)
     {
         $this->options = $options;
+
         return $this;
     }
 
@@ -44,7 +45,7 @@ class Filter
     public function setTemplateName($templateName)
     {
         $this->templateName = $templateName;
+
         return $this;
     }
-
 }

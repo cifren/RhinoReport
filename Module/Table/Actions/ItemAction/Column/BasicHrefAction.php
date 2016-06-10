@@ -2,15 +2,11 @@
 
 namespace Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column;
 
-use Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\Action;
-
 /**
- *  Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\BasicHrefAction
- *
+ *  Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\BasicHrefAction.
  */
 class BasicHrefAction extends Action
 {
-
     protected $router;
 
     public function __construct($router)
@@ -40,7 +36,7 @@ class BasicHrefAction extends Action
         if ($this->options['strictParameters'] && $missingParam) {
             return null;
         }
-        
+
         // Link the routing name with the display to screen data, e.g. /{packsize}
         $fullParameters = array_merge($routeParameters, $this->options['custom_data']);
         $route = $this->getUrl($fullParameters);
@@ -59,10 +55,10 @@ class BasicHrefAction extends Action
     {
         $params = array();
         foreach ($parameters as $key => $value) {
-            $params[] = $key . '=' . urlencode($value);
+            $params[] = $key.'='.urlencode($value);
         }
 
-        return $this->options['url'] . '?' . implode('&', $params);
+        return $this->options['url'].'?'.implode('&', $params);
     }
 
     public function getOptions()
@@ -76,8 +72,7 @@ class BasicHrefAction extends Action
             'custom_data' => array(),
             'attr' => array(),
             //if one param is missing action return null
-            'strictParameters' => false
+            'strictParameters' => false,
         );
     }
-
 }

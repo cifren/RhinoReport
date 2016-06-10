@@ -3,11 +3,10 @@
 namespace Earls\RhinoReportBundle\Module\Table\Util;
 
 /**
- * Earls\RhinoReportBundle\Module\Table\Util\DataObject
+ * Earls\RhinoReportBundle\Module\Table\Util\DataObject.
  */
 class DataObject implements DataObjectInterface
 {
-
     protected $data;
 
     public function __construct(array $data)
@@ -31,5 +30,4 @@ class DataObject implements DataObjectInterface
     {
         return (isset($this->data[$name])) ? $this->data[$name] : null;
     }
-
 }

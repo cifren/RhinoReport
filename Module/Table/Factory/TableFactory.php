@@ -18,12 +18,10 @@ use Earls\RhinoReportBundle\Module\Table\Util\DataObjectInterface;
 use Earls\RhinoReportBundle\Module\Table\Helper\tableRetrieverHelper;
 
 /**
- *  Earls\RhinoReportBundle\Module\Table\Factory\TableFactory
- *
+ *  Earls\RhinoReportBundle\Module\Table\Factory\TableFactory.
  */
 class TableFactory extends AbstractFactory
 {
-
     protected $data;
     protected $definition;
     protected $item;
@@ -69,7 +67,7 @@ class TableFactory extends AbstractFactory
 
         //Fill up body with groupAction
         $body = $this->fillUpGroupAction($this->item);
-        
+
         return $this;
     }
 
@@ -85,7 +83,7 @@ class TableFactory extends AbstractFactory
     {
         $headDefinition = $head->getDefinition();
 
-        if($headDefinition->getColumns()){
+        if ($headDefinition->getColumns()) {
             $head->setColumns($headDefinition->getColumns());
         }
 
@@ -100,7 +98,6 @@ class TableFactory extends AbstractFactory
         //get item rowDefinition or groupDefinition
         foreach ($groupDefinition->getItems() as $itemDefinition) {
             if ($itemDefinition instanceof GroupDefinition) {
-
                 if ($itemDefinition->getGroupBy()) {
                     //Create sub-group attached
                     $groupsFromData = $this->createDataSubGroup($itemDefinition, $groupParent);
@@ -111,7 +108,7 @@ class TableFactory extends AbstractFactory
                 } else {
                     $dataObj = $groupParent->getDataObject();
                     //create new set of data if reorder, else keep the data of the parent
-                    if($groupDefinition->getOrderBy()){
+                    if ($groupDefinition->getOrderBy()) {
                         $dataObj = clone $dataObj;
                         $this->reOrderData($groupDefinition, $dataObj);
                     }
@@ -166,7 +163,7 @@ class TableFactory extends AbstractFactory
     protected function reOrderData(GroupDefinition $groupDefinition, DataObjectInterface $objData)
     {
         $groupByAry = $groupDefinition->getOrderBy();
-        if (empty($groupByAry)){
+        if (empty($groupByAry)) {
             return;
         }
 
@@ -185,13 +182,13 @@ class TableFactory extends AbstractFactory
         }
 
         //sort and conserve key
-        usort($dataAry, function($a, $b) use ($currentColumn, $order) {
-                    if ($order == 'asc') {
-                        return ( $a[$currentColumn] < $b[$currentColumn] ) ? -1 : 1;
-                    } else {
-                        return ( $a[$currentColumn] > $b[$currentColumn] ) ? -1 : 1;
-                    };
-                });
+        usort($dataAry, function ($a, $b) use ($currentColumn, $order) {
+            if ($order == 'asc') {
+                return ($a[$currentColumn] < $b[$currentColumn]) ? -1 : 1;
+            } else {
+                return ($a[$currentColumn] > $b[$currentColumn]) ? -1 : 1;
+            }
+        });
 
         array_shift($columns);
         if (empty($columns)) {
@@ -220,7 +217,7 @@ class TableFactory extends AbstractFactory
             end($objectNameExploded);
             $objectName = $objectNameExploded[key($objectNameExploded)];
 
-            $executeActionsOn = 'executeActionsOn' . $objectName;
+            $executeActionsOn = 'executeActionsOn'.$objectName;
             $this->$executeActionsOn($definition, $item);
         }
 
@@ -277,7 +274,7 @@ class TableFactory extends AbstractFactory
             $columnDefinition = array_shift($def);
             $dataObject = new DataObject(array());
             $row = new row(0, $rowDefinition, $groupParent, $dataObject);
-            if($columnDefinition){
+            if ($columnDefinition) {
                 $rows[] = $this->createRowNoData($row, $columnDefinition);
             }
         }
@@ -298,7 +295,7 @@ class TableFactory extends AbstractFactory
 
                 //dont add column if colspan active
                 if ($colSpanCount) {
-                    $colSpanCount--;
+                    --$colSpanCount;
                     continue;
                 }
 
@@ -333,7 +330,7 @@ class TableFactory extends AbstractFactory
                     $this->executeActionsOnColumn($columnDefinition, $column);
                 }
             }
-            
+
             //if GroupAction dont exectute others Actions
             if ($rowDefinition->hasGroupAction() || $rowDefinition->hasExtendingGroupAction()) {
                 $this->dataGroupActions[$rowDefinition->getPath()][] = $row->getFullPath(); //row path
@@ -345,7 +342,7 @@ class TableFactory extends AbstractFactory
             }
 
             $rows[] = $row;
-            $i++;
+            ++$i;
         }
 
         return $rows;
@@ -404,8 +401,9 @@ class TableFactory extends AbstractFactory
             }
         }
         foreach ($nodes as $id => $n) {
-            if (empty($n['in']))
+            if (empty($n['in'])) {
                 $S[] = $id;
+            }
         }
         while (!empty($S)) {
             $L[] = $id = array_shift($S);
@@ -534,7 +532,7 @@ class TableFactory extends AbstractFactory
 
         //send an error for all loop value
         if (count($conflict) > 0) {
-            throw new \InvalidArgumentException('Group action named \'' . implode('\', \'', $conflict) . '\' seems to create a loop in group action dependence');
+            throw new \InvalidArgumentException('Group action named \''.implode('\', \'', $conflict).'\' seems to create a loop in group action dependence');
         }
     }
 
@@ -542,7 +540,7 @@ class TableFactory extends AbstractFactory
     {
         $i = 0;
         foreach ($itemDefinition->getItems() as $item) {
-            $i++;
+            ++$i;
             if ($item instanceof GroupDefinition) {
                 $groupActionAry = $this->getGenericGroupAction($groupActionAry, $item);
                 $groupActionAry = $this->getGroupActionDependence($item, $lvl + 1, $groupActionAry);
@@ -550,7 +548,6 @@ class TableFactory extends AbstractFactory
 
             if ($item instanceof RowDefinition) {
                 foreach ($item->getColumns() as $columnDefinition) {
-
                     $groupActionAry = $this->getGenericGroupAction($groupActionAry, $columnDefinition);
                 }
                 $groupActionAry = $this->getGenericGroupAction($groupActionAry, $item);
@@ -630,5 +627,4 @@ class TableFactory extends AbstractFactory
 
         return $dependencesAry[$actionName];
     }
-
 }

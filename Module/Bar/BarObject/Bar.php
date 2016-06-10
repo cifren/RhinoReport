@@ -4,16 +4,14 @@ namespace Earls\RhinoReportBundle\Module\Bar\BarObject;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Earls\RhinoReportBundle\Report\ReportObject\ModuleObject;
-use Earls\RhinoReportBundle\Module\Bar\BarObject\Dataset;
 
 /**
- * Description of BarObject
+ * Description of BarObject.
  *
  * @author cifren
  */
 class Bar extends ModuleObject
 {
-
     protected $labels = array();
     protected $datasets;
 
@@ -25,6 +23,7 @@ class Bar extends ModuleObject
     public function setLabels(array $labels)
     {
         $this->labels = $labels;
+
         return $this;
     }
 
@@ -58,5 +57,4 @@ class Bar extends ModuleObject
     {
         return 'bar';
     }
-
 }

@@ -8,7 +8,6 @@ use Earls\RhinoReportBundle\Report\ReportObject\ModuleObject;
 
 class HtmlTableTemplateGenerator extends HtmlTemplateGenerator
 {
-
     protected $twigResponseTemplateName;
 
     public function __construct($templatingService, $twigTemplateName, $twigResponseTemplateName, $uniqueBlockName = null)
@@ -27,6 +26,7 @@ class HtmlTableTemplateGenerator extends HtmlTemplateGenerator
         } else {
             $displayUniqueBloc = true;
         }
+
         return $this->renderView($this->twigResponseTemplateName, array('element' => $this->getTemplating($table, null, null), 'uniqueBlock' => $displayUniqueBloc));
     }
 
@@ -37,5 +37,4 @@ class HtmlTableTemplateGenerator extends HtmlTemplateGenerator
 
         return $simpleTable;
     }
-
 }

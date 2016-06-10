@@ -2,8 +2,6 @@
 
 namespace Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column;
 
-use Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\Action;
-
 /*
  *  Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\SprintfAction
  *
@@ -11,7 +9,6 @@ use Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\Action;
 
 class SprintfAction extends Action
 {
-
     public function setData()
     {
         $data = array();
@@ -39,7 +36,7 @@ class SprintfAction extends Action
         return array(
             'arg_dataIds' => array(),
             'arg_displayIds' => array(),
-            'format' => null
+            'format' => null,
         );
     }
 }

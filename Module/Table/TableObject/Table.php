@@ -2,9 +2,6 @@
 
 namespace Earls\RhinoReportBundle\Module\Table\TableObject;
 
-use Earls\RhinoReportBundle\Module\Table\TableObject\Head;
-use Earls\RhinoReportBundle\Module\Table\TableObject\Group;
-use Earls\RhinoReportBundle\Module\Table\TableObject\TableObject;
 use Earls\RhinoReportBundle\Module\Table\Util\DataObjectInterface;
 
 /*
@@ -13,7 +10,6 @@ use Earls\RhinoReportBundle\Module\Table\Util\DataObjectInterface;
 
 class Table extends TableObject
 {
-
     protected $head;
     protected $type;
 
@@ -53,5 +49,4 @@ class Table extends TableObject
     {
         return '';
     }
-
 }

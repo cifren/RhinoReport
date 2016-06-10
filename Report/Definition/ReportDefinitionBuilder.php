@@ -5,11 +5,10 @@ namespace Earls\RhinoReportBundle\Report\Definition;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Earls\RhinoReportBundle\Report\Definition\ReportDefinitionBuilder
+ * Earls\RhinoReportBundle\Report\Definition\ReportDefinitionBuilder.
  */
 class ReportDefinitionBuilder extends AbstractDefinitionBuilder
 {
-
     protected $builders = array();
     protected $instanceBuilders;
 
@@ -23,7 +22,7 @@ class ReportDefinitionBuilder extends AbstractDefinitionBuilder
     {
         return $this->startInstanceBuilder('advanced_table', $id);
     }
-    
+
     public function table($id = null)
     {
         return $this->startInstanceBuilder('table', $id);
@@ -58,6 +57,7 @@ class ReportDefinitionBuilder extends AbstractDefinitionBuilder
     public function addBuilder($type, $builder)
     {
         $this->builders[$type] = $builder;
+
         return $this;
     }
 /*
@@ -70,9 +70,10 @@ class ReportDefinitionBuilder extends AbstractDefinitionBuilder
     }*/
 
     /**
-     * Get a clone of the builder for the type asked
-     * 
+     * Get a clone of the builder for the type asked.
+     *
      * @param string $type
+     *
      * @return AbstractDefinitionBuilder
      */
     public function getBuilderClone($type)
@@ -83,7 +84,7 @@ class ReportDefinitionBuilder extends AbstractDefinitionBuilder
         $builder = clone $this->builders[$type];
         //need to clone the definition too
         $builder->setDefinition(clone $builder->getDefinition());
-        
+
         return $builder;
     }
 
@@ -95,8 +96,7 @@ class ReportDefinitionBuilder extends AbstractDefinitionBuilder
     public function addInstanceBuilder(AbstractDefinitionBuilder $instanceBuilders)
     {
         $this->instanceBuilders[] = $instanceBuilders;
-        
+
         return $this;
     }
-
 }

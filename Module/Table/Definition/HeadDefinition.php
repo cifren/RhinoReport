@@ -3,15 +3,12 @@
 namespace Earls\RhinoReportBundle\Module\Table\Definition;
 
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
-use Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition;
 
 /**
- *  Earls\RhinoReportBundle\Module\Table\Definition\HeadDefinition
- *
+ *  Earls\RhinoReportBundle\Module\Table\Definition\HeadDefinition.
  */
 class HeadDefinition extends Definition
 {
-
     protected $parent;
     protected $columns;
 
@@ -57,5 +54,4 @@ class HeadDefinition extends Definition
         }
         parent::setParent($parent);
     }
-
 }

@@ -2,18 +2,14 @@
 
 namespace Earls\RhinoReportBundle\Report\ReportObject;
 
-use Earls\RhinoReportBundle\Report\ReportObject\Filter;
-
 /**
- * Earls\RhinoReportBundle\Report\ReportObject\Report
+ * Earls\RhinoReportBundle\Report\ReportObject\Report.
  */
 class Report
 {
-
     protected $items = array();
 
     /**
-     *
      * @var Filter
      */
     protected $filter;
@@ -45,7 +41,7 @@ class Report
     }
 
     /**
-     * Get an array
+     * Get an array.
      *
      * @param type $fullColumn      Fill up column array if column doesn't exist in object
      * @param type $mergeColumnName Remove first line column name and change column id for next line with first row values
@@ -82,7 +78,7 @@ class Report
     public function setOptions($options)
     {
         $this->options = $options;
+
         return $this;
     }
-
 }

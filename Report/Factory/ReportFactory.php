@@ -2,19 +2,15 @@
 
 namespace Earls\RhinoReportBundle\Report\Factory;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Earls\RhinoReportBundle\Report\ReportObject\Report;
-use Earls\RhinoReportBundle\Report\Factory\AbstractFactory;
-use Earls\RhinoReportBundle\Report\Factory\ReportObjectFactoryCollection;
 
 /**
- *  Earls\RhinoReportBundle\Report\Factory\ReportFactory
- *
+ *  Earls\RhinoReportBundle\Report\Factory\ReportFactory.
  */
 class ReportFactory extends AbstractFactory
 {
     protected $definitionFactoryManager;
-    
+
     public function __construct($definitionFactoryManager)
     {
         $this->definitionFactoryManager = $definitionFactoryManager;
@@ -24,7 +20,7 @@ class ReportFactory extends AbstractFactory
     public function build()
     {
         $this->setObjectFactory($this->getDefinition());
-        
+
         foreach ($this->getDefinition()->getItems() as $itemDefinition) {
             $itemFactory = $itemDefinition->getObjectFactory();
 
@@ -37,10 +33,9 @@ class ReportFactory extends AbstractFactory
             $this->getItem()->addItem($newItem);
         }
     }
-    
+
     protected function setObjectFactory($definition)
     {
         $this->definitionFactoryManager->setObjectFactory($definition);
     }
-
 }

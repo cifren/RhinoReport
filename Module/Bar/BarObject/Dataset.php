@@ -5,13 +5,12 @@ namespace Earls\RhinoReportBundle\Module\Bar\BarObject;
 use Earls\RhinoReportBundle\Report\ReportObject\ModuleObject;
 
 /**
- * Description of BarObject
+ * Description of BarObject.
  *
  * @author cifren
  */
 class Dataset extends ModuleObject
 {
-
     protected $options;
     protected $data;
     protected $label;
@@ -33,12 +32,14 @@ class Dataset extends ModuleObject
     public function setData($data)
     {
         $this->data = $data;
+
         return $this;
     }
 
     public function setLabel($label)
     {
         $this->label = $label;
+
         return $this;
     }
 
@@ -63,5 +64,4 @@ class Dataset extends ModuleObject
 
         return $options;
     }
-
 }

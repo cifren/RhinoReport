@@ -8,7 +8,6 @@ use Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Simplifier\D
 
 class CsvTableTemplateGenerator
 {
-
     public function getResponse($nameFile, $table)
     {
         //$nameFile not used for html
@@ -20,7 +19,7 @@ class CsvTableTemplateGenerator
 
         $privateFilename = sprintf('%s/%s', sys_get_temp_dir(), uniqid('report_export_', true));
 
-        $writer = new \Exporter\Writer\CsvWriter($privateFilename, ',', '"', "", true);
+        $writer = new \Exporter\Writer\CsvWriter($privateFilename, ',', '"', '', true);
         $contentType = 'text/csv';
 
         $handler = Handler::create($sourceIterator, $writer);
@@ -28,10 +27,9 @@ class CsvTableTemplateGenerator
 
         $response = new Response(file_get_contents($privateFilename), 200, array(
             'Content-Type' => $contentType,
-            'Content-Disposition' => sprintf('attachment; filename=%s', $nameFile)
+            'Content-Disposition' => sprintf('attachment; filename=%s', $nameFile),
         ));
 
         return $response;
     }
-
 }

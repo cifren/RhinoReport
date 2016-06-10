@@ -6,12 +6,10 @@ use Earls\RhinoReportBundle\Module\Table\TableObject\Table;
 use Earls\RhinoReportBundle\Module\Table\TableObject\Column;
 
 /**
- *  Earls\RhinoReportBundle\Module\Table\Actions\GroupAction\Column\GroupAction
- *
+ *  Earls\RhinoReportBundle\Module\Table\Actions\GroupAction\Column\GroupAction.
  */
 abstract class GroupAction implements GroupActionInterface
 {
-
     protected $column;
     protected $table;
     protected $options;
@@ -56,5 +54,4 @@ abstract class GroupAction implements GroupActionInterface
 
         return $this;
     }
-
 }

@@ -2,17 +2,14 @@
 
 namespace Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column;
 
-use Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\Action;
 use Earls\RhinoReportBundle\Module\Table\TableObject\Row;
 use Earls\RhinoReportBundle\Module\Table\TableObject\Column;
 
 /**
- *  Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\BaseValueAction
- *
+ *  Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\BaseValueAction.
  */
 class BaseValueAction extends Action
 {
-
     //enable modification object column from action
     public function setParameters(Column $column, array $rowData, Row $rowObject, array $arguments)
     {
@@ -47,5 +44,4 @@ class BaseValueAction extends Action
             'displayId' => null,
         );
     }
-
 }

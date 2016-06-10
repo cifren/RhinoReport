@@ -3,12 +3,10 @@
 namespace Earls\RhinoReportBundle\Module\Table\Extension;
 
 /**
- *  Earls\RhinoReportBundle\Module\Table\Extension\Action
- *
+ *  Earls\RhinoReportBundle\Module\Table\Extension\Action.
  */
 abstract class Action
 {
-
     protected $column;
     protected $rowData;
     protected $rowObject;
@@ -42,5 +40,4 @@ abstract class Action
     {
         return $this->column->getData();
     }
-
 }

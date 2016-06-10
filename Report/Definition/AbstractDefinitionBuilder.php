@@ -3,11 +3,10 @@
 namespace Earls\RhinoReportBundle\Report\Definition;
 
 /**
- * Earls\RhinoReportBundle\Report\Definition\AbstractDefinitionBuilder
+ * Earls\RhinoReportBundle\Report\Definition\AbstractDefinitionBuilder.
  */
 abstract class AbstractDefinitionBuilder implements DefinitionBuilderInterface
 {
-
     protected $definition;
     protected $currentDefinition;
     protected $isBuild = false;
@@ -19,16 +18,18 @@ abstract class AbstractDefinitionBuilder implements DefinitionBuilderInterface
 
     public function getBuildItem()
     {
-        if(!$this->isBuild){
+        if (!$this->isBuild) {
             $this->build();
             $this->isBuild();
         }
+
         return $this->getDefinition();
     }
 
     public function isBuild()
     {
         $this->isBuild = true;
+
         return $this;
     }
 
@@ -40,6 +41,7 @@ abstract class AbstractDefinitionBuilder implements DefinitionBuilderInterface
     public function setDefinition($definition)
     {
         $this->definition = $definition;
+
         return $this;
     }
 
@@ -55,7 +57,7 @@ abstract class AbstractDefinitionBuilder implements DefinitionBuilderInterface
     public function setCurrentDefinition($currentDefinition)
     {
         $this->currentDefinition = $currentDefinition;
+
         return $this;
     }
-
 }

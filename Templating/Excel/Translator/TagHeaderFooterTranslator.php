@@ -3,20 +3,17 @@
 namespace Earls\RhinoReportBundle\Templating\Excel\Translator;
 
 /**
- * Earls\RhinoReportBundle\Templating\Excel\Translator\CssXmlStyleTranslator
+ * Earls\RhinoReportBundle\Templating\Excel\Translator\CssXmlStyleTranslator.
  */
 class TagHeaderFooterTranslator
 {
-
     /**
-     *
-     * @var string  The created string always start with this characters 
+     * @var string The created string always start with this characters
      */
     protected $start = '&L';
 
     /**
-     *
-     * @var array   Match list
+     * @var array Match list
      */
     protected $dictionnary = array(
         '{{page}}' => '&P',
@@ -30,25 +27,25 @@ class TagHeaderFooterTranslator
 
     public function __construct()
     {
-        $this->lineBreak = chr(13) . chr(10);
+        $this->lineBreak = chr(13).chr(10);
     }
 
     /**
      * You will give a string which contains {{variable}} and the system will
-     * replace them by the correct xml values
-     * 
-     * @param string $str   string you want to convert
+     * replace them by the correct xml values.
+     *
+     * @param string $str string you want to convert
+     *
      * @return string
      */
     public function translate($str)
     {
         $replace = array_keys($this->dictionnary);
         $subject = array_values($this->dictionnary);
-        
+
         //should be replaced by regex
-        $xmlString = $this->start . str_replace($replace, $subject, $str);
+        $xmlString = $this->start.str_replace($replace, $subject, $str);
 
         return $xmlString;
     }
-
 }

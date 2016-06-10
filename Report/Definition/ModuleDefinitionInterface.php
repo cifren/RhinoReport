@@ -3,13 +3,12 @@
 namespace Earls\RhinoReportBundle\Report\Definition;
 
 /**
- * Earls\RhinoReportBundle\Report\Definition\ModuleDefinitionInterface
- * 
+ * Earls\RhinoReportBundle\Report\Definition\ModuleDefinitionInterface.
+ *
  * @author cifren
  */
 interface ModuleDefinitionInterface
 {
-
     public function getDisplayId();
 
     public function setDisplayId($displayId);
@@ -25,13 +24,12 @@ interface ModuleDefinitionInterface
     public function getTemplate();
 
     public function setTemplate($template);
-    
+
     public function setModuleType($type);
-    
+
     public function getModuleType();
-    
+
     public function setFactoryType($type);
-    
+
     public function getFactoryType();
-    
 }

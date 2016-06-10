@@ -2,8 +2,6 @@
 
 namespace Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column;
 
-use Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\Action;
-
 /*
  *  Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\DateFormatAction
  *
@@ -11,15 +9,15 @@ use Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\Action;
 
 class DateFormatAction extends Action
 {
-
     public function setData()
     {
-        if ($this->options['dataId'])
+        if ($this->options['dataId']) {
             $data = $this->rowData[$this->options['dataId']];
-        elseif ($this->options['displayId'])
+        } elseif ($this->options['displayId']) {
             $data = $this->rowObject->getColumn($this->options['displayId'])->getData();
-        else
+        } else {
             $data = $this->column->getData();
+        }
 
         return $data->format($this->options['format']);
     }
@@ -29,8 +27,7 @@ class DateFormatAction extends Action
         return array(
             'dataId' => null,
             'displayId' => null,
-            'format' => 'm/d'
+            'format' => 'm/d',
         );
     }
-
 }

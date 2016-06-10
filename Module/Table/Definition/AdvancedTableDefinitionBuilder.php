@@ -3,25 +3,19 @@
 namespace Earls\RhinoReportBundle\Module\Table\Definition;
 
 use Earls\RhinoReportBundle\Report\Definition\AbstractModuleDefinitionBuilder;
-use Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition;
-use Earls\RhinoReportBundle\Module\Table\Definition\HeadDefinition;
-use Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition;
-use Earls\RhinoReportBundle\Module\Table\Definition\RowDefinition;
-use Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition;
 use Symfony\Component\DependencyInjection\Container;
 
 /**
- * Earls\RhinoReportBundle\Module\Table\Definition\AdvancedTableDefinitionBuilder
+ * Earls\RhinoReportBundle\Module\Table\Definition\AdvancedTableDefinitionBuilder.
  */
 class AdvancedTableDefinitionBuilder extends AbstractModuleDefinitionBuilder
 {
-
     protected $parent;
 
     public function head()
     {
         if (!$this->getCurrentDefinition() instanceof TableDefinition) {
-            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function head()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition", "'.get_class($this->getCurrentDefinition()).'" given in function head()');
         }
 
         $this->setCurrentDefinition($this->getCurrentDefinition()->getHeadDefinition());
@@ -32,7 +26,7 @@ class AdvancedTableDefinitionBuilder extends AbstractModuleDefinitionBuilder
     public function body()
     {
         if (!$this->getCurrentDefinition() instanceof TableDefinition) {
-            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function body()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition", "'.get_class($this->getCurrentDefinition()).'" given in function body()');
         }
 
         $this->setCurrentDefinition($this->getCurrentDefinition()->getBodyDefinition());
@@ -43,7 +37,7 @@ class AdvancedTableDefinitionBuilder extends AbstractModuleDefinitionBuilder
     public function headColumns(array $columnNames)
     {
         if (!$this->getCurrentDefinition() instanceof HeadDefinition) {
-            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\HeadDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function headColumns()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\HeadDefinition", "'.get_class($this->getCurrentDefinition()).'" given in function headColumns()');
         }
 
         $this->setCurrentDefinition($this->getCurrentDefinition()->setColumns($columnNames));
@@ -54,7 +48,7 @@ class AdvancedTableDefinitionBuilder extends AbstractModuleDefinitionBuilder
     public function group($id)
     {
         if (!$this->getCurrentDefinition() instanceof GroupDefinition) {
-            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function group()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "'.get_class($this->getCurrentDefinition()).'" given in function group()');
         }
 
         $this->setCurrentDefinition($this->getCurrentDefinition()->addGroup($id));
@@ -65,7 +59,7 @@ class AdvancedTableDefinitionBuilder extends AbstractModuleDefinitionBuilder
     public function row()
     {
         if (!$this->getCurrentDefinition() instanceof GroupDefinition) {
-            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function row()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "'.get_class($this->getCurrentDefinition()).'" given in function row()');
         }
 
         $this->setCurrentDefinition($this->getCurrentDefinition()->addRow(array('unique' => false)));
@@ -76,7 +70,7 @@ class AdvancedTableDefinitionBuilder extends AbstractModuleDefinitionBuilder
     public function rowUnique()
     {
         if (!$this->getCurrentDefinition() instanceof GroupDefinition) {
-            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function rowUnique()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "'.get_class($this->getCurrentDefinition()).'" given in function rowUnique()');
         }
 
         $this->setCurrentDefinition($this->getCurrentDefinition()->addRow(array('unique' => true)));
@@ -86,14 +80,14 @@ class AdvancedTableDefinitionBuilder extends AbstractModuleDefinitionBuilder
 
     public function attr(array $attributes = array())
     {
-        if (!$this->getCurrentDefinition() instanceof TableDefinition and ! $this->getCurrentDefinition() instanceof RowDefinition and ! $this->getCurrentDefinition() instanceof ColumnDefinition and ! $this->getCurrentDefinition() instanceof HeadDefinition) {
-            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition" or "Earls\RhinoReportBundle\Module\Table\Definition\RowDefinition" or "Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition" or "Earls\RhinoReportBundle\Module\Table\Definition\HeadDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function attr()');
+        if (!$this->getCurrentDefinition() instanceof TableDefinition and !$this->getCurrentDefinition() instanceof RowDefinition and !$this->getCurrentDefinition() instanceof ColumnDefinition and !$this->getCurrentDefinition() instanceof HeadDefinition) {
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition" or "Earls\RhinoReportBundle\Module\Table\Definition\RowDefinition" or "Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition" or "Earls\RhinoReportBundle\Module\Table\Definition\HeadDefinition", "'.get_class($this->getCurrentDefinition()).'" given in function attr()');
         }
         if (isset($attributes['class']) && !is_array($attributes['class'])) {
-            throw new \Exception('Attribute `class´ should be an array on element `' . $this->getCurrentDefinition()->getPath() . '´');
+            throw new \Exception('Attribute `class´ should be an array on element `'.$this->getCurrentDefinition()->getPath().'´');
         }
         if (isset($attributes['style']) && !is_array($attributes['style'])) {
-            throw new \Exception('Attribute `style´ should be an array on element `' . $this->getCurrentDefinition()->getPath() . '´');
+            throw new \Exception('Attribute `style´ should be an array on element `'.$this->getCurrentDefinition()->getPath().'´');
         }
         $this->getCurrentDefinition()->setAttributes($attributes);
 
@@ -103,7 +97,7 @@ class AdvancedTableDefinitionBuilder extends AbstractModuleDefinitionBuilder
     public function groupBy($id)
     {
         if (!$this->getCurrentDefinition() instanceof GroupDefinition) {
-            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function groupBy()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "'.get_class($this->getCurrentDefinition()).'" given in function groupBy()');
         }
         if (!$this->getCurrentDefinition()->getDisplayId() == 'body') {
             throw new \Exception('groupBy is not allowed on body, you need to create a group');
@@ -115,16 +109,18 @@ class AdvancedTableDefinitionBuilder extends AbstractModuleDefinitionBuilder
     }
 
     /**
-     * order data by columns
+     * order data by columns.
      *
-     * @param  array or string                                                  $columns
+     * @param array or string $columns
+     *
      * @return \Earls\RhinoReportBundle\Module\Table\Definition\TableDefinitionBuilder
+     *
      * @throws \Exception
      */
     public function orderBy($columns)
     {
         if (!$this->getCurrentDefinition() instanceof GroupDefinition) {
-            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function groupBy()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "'.get_class($this->getCurrentDefinition()).'" given in function groupBy()');
         }
 
         if (!is_array($columns)) {
@@ -138,6 +134,7 @@ class AdvancedTableDefinitionBuilder extends AbstractModuleDefinitionBuilder
     public function column($displayId, $dataId = null)
     {
         $this->createColumn($displayId, ColumnDefinition::TYPE_DISPLAY, $dataId);
+
         return $this;
     }
 
@@ -151,13 +148,13 @@ class AdvancedTableDefinitionBuilder extends AbstractModuleDefinitionBuilder
     protected function createColumn($displayId, $type, $dataId)
     {
         if (!$this->getCurrentDefinition() instanceof RowDefinition) {
-            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\RowDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function columnData()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\RowDefinition", "'.get_class($this->getCurrentDefinition()).'" given in function columnData()');
         }
 
         if (!$dataId) {
             //dont close columnDefinition
             $this->getCurrentDefinition()->createAndAddColumn($displayId, $type);
-            
+
             $this->setCurrentDefinition($this->getCurrentDefinition()->getColumn($displayId));
 
             return $this;
@@ -173,7 +170,7 @@ class AdvancedTableDefinitionBuilder extends AbstractModuleDefinitionBuilder
     public function baseData($type, $arg)
     {
         if (!$this->getCurrentDefinition() instanceof ColumnDefinition) {
-            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function baseData()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition", "'.get_class($this->getCurrentDefinition()).'" given in function baseData()');
         }
 
         $this->getCurrentDefinition()->setBaseData($type, $arg);
@@ -185,7 +182,7 @@ class AdvancedTableDefinitionBuilder extends AbstractModuleDefinitionBuilder
     public function baseValue(array $arg)
     {
         if (!$this->getCurrentDefinition() instanceof ColumnDefinition) {
-            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function baseValue()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition", "'.get_class($this->getCurrentDefinition()).'" given in function baseValue()');
         }
 
         $this->getCurrentDefinition()->addAction('basevalue', $arg);
@@ -196,9 +193,8 @@ class AdvancedTableDefinitionBuilder extends AbstractModuleDefinitionBuilder
     public function formulaExcel($formula, $columns)
     {
         if (!$this->getCurrentDefinition() instanceof ColumnDefinition) {
-            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function formulaExcel()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition", "'.get_class($this->getCurrentDefinition()).'" given in function formulaExcel()');
         }
-
 
         if (!$this->getCurrentDefinition()->getType() == ColumnDefinition::TYPE_DATA) {
             throw new \Exception('Function "formatExcel" can\'t work on columnData');
@@ -212,7 +208,7 @@ class AdvancedTableDefinitionBuilder extends AbstractModuleDefinitionBuilder
     public function action($name, array $arg)
     {
         if (!$this->getCurrentDefinition() instanceof ColumnDefinition && !$this->getCurrentDefinition() instanceof RowDefinition && !$this->getCurrentDefinition() instanceof GroupDefinition) {
-            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition" or "Earls\RhinoReportBundle\Module\Table\Definition\RowDefinition" or "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function columnAction()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition" or "Earls\RhinoReportBundle\Module\Table\Definition\RowDefinition" or "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "'.get_class($this->getCurrentDefinition()).'" given in function columnAction()');
         }
 
         $this->getCurrentDefinition()->addAction($name, $arg);
@@ -223,7 +219,7 @@ class AdvancedTableDefinitionBuilder extends AbstractModuleDefinitionBuilder
     public function groupAction($name, array $arg, $dependences = array())
     {
         if (!$this->getCurrentDefinition() instanceof ColumnDefinition && !$this->getCurrentDefinition() instanceof RowDefinition && !$this->getCurrentDefinition() instanceof GroupDefinition) {
-            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition" or "Earls\RhinoReportBundle\Module\Table\Definition\RowDefinition" or "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function groupAction()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition" or "Earls\RhinoReportBundle\Module\Table\Definition\RowDefinition" or "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "'.get_class($this->getCurrentDefinition()).'" given in function groupAction()');
         }
 
         $this->getCurrentDefinition()->setGroupAction($name, $arg, $dependences);
@@ -234,7 +230,7 @@ class AdvancedTableDefinitionBuilder extends AbstractModuleDefinitionBuilder
     public function extendingGroupAction($dependencies = array())
     {
         if (!$this->getCurrentDefinition() instanceof ColumnDefinition && !$this->getCurrentDefinition() instanceof RowDefinition && !$this->getCurrentDefinition() instanceof GroupDefinition) {
-            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition" or "Earls\RhinoReportBundle\Module\Table\Definition\RowDefinition" or "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function extendingGroupAction()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition" or "Earls\RhinoReportBundle\Module\Table\Definition\RowDefinition" or "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "'.get_class($this->getCurrentDefinition()).'" given in function extendingGroupAction()');
         }
 
         $this->getCurrentDefinition()->setExtendingGroupAction($dependencies);
@@ -245,7 +241,7 @@ class AdvancedTableDefinitionBuilder extends AbstractModuleDefinitionBuilder
     public function columnSpan($displayId, $number)
     {
         if (!$this->getCurrentDefinition() instanceof RowDefinition) {
-            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\RowDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function columnSpan()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\RowDefinition", "'.get_class($this->getCurrentDefinition()).'" given in function columnSpan()');
         }
 
         $this->getCurrentDefinition()->setColSpan($displayId, $number);
@@ -256,7 +252,7 @@ class AdvancedTableDefinitionBuilder extends AbstractModuleDefinitionBuilder
     public function rowSpan($displayIds)
     {
         if (!$this->getCurrentDefinition() instanceof GroupDefinition) {
-            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function rowSpan()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "'.get_class($this->getCurrentDefinition()).'" given in function rowSpan()');
         }
 
         $this->getCurrentDefinition()->setRowSpans($displayIds);
@@ -278,21 +274,20 @@ class AdvancedTableDefinitionBuilder extends AbstractModuleDefinitionBuilder
     {
         // for each export, will get exportObject (if exist) and set all value in it, works as well without exportObject, for example CSV
         foreach ($allExportConfig as $key => $exportConfig) {
-
             $configObject = $this->getCurrentDefinition()->getExportConfig($key);
-            
+
             //if doesn't exist create the exportConfig object
-            if(!$configObject){
+            if (!$configObject) {
                 $configObject = new $this->getExportConfigClass($type);
             }
 
             //for each parameter in the array, it will {set+ParameterName} in the exportConfig object
             foreach ($exportConfig as $keyParam => $parameter) {
-                $setter = 'set' . ucfirst((string) Container::camelize($keyParam));
+                $setter = 'set'.ucfirst((string) Container::camelize($keyParam));
                 if (method_exists($configObject, $setter)) {
                     $configObject->$setter($parameter);
                 } else {
-                    throw new \Exception('Setter for "' . $keyParam . '" does not exist in class "' . get_class($configObject) . '"');
+                    throw new \Exception('Setter for "'.$keyParam.'" does not exist in class "'.get_class($configObject).'"');
                 }
             }
             $config[$key] = $configObject;
@@ -301,10 +296,10 @@ class AdvancedTableDefinitionBuilder extends AbstractModuleDefinitionBuilder
 
         return $this;
     }
-    
+
     protected function getExportConfigClass($type)
     {
-        switch ($type){
+        switch ($type) {
             case 'html':
                 return $this->getHtmlExportConfigClass();
                 break;
@@ -331,7 +326,7 @@ class AdvancedTableDefinitionBuilder extends AbstractModuleDefinitionBuilder
     public function setData(array $data)
     {
         if (!$this->getCurrentDefinition() instanceof TableDefinition) {
-            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function setData()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition", "'.get_class($this->getCurrentDefinition()).'" given in function setData()');
         }
 
         $dataObject = new \Earls\RhinoReportBundle\Module\Table\Util\DataObject($data);
@@ -357,27 +352,28 @@ class AdvancedTableDefinitionBuilder extends AbstractModuleDefinitionBuilder
     public function build()
     {
         $this->getDefinition()->build();
+
         return $this;
     }
 
     /**
-     * 
-     * @param string $selectedColumn    where you want ot apply the condition/format, displayId only
-     * @param array $displayIds         column used in the condition
-     * @param string $condition         condition you want, function sprintf is use behind
-     * @param array $classes            classe you want to apply
+     * @param string $selectedColumn where you want ot apply the condition/format, displayId only
+     * @param array  $displayIds     column used in the condition
+     * @param string $condition      condition you want, function sprintf is use behind
+     * @param array  $classes        classe you want to apply
+     *
      * @return RowDefinition
+     *
      * @throws \Exception
      */
     public function conditionalFormatting($selectedColumn, array $displayIds, $condition, array $classes)
     {
         if (!$this->getCurrentDefinition() instanceof GroupDefinition) {
-            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "' . get_class($this->getCurrentDefinition()) . '" given in function rowSpan()');
+            throw new \Exception('Expected argument of type "Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition", "'.get_class($this->getCurrentDefinition()).'" given in function rowSpan()');
         }
 
         $this->getCurrentDefinition()->addConditionalFormatting($selectedColumn, $displayIds, $condition, $classes);
 
         return $this;
     }
-
 }

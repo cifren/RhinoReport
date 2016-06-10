@@ -8,11 +8,10 @@ use Earls\RhinoReportBundle\Module\Table\TableObject\Row;
 use Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition;
 
 /**
- * Earls\RhinoReportBundle\Module\Table\Templating\SystemTemplate\Util\XlsApplyFormula
+ * Earls\RhinoReportBundle\Module\Table\Templating\SystemTemplate\Util\XlsApplyFormula.
  */
 class XlsApplyFormula
 {
-
     protected $table;
     protected $TableRetrieverHelper;
     protected $rowShift;
@@ -72,8 +71,8 @@ class XlsApplyFormula
                         $this->listFormula[] = $column->getFullPath();
                     }
                     if ($previousCol) {
-                        for ($i = 0; $i <= $previousCol->getAttribute('colspan') - 2; $i++) {
-                            $columnPosition++;
+                        for ($i = 0; $i <= $previousCol->getAttribute('colspan') - 2; ++$i) {
+                            ++$columnPosition;
                         }
                         $column->setPosition($columnPosition);
                     } else {
@@ -115,13 +114,13 @@ class XlsApplyFormula
 
                 // Exception: assertion if $aryColumn is empty or doesn't have index 0
                 if (empty($aryColumn)) {
-                    throw new \Exception('Array `$aryColumn´ shouldn\'t be null (in path:"'.$columnFormulaPath. '").');
+                    throw new \Exception('Array `$aryColumn´ shouldn\'t be null (in path:"'.$columnFormulaPath.'").');
                 } elseif (empty($aryColumn[0])) {
-                    throw new \Exception('Array `$aryColumn´ should have an element at index 0 (in path:"'.$columnFormulaPath. '").');
+                    throw new \Exception('Array `$aryColumn´ should have an element at index 0 (in path:"'.$columnFormulaPath.'").');
                 }
 
                 if (count($aryColumn) > 1 && $aryColumn[0]->getDefinition()->getType() == ColumnDefinition::TYPE_DATA) {
-                    throw new \Exception('Column Data `' . $aryColumn[0]->getDefinition()->getPath() . '´ can\'t work through groups');
+                    throw new \Exception('Column Data `'.$aryColumn[0]->getDefinition()->getPath().'´ can\'t work through groups');
                 } elseif ($aryColumn[0]->getDefinition()->getType() == ColumnDefinition::TYPE_DATA) {
                     $argColumn[] = $aryColumn[0]->getData();
                     continue;
@@ -167,22 +166,21 @@ class XlsApplyFormula
                                 $columnFormula[] = $column->getFullPosition();
                             }
                         } else {
-                            $columnFormula[] = $firstColumn->getFullPosition() . ':' . $lastColumn->getFullPosition();
+                            $columnFormula[] = $firstColumn->getFullPosition().':'.$lastColumn->getFullPosition();
                         }
                         $firstColumn = $lastColumn = $column;
                     }
 
-                    $count++;
+                    ++$count;
                     $lastPosition = $position;
                 }
 
                 $argColumn[] = implode('+', $columnFormula);
             }
-            $formula = '=' . vsprintf($definitionFormula['formula'], $argColumn);
+            $formula = '='.vsprintf($definitionFormula['formula'], $argColumn);
             $columnBase->setFormula($formula);
             $columnBase->setData(null);
             $columnBase->setBaseValue(null);
         }
     }
-
 }

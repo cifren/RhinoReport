@@ -7,34 +7,29 @@ use Earls\RhinoReportBundle\Module\Table\TableObject\Row;
 use Earls\RhinoReportBundle\Module\Table\Definition\ColumnDefinition;
 
 /**
- * Earls\RhinoReportBundle\Module\Table\Templating\DataTableTemplate\Simplifier\DataReportSimplifier
+ * Earls\RhinoReportBundle\Module\Table\Templating\DataTableTemplate\Simplifier\DataReportSimplifier.
  */
 class DataReportSimplifier
 {
-
     protected $table;
 
     /**
-     *
-     * @var array  Rows will be displayed as Headers
+     * @var array Rows will be displayed as Headers
      */
     protected $groupHeadingRows = array();
 
     /**
-     *
-     * @var array   Level count of recursive headers
+     * @var array Level count of recursive headers
      */
     protected $groupHeadingLevel;
 
     /**
-     *
-     * @var array   rows onwed by group, the ids of headers will be added to the data
+     * @var array rows onwed by group, the ids of headers will be added to the data
      */
     protected $rows = array();
 
     /**
-     *
-     * @var array   list of column name 
+     * @var array list of column name
      */
     protected $columnList;
 
@@ -49,7 +44,7 @@ class DataReportSimplifier
     }
 
     /**
-     * Get an array
+     * Get an array.
      *
      * @return array
      */
@@ -102,7 +97,7 @@ class DataReportSimplifier
         foreach ($group->getItems() as $item) {
             if ($item instanceof Group) {
                 $this->getGroupArray($item, $groupHeading, $groupHeadingId);
-                $groupHeadingId++;
+                ++$groupHeadingId;
             }
         }
     }
@@ -128,5 +123,4 @@ class DataReportSimplifier
 
         return $arrayRow;
     }
-
 }

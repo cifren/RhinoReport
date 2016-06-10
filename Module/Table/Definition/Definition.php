@@ -4,14 +4,12 @@ namespace Earls\RhinoReportBundle\Module\Table\Definition;
 
 use Earls\RhinoReportBundle\Templating\ExportConfigurator\ExportConfigurator;
 use Earls\RhinoReportBundle\Module\Table\Util\DataObject;
-use Earls\RhinoReportBundle\Report\Definition\ModuleDefinition;
 
 /**
- * Earls\RhinoReportBundle\Module\Table\Definition\Definition
+ * Earls\RhinoReportBundle\Module\Table\Definition\Definition.
  */
 abstract class Definition
 {
-
     protected $displayId;
     protected $parent;
     protected $path;
@@ -24,8 +22,8 @@ abstract class Definition
         if ($this->path) {
             return $this->path;
         }
-        
-        return $this->getParent()->getPath() . '\\' . $this->excludeSpecialCharacter($this->getDisplayId());
+
+        return $this->getParent()->getPath().'\\'.$this->excludeSpecialCharacter($this->getDisplayId());
     }
 
     public function setData(DataObject $data)
@@ -46,7 +44,7 @@ abstract class Definition
 
         return $this;
     }
-    
+
     public function getParent()
     {
         return $this->parent;
@@ -86,7 +84,7 @@ abstract class Definition
     public function setAttribute($attr, $value)
     {
         if ($attr == 'class' && !is_array($value)) {
-            throw new \Exception('Attribute `class´ for `' . get_class($this) . '´ `' . $this->getDefinition()->getPath() . '´ should be an array');
+            throw new \Exception('Attribute `class´ for `'.get_class($this).'´ `'.$this->getDefinition()->getPath().'´ should be an array');
         }
         //only for class => merge
         if (isset($this->attributes['class']) && $attr == 'class') {
@@ -127,6 +125,7 @@ abstract class Definition
     public function setDisplayId($displayId)
     {
         $this->displayId = trim($displayId);
+
         return $this;
     }
 }

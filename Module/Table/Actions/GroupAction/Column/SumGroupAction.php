@@ -2,16 +2,13 @@
 
 namespace Earls\RhinoReportBundle\Module\Table\Actions\GroupAction\Column;
 
-use Earls\RhinoReportBundle\Module\Table\Actions\GroupAction\Column\GroupAction;
 use Earls\RhinoReportBundle\Module\Table\Helper\TableRetrieverHelper;
 
 /**
- *  Earls\RhinoReportBundle\Module\Table\Actions\GroupAction\Column\SumGroupAction
- *
+ *  Earls\RhinoReportBundle\Module\Table\Actions\GroupAction\Column\SumGroupAction.
  */
 class SumGroupAction extends GroupAction
 {
-
     protected $retriever;
 
     public function __construct(TableRetrieverHelper $retriever)
@@ -22,7 +19,7 @@ class SumGroupAction extends GroupAction
     public function setData()
     {
         if (!$this->options['column']) {
-            throw new \InvalidArgumentException('Argument \'column\' is missing in group action SUM on \'' . $this->column->getDefinition()->getPath() . '\'');
+            throw new \InvalidArgumentException('Argument \'column\' is missing in group action SUM on \''.$this->column->getDefinition()->getPath().'\'');
         }
         $this->retriever->setTable($this->table);
 
@@ -32,7 +29,7 @@ class SumGroupAction extends GroupAction
             $group = $this->column->getRow()->getGroup();
         }
         $items = $this->retriever->getParentOrSubItemsFromGenericPath($this->options['column'], $group);
-        
+
         $sum = 0;
         foreach ($items as $item) {
             $sum += $item->getData();
@@ -45,8 +42,7 @@ class SumGroupAction extends GroupAction
     {
         return array(
             'fromGroup' => null,
-            'column' => null
+            'column' => null,
         );
     }
-
 }

@@ -5,11 +5,10 @@ namespace Earls\RhinoReportBundle\Module\Bar\Definition;
 use Earls\RhinoReportBundle\Report\Definition\AbstractModuleDefinitionBuilder;
 
 /**
- * Earls\RhinoReportBundle\Module\Bar\Definition\BarDefinitionBuilder
+ * Earls\RhinoReportBundle\Module\Bar\Definition\BarDefinitionBuilder.
  */
 class BarDefinitionBuilder extends AbstractModuleDefinitionBuilder
 {
-
     public function label($columnName)
     {
         $this->getDefinition()->setLabelColumn($columnName);
@@ -20,7 +19,7 @@ class BarDefinitionBuilder extends AbstractModuleDefinitionBuilder
     public function dataset($columnData, $labelData, $options = array())
     {
         $dataset = new DatasetDefinition($columnData, $labelData, $options);
-        
+
         $this->getDefinition()->addDataset($dataset);
 
         return $this;
@@ -32,7 +31,7 @@ class BarDefinitionBuilder extends AbstractModuleDefinitionBuilder
 
         return $this;
     }
-    
+
     public function template($name)
     {
         $this->getCurrentDefinition()->setTemplate($name);
@@ -54,5 +53,4 @@ class BarDefinitionBuilder extends AbstractModuleDefinitionBuilder
     {
         return $this->getDefinition();
     }
-
 }

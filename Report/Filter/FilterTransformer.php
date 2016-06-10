@@ -11,10 +11,9 @@ use Doctrine\DBAL\Statement;
 
 class FilterTransformer
 {
-
     public function transform($type, $field)
     {
-        $type = 'Earls\RhinoReportBundle\Report\Filter\FilterTransformer\\' . ucfirst($type) . 'FilterTransformer';
+        $type = 'Earls\RhinoReportBundle\Report\Filter\FilterTransformer\\'.ucfirst($type).'FilterTransformer';
         $filterTransformerType = new $type();
 
         return $filterTransformerType->applyFilterTransformer($field);
@@ -22,30 +21,30 @@ class FilterTransformer
 
     public function bindArrayValue($req, $array, $typeArray = false)
     {
-
         if (is_object($req) && ($req instanceof Statement)) {
             foreach ($array as $key => $value) {
-                if ($typeArray)
+                if ($typeArray) {
                     $req->bindValue(":$key", $value, $typeArray[$key]);
-                else {
-                    if (is_int($value))
+                } else {
+                    if (is_int($value)) {
                         $param = \PDO::PARAM_INT;
-                    elseif (is_bool($value))
+                    } elseif (is_bool($value)) {
                         $param = \PDO::PARAM_BOOL;
-                    elseif (is_null($value))
+                    } elseif (is_null($value)) {
                         $param = \PDO::PARAM_NULL;
-                    elseif (is_string($value))
+                    } elseif (is_string($value)) {
                         $param = \PDO::PARAM_STR;
-                    else
-                        $param = FALSE;
+                    } else {
+                        $param = false;
+                    }
 
-                    if ($param)
+                    if ($param) {
                         $req->bindValue(":$key", $value, $param);
+                    }
                 }
             }
         }
 
         return $req;
     }
-
 }

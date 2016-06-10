@@ -2,74 +2,84 @@
 
 namespace Earls\RhinoReportBundle\Report\Definition;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * Earls\RhinoReportBundle\Report\Definition\ReportFilter
+ * Earls\RhinoReportBundle\Report\Definition\ReportFilter.
  */
 class ReportFilter
 {
     /**
-     * @var string $name
-     * 
-     **/ 
+     * @var string
+     **/
     protected $name;
-    
+
     /**
-     * @var string $type
-     **/ 
+     * @var string
+     **/
     protected $type;
-    
+
     /**
-     * @var array $options
-     **/ 
+     * @var array
+     **/
     protected $options;
-    
+
     /**
      * @var ReportDefinition
      */
     protected $parent;
-    
-    public function __construct($parent, $name, $type, $options = array()){
-      $this->setName($name);
-      $this->setType($type);
-      $this->setOptions($options);
-      $this->setParent($parent);
+
+    public function __construct($parent, $name, $type, $options = array())
+    {
+        $this->setName($name);
+        $this->setType($type);
+        $this->setOptions($options);
+        $this->setParent($parent);
     }
-    
-    public function setName($name){
+
+    public function setName($name)
+    {
         $this->name = $name;
+
         return $this;
     }
-    
-    public function getName(){
+
+    public function getName()
+    {
         return $this->name;
     }
-    
-    public function setType($type){
+
+    public function setType($type)
+    {
         $this->type = $type;
+
         return $this;
     }
-    
-    public function getType(){
+
+    public function getType()
+    {
         return $this->type;
     }
-    
-    public function setOptions($options){
+
+    public function setOptions($options)
+    {
         $this->options = $options;
+
         return $this;
     }
-    
-    public function getOptions(){
+
+    public function getOptions()
+    {
         return $this->options;
     }
-    
-    public function setParent($parent){
+
+    public function setParent($parent)
+    {
         $this->parent = $parent;
+
         return $this;
     }
-    
-    public function getParent(){
+
+    public function getParent()
+    {
         return $this->parent;
     }
 }

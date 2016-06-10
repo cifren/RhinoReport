@@ -7,14 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 
 /**
- * Earls\RhinoReportBundle\Module\Table\Definition\RowDefinition
- *
+ * Earls\RhinoReportBundle\Module\Table\Definition\RowDefinition.
  */
 class RowDefinition extends Definition
 {
-
     /**
-     * Give the position of the row into its parent 
+     * Give the position of the row into its parent.
      */
     protected $itemOrder;
     protected $columnDefinitions;
@@ -34,45 +32,45 @@ class RowDefinition extends Definition
     {
         $column = new ColumnDefinition($displayId, $type, $dataId);
         $column->setParent($this);
-        
+
         $this->addColumn($column);
 
         return $column;
     }
-    
+
     public function setColumns($columns = array())
     {
         $this->getColumns()->clear();
-        foreach($columns as $col){
-            if(!$this->getColumns()->contains($col)){
+        foreach ($columns as $col) {
+            if (!$this->getColumns()->contains($col)) {
                 $this->addColumn($col);
             }
         }
-        
+
         return $this;
     }
-    
+
     public function addColumn(ColumnDefinition $columnDefinition)
     {
         $this->columnDefinitions[] = $columnDefinition;
-        
+
         return $columnDefinition;
     }
 
     public function getColumn($displayId)
     {
         $criteria = Criteria::create()
-            ->where(Criteria::expr()->eq("displayId", $displayId))
+            ->where(Criteria::expr()->eq('displayId', $displayId))
         ;
 
         $items = $this->columnDefinitions->matching($criteria);
-        
+
         $item = null;
-        if($items->count() > 0){
+        if ($items->count() > 0) {
             $array = array_values($items->toArray());
             $item = array_shift($array);
         }
-        
+
         return $item;
     }
 
@@ -92,9 +90,9 @@ class RowDefinition extends Definition
     {
         $column = $this->getColumn($displayId);
         if (!isset($column)) {
-            throw new \UnexpectedValueException('Column \'' . $displayId . '\' in group \'' . $this->getParent()->getDisplayId() . '\' is not yet defined');
+            throw new \UnexpectedValueException('Column \''.$displayId.'\' in group \''.$this->getParent()->getDisplayId().'\' is not yet defined');
         }
-        
+
         $column->setColSpan($number);
 
         return $this;
@@ -102,15 +100,18 @@ class RowDefinition extends Definition
 
     public function setParent($parent)
     {
-        if (!$parent instanceof GroupDefinition)
+        if (!$parent instanceof GroupDefinition) {
             throw new UnexpectedTypeException($this->parent, 'Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition');
+        }
         parent::setParent($parent);
     }
 
     public function getPath()
     {
-        if ($this->path)
+        if ($this->path) {
             return $this->path;
+        }
+
         return $this->path = $this->parent->getPath();
     }
 
@@ -141,7 +142,7 @@ class RowDefinition extends Definition
         $this->groupAction = array(
             'name' => $name,
             'arg' => $arg,
-            'dependences' => $dependences
+            'dependences' => $dependences,
         );
         //execute either extendingGroupAction or groupAction
         $this->extendingGroupAction = null;
@@ -162,7 +163,7 @@ class RowDefinition extends Definition
     public function setExtendingGroupAction($dependences = array())
     {
         $this->extendingGroupAction = array(
-            'dependences' => $dependences
+            'dependences' => $dependences,
         );
         //execute either extendingGroupAction either groupAction
         $this->groupAction = null;
@@ -184,7 +185,7 @@ class RowDefinition extends Definition
     {
         $this->actions[] = array(
             'name' => $name,
-            'arg' => $arg
+            'arg' => $arg,
         );
     }
 
@@ -206,26 +207,26 @@ class RowDefinition extends Definition
     public function reOrderColumns()
     {
         $func = function ($columnDefinitionA, $columnDefinitionB) {
-                    if ($columnDefinitionA == $columnDefinitionB) {
-                        return 0;
-                    }
+            if ($columnDefinitionA == $columnDefinitionB) {
+                return 0;
+            }
 
-                    return ($columnDefinitionA->getOrder() < $columnDefinitionB->getOrder()) ? -1 : 1;
-                };
+            return ($columnDefinitionA->getOrder() < $columnDefinitionB->getOrder()) ? -1 : 1;
+        };
         uasort($this->getColumns(), $func);
 
         return $this;
     }
-    
+
     public function getItemOrder()
     {
         return $this->itemOrder;
     }
-    
+
     public function setItemOrder($num)
     {
         $this->itemOrder = $num;
+
         return $this;
     }
-
 }

@@ -2,7 +2,6 @@
 
 namespace Earls\RhinoReportBundle\Module\Table\TableObject;
 
-use Earls\RhinoReportBundle\Module\Table\TableObject\TableObject;
 use Earls\RhinoReportBundle\Module\Table\Util\DataObjectInterface;
 
 /*
@@ -11,7 +10,6 @@ use Earls\RhinoReportBundle\Module\Table\Util\DataObjectInterface;
 
 class Group extends TableObject
 {
-
     protected $items = array();
     protected $type;
     protected $genericId;
@@ -42,7 +40,7 @@ class Group extends TableObject
     public function getPartialPath()
     {
         if (!$this->partialPath) {
-            $this->partialPath = $this->type . ':%:' . $this->excludeSpecialCharacter($this->genericId) . ':@:' . $this->excludeSpecialCharacter($this->id);
+            $this->partialPath = $this->type.':%:'.$this->excludeSpecialCharacter($this->genericId).':@:'.$this->excludeSpecialCharacter($this->id);
         }
 
         return $this->partialPath;
@@ -97,5 +95,4 @@ class Group extends TableObject
     {
         return $this->getDefinition()->getRowSpans();
     }
-
 }

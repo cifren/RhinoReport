@@ -2,8 +2,6 @@
 
 namespace Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column;
 
-use Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\Action;
-
 /*
  *  Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\EntityFieldAction
  *
@@ -11,7 +9,6 @@ use Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\Action;
 
 class EntityFieldAction extends Action
 {
-
     protected $doctrine;
 
     public function __construct($doctrine)
@@ -25,14 +22,14 @@ class EntityFieldAction extends Action
         $value = (int) $this->rowData[$this->options['dataId']];
 
         //check for an ID
-        if (!is_int($value) || 0 == $value)
-            throw new \Symfony\Component\Config\Definition\Exception\InvalidDefinitionException('Only accepts integers and not 0. Input was: ' . $value . '. For the data `' . $this->options['dataId'] . '` and class `' . $this->options['class'] . '` and field `' . $this->options['property'] . '`');
+        if (!is_int($value) || 0 == $value) {
+            throw new \Symfony\Component\Config\Definition\Exception\InvalidDefinitionException('Only accepts integers and not 0. Input was: '.$value.'. For the data `'.$this->options['dataId'].'` and class `'.$this->options['class'].'` and field `'.$this->options['property'].'`');
+        }
 
         $object = $em->getRepository($this->options['class'])->find($this->rowData[$this->options['dataId']]);
-        $getter = 'get' . ucfirst($this->options['property']);
+        $getter = 'get'.ucfirst($this->options['property']);
         $objectData = $object->$getter();
 
         return $objectData;
     }
-
 }

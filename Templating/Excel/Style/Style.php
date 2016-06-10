@@ -3,11 +3,10 @@
 namespace Earls\RhinoReportBundle\Templating\Excel\Style;
 
 /**
- * Earls\RhinoReportBundle\Templating\Excel\Style\Style
+ * Earls\RhinoReportBundle\Templating\Excel\Style\Style.
  */
 class Style
 {
-
     protected $parent;
     protected $font = array();
     protected $alignment = array();
@@ -102,11 +101,11 @@ class Style
 
     public function getBorders()
     {
-        if(!empty($this->topBorder) && !empty($this->rightBorder) && !empty($this->bottomBorder) && !empty($this->leftBorder))
-
+        if (!empty($this->topBorder) && !empty($this->rightBorder) && !empty($this->bottomBorder) && !empty($this->leftBorder)) {
             return array('top' => $this->topBorder, 'right' => $this->rightBorder, 'bottom' => $this->bottomBorder, 'left' => $this->leftBorder);
-        else
+        } else {
             return array();
+        }
     }
 
     public function addTopBorderOption($name, $value)
@@ -144,5 +143,4 @@ class Style
 
         return $this->bottomBorder[$name] = $value;
     }
-
 }

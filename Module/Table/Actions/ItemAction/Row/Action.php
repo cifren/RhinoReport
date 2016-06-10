@@ -5,12 +5,10 @@ namespace Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Row;
 use Earls\RhinoReportBundle\Module\Table\TableObject\Row;
 
 /**
- *  Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Row\Action
- *
+ *  Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Row\Action.
  */
 abstract class Action implements ActionInterface
 {
-
     protected $row;
     protected $options;
     protected $dependences = array();
@@ -53,5 +51,4 @@ abstract class Action implements ActionInterface
 
         return $this;
     }
-
 }

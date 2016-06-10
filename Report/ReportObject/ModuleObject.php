@@ -3,13 +3,12 @@
 namespace Earls\RhinoReportBundle\Report\ReportObject;
 
 /**
- * Description of ModuleObject
+ * Description of ModuleObject.
  *
  * @author cifren
  */
 abstract class ModuleObject
 {
-
     protected $id;
     protected $definition;
     protected $options = array();
@@ -61,7 +60,7 @@ abstract class ModuleObject
     public function setOptions($options)
     {
         $this->options = $options;
+
         return $this;
     }
-
 }

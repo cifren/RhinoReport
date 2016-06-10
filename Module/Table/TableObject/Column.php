@@ -2,15 +2,12 @@
 
 namespace Earls\RhinoReportBundle\Module\Table\TableObject;
 
-use Earls\RhinoReportBundle\Module\Table\TableObject\TableObject;
-
 /*
  * Earls\RhinoReportBundle\Module\Table\TableObject\Column
  */
 
 class Column extends TableObject
 {
-
     protected $baseValue = null;
     protected $formatExcel = null;
     protected $id;
@@ -54,9 +51,10 @@ class Column extends TableObject
     {
         return $this->data;
     }
-    
-    public function getNakedData(){
-        return $this->getBaseValue() !== null?$this->getBaseValue():$this->getData();
+
+    public function getNakedData()
+    {
+        return $this->getBaseValue() !== null ? $this->getBaseValue() : $this->getData();
     }
 
     public function setFormula($formula)
@@ -121,7 +119,6 @@ class Column extends TableObject
     //position : R1C1, R1C2, R2C1...
     public function getFullPosition()
     {
-        return 'R' . $this->getParent()->getPosition() . 'C' . $this->position;
+        return 'R'.$this->getParent()->getPosition().'C'.$this->position;
     }
-
 }

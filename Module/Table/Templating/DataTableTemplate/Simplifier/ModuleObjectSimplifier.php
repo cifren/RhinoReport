@@ -5,18 +5,17 @@ namespace Earls\RhinoReportBundle\Module\Table\Templating\DataTableTemplate\Simp
 use Earls\RhinoReportBundle\Module\Table\TableObject\TableObject;
 
 /**
- * Earls\RhinoReportBundle\Module\Table\Templating\DataTableTemplate\Simplifier\ModuleObjectSimplifier
+ * Earls\RhinoReportBundle\Module\Table\Templating\DataTableTemplate\Simplifier\ModuleObjectSimplifier.
  */
 class ModuleObjectSimplifier
 {
-
     public function getSimplifyObject(TableObject $tableObject)
     {
         $array = array();
         $array['object'] = $tableObject;
         $array['attr'] = $this->formatAttributes($tableObject->getAttributes(), array('class' => 'dataTable', 'width' => '100%', 'cellspacing' => 0));
         $array['id'] = $tableObject->getId();
-        
+
         return $array;
     }
 
@@ -44,19 +43,19 @@ class ModuleObjectSimplifier
     }
 
     /**
-     * Convert array of style into string for html render
+     * Convert array of style into string for html render.
      *
-     * @param  array  $style
+     * @param array $style
+     *
      * @return string
      */
     protected function getAttrStyle(array $style)
     {
         $styleString[] = null;
         foreach ($style as $key => $value) {
-            $styleString[] .= $key . ':' . $value . ';';
+            $styleString[] .= $key.':'.$value.';';
         }
 
         return implode('', $styleString);
     }
-
 }

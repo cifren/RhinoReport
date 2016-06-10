@@ -5,18 +5,17 @@ namespace Earls\RhinoReportBundle\Templating\Excel\Transformer;
 use Earls\RhinoReportBundle\Templating\Excel\Tag\ColumnTag;
 
 /**
- * Help on http://msdn.microsoft.com/en-us/library/aa140066.aspx or http://en.wikipedia.org/wiki/Microsoft_Office_XML_formats
+ * Help on http://msdn.microsoft.com/en-us/library/aa140066.aspx or http://en.wikipedia.org/wiki/Microsoft_Office_XML_formats.
  *
  * Earls\RhinoReportBundle\Templating\Excel\Transformer\ColumnConfigTransformer
  */
 class ColumnConfigTransformer
 {
-
     protected $config;
     protected $columnTag;
     protected $availableConfig = array(
         'width',
-        'hidden'
+        'hidden',
     );
 
     public function __construct(array $config)
@@ -32,7 +31,7 @@ class ColumnConfigTransformer
             $this->columnTag->addNewOption('ss:Index', $column);
             foreach ($columnConfig as $key => $value) {
                 if (in_array($key, $this->availableConfig)) {
-                    $this->{$key . 'Transformer'}($value);
+                    $this->{$key.'Transformer'}($value);
                 } else {
                     throw new \Exception("This columnConfig value '$key' does'n exist");
                 }
@@ -59,5 +58,4 @@ class ColumnConfigTransformer
             $this->columnTag->addNewOption('ss:Hidden', 1);
         }
     }
-
 }

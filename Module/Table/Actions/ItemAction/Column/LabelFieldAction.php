@@ -2,15 +2,12 @@
 
 namespace Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column;
 
-use Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\Action;
-
 /*
  *  Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\LabelFieldAction
  *
  */
 class LabelFieldAction extends Action
 {
-
     public function setData()
     {
         $data = $this->options['label'];
@@ -21,8 +18,7 @@ class LabelFieldAction extends Action
     public function getOptions()
     {
         return array(
-            'label' => null
+            'label' => null,
         );
     }
-
 }

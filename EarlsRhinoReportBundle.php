@@ -10,7 +10,6 @@ use Earls\RhinoReportBundle\DependencyInjection\Compiler\DefinitionBuilderPass;
 
 class EarlsRhinoReportBundle extends Bundle
 {
-
     public function build(ContainerBuilder $container)
     {
         parent::build($container);
@@ -20,5 +19,4 @@ class EarlsRhinoReportBundle extends Bundle
         $container->addCompilerPass(new FactoryPass());
         //$container->addCompilerPass(new TemplatingPass());
     }
-
 }

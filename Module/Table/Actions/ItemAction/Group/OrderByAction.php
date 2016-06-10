@@ -2,19 +2,17 @@
 
 namespace Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Group;
 
-use Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Group\Action;
 use Earls\RhinoReportBundle\Module\Table\Helper\TableRetrieverHelper;
-use \Earls\RhinoReportBundle\Module\Table\TableObject\Group;
-use \Earls\RhinoReportBundle\Module\Table\TableObject\Row;
+use Earls\RhinoReportBundle\Module\Table\TableObject\Group;
+use Earls\RhinoReportBundle\Module\Table\TableObject\Row;
 
 /**
- * Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Group\OrderByAction
+ * Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Group\OrderByAction.
  *
  * reorder groups via rowUnique->column name, only for now
  */
 class OrderByAction extends Action
 {
-
     protected $retriever;
     protected $group;
     protected $path;
@@ -29,7 +27,7 @@ class OrderByAction extends Action
     public function setGroup()
     {
         if (!$this->options['column']) {
-            throw new \InvalidArgumentException('Argument \'column\' is missing in action \'' . $this->group->getDefinition()->getPath() . '\'');
+            throw new \InvalidArgumentException('Argument \'column\' is missing in action \''.$this->group->getDefinition()->getPath().'\'');
         }
 
         if (!isset($this->options['order']) || !in_array($this->options['order'], array('desc', 'asc'))) {
@@ -42,7 +40,7 @@ class OrderByAction extends Action
         $this->column = $path[1];
 
         if (!$this->column) {
-            throw new \InvalidArgumentException('Argument \'column\' should look like this `\\table\\body\\item.column` in action \'' . $this->group->getDefinition()->getPath() . '\'');
+            throw new \InvalidArgumentException('Argument \'column\' should look like this `\\table\\body\\item.column` in action \''.$this->group->getDefinition()->getPath().'\'');
         }
 
         $items = $this->group->getItems();
@@ -73,35 +71,36 @@ class OrderByAction extends Action
     {
         return array(
             'group' => null,
-            'column' => null
+            'column' => null,
         );
     }
 
     protected function cmp($a, $b)
     {
-        if (!($a instanceof Group && $b instanceof Group))
+        if (!($a instanceof Group && $b instanceof Group)) {
             return 0;
+        }
 
         $aFilter = array_filter($a->getItems(), array($this, 'filterRowUnique'));
         $bFilter = array_filter($b->getItems(), array($this, 'filterRowUnique'));
 
         if (empty($aFilter)) {
-            throw new \Exception('There is no row or no rowUnique in group `' . $a->getDefinition()->getPath() . '`');
+            throw new \Exception('There is no row or no rowUnique in group `'.$a->getDefinition()->getPath().'`');
         } elseif (empty($bFilter)) {
-            throw new \Exception('There is no row or no rowUnique in group `' . $b->getDefinition()->getPath() . '`');
+            throw new \Exception('There is no row or no rowUnique in group `'.$b->getDefinition()->getPath().'`');
         }
         $aRow = array_shift($aFilter);
         $bRow = array_shift($bFilter);
 
         $aColumn = $aRow->getColumn($this->column);
         if ($aColumn == null) {
-            throw new \Exception('Error in `OrderByAction` in group `' . $a->getDefinition()->getPath() . '`, column `'.$this->column.'` does not exist');
+            throw new \Exception('Error in `OrderByAction` in group `'.$a->getDefinition()->getPath().'`, column `'.$this->column.'` does not exist');
         }
         $aColumnData = (int) $aColumn->getData();
 
         $bColumn = $bRow->getColumn($this->column);
         if ($bColumn == null) {
-            throw new \Exception('Error in `OrderByAction` in group `' . $b->getDefinition()->getPath() . '`, column `'.$this->column.'` does not exist');
+            throw new \Exception('Error in `OrderByAction` in group `'.$b->getDefinition()->getPath().'`, column `'.$this->column.'` does not exist');
         }
         $bColumnData = (int) $bColumn->getData();
 
@@ -110,9 +109,9 @@ class OrderByAction extends Action
         }
 
         if ($this->options['order'] == 'asc') {
-            return ( $aColumnData < $bColumnData ) ? -1 : 1;
+            return ($aColumnData < $bColumnData) ? -1 : 1;
         } else {
-            return ( $aColumnData > $bColumnData ) ? -1 : 1;
+            return ($aColumnData > $bColumnData) ? -1 : 1;
         }
     }
 
@@ -124,5 +123,4 @@ class OrderByAction extends Action
 
         return false;
     }
-
 }

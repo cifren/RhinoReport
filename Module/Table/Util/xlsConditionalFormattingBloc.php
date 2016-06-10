@@ -3,11 +3,10 @@
 namespace Earls\RhinoReportBundle\Module\Table\Util;
 
 /**
- * Earls\RhinoReportBundle\Module\Table\Util\xlsConditionalFormattingBloc
+ * Earls\RhinoReportBundle\Module\Table\Util\xlsConditionalFormattingBloc.
  */
 class xlsConditionalFormattingBloc
 {
-
     protected $range;
     protected $condition = array('value' => null, 'format' => array('style' => null));
 
@@ -32,13 +31,14 @@ class xlsConditionalFormattingBloc
     public function setRange($range)
     {
         $this->range = $range;
+
         return $this;
     }
 
     public function setCondition($condition)
     {
         $this->condition = $condition;
+
         return $this;
     }
-
 }

@@ -3,11 +3,10 @@
 namespace Earls\RhinoReportBundle\Report\Definition;
 
 /**
- * Earls\RhinoReportBundle\Report\Definition\AbstractModuleDefinitionBuilder
+ * Earls\RhinoReportBundle\Report\Definition\AbstractModuleDefinitionBuilder.
  */
 abstract class AbstractModuleDefinitionBuilder extends AbstractDefinitionBuilder
 {
-
     protected $id;
     protected $parent;
 
@@ -36,7 +35,7 @@ abstract class AbstractModuleDefinitionBuilder extends AbstractDefinitionBuilder
 
     public function setId($id)
     {
-        if(!$id){
+        if (!$id) {
             $id = uniqid();
         }
         $this->id = $id;
@@ -44,5 +43,4 @@ abstract class AbstractModuleDefinitionBuilder extends AbstractDefinitionBuilder
 
         return $this;
     }
-
 }

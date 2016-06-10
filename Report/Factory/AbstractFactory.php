@@ -2,7 +2,6 @@
 
 namespace Earls\RhinoReportBundle\Report\Factory;
 
-use Earls\RhinoReportBundle\Report\Factory\ReportFactoryInterface;
 use Earls\RhinoReportBundle\Report\Definition\ReportDefinitionInterface;
 use Earls\RhinoReportBundle\Module\Table\Util\DataObjectInterface;
 
@@ -13,7 +12,6 @@ use Earls\RhinoReportBundle\Module\Table\Util\DataObjectInterface;
 
 abstract class AbstractFactory implements ReportFactoryInterface
 {
-
     protected $data;
     protected $definition;
     protected $item;
@@ -33,6 +31,7 @@ abstract class AbstractFactory implements ReportFactoryInterface
     public function setItem($item)
     {
         $this->item = $item;
+
         return $this;
     }
 
@@ -55,5 +54,4 @@ abstract class AbstractFactory implements ReportFactoryInterface
     {
         return $this->item;
     }
-
 }

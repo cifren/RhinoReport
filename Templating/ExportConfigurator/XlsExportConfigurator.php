@@ -3,18 +3,16 @@
 namespace Earls\RhinoReportBundle\Templating\ExportConfigurator;
 
 use Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition;
-use Earls\RhinoReportBundle\Templating\ExportConfigurator\ExportConfigurator;
 
 /**
- * Earls\RhinoReportBundle\Templating\ExportConfigurator\XlsExportConfigurator
+ * Earls\RhinoReportBundle\Templating\ExportConfigurator\XlsExportConfigurator.
  */
 class XlsExportConfigurator implements ExportConfigurator
 {
-
     protected $styleTable = array();
     protected $tableOddEven = array(
         'column' => array('active' => true, 'classes' => array('even' => 'evenColumnClass', 'odd' => 'oddColumnClass')),
-        'row' => array('active' => true, 'classes' => array('even' => 'evenRowClass', 'odd' => 'oddRowClass'))
+        'row' => array('active' => true, 'classes' => array('even' => 'evenRowClass', 'odd' => 'oddRowClass')),
     );
     protected $pagebreak = false;
     protected $attr = array();
@@ -25,9 +23,9 @@ class XlsExportConfigurator implements ExportConfigurator
             //permissions
             'protectAllCells' => true, //will set the protect on all cells
             'selectLockedCells' => true, //if selectLockedCells is true, selectUnlockedCells will be true be default
-            'selectUnlockedCells' => true, 
-            'formatCells' => false
-        )
+            'selectUnlockedCells' => true,
+            'formatCells' => false,
+        ),
     );
     protected $column = array();
     protected $header = null;
@@ -72,7 +70,7 @@ class XlsExportConfigurator implements ExportConfigurator
     public function setAttr(array $attr)
     {
         if (isset($attr['class']) && !is_array($attr['class'])) {
-            throw new \Exception('Attribute `class´ for Excel Export `' . $this->getDefinition()->getPath() . '´ should be an array');
+            throw new \Exception('Attribute `class´ for Excel Export `'.$this->getDefinition()->getPath().'´ should be an array');
         }
         $this->attr = $attr;
 
@@ -131,5 +129,4 @@ class XlsExportConfigurator implements ExportConfigurator
 
         return $this;
     }
-
 }

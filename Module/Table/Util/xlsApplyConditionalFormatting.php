@@ -5,26 +5,22 @@ namespace Earls\RhinoReportBundle\Module\Table\Util;
 use Earls\RhinoReportBundle\Module\Table\TableObject\Table;
 use Earls\RhinoReportBundle\Module\Table\TableObject\Group;
 use Earls\RhinoReportBundle\Module\Table\Helper\TableRetrieverHelper;
-use Earls\RhinoReportBundle\Module\Table\Util\xlsConditionalFormattingBloc;
 use Earls\RhinoReportBundle\Templating\Excel\Translator\CssXmlStyleConditionalFormattingTranslator;
 
 /**
- * Earls\RhinoReportBundle\Module\Table\Util\xlsApplyConditionalFormatting
+ * Earls\RhinoReportBundle\Module\Table\Util\xlsApplyConditionalFormatting.
  */
 class xlsApplyConditionalFormatting
 {
-
     protected $table;
 
     /**
-     *
-     * @var TableRetrieverHelper 
+     * @var TableRetrieverHelper
      */
     protected $tableRetrieverHelper;
 
     /**
-     *
-     * @var CssXmlStyleConditionalFormattingTranslator 
+     * @var CssXmlStyleConditionalFormattingTranslator
      */
     protected $styleTranslator;
     protected $rowShift;
@@ -54,6 +50,7 @@ class xlsApplyConditionalFormatting
     public function getObjectBloc()
     {
         $blocList = $this->getListOnGroup($this->table->getBody());
+
         return $blocList;
     }
 
@@ -66,7 +63,6 @@ class xlsApplyConditionalFormatting
 
         foreach ($group->getItems() as $item) {
             if ($item instanceof Group) {
-
                 $list = array_merge($this->getListOnGroup($item), $list);
             }
         }
@@ -84,14 +80,14 @@ class xlsApplyConditionalFormatting
             }
             if (count($columns) > 1) {
                 $maxCol = count($columns) - 1;
-                $range = $columns[0]->getFullPosition() . ":" . $columns[$maxCol]->getFullPosition();
+                $range = $columns[0]->getFullPosition().':'.$columns[$maxCol]->getFullPosition();
             } else {
                 $range = $columns[0]->getFullPosition();
             }
             //condition
             $row = $columns[0]->getParent();
             foreach ($condFormat['displayIds'] as $displayId) {
-                $args[] = 'RC' . $row->getColumn($displayId)->getPosition();
+                $args[] = 'RC'.$row->getColumn($displayId)->getPosition();
             }
             $reformatCondition = str_replace('==', '=', $condFormat['condition']);
             $condition = vsprintf($reformatCondition, $args);
@@ -137,7 +133,7 @@ class xlsApplyConditionalFormatting
 
         $style = null;
         foreach ($compiledClasses as $rule => $value) {
-            $style .= $rule . ':' . $value . ';';
+            $style .= $rule.':'.$value.';';
         }
 
         return $style;
@@ -147,5 +143,4 @@ class xlsApplyConditionalFormatting
     {
         return $this->table->getDefinition()->getExportConfig('Excel')->getStyleTable();
     }
-
 }

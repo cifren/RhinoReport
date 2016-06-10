@@ -2,27 +2,21 @@
 
 namespace Earls\RhinoReportBundle\Report\Definition;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormTypeInterface;
-use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\Collection;
-use Earls\RhinoReportBundle\Report\Definition\ReportConfigurationInterface;
 use Earls\RhinoReportBundle\Module\Table\Util\DataObject;
 use Earls\RhinoReportBundle\Report\ReportObject\Report;
 use Earls\RhinoReportBundle\Report\ReportObject\Filter;
 use Earls\RhinoReportBundle\Report\Filter\ReportFilterInterface;
-use Earls\RhinoReportBundle\Report\Factory\ReportObjectFactoryCollection;
 
 /**
- * Earls\RhinoReportBundle\Report\Definition\ReportBuilder
+ * Earls\RhinoReportBundle\Report\Definition\ReportBuilder.
  */
 class ReportBuilder
 {
-
     /**
-     *
      * @var Report
      */
     protected $report = null;
@@ -40,21 +34,21 @@ class ReportBuilder
         $this->formFactory = $formFactory;
         $this->lexikFormFilter = $lexikFormFilter;
     }
-    
+
     public function setConfiguration(ReportConfigurationInterface $config)
     {
         $this->rptConfig = $config;
-        return $this;
-    }
-    
-    public function setRequest(Request $request)
-    {
-        $this->request = $request;
+
         return $this;
     }
 
-    /**
-     * */
+    public function setRequest(Request $request)
+    {
+        $this->request = $request;
+
+        return $this;
+    }
+
     public function build()
     {
         $data = array();
@@ -64,7 +58,7 @@ class ReportBuilder
             //can be object or array
             $dataFilter = $this->getFilterForm()->getData();
         }
-        
+
         // initialize a query builder if existing
         if (!$this->rptConfig->hasQueryBuilder($dataFilter)) { //report dont use query builder
             // check to see if a filter exists
@@ -79,7 +73,7 @@ class ReportBuilder
         }
 
         $dataAlterated = $this->rptConfig->getArrayData($data, $dataFilter);
-        
+
         $this->runDebugData($dataAlterated, $dataFilter);
 
         $dataObject = new DataObject($dataAlterated);
@@ -94,7 +88,7 @@ class ReportBuilder
         $this->report = $reportfactory->getItem();
         $this->report = $this->rptConfig->getReportObject($this->report, $dataFilter);
         $this->report->setOptions($this->rptConfig->getResolvedOptions());
-        
+
         //set filter
         if ($this->rptConfig->getFilter()) {
             $filter = new Filter();
@@ -105,8 +99,7 @@ class ReportBuilder
     }
 
     /**
-     * build only filter form empty
-     *
+     * build only filter form empty.
      */
     public function buildFilter()
     {
@@ -142,7 +135,7 @@ class ReportBuilder
         if ($flagValue) {
             $arrayhelper = new \Earls\RhinoReportBundle\Model\Helper\ArrayHelper();
 
-            echo "<h1>Rhino data debug</h1>";
+            echo '<h1>Rhino data debug</h1>';
             if (isset($data[$flagValue])) {
                 echo $arrayhelper->displayArrayDebug($data[$flagValue]);
             } else {
@@ -198,17 +191,19 @@ class ReportBuilder
         if (!$this->getFilterType()) {
             return null;
         }
-        
+
         // check if the form has already been created
         if ($this->filterForm) {
             return $this->filterForm;
         }
         $this->filterForm = $this->createForm($this->getFilterType());
+
         return $this->filterForm;
     }
-    
-    protected function createForm($filterDef){
-        switch(true){
+
+    protected function createForm($filterDef)
+    {
+        switch (true) {
             case $filterDef instanceof Collection:
                 return $this->createFormWithEntity($filterDef);
             case $filterDef instanceof ReportFilterInterface:
@@ -217,18 +212,18 @@ class ReportBuilder
                 throw new \Exception('Could not create the filter');
         }
     }
-    
+
     protected function createFormWithEntity($filterEntities)
     {
         $form = $this->formFactory->createBuilder(FormType::class, $this->rptConfig->getFilterModel());
-        
-        foreach($filterEntities as $item){
+
+        foreach ($filterEntities as $item) {
             $form->add($item->getName(), $item->getType(), $item->getOptions());
         }
-        
+
         return $form->getForm();
     }
-    
+
     protected function createFormWithType($type)
     {
         //-- FILTER FORM
@@ -243,14 +238,14 @@ class ReportBuilder
 
         return $filterForm;
     }
-    
-    protected function getFilterType(){
+
+    protected function getFilterType()
+    {
         return $this->rptConfig->getFilter();
     }
-    
+
     protected function getRequest($key)
     {
         return $this->request->get($key);
     }
-
 }

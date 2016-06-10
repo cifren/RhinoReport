@@ -7,17 +7,17 @@ use Earls\RhinoReportBundle\Entity\RhnReportDefinition;
 use Earls\RhinoReportBundle\Report\Factory\ReportFactoryInterface;
 
 /**
- * Earls\RhinoReportBundle\Report\Listener\RhnReportDefinitionListener
+ * Earls\RhinoReportBundle\Report\Listener\RhnReportDefinitionListener.
  */
 class RhnReportDefinitionListener
 {
     protected $reportFactory;
-    
+
     public function __construct(ReportFactoryInterface $reportFactory)
     {
         $this->reportFactory = $reportFactory;
     }
-    
+
     public function postLoad(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();

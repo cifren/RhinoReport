@@ -8,7 +8,6 @@ use Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Simplifier\X
 
 class XlsTableTemplateGenerator extends HtmlTemplateGenerator
 {
-
     protected $file;
     protected $simplifier;
 
@@ -24,10 +23,10 @@ class XlsTableTemplateGenerator extends HtmlTemplateGenerator
         $simpleTable = $this->simplifier->setTable($table)->getSimpleTable();
         $content = $this->renderView($this->twigTemplateName, array('table' => $simpleTable));
         //format your xml file, indentation etc...
-        $dom = new \DOMDocument;
-        $dom->preserveWhiteSpace = FALSE;
+        $dom = new \DOMDocument();
+        $dom->preserveWhiteSpace = false;
         $dom->loadXML($content);
-        $dom->formatOutput = TRUE;
+        $dom->formatOutput = true;
 
         //define content
         $contentType = 'application/ms-excel';
@@ -35,10 +34,9 @@ class XlsTableTemplateGenerator extends HtmlTemplateGenerator
         //create response
         $response = new Response($dom->saveXML(), 200, array(
             'Content-Type' => $contentType,
-            'Content-Disposition' => sprintf('attachment; filename=%s', $filename . '.xls')
+            'Content-Disposition' => sprintf('attachment; filename=%s', $filename.'.xls'),
         ));
 
         return $response;
     }
-
 }

@@ -3,13 +3,12 @@
 namespace Earls\RhinoReportBundle\Report\Templating\DefaultTemplate\Model;
 
 /**
- * Description of ModuleTemplate
+ * Description of ModuleTemplate.
  *
  * @author cifren
  */
 class ModuleTemplate
 {
-
     protected $templatingName;
     protected $moduleObject;
     protected $transformedModuleObject;
@@ -36,18 +35,21 @@ class ModuleTemplate
     public function setModuleObject($moduleObject)
     {
         $this->moduleObject = $moduleObject;
+
         return $this;
     }
 
     public function setRemoteUrl($remoteUrl)
     {
         $this->remoteUrl = $remoteUrl;
+
         return $this;
     }
 
     public function setExportUrl($exportUrl)
     {
         $this->exportUrl = $exportUrl;
+
         return $this;
     }
 
@@ -69,6 +71,7 @@ class ModuleTemplate
     public function setOptions($options)
     {
         $this->options = $options;
+
         return $this;
     }
 
@@ -80,6 +83,7 @@ class ModuleTemplate
     public function setData($data)
     {
         $this->data = $data;
+
         return $this;
     }
 
@@ -91,6 +95,7 @@ class ModuleTemplate
     public function setTemplatingName($templatingName)
     {
         $this->templatingName = $templatingName;
+
         return $this;
     }
 
@@ -102,7 +107,7 @@ class ModuleTemplate
     public function setTransformedModuleObject($transformedModuleObject)
     {
         $this->transformedModuleObject = $transformedModuleObject;
+
         return $this;
     }
-
 }

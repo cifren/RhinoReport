@@ -6,12 +6,10 @@ use Earls\RhinoReportBundle\Module\Table\TableObject\Row;
 use Earls\RhinoReportBundle\Module\Table\TableObject\Column;
 
 /**
- *  Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\Action
- *
+ *  Earls\RhinoReportBundle\Module\Table\Actions\ItemAction\Column\Action.
  */
 abstract class Action implements ActionInterface
 {
-
     protected $column;
     protected $rowData;
     protected $rowObject;
@@ -43,7 +41,6 @@ abstract class Action implements ActionInterface
 
     public function setData()
     {
-        throw new \Exception('did you forget to declare `setData()` in your Action Class `' . get_class($this) . '` ?');
+        throw new \Exception('did you forget to declare `setData()` in your Action Class `'.get_class($this).'` ?');
     }
-
 }

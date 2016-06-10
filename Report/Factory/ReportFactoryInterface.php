@@ -11,7 +11,6 @@ use Earls\RhinoReportBundle\Module\Table\Util\DataObjectInterface;
 
 interface ReportFactoryInterface
 {
-
     public function setData(DataObjectInterface $data);
 
     public function build();

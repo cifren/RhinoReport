@@ -3,13 +3,12 @@
 namespace Earls\RhinoReportBundle\Module\Bar\Definition;
 
 /**
- * Description of newPHPClass
+ * Description of newPHPClass.
  *
  * @author francis
  */
 class DatasetDefinition
 {
-
     protected $labelColumn;
     protected $dataColumn;
     protected $options = array();
@@ -39,19 +38,21 @@ class DatasetDefinition
     public function setOptions($options)
     {
         $this->options = $options;
+
         return $this;
     }
 
     public function setLabelColumn($labelColumn)
     {
         $this->labelColumn = $labelColumn;
+
         return $this;
     }
 
     public function setDataColumn($dataColumn)
     {
         $this->dataColumn = $dataColumn;
+
         return $this;
     }
-
 }

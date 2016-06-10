@@ -2,16 +2,14 @@
 
 namespace Earls\RhinoReportBundle\Module\Table\TableObject;
 
-use \Earls\RhinoReportBundle\Module\Table\TableObject\Column;
-use Earls\RhinoReportBundle\Module\Table\TableObject\TableObject;
+use Earls\RhinoReportBundle\Module\Table\TableObject\Column;
 use Earls\RhinoReportBundle\Module\Table\Util\DataObjectInterface;
 
 /**
- * Earls\RhinoReportBundle\Module\Table\TableObject\Row
+ * Earls\RhinoReportBundle\Module\Table\TableObject\Row.
  */
 class Row extends TableObject
 {
-
     protected $columns = array();
     protected $rowSpans = array();
     protected $position = null;
@@ -87,5 +85,4 @@ class Row extends TableObject
     {
         return $this->getParent();
     }
-
 }

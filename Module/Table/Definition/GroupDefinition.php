@@ -5,30 +5,25 @@ namespace Earls\RhinoReportBundle\Module\Table\Definition;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
-use Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition;
-use Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition;
-use Earls\RhinoReportBundle\Module\Table\Definition\RowDefinition;
 
 /**
- * Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition
- *
+ * Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition.
  */
 class GroupDefinition extends Definition
 {
-
     protected $parent;
     protected $orderBy = array();
     protected $groupBy;
-    
+
     /**
-     * Give the position of the group into its parent 
+     * Give the position of the group into its parent.
      */
     protected $itemOrder;
-    
+
     /**
-     * @var ArrayCollection $items
-     * Contains Groups and Rows
-     */ 
+     * @var ArrayCollection
+     *                      Contains Groups and Rows
+     */
     protected $items;
     protected $rowSpans = array();
     protected $actions = array();
@@ -41,21 +36,22 @@ class GroupDefinition extends Definition
         $this->setDisplayId($displayId);
         $this->items = new ArrayCollection();
     }
-    
-    protected function setItemsOrder(){
+
+    protected function setItemsOrder()
+    {
         $count = 0;
-        foreach($this->items as $item){
+        foreach ($this->items as $item) {
             $item->setItemOrder($count);
-            $count++;
+            ++$count;
         }
     }
-    
+
     public function addGroup($displayId)
     {
-        $group = new GroupDefinition($displayId);
+        $group = new self($displayId);
         $group->setParent($this);
         $this->addItem($group);
-        
+
         return $group;
     }
 
@@ -118,7 +114,7 @@ class GroupDefinition extends Definition
         $this->groupAction = array(
             'name' => $name,
             'arg' => $arg,
-            'dependences' => $dependences
+            'dependences' => $dependences,
         );
         //execute either extendingGroupAction or groupAction
         $this->extendingGroupAction = null;
@@ -139,7 +135,7 @@ class GroupDefinition extends Definition
     public function setExtendingGroupAction($dependences = array())
     {
         $this->extendingGroupAction = array(
-            'dependences' => $dependences
+            'dependences' => $dependences,
         );
         //execute either extendingGroupAction either groupAction
         $this->groupAction = null;
@@ -161,7 +157,7 @@ class GroupDefinition extends Definition
     {
         $this->actions[] = array(
             'name' => $name,
-            'arg' => $arg
+            'arg' => $arg,
         );
     }
 
@@ -178,29 +174,29 @@ class GroupDefinition extends Definition
     public function getItem($displayId)
     {
         $criteria = Criteria::create()
-            ->where(Criteria::expr()->eq("displayId", $displayId))
+            ->where(Criteria::expr()->eq('displayId', $displayId))
         ;
 
         $item = $this->items->matching($criteria);
         $item = ($item->count() > 0) ? $item[0] : null;
-        
+
         return $item;
     }
-    
+
     protected function addItem($item, $runOrder = true)
     {
         $this->getItems()->add($item);
-        if($runOrder){
+        if ($runOrder) {
             $this->setItemsOrder();
         }
-        
+
         return $this;
     }
-    
+
     public function setItems($items)
     {
         $this->getItems()->clear();
-        foreach($items as $item){
+        foreach ($items as $item) {
             $this->addItem($item, false);
         }
         $this->setItemsOrder();
@@ -213,7 +209,7 @@ class GroupDefinition extends Definition
 
     public function setParent($parent)
     {
-        if (!$parent instanceof TableDefinition && !$parent instanceof GroupDefinition) {
+        if (!$parent instanceof TableDefinition && !$parent instanceof self) {
             throw new UnexpectedTypeException($parent, 'Earls\RhinoReportBundle\Module\Table\Definition\TableDefinition Or Earls\RhinoReportBundle\Module\Table\Definition\GroupDefinition');
         }
 
@@ -241,35 +237,36 @@ class GroupDefinition extends Definition
             'selectedColumn' => $selectedColumn,
             'displayIds' => $displayIds,
             'condition' => $condition,
-            'classes' => $classes
+            'classes' => $classes,
         );
         $this->conditionalFormattings[] = $conditionalFormatting;
-        
+
         return $this;
     }
-    
+
     public function getRows()
     {
-        return array_filter($this->getItems()->toArray(), function($item){
+        return array_filter($this->getItems()->toArray(), function ($item) {
             return $item instanceof RowDefinition;
         });
     }
 
     public function getGroups()
     {
-        return array_filter($this->getItems()->toArray(), function($item){
+        return array_filter($this->getItems()->toArray(), function ($item) {
             return $item instanceof GroupDefinition;
         });
     }
-    
+
     public function getItemOrder()
     {
         return $this->itemOrder;
     }
-    
+
     public function setItemOrder($num)
     {
         $this->itemOrder = $num;
+
         return $this;
     }
 }

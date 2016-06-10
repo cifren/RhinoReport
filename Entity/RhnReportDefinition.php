@@ -8,8 +8,8 @@ use Earls\RhinoReportBundle\Report\Definition\ReportDefinition as baseReportDefi
 use Earls\RhinoReportBundle\Report\Definition\ModuleDefinitionInterface;
 
 /**
- * Earls\RhinoReportBundle\Entity\RhnReportDefinition
- * 
+ * Earls\RhinoReportBundle\Entity\RhnReportDefinition.
+ *
  * @ORM\Table(name="rhn_report_definition")
  * @ORM\Entity
  */
@@ -17,41 +17,39 @@ class RhnReportDefinition extends baseReportDefinition
 {
     protected $itemMatch = array(
         'table' => 'rhnTblMainDefinitions',
-        'bar' => 'rhnBarDefinitions'
+        'bar' => 'rhnBarDefinitions',
         );
-    
+
     /**
-     * @var integer $id
+     * @var int
      *
      * @ORM\Column(type="integer", options={"unsigned":true})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * 
-     **/ 
+     **/
     protected $id;
-    
+
     /**
-     * @var string $template
+     * @var string
      *
      * @ORM\Column(type="string", length=255)
-     * 
      **/
     protected $template = 'DefaultTemplate';
-    
+
     /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="RhnTblMainDefinition", mappedBy="parent", cascade={"all"})
      */
     protected $rhnTblMainDefinitions;
-    
+
     /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="RhnBarDefinition", mappedBy="parent", cascade={"all"})
      */
     protected $rhnBarDefinitions;
-    
+
     /**
      * @var ArrayCollection
      *
@@ -62,10 +60,10 @@ class RhnReportDefinition extends baseReportDefinition
     public function __construct()
     {
         $this->rhnTblMainDefinitions = new ArrayCollection();
-        
+
         parent::__construct();
     }
-    
+
     public function getId()
     {
         return $this->id;
@@ -74,31 +72,32 @@ class RhnReportDefinition extends baseReportDefinition
     public function addItem(ModuleDefinitionInterface $item)
     {
         parent::addItem($item);
-        
-        if(!array_key_exists($item->getModuleType(), $this->itemMatch)){
+
+        if (!array_key_exists($item->getModuleType(), $this->itemMatch)) {
             throw new \UnexpectedValueException("{$item->getModuleType()} is not recognized module type");
         }
         $this->{$this->itemMatch[$item->getModuleType()]}[] = $item;
-        
+
         return $this;
     }
 
     public function getItems()
     {
-        if(!$this->items){
+        if (!$this->items) {
             $this->items = new ArrayCollection(array_merge(
-                $this->rhnTblMainDefinitions->toArray(), 
+                $this->rhnTblMainDefinitions->toArray(),
                 $this->rhnBarDefinitions->toArray()
             ));
         }
+
         return $this->items;
     }
-    
+
     public function addFilter($filter)
     {
         $this->filters[] = $filter;
         $filter->setParent($this);
-        
+
         return $this;
     }
 }

@@ -3,18 +3,17 @@
 namespace Earls\RhinoReportBundle\Tests\FunctionalTests\Tests\Database\Table\Definition;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Earls\RhinoReportBundle\Report\Definition\ReportDefinitionBuilder;
 use Earls\RhinoReportBundle\Tests\FunctionalTests\Tests\Database\Table\Definition\Stub\ReportConfigurationStub;
-use Earls\RhinoReportBundle\Report\Definition\ReportBuilder;
 
 /**
- * PhpBuilder Tests
+ * PhpBuilder Tests.
+ *
  * @group functional
  */
 class PhpBuilderTest extends KernelTestCase
 {
     private $container;
-    
+
     //simple configuration
     public function testReportDefinitionBuilder()
     {
@@ -40,12 +39,12 @@ class PhpBuilderTest extends KernelTestCase
                 ->end()
                 ->table('tableIng')
                     ->position('position-2')
-                    ->attr(array('class' => array('table-bordered', 'table-condensed')))                 
+                    ->attr(array('class' => array('table-bordered', 'table-condensed')))
                     ->head()
                         ->headColumns(array(
                             'description' => 'Description',
                             'stock' => 'Stock',
-                            'sales' => 'Sales'
+                            'sales' => 'Sales',
                         ))
                     ->end()
                     ->body()
@@ -81,12 +80,12 @@ class PhpBuilderTest extends KernelTestCase
                 ->end()
                 ->advancedtable('tableRecipe')
                     ->position('position-2')
-                    ->attr(array('class' => array('table-bordered', 'table-condensed')))                 
+                    ->attr(array('class' => array('table-bordered', 'table-condensed')))
                     ->head()
                         ->headColumns(array(
                             'description' => 'Description',
                             'stock' => 'Stock',
-                            'sales' => 'Sales'
+                            'sales' => 'Sales',
                         ))
                     ->end()
                     ->body()
@@ -122,13 +121,13 @@ class PhpBuilderTest extends KernelTestCase
                 ->end()
         ;
         $reportDefinition = $defBuilder->getBuildItem();
-        
+
         $this->assertInstanceOf(
             'Earls\RhinoReportBundle\Report\Definition\ReportDefinition',
             $reportDefinition,
             'for reportDefinition'
         );
-        
+
         $this->assertInstanceOf(
             'Earls\RhinoReportBundle\Module\Bar\Definition\BarDefinition',
             $reportDefinition->getItem('vf'),
@@ -154,7 +153,7 @@ class PhpBuilderTest extends KernelTestCase
     public function testTableDefinitionBuilder()
     {
         $defBuilder = $this->getContainer()->get('report.definition.builder');
-        
+
         $defBuilder
             ->table('first')
                 ->head()
@@ -164,21 +163,21 @@ class PhpBuilderTest extends KernelTestCase
         ;
         $definition = $defBuilder->build()->getDefinition();
         $columns = $definition->getItem('first')->getHeadDefinition()->getColumns();
-        foreach($columns as $col){
+        foreach ($columns as $col) {
             $simpleColmunAry[] = $col['label'];
         }
-        
+
         $this->assertEquals(
-            array('store_name', 'blank', 'type', 'blank2', 'timeLaps'), 
+            array('store_name', 'blank', 'type', 'blank2', 'timeLaps'),
             $simpleColmunAry
         );
     }
-    
+
     public function testReportBuilder()
     {
         $rptConfig = new ReportConfigurationStub();
         $rptConfig->setReportDefintionBuilder($this->getContainer()->get('report.definition.builder'));
-        
+
         $reportDefinition = $rptConfig->getConfigReportDefinition($this->getRequest(), array());
         $this->assertInstanceOf(
             'Earls\RhinoReportBundle\Report\Definition\ReportDefinition',
@@ -186,37 +185,38 @@ class PhpBuilderTest extends KernelTestCase
             'for reportDefinition'
         );
         $this->assertCount(4, $reportDefinition->getItems());
-        
+
         $rptBuilder = $this->getContainer()->get('report.builder');
         $rptBuilder->setRequest($this->getRequest());
         $rptBuilder->setConfiguration($rptConfig);
-        
+
         $rptBuilder->build();
 
         $reportObject = $rptBuilder->getReport();
-        
+
         $this->assertInstanceOf('Earls\RhinoReportBundle\Report\ReportObject\Report', $reportObject);
-        
+
         $this->assertCount(4, $reportObject->getItems());
     }
-    
+
     protected function getContainer()
     {
         self::bootKernel();
+
         return self::$kernel->getContainer();
     }
-    
+
     protected function getRequest()
     {
         $stub = $this->getMockBuilder('Symfony\Component\HttpFoundation\Request')
                      ->getMock();
-        
+
         // Configure the stub
         $stub
             ->expects($this->any())
             ->method('get')
-            ->will($this->returnValueMap(array('stub_filter' => array('cat' => 1))));  
-             
-         return $stub;
+            ->will($this->returnValueMap(array('stub_filter' => array('cat' => 1))));
+
+        return $stub;
     }
 }

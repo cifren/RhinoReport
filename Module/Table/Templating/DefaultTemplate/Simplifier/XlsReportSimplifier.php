@@ -14,13 +14,12 @@ use Earls\RhinoReportBundle\Module\Table\Factory\TableFactory;
 use Earls\RhinoReportBundle\Module\Table\Util\xlsApplyConditionalFormatting;
 
 /**
- *  Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Simplifier\XlsReportSimplifier
+ *  Earls\RhinoReportBundle\Module\Table\Templating\DefaultTemplate\Simplifier\XlsReportSimplifier.
  *
  *  Transform ReportObject in Array and Convert all formatExcel for example '=sum(A1:A5)+sum(B1:B5)'
  */
 class XlsReportSimplifier
 {
-
     protected $table;
     protected $pageBreaks;
     protected $style;
@@ -55,7 +54,7 @@ class XlsReportSimplifier
     }
 
     /**
-     * Array with html class from groups and Data
+     * Array with html class from groups and Data.
      *
      * @return array $arrayHtml
      */
@@ -79,7 +78,7 @@ class XlsReportSimplifier
             if (isset($rptInfo)) {
                 $tableObject = $this->factoryTable->setDefinition($rptInfo)->build()->getItem();
 
-                $simplifier = new XlsReportSimplifier($this->xlsApplyFormula, false);
+                $simplifier = new self($this->xlsApplyFormula, false);
                 $xmlArray['rpt_info']['body'] = $simplifier->setTable($tableObject)->getSimpleTable()['body'];
                 //shift for formula / +1 because of space after report information
                 $shift = count($xmlArray['rpt_info']['body']);
@@ -118,7 +117,7 @@ class XlsReportSimplifier
                         unset($keyConfig[$key]);
                     }
                 }
-                throw new \Exception('Column(s) \'' . implode(', ', $keyConfig) . '\' from \'column\' in excel configuration don\'t exist, available choices are \'' . implode(', ', array_keys($table->getHead()->getColumns())) . '\'');
+                throw new \Exception('Column(s) \''.implode(', ', $keyConfig).'\' from \'column\' in excel configuration don\'t exist, available choices are \''.implode(', ', array_keys($table->getHead()->getColumns())).'\'');
             }
             //valid and add column options
             $columnTransformer = new \Earls\RhinoReportBundle\Templating\Excel\Transformer\ColumnConfigTransformer($columnConfigWithIndex);
@@ -127,7 +126,7 @@ class XlsReportSimplifier
             //Valid and add print options
             $printTransformer = new \Earls\RhinoReportBundle\Templating\Excel\Transformer\PrintConfigTransformer($table->getDefinition()->getExportConfig('Excel')->getPrint());
             $xmlArray['printConfig'] = $printTransformer->transform();
-            
+
             //Valid and add print options
             $xmlArray['protectionConfig'] = $table->getDefinition()->getExportConfig('Excel')->getProtection();
         } else {
@@ -137,14 +136,14 @@ class XlsReportSimplifier
 
         $this->xlsApplyFormula->setTable($table);
         $this->xlsApplyFormula->applyPositionAndFormula();
-        
+
         $this->xlsApplyConditionalFormatting->setTable($table);
         $xmlArray['conditionalFormatting'] = $this->xlsApplyConditionalFormatting->getObjectBloc();
-        
+
         //Table Head
         foreach ($table->getHead()->getColumns() as $displayId => $column) {
             $data[$displayId] = array(
-                'attr' => array('id' => 'column_' . $displayId) + $column['attr'],
+                'attr' => array('id' => 'column_'.$displayId) + $column['attr'],
                 'data' => strip_tags($column['label']),
             );
         }
@@ -174,7 +173,7 @@ class XlsReportSimplifier
 
         $xmlArray['head'] = array(
             'attr' => $attr,
-            'columns' => $data);
+            'columns' => $data, );
 
         //body
         $arrayBody = $this->getRowsXmlArrayFromGroup($table->getBody());
@@ -206,10 +205,9 @@ class XlsReportSimplifier
         $xmlArray = array();
 
         //class
-        $class[] = 'group_' . $group->getGenericId();
+        $class[] = 'group_'.$group->getGenericId();
 
         foreach ($group->getItems() as $item) {
-
             if ($item instanceof Row) {
                 //if no column in $xmlArrayColumn => row are all columnData
                 $xmlArrayColumn = $this->getRowsXmlArray($item);
@@ -230,7 +228,7 @@ class XlsReportSimplifier
 
                     $xmlArray[] = array(
                         'attr' => $attr,
-                        'columns' => $xmlArrayColumn
+                        'columns' => $xmlArrayColumn,
                     );
                 }
             }
@@ -251,7 +249,7 @@ class XlsReportSimplifier
                                 }
                             }
                         }
-                        $i++;
+                        ++$i;
                     }
 
                     $xmlArray[] = $row;
@@ -260,7 +258,6 @@ class XlsReportSimplifier
                 if ($item->getDefinition()->getExportConfig('Excel') && $item->getDefinition()->getExportConfig('Excel')->isPageBreak()) {
                     $this->pageBreaks[] = $this->lastRowPosition;
                 }
-
 
                 if ($item->getRowspans()) {
                     $xmlArray[$indexFirstRow] = $this->applyRowSpanOnFirstRow($item, $xmlArray[$indexFirstRow], $i);
@@ -348,15 +345,17 @@ class XlsReportSimplifier
     }
 
     /**
-     * Create column xml
+     * Create column xml.
      *
      * Priority for attr for inheritance (parent to own)
      *      - Default-style (style of table)
      *      - Attr from general config
      *      - Attr from export config
      *
-     * @param  \Earls\RhinoReportBundle\Module\Table\TableObject\Column $column
+     * @param \Earls\RhinoReportBundle\Module\Table\TableObject\Column $column
+     *
      * @return string
+     *
      * @throws \Exception
      */
     protected function getColumnArray(Column $column, array $attr)
@@ -382,7 +381,7 @@ class XlsReportSimplifier
         $attr = array_merge_recursive($attr, $column->getAttributes());
 
         if (isset($attr['class']) && !is_array($attr['class'])) {
-            throw new \Exception('Attribute `class´ for column `' . $column->getDefinition()->getPath() . '´ should be an array');
+            throw new \Exception('Attribute `class´ for column `'.$column->getDefinition()->getPath().'´ should be an array');
         }
 
         //get classes from parent via special field `classForColumns´
@@ -390,7 +389,7 @@ class XlsReportSimplifier
             $attrParent = $column->getParent()->getDefinition()->getExportConfig('excel')->getAttr();
             if (isset($attrParent['classForColumns'])) {
                 if (!is_array($attrParent['classForColumns'])) {
-                    throw new \Exception('Attribute `classForColumns´ for column `' . $column->getParent()->getDefinition()->getPath() . '´ should be an array');
+                    throw new \Exception('Attribute `classForColumns´ for column `'.$column->getParent()->getDefinition()->getPath().'´ should be an array');
                 }
                 $attr['class'] = array_merge($attr['class'], $attrParent['classForColumns']);
             }
@@ -400,7 +399,7 @@ class XlsReportSimplifier
         if ($column->getDefinition()->getExportConfig('excel')) {
             $exportAttr = $column->getDefinition()->getExportConfig('excel')->getAttr();
             if (isset($exportAttr['class']) && !is_array($exportAttr['class'])) {
-                throw new \Exception('Attribute `classForColumns´ for column `' . $column->getParent()->getDefinition()->getPath() . '´ should be an array');
+                throw new \Exception('Attribute `classForColumns´ for column `'.$column->getParent()->getDefinition()->getPath().'´ should be an array');
             }
             if (isset($exportAttr['class'])) {
                 $attr['class'] = array_merge_recursive($attr['class'], $exportAttr['class']);
@@ -411,7 +410,7 @@ class XlsReportSimplifier
             }
         }
         if (isset($attr['type']) && $attr['type'] == 'Number') {
-            $column->setData((float) (preg_replace("/[^-0-9\.]/", "", $this->getColumnValue($column))));
+            $column->setData((float) (preg_replace("/[^-0-9\.]/", '', $this->getColumnValue($column))));
             //make sure first letter is uppercase for excel
             $attr['type'] = ucfirst($attr['type']);
         }
@@ -430,11 +429,11 @@ class XlsReportSimplifier
         }
 
         $xmlArray = array(
-            'uniqueId' => $column->getDefinition()->getPath() . $column->getPosition() . $column->getRow()->getPosition(),
+            'uniqueId' => $column->getDefinition()->getPath().$column->getPosition().$column->getRow()->getPosition(),
             'attr' => $attr,
             'colspan' => null,
             'data' => $this->xmlReplaceIllegalCharacter($this->getColumnValue($column)),
-            'formula' => $this->xmlReplaceIllegalCharacter($column->getFormula())
+            'formula' => $this->xmlReplaceIllegalCharacter($column->getFormula()),
         );
 
         return $xmlArray;
@@ -457,7 +456,7 @@ class XlsReportSimplifier
         foreach ($xmlArray as $keyRow => $row) {
             foreach ($row['columns'] as $keyColumn => $column) {
                 $attr = $column['attr'];
-                /**  merge all classes into one class, name will be class1~class2,
+                /*  merge all classes into one class, name will be class1~class2,
                  *  inheritance =>
                  *    default-style -> general classes -> parent classes -> export classes -> style
                  */
@@ -488,7 +487,7 @@ class XlsReportSimplifier
                     //check if custom style already exist for this column, and create custom for this column
                     if (!isset($this->style[$styleCustomClass])) {
                         if (!is_array($attr['style'])) {
-                            throw new \Exception('Attribute `style´ for column `' . $column->getDefinition()->getPath() . '´ should be an array');
+                            throw new \Exception('Attribute `style´ for column `'.$column->getDefinition()->getPath().'´ should be an array');
                         }
                         //add parent inherit to class -> will be translated after
                         if ($attr['class']) {
@@ -504,5 +503,4 @@ class XlsReportSimplifier
             }
         }
     }
-
 }

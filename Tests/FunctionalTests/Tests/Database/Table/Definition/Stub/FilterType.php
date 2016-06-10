@@ -7,19 +7,18 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Earls\RhinoReportBundle\Report\Filter\ReportFilterInterface;
 
 /**
- * Pp3\ReportBundle\Filter\FilterType
+ * Pp3\ReportBundle\Filter\FilterType.
  */
 class FilterType extends AbstractType implements ReportFilterInterface
 {
-
     public function buildForm(\Symfony\Component\Form\FormBuilderInterface $builder, array $options)
     {
         $builder
                 ->add('cat', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\ChoiceFilterType', array(
                     'attr' => array('class' => 'form-control input-sm'),
-                    'choices' => array('All','Food', 'Liquor'),
+                    'choices' => array('All', 'Food', 'Liquor'),
                     'label' => 'Category',
-                    'empty_data' => null
+                    'empty_data' => null,
                 ))
         ;
     }
@@ -40,5 +39,4 @@ class FilterType extends AbstractType implements ReportFilterInterface
     {
         return array();
     }
-
 }

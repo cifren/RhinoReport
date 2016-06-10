@@ -3,15 +3,15 @@
 namespace Earls\RhinoReportBundle\Module\Table\Util;
 
 /**
- * Earls\RhinoReportBundle\Module\Table\Util\DataManipulator
+ * Earls\RhinoReportBundle\Module\Table\Util\DataManipulator.
  */
 class DataManipulator implements DataManipulatorInterface
 {
     /**
-     * Get an array of all data seperate by filter
+     * Get an array of all data seperate by filter.
      *
      * @param \Earls\RhinoReportBundle\Module\Table\Util\DataObject $data
-     * @param string                                         $groupByIndex
+     * @param string                                                $groupByIndex
      *
      * @return \Earls\RhinoReportBundle\Module\Table\Util\DataObject
      */
@@ -28,7 +28,7 @@ class DataManipulator implements DataManipulatorInterface
     }
 
     /**
-     * Get unique values from DataObject with index
+     * Get unique values from DataObject with index.
      *
      * @param DataObject $data
      * @param string     $index
@@ -38,13 +38,13 @@ class DataManipulator implements DataManipulatorInterface
     public function getArrayUniqueValuesFromGroupBy(DataObject $data, $index)
     {
         //take value for group by
-        $func = function($v) use ($index) {
-                    if (!array_key_exists($index, $v)) {
-                        throw new \Exception('This column `'.$index.'` does\'nt exist in group of data given, check your sql/data or your groupings. The columns available to you are : '.implode(', ', array_keys($v)));
-                    }
+        $func = function ($v) use ($index) {
+            if (!array_key_exists($index, $v)) {
+                throw new \Exception('This column `'.$index.'` does\'nt exist in group of data given, check your sql/data or your groupings. The columns available to you are : '.implode(', ', array_keys($v)));
+            }
 
-                    return $v[$index];
-                };
+            return $v[$index];
+        };
 
         $uniqueValuesGroupBy = array_map($func, $data->getData());
         $uniqueValuesGroupBy = array_unique($uniqueValuesGroupBy);
@@ -53,7 +53,7 @@ class DataManipulator implements DataManipulatorInterface
     }
 
     /**
-     * Get DataObject filter by $filter Value on $index
+     * Get DataObject filter by $filter Value on $index.
      *
      * @param DataObject $data
      * @param string     $index
@@ -66,9 +66,9 @@ class DataManipulator implements DataManipulatorInterface
         $dataAry = $data->getData();
 
         //take value for group by
-        $func = function($v) use ($index, $filter) {
-                    return $v[$index] == $filter;
-                };
+        $func = function ($v) use ($index, $filter) {
+            return $v[$index] == $filter;
+        };
 
         //apply filter for this value
         $dataAry = array_filter($dataAry, $func);
@@ -79,10 +79,10 @@ class DataManipulator implements DataManipulatorInterface
     }
 
     /**
-     * Select the data from the id, if id doesn't exist return $dataObj untouched
+     * Select the data from the id, if id doesn't exist return $dataObj untouched.
      *
      * @param \Earls\RhinoReportBundle\Module\Table\Util\DataObject $dataObj
-     * @param type                                           $id
+     * @param type                                                  $id
      *
      * @return DataObject
      */

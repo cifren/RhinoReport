@@ -1,7 +1,9 @@
 <?php
+
 namespace Earls\RhinoReportBundle\Module\Table\Extension;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+
 /*
  *
  * Earls\RhinoReportBundle\Module\Table\Extension\ReportExtension

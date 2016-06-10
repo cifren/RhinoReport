@@ -10,13 +10,12 @@ use Earls\RhinoReportBundle\Module\Bar\BarObject\Bar;
 use Earls\RhinoReportBundle\Module\Bar\BarObject\Dataset;
 
 /**
- * Description of BarFactory
+ * Description of BarFactory.
  *
  * @author cifren
  */
 class BarFactory extends AbstractFactory
 {
-
     protected $dataManipulator;
 
     public function build()
@@ -38,15 +37,15 @@ class BarFactory extends AbstractFactory
         $barObject->setDefinition($barDefinition);
         $barObject->setId($barDefinition->getDisplayId());
         $barObject->setLabels($this->getLabelsFromData($barDefinition->getLabelColumn(), $data));
-        
+
         $transformedData = $this->getTransformedData($barObject->getLabels(), $barDefinition->getLabelColumn(), $barDefinition->getDatasets(), $data);
         $datasets = array();
         foreach ($barDefinition->getDatasets() as $key => $datasetDef) {
             $options = null;
-            if($datasetDef->getOptions()){
+            if ($datasetDef->getOptions()) {
                 $options = array_merge($this->getDefaultOptionsDatasetColors()[$key], $datasetDef->getOptions());
             }
-            if(!empty($transformedData)){
+            if (!empty($transformedData)) {
                 $dataset = new Dataset($datasetDef->getLabelColumn(), $transformedData[$datasetDef->getDataColumn()], $options);
                 $datasets[] = $dataset;
             }
@@ -62,7 +61,7 @@ class BarFactory extends AbstractFactory
         $data = $dataObj->getData();
 
         foreach ($labels as $label) {
-            $callback = function($var) use ($label, $labelColumnName) {
+            $callback = function ($var) use ($label, $labelColumnName) {
                 return $var[$labelColumnName] == $label;
             };
             $labelData = array_filter($data, $callback);
@@ -82,7 +81,6 @@ class BarFactory extends AbstractFactory
 
     protected function sumUpData(array $data)
     {
-
         return $data;
     }
 
@@ -142,7 +140,7 @@ class BarFactory extends AbstractFactory
                 'highlightStroke' => '#da5859',
             ),
         );
+
         return $colors;
     }
-
 }
