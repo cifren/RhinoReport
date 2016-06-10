@@ -2,7 +2,6 @@
 
 namespace Earls\RhinoReportBundle\Module\Table\TableObject;
 
-use Earls\RhinoReportBundle\Module\Table\TableObject\Column;
 use Earls\RhinoReportBundle\Module\Table\Util\DataObjectInterface;
 
 /**
