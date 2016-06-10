@@ -21,7 +21,7 @@ class ReportConfigurationStub extends ReportConfiguration
         $definitionBuilder
                 ->bar('vf')
                     ->position('position-1')
-                    ->labels('category')
+                    ->label('category')
                     ->dataset('sales', 'Item Sold', array(
                         'fillColor' => '#f09777',
                         'strokeColor' => '#EFB9A5',
@@ -32,7 +32,7 @@ class ReportConfigurationStub extends ReportConfiguration
                 ->end()
                 ->bar('er')
                     ->position('position-3')
-                    ->labels('category')
+                    ->label('category')
                     ->dataset('stock', 'Item in stock', array())
                 ->end()
                 ->table('tableIng')

@@ -18,8 +18,8 @@ class BarDefinition extends ModuleDefinition
     protected $datasets;
     protected $factory;
     protected $moduleType = 'bar';
-
-    public function __construct($displayId)
+    
+    public function __construct()
     {
         $this->datasets = new ArrayCollection();
     }
@@ -53,7 +53,7 @@ class BarDefinition extends ModuleDefinition
         return $this->datasets;
     }
 
-    public function setDatasets($datasets)
+    public function setDatasets(array $datasets)
     {
         foreach($datasets as $dataset){
             $this->addDataset($dataset);
@@ -63,7 +63,7 @@ class BarDefinition extends ModuleDefinition
 
     public function addDataset(DatasetDefinition $dataset)
     {
-        $this->datasets[] = $dataset;
+        $this->datasets->add($dataset);
         
         return $this;
     }

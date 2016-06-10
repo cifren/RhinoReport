@@ -37,6 +37,8 @@ services:
         
     report.definition:
         class:      %report.definition.class%
+        calls:
+            - [setObjectFactory, ['@report.factory']]
 
     report.builder:
         class:       %report.builder.class%

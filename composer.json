@@ -23,18 +23,33 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
         "symfony/assetic-bundle": "^2.7.1",
-        "lexik/form-filter-bundle": "^5.0"
+        "lexik/form-filter-bundle": "^5.0",
+        "earls/oxpecker-data-bundle": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8",
+        "symfony/phpunit-bridge": "^3.0",
         "doctrine/doctrine-fixtures-bundle": "^2.3",
-        "symfony/phpunit-bridge": "^3.0"
+        "satooshi/php-coveralls": "^1.0"
     },
     "autoload": {
         "psr-0": { "Earls\\RhinoReportBundle": "" }
     },
     "target-dir": "Earls/RhinoReportBundle",
     "scripts": {
-        "func_test": "vendor/phpunit/phpunit/phpunit -c Tests/FunctionalTests"
-    }
+        "php_fixer": "vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --config-file .php_cs",
+        "lint": "vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --config-file .php_cs --dry-run --diff",
+        "test": "vendor/phpunit/phpunit/phpunit --exclude-group functional",
+        "func_test": "vendor/phpunit/phpunit/phpunit --group functional"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/cifren/OxPeckerDataBundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/cifren/FlamingoCommandQueue.git"
+        }
+    ]
 }

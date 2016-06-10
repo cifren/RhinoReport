@@ -1,11 +1,11 @@
 parameters:
-    report.bar.factory.class:                         Earls\RhinoReportBundle\Module\Bar\Factory\BarFactory
-    report.bar.definition.class:                      Earls\RhinoReportBundle\Module\Bar\Definition\BarDefinition
-    report.bar.definition.builder.class:              Earls\RhinoReportBundle\Module\Bar\Definition\BarDefinitionBuilder
+    report.bar.factory.class:                               Earls\RhinoReportBundle\Module\Bar\Factory\BarFactory
+    report.bar.definition.class:                            Earls\RhinoReportBundle\Module\Bar\Definition\BarDefinition
+    report.bar.definition.builder.class:                    Earls\RhinoReportBundle\Module\Bar\Definition\BarDefinitionBuilder
     
     #templating
     #DefaultTemplate
-    report.bar.template.default.generator.html.class:         Earls\RhinoReportBundle\Module\Bar\Templating\DefaultTemplate\Generator\HtmlBarTemplateGenerator
+    report.bar.template.default.generator.html.class:       Earls\RhinoReportBundle\Module\Bar\Templating\DefaultTemplate\Generator\HtmlBarTemplateGenerator
     
     report.bar.template.default.generator.html.template:    EarlsRhinoReportBundle:Bar/DefaultTemplate:html.html.twig
 
@@ -22,6 +22,8 @@ services:
     report.bar.definition:
         class:      %report.bar.definition.class%
         scope:      prototype
+        calls:
+            - [setObjectFactory, ['@report.bar.factory']]
         
     report.bar.definition.builder:
         class:      %report.bar.definition.builder.class%

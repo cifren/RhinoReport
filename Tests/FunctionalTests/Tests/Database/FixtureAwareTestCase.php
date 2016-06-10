@@ -26,6 +26,12 @@ abstract class FixtureAwareTestCase extends WebTestCase
      */
     private $fixtureLoader;
 
+    public function __construct()
+    {
+        // By default, KERNEL_DIR is in phpunit.xml.dist config
+        $_SERVER['KERNEL_DIR'] = __DIR__."/../../";
+    }
+
     public function setUp()
     {
         self::bootKernel();
@@ -99,7 +105,7 @@ abstract class FixtureAwareTestCase extends WebTestCase
             $output = fread($fp, 4096);
         }
         fclose($fp);
-
+        
         return $output;
     }
 }

@@ -9,6 +9,7 @@ use Earls\RhinoReportBundle\Report\Definition\ReportBuilder;
 
 /**
  * PhpBuilder Tests
+ * @group functional
  */
 class PhpBuilderTest extends KernelTestCase
 {
@@ -23,7 +24,7 @@ class PhpBuilderTest extends KernelTestCase
                 ->bar('vf')
                     //defined the position on the template
                     ->position('position-1')
-                    ->labels('category')
+                    ->label('category')
                     ->dataset('sales', 'Item Sold', array(
                         'fillColor' => '#f09777',
                         'strokeColor' => '#EFB9A5',
@@ -34,7 +35,7 @@ class PhpBuilderTest extends KernelTestCase
                 ->end()
                 ->bar('er')
                     ->position('position-3')
-                    ->labels('category')
+                    ->label('category')
                     ->dataset('stock', 'Item in stock', array())
                 ->end()
                 ->table('tableIng')

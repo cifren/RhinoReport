@@ -38,12 +38,13 @@ class BarFactory extends AbstractFactory
         $barObject->setDefinition($barDefinition);
         $barObject->setId($barDefinition->getDisplayId());
         $barObject->setLabels($this->getLabelsFromData($barDefinition->getLabelColumn(), $data));
+        
         $transformedData = $this->getTransformedData($barObject->getLabels(), $barDefinition->getLabelColumn(), $barDefinition->getDatasets(), $data);
         $datasets = array();
         foreach ($barDefinition->getDatasets() as $key => $datasetDef) {
             $options = null;
             if($datasetDef->getOptions()){
-                $options = array_merge($this->getDefaultOptionsDatasetColors()[$key], $datasetDef->getOptions()->toArray());
+                $options = array_merge($this->getDefaultOptionsDatasetColors()[$key], $datasetDef->getOptions());
             }
             if(!empty($transformedData)){
                 $dataset = new Dataset($datasetDef->getLabelColumn(), $transformedData[$datasetDef->getDataColumn()], $options);

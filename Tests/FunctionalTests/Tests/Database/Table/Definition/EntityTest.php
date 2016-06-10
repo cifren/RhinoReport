@@ -9,6 +9,7 @@ use Earls\RhinoReportBundle\Tests\FunctionalTests\Tests\Database\Table\Definitio
 
 /**
  * Entity Tests
+ * @group functional
  */
 class EntityTest extends FixtureAwareTestCase
 {

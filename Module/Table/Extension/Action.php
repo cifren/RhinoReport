@@ -2,14 +2,11 @@
 
 namespace Earls\RhinoReportBundle\Module\Table\Extension;
 
-use Earls\RhinoReportBundle\Module\Table\Extension\ActionInterface;
-
-/*
+/**
  *  Earls\RhinoReportBundle\Module\Table\Extension\Action
  *
  */
-
-abstract class Action implements ActionInterface
+abstract class Action
 {
 
     protected $column;

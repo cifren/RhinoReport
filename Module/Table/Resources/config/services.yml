@@ -42,6 +42,8 @@ services:
     report.table.definition:
         class:      %report.table.definition.class%
         scope:      prototype
+        calls:
+            - [setObjectFactory, ['@report.table.factory']]
 
     report.table.definition.builder:
         class:      %report.table.definition.builder.class%

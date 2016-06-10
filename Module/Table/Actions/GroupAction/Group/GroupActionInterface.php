@@ -14,7 +14,7 @@ interface GroupActionInterface
 
     public function setParameters(Group $group, Table $table, array $arguments);
 
-    public function setOptions($arguments);
+    public function setOptions(array $arguments);
 
     public function getOptions();
 

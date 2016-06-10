@@ -22,7 +22,7 @@ class Bar extends ModuleObject
         $this->datasets = new ArrayCollection();
     }
 
-    public function setLabels($labels)
+    public function setLabels(array $labels)
     {
         $this->labels = $labels;
         return $this;
