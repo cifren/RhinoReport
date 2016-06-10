@@ -28,7 +28,7 @@ class ReportDefinition implements ReportDefinitionInterface
         ;
 
         $items = $this->items->matching($criteria);
-        $item = ($items->count() > 0) ? array_shift(array_values($items->toArray())) : null;
+        $item = ($items->count() > 0) ? array_shift((array_values(($items->toArray())))) : null;
 
         return $item;
     }
