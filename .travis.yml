@@ -18,7 +18,7 @@ before_script:
   
 script:
     - composer run lint
-    - composer run test_func
+    - composer run func_test
     - composer run test
     - composer run coverall
     
