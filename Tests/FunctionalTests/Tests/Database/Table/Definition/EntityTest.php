@@ -153,9 +153,9 @@ class EntityTest extends FixtureAwareTestCase
     protected function getReportDefinition()
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
-        
+
         $def = $em->getRepository('Earls\RhinoReportBundle\Entity\RhnReportDefinition')->findAll();
-        
+
         $rptDef = array_shift((array_values($def)));
 
         return $rptDef;
